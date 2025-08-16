@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import counterReducer from "@/store/slices/counterSlice";
+import siteUrlAddressReducer from "@/store/slices/siteUrlAddress";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    siteUrlAddress : siteUrlAddressReducer,
   },
 });
 
