@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import SwipeableDrawer, { SwipeableDrawerProps } from '@mui/material/SwipeableDrawer';
 import Divider from "@mui/material/Divider";
 import { Button, Card } from "@mui/material";
 import { AiFillDelete } from "react-icons/ai";
@@ -17,8 +17,13 @@ import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+type DrawerDrawerProps = {
+  anchor: SwipeableDrawerProps["anchor"];
+  open: boolean;
+  toggleDrawer: (open: boolean) => () => void;
+};
 
-const DrawerDrawer = ({ anchor, open, toggleDrawer }) => {
+const DrawerDrawer : React.FC<DrawerDrawerProps> = ({ anchor, open, toggleDrawer }) => {
 
   // handle disappearing delete buttons
   const whatPagee = usePathname()
@@ -30,9 +35,9 @@ const DrawerDrawer = ({ anchor, open, toggleDrawer }) => {
   const [forceRender, setForceRender] = useState(false);
   const [products] = useAtom(productListUpdate);
 
-  function deleteItem(data) {
+  function deleteItem(data: any) {
     const itemResult = products.filter(
-      (fl) => fl.IdStoreStock !== data.IdStoreStock
+      (fl:any) => fl.IdStoreStock !== data.IdStoreStock
     );
     if (itemResult.length === 0) {
       setProductList([]);
@@ -46,7 +51,7 @@ const DrawerDrawer = ({ anchor, open, toggleDrawer }) => {
   }
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input : number) =>
     new Intl.NumberFormat("en-US").format(number_input);
 // end handle comma
 
@@ -71,11 +76,11 @@ const { removeProduct } = useRemoveProduct(setProductList);
 
       <div className="flex flex-col gap-5 p-2">
         {products
-          ?.sort((a, b) => b.IdStoreStock - a.IdStoreStock) // Sort in descending order
-          .map((el) => {
+          ?.sort((a:any, b:any) => b.IdStoreStock - a.IdStoreStock) // Sort in descending order
+          .map((el:any) => {
             const count =
               products &&
-              products.find((item) => item?.IdStoreStock === el.IdStoreStock)?.count;
+              products.find((item:any) => item?.IdStoreStock === el.IdStoreStock)?.count;
             return (
               <Card variant="outlined" key={el.IdStoreStock} className="overflow-y-hidden py-3 pl-2 pr-1 gap-1">
                 <div className="flex justify-between">
@@ -113,7 +118,7 @@ const { removeProduct } = useRemoveProduct(setProductList);
         {products && products.length > 0 && (
           <div className="w-full h-full flex justify-center">
             <Link
-              to="/itemcart"
+              href="/itemcart"
               className="p-2 bg-blue-600 rounded-md text-white"
               onClick={(e) => {
                 e.stopPropagation();

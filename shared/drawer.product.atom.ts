@@ -1,3 +1,3 @@
 import { atom } from 'jotai';
 
-export const drawerSessionUpdate = atom(false);
+export const drawerSessionUpdate = atom([]);

@@ -1,5 +1,8 @@
 
-const useAddProduct = (setProducts: any, setOpenSnackbar:any) => {
+const useAddProduct = (
+  setProducts: React.Dispatch<React.SetStateAction<any[]>>,
+  setOpenSnackbar?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
     const addProduct = (data:any) => {
       setProducts((product:any) => {
         const existingIndex = product?.findIndex(
@@ -11,7 +14,7 @@ const useAddProduct = (setProducts: any, setOpenSnackbar:any) => {
           const idForooshgah = product[0].idForooshGaha;
           if (idForooshgah !== data?.idForooshGaha) {
             addedNew = false;
-            setOpenSnackbar(true); // Open snackbar
+            setOpenSnackbar?.(true);
           }
         }
   
