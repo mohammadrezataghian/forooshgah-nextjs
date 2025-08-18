@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Basket from "@/public/svg/Shopping_cart 24.svg";
 import { Badge } from "@mui/material";
@@ -23,7 +25,7 @@ type headReturnType={
   handlecityDialogOpen: () => void;
   showdefaultaddress: Address | undefined;
   userToken: string;
-  eshterakNo: { EshterakNo?: number | string }; 
+  eshterakNo: { EshterakNo: number }; 
 }
 
 const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleClickOpen,handleDialogOpen,handlecityDialogOpen,showdefaultaddress,eshterakNo,userToken} : headReturnType) => {

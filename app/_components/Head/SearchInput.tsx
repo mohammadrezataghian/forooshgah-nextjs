@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState, useDeferredValue } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -9,12 +11,13 @@ import { selectedStore } from '@/shared/selectedStoreAtom';
 import { inputValue } from '@/shared/inputs';
 import useGetKala from "@/app/api/searchInput/hook";
 import { useRouter } from 'next/navigation';
+import { filteredUsersType } from "@/types/types";
 
 const SearchInput = () => {
   const [apiUsers, setApiUsers] = useState<{ NameKala: string; pageIndex: number; pageSize: number; idForooshgah?: number } | undefined>(undefined);
   const [searchItem, setSearchItem] = useAtom(inputValue);
-  const [filteredUsers, setFilteredUsers] = useState<{ NameKala: string; pageIndex: number; pageSize: number; idForooshgah?: number } | undefined>(undefined);
-  const [isBoxVisible, setIsBoxVisible] = useState(false);
+  const [filteredUsers, setFilteredUsers] = useState<filteredUsersType>([]);
+  const [isBoxVisible, setIsBoxVisible] = useState<boolean>(false);
   const [state] = useAtom(selectedStore)
   const router = useRouter();
   const [wasNavigatedBack, setWasNavigatedBack] = useState(false);
@@ -75,7 +78,7 @@ const SearchInput = () => {
       setFilteredUsers(filteredItems);
       setIsBoxVisible(searchItem.length > 0);
     } else {
-      setFilteredUsers(undefined);
+      setFilteredUsers([]);
       setIsBoxVisible(false);
     }
   }, [deferredSearchTerm, apiUsers]);

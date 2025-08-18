@@ -1,3 +1,5 @@
+'use client'
+
 import { productListUpdate } from "@/shared/product.list.atom";
 import { Button } from "@mui/material";
 import { useAtom } from "jotai";
@@ -6,9 +8,16 @@ import SearchLoading from "./SearchLoading";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
-import { Link } from "react-router";
+import Link from "next/link";
+import {filteredUsersType} from '@/types/types'
 
-const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }) => {
+type props = {
+  filteredUsers: filteredUsersType;
+  searchItem: string;
+  setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
+}
+
+const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) => {
   const [products, setProducts] = useAtom(productListUpdate);
 
   // handle openning snackbar
@@ -24,7 +33,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }) => {
 // end remove from cart
 
   // handle comma
-  const autocomma = (number_input) => {
+  const autocomma = (number_input:number) => {
     return new Intl.NumberFormat("en-US").format(number_input);
   };
   //handle comma
@@ -63,7 +72,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }) => {
         )}
         {!loading && filteredUsers.length > 0 && (
           <div className="flex flex-wrap w-full h-auto px-2 gap-5">
-            {filteredUsers.map((data) => {
+            {filteredUsers.map((data:any) => {
               const imageSrc = data.FldNameImageKalaList
                 ? `https://imbmi.ir/assets/public/kala/${data.IdKala}/${
                     data.FldNameImageKalaList.split(",")[0]
@@ -85,7 +94,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }) => {
                     </Button>
                     <p className="mx-2">
                       {products?.find(
-                        (item) => item?.IdStoreStock === data.IdStoreStock
+                        (item:any) => item?.IdStoreStock === data.IdStoreStock
                       )?.count || 0}
                     </p>
                     <Button
@@ -105,28 +114,24 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }) => {
                     
                     {/* Product Image */}
                     <Link
-                    to={`/products/productsdetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                    state={{IdStoreStock: data.IdStoreStock}}
-                    onClick={() => {
-                      setIsBoxVisible(false);
-                    }}
+                      href={{
+                        pathname: "/products/productsdetails/[IdStoreStock]/[NameKala]",
+                        query: { IdStoreStock: data.IdStoreStock, NameKala: data.NameKala },
+                      }}
+                      onClick={() => setIsBoxVisible(false)}
                       className="flex justify-center overflow-hidden h-max p-1"
                     >
-                      <img
-                        src={imageSrc}
-                        alt={data.NameKala}
-                        className="w-20 h-20 object-fill rounded-lg"
-                      />
+                      <img src={imageSrc} alt={data.NameKala} className="w-20 h-20 object-fill rounded-lg" />
                     </Link>
 
                     {/* Product Info */}
                     <div className="p-4">
                       <Link
-                        to={`/products/productsdetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                        state={{IdStoreStock: data.IdStoreStock}}
-                        onClick={() => {
-                          setIsBoxVisible(false);
+                        href={{
+                          pathname: "/products/productsdetails/[IdStoreStock]/[NameKala]",
+                          query: { IdStoreStock: data.IdStoreStock, NameKala: data.NameKala },
                         }}
+                        onClick={() => setIsBoxVisible(false)}
                       >
                         <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start">
                           {data.NameKala}

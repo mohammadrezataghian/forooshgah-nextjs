@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -10,23 +12,32 @@ import Stack from '@mui/material/Stack';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { BiExit } from 'react-icons/bi';
-import { Link } from 'react-router';
 import { PiCoins } from "react-icons/pi";
-import useGetScore from "@/api/customersClub/customersClub";
+import useGetScore from "@/app/api/sahamPersonScore/hook";
 import { useAtom } from 'jotai';
 import { ClubScore } from '@/shared/customerClubScore';
+import Link from 'next/link';
+import {sahamUserType} from '@/types/types'
 
-export default function MenuListComposition({handleClickOpen,user,userToken,eshterakNo}) {
+type props ={
+  handleClickOpen: () => void;
+  user: sahamUserType;
+  userToken: string;
+  eshterakNo: {EshterakNo: number};
+}
+
+
+export default function MenuListComposition({handleClickOpen,user,userToken,eshterakNo}:props) {
   const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [userId,setUserId] = React.useState("")
+  const anchorRef = React.useRef<HTMLButtonElement | null>(null);
+  const [userId,setUserId] = React.useState(0)
   const [score,setScore]= useAtom(ClubScore)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
+  const handleClose = (event:any) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -34,7 +45,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
     setOpen(false);
   };
 
-  function handleListKeyDown(event) {
+  function handleListKeyDown(event: any) {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
@@ -47,7 +58,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      anchorRef.current?.focus();
     }
 
     prevOpen.current = open;
@@ -114,12 +125,12 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                     onKeyDown={handleListKeyDown}
                   >
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
-                    <MenuItem onClick={handleClose}><Link to={`/profile/${userId}`} className='flex justify-between text-inherit w-full flex-nowrap'><AccountCircleIcon className="text-xl mr-1 text-gray-600"/><span>پروفایل</span></Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link href={`/profile/${userId}`} className='flex justify-between text-inherit w-full flex-nowrap'><AccountCircleIcon className="text-xl mr-1 text-gray-600"/><span>پروفایل</span></Link></MenuItem>
                     {/* <MenuItem onClick={handleClose} className='flex justify-end'><Link to={'/receipts'} className='text-inherit'>سفارشات من<ReceiptLongIcon className='text-gray-600 mr-1'/></Link></MenuItem> */}
                     <MenuItem className='flex justify-between flex-nowrap gap-1'><PiCoins  className="text-xl scale-x-[-1] text-gray-600"/><Link onClick={() => {
                       sessionStorage.setItem("goTo", "customerClub");
                         }}
-                      to={`/profile/${user?.Id}`}>امتیاز باشگاه: {score && score}</Link></MenuItem>
+                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: {score && score}</Link></MenuItem>
                     <MenuItem onClick={handleClickOpen} className='flex justify-between flex-nowrap gap-1'><BiExit className="text-xl scale-x-[-1] text-gray-600"/><span>خروج از حساب کاربری</span></MenuItem>
                   </MenuList>
                 </ClickAwayListener>

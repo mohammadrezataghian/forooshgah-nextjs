@@ -21,7 +21,7 @@ const Head = () => {
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [addresses, setAdreesses] = useState([]);
   const [userToken, setUserToken] = useState(""); // در یافت توکن از نرم افزار
-  const [eshterakNo, setEshterakNo] = useState<{ EshterakNo?: number | string }>({}); // در یافت توکن از نرم افزار
+  const [eshterakNo, setEshterakNo] = useState<{ EshterakNo: number }>({EshterakNo: 0});
   const [deleteAddress,setdeleteAddress] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("user"));
   const [errorLoadAddress, setErrorLoadAddress] = useState<string | null>(null);
@@ -106,7 +106,7 @@ const handleClickOpen = () => {
     }
   };
 
-  const setEshterakNoInpt = (eshteraknoInput : number | string) => {
+  const setEshterakNoInpt = (eshteraknoInput : number) => {
     setEshterakNo({ EshterakNo: eshteraknoInput });
   };
   const setTokenInpt = (tokenInputValue : string) => {
