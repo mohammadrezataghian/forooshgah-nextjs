@@ -11,6 +11,7 @@ import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
 import HeadReturn from "./HeadReturn";
 import { addressService } from "@/services/addressService";
 import { Address } from "@/types/types";
+import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
 
 const Head = () => {
 
@@ -113,15 +114,28 @@ const handleClickOpen = () => {
     setUserToken(tokenInputValue);
   };
 
+  // alert dialog
+  const handleExit = () => {
+    Cookies.remove("user");
+    setloggedIn(false)
+    setIsLoggedIn(false); // Manually update state
+    localStorage.removeItem('userToken')
+    setOpenAlertDialog(false)
+  };
+  //alert dialog
+
   return (
     <>
       <header className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
        <HeadReturn toggleDrawer={toggleDrawer} selectedProductsCount={selectedProductsCount} isLoggedIn={isLoggedIn} user={user} handleClickOpen={handleClickOpen} handleDialogOpen={handleDialogOpen} handlecityDialogOpen={handlecityDialogOpen} showdefaultaddress={showdefaultaddress} userToken={userToken} eshterakNo={eshterakNo}/>
       </header>
-
-
-
-    <Drawer anchor="right" open={drawerOpen} toggleDrawer={toggleDrawer} />
+      <Drawer anchor="right" open={drawerOpen} toggleDrawer={toggleDrawer} />
+      <AlertDialog
+        open={openAlertDialog}
+        setOpen={setOpenAlertDialog}
+        handleExitAcc={handleExit}
+        exitDialogContent={'با خروج از حساب کاربری، امکان ادامه ی خرید نخواهید داشت. هروقت بخواهید می‌توانید مجددا وارد شوید و خریدتان را ادامه دهید.'}
+      />
     </>
   )
 }

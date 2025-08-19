@@ -1,7 +1,11 @@
-import { atom } from 'jotai';
+import { atom } from "jotai";
 
 const getInitialState = () => {
-    const storedData = localStorage.getItem('products');
+  if (typeof window !== "undefined") {
+    const storedData = localStorage.getItem("products");
     return storedData ? JSON.parse(storedData) : [];
-  };
+  }
+  return []; // default value on the server
+};
+
 export const productListUpdate = atom(getInitialState());
