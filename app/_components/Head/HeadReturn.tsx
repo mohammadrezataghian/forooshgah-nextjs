@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import Basket from "@/public/svg/Shopping_cart 24.svg";
+import Basket from "@/public/svg/Shopping_cart_24.svg";
 import { Badge } from "@mui/material";
 import MenuListComposition from "./AccountDropdown";
 import Button from "@mui/material/Button";
@@ -13,7 +13,6 @@ import Link from 'next/link';
 import Image from "next/image";
 import { Address } from '@/types/types';
   
-
 type headReturnType={
 
   toggleDrawer: (newOpen: any) => () => void;
@@ -35,7 +34,7 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
     <div className="w-full h-auto grid lg:px-2 lg:justify-between lg:flex lg:flex-row lg:flex-nowrap lg:gap-3 gap-y-2 grid-cols-2 grid-rows-1 px-2 ">
           {/* start basket */}
           <div className="basket bg-white boxshadowHead rounded-md p-2 w-fit col-start-1 row-start-1 lg:block hidden">
-            <button type="button" onClick={toggleDrawer(true)}>
+            <button type="button" onClick={toggleDrawer(true)} className='cursor-pointer'>
               <Badge
                 anchorOrigin={{
                   vertical: "top",
@@ -44,7 +43,7 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
                 badgeContent={selectedProductsCount}
                 color="info"
               >
-                <img className="ml-1 w-6 h-6" src={Basket} alt="Open Drawer" />
+                <Image className="ml-1 w-6 h-6" src={Basket} alt="Open Drawer" />
               </Badge>
             </button>
           </div>

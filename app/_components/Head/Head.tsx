@@ -115,7 +115,7 @@ const handleClickOpen = () => {
 
   return (
     <>
-      <header className="w-full 2xl:px-64 h-auto pt-5 pb-3 bg-white boxshadowHead">
+      <header className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
        <HeadReturn toggleDrawer={toggleDrawer} selectedProductsCount={selectedProductsCount} isLoggedIn={isLoggedIn} user={user} handleClickOpen={handleClickOpen} handleDialogOpen={handleDialogOpen} handlecityDialogOpen={handlecityDialogOpen} showdefaultaddress={showdefaultaddress} userToken={userToken} eshterakNo={eshterakNo}/>
       </header>
 

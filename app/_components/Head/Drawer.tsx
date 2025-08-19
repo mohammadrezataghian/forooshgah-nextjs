@@ -70,7 +70,7 @@ const { removeProduct } = useRemoveProduct(setProductList);
       onKeyDown={toggleDrawer(false)}
     >
       <h2 className="flex py-2 px-2 justify-between"><span>سبد خرید</span>
-      <button onClick={toggleDrawer(false)}><CloseIcon /></button>
+      <button onClick={toggleDrawer(false)} className="cursor-pointer"><CloseIcon /></button>
       </h2>
       <Divider className="mb-2" />
 

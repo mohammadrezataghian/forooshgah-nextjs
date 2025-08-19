@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { filteredUsersType } from "@/types/types";
 
 const SearchInput = () => {
-  const [apiUsers, setApiUsers] = useState<{ NameKala: string; pageIndex: number; pageSize: number; idForooshgah?: number } | undefined>(undefined);
+  const [apiUsers, setApiUsers] = useState<filteredUsersType>([]);
   const [searchItem, setSearchItem] = useAtom(inputValue);
   const [filteredUsers, setFilteredUsers] = useState<filteredUsersType>([]);
   const [isBoxVisible, setIsBoxVisible] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (deferredSearchTerm.trim().length < 2) {
-      setApiUsers(undefined);
+      setApiUsers([]);
       return;
     }
 
@@ -65,7 +65,7 @@ const SearchInput = () => {
       if(state !== 0){
         payload.idForooshgah = state
       }
-      setApiUsers(payload);
+      getGetKala(payload);
     }, 1000); // Debounce API calls (500ms delay)
 
     return () => clearTimeout(debounceTimeout); // Cleanup function

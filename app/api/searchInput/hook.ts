@@ -9,12 +9,12 @@ export default function useGetKala(setApiUsers:any) {
   const [error, setError] = useState<string | null>(null);
 
   // useCallback so the function reference is stable
-  const getGetKala = useCallback(async () => {
+  const getGetKala = useCallback(async (payload:any) => {
     setLoading(true);
     setError(null);
 
     try {
-      const res = await axios.post("/api/searchInput");
+      const res = await axios.post("/api/searchInput",payload);
       setApiUsers(res.data.Data.lst);
       return res.data;
     } catch (err: any) {
