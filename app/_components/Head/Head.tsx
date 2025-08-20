@@ -12,6 +12,7 @@ import HeadReturn from "./HeadReturn";
 import { addressService } from "@/services/addressService";
 import { Address } from "@/types/types";
 import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
+import CustomDialog from "@/common/EnterModal/CustomDialog";
 
 const Head = () => {
 
@@ -130,6 +131,12 @@ const handleClickOpen = () => {
        <HeadReturn toggleDrawer={toggleDrawer} selectedProductsCount={selectedProductsCount} isLoggedIn={isLoggedIn} user={user} handleClickOpen={handleClickOpen} handleDialogOpen={handleDialogOpen} handlecityDialogOpen={handlecityDialogOpen} showdefaultaddress={showdefaultaddress} userToken={userToken} eshterakNo={eshterakNo}/>
       </header>
       <Drawer anchor="right" open={drawerOpen} toggleDrawer={toggleDrawer} />
+      <CustomDialog
+        open={dialogOpen}
+        handleClose={handleDialogClose}
+        openUserPassDialog={openUserPassDialog}
+        setOpenUserPassDialog={setOpenUserPassDialog}
+      />
       <AlertDialog
         open={openAlertDialog}
         setOpen={setOpenAlertDialog}
