@@ -14,6 +14,7 @@ import { Address } from "@/types/types";
 import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
 import CustomDialog from "@/common/EnterModal/CustomDialog";
 
+
 const Head = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -127,7 +128,7 @@ const handleClickOpen = () => {
 
   return (
     <>
-      <header className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
+      <header dir="ltr" className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
        <HeadReturn toggleDrawer={toggleDrawer} selectedProductsCount={selectedProductsCount} isLoggedIn={isLoggedIn} user={user} handleClickOpen={handleClickOpen} handleDialogOpen={handleDialogOpen} handlecityDialogOpen={handlecityDialogOpen} showdefaultaddress={showdefaultaddress} userToken={userToken} eshterakNo={eshterakNo}/>
       </header>
       <Drawer anchor="right" open={drawerOpen} toggleDrawer={toggleDrawer} />
