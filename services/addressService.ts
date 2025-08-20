@@ -24,7 +24,7 @@ export const addressService = {
     return response.json();
   },
 
-  addAddress: async ({address, tokenInput} : otherOnes) => {
+  addAddress: async (address:object, tokenInput:string) => {
     const response = await fetch(`${BASE_URL}/api/AddUserAddress`, {
       method: "POST",
       headers: {

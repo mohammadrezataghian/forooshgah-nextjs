@@ -13,7 +13,7 @@ import { addressService } from "@/services/addressService";
 import { Address } from "@/types/types";
 import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
 import CustomDialog from "@/common/EnterModal/CustomDialog";
-
+import CityDialog from "@/common/CityDialog/CityDialog";
 
 const Head = () => {
 
@@ -126,6 +126,13 @@ const handleClickOpen = () => {
   };
   //alert dialog
 
+  //city dialog
+  const handlecityDialogClose = () => {
+    citysetDialogOpen(false);
+    loadAddresses();
+  };
+// city dialog
+
   return (
     <>
       <header dir="ltr" className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
@@ -138,6 +145,7 @@ const handleClickOpen = () => {
         openUserPassDialog={openUserPassDialog}
         setOpenUserPassDialog={setOpenUserPassDialog}
       />
+      <CityDialog open={citydialogOpen} handleClose={handlecityDialogClose} loadAddresses={loadAddresses}/>
       <AlertDialog
         open={openAlertDialog}
         setOpen={setOpenAlertDialog}
