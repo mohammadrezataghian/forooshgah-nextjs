@@ -14,6 +14,8 @@ import { Address } from "@/types/types";
 import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
 import CustomDialog from "@/common/EnterModal/CustomDialog";
 import CityDialog from "@/common/CityDialog/CityDialog";
+import UserAddressModal from "@/common/address/UserAddressModal";
+import UserPassDialog from "@/common/EnterModal/UsernameDialog";
 
 const Head = () => {
 
@@ -133,6 +135,27 @@ const handleClickOpen = () => {
   };
 // city dialog
 
+// user address modal
+const handleSelectAddress = (address:any) => {
+  setDefaultAddress(address);
+  addressService.setDefaultAddress(address, userToken);
+  loadAddresses();
+};
+const handleDeleteAddress = (address: any) => {
+  setdeleteAddress(address);
+  setIsAddressModalOpen(false);
+  addressService.deleteAddress(address, userToken);
+  console.log(deleteAddress);
+  
+};
+
+const handleSelectMapOpen = () => {
+  if (isLoggedIn) {
+    citysetDialogOpen(true);
+  }
+};
+// end user address modal
+
   return (
     <>
       <header dir="ltr" className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead">
@@ -145,12 +168,21 @@ const handleClickOpen = () => {
         openUserPassDialog={openUserPassDialog}
         setOpenUserPassDialog={setOpenUserPassDialog}
       />
+      <UserPassDialog open={openUserPassDialog} setOpen={setOpenUserPassDialog}/>
       <CityDialog open={citydialogOpen} handleClose={handlecityDialogClose} loadAddresses={loadAddresses}/>
       <AlertDialog
         open={openAlertDialog}
         setOpen={setOpenAlertDialog}
         handleExitAcc={handleExit}
         exitDialogContent={'با خروج از حساب کاربری، امکان ادامه ی خرید نخواهید داشت. هروقت بخواهید می‌توانید مجددا وارد شوید و خریدتان را ادامه دهید.'}
+      />
+      <UserAddressModal
+        isOpen={isAddressModalOpen}
+        onClose={() => setIsAddressModalOpen(false)}
+        addresses={addresses}
+        onSelectAddress={handleSelectAddress}
+        onSelecteMap={handleSelectMapOpen}
+        onSelectDelete={handleDeleteAddress}
       />
     </>
   )

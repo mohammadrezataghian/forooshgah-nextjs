@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -18,7 +20,7 @@ import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { addressService } from "@/services/addressService";
 import Appmaps from "@/app/_components/Head/Appmaps";
-import { sahamUserType } from "@/types/types";
+import { sahamUserType, whereaboutes } from "@/types/types";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -45,12 +47,18 @@ type CityDialogProps ={
 }
 
 const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
-  const [showFirstAddress, setShowFirstAddress] = React.useState(() => {
-    return JSON.parse(localStorage.getItem("whereaboutes") ?? '') || '';
-  });
-  const [location, setLocation] = React.useState(() => {
-    return JSON.parse(localStorage.getItem("location") ?? '') || {};
-  });
+
+  const [showFirstAddress, setShowFirstAddress] = React.useState<whereaboutes | undefined>()
+  React.useEffect(()=>{
+    if (localStorage.getItem("whereaboutes")) {
+      const location = localStorage.getItem("whereaboutes") || ''
+      const parsedLocation = JSON.parse(location)
+      setShowFirstAddress(parsedLocation)
+    }
+  },[])
+  // const [location, setLocation] = React.useState(() => {
+  //   return JSON.parse(localStorage.getItem("location") ?? '') || {};
+  // });
   const [userObj, setUserObj] = React.useState<sahamUserType | null>(null)
   const [formData, setFormData] = React.useState(null);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false); // Snackbar state
@@ -124,7 +132,7 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
       localStorage.setItem("location", JSON.stringify(updatedLocation));
     }
 
-    setLocation(updatedLocation);
+    // setLocation(updatedLocation);
     // Ensure locationArray exists in localStorage
     let locationArray = JSON.parse(localStorage.getItem("locationArray") ?? '') || [];
 
@@ -193,7 +201,7 @@ useEffect(() => {
 
 React.useEffect(() => {
   if (open) {
-    setShowFirstAddress(""); // Reset state to empty string when dialog opens
+    setShowFirstAddress(undefined); // Reset state to empty string when dialog opens
   }
 }, [open]);
 // end update local storage to show mapaddress

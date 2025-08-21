@@ -1,6 +1,8 @@
+'use client'
+
 import React, { Component, useEffect, useState } from "react";
-import "@/App.css";
-import "@/AppMap.css";
+// import "@/app/styles/appMaps/appMapsOne.css";
+// import "@/app/styles/appMaps/appMapsTwo.css";
 import Mapir from "mapir-react-component";
 const Maps = Mapir.setToken({
   transformRequest: (url) => {
@@ -231,7 +233,7 @@ export default function Appmaps() {
       <div className="container search-box ">
         <div className="container search-box__item flex-row">
           <input
-            autocomplete="off"
+            autoComplete="off"
             type="text"
             id="search"
             placeholder="دنبال کجا می&zwnj;گردید...&#128269;"

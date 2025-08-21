@@ -103,3 +103,60 @@ export type Address = {
 };
 // The array type
 export type filteredUsersType = FilteredUser[];
+
+export type whereaboutes ={
+  address: string;
+  postal_address: string;
+  address_compact: string;
+  primary: string;
+  name: string;
+  poi: string;
+  country: string;
+  province: string;
+  county: string;
+  district: string;
+  rural_district: string;
+  city: string;
+  village: string;
+  region: string;
+  neighbourhood: string;
+  last: string;
+  plaque: string;
+  postal_code: string;
+  geom: {
+    type: "Point";
+    coordinates: [string, string]; 
+  };
+}
+
+interface loc {
+  Id: number;
+  Address: string;
+  PostalAddress: string;
+  AddressCompact: string;
+  Primary: string;
+  Name: string;
+  InsertTime: string; // ISO datetime string
+  Poi: string;
+  Country: string;
+  Province: string;
+  County: string;
+  District: string;
+  RuralDistrict: string;
+  City: string;
+  Village: string;
+  Region: string;
+  Neighbourhood: string;
+  LastName: string;
+  Plaque: string;
+  PostalCode: string;
+  GeomType: "Point"; // seems fixed
+  CoordinatesLatitude: string;  // could be number, but sample is string
+  CoordinatesLongitude: string; // could be number, but sample is string
+  WhereaboutesPreAddress: string;
+  WhereaboutesPostalCode: string;
+  EshterakNo: number;
+  SetDefault: boolean;
+}
+
+export type addresses = loc[];

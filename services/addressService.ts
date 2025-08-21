@@ -50,7 +50,7 @@ export const addressService = {
     return response.json();
   },
 
-  setDefaultAddress: async ({address, tokenInput} : otherOnes) => {
+  setDefaultAddress: async (address:object, tokenInput:string) => {
     const response = await fetch(`${BASE_URL}/api/SetDefaultUserAddress`, {
       method: "POST",
       headers: {
@@ -62,7 +62,7 @@ export const addressService = {
     if (!response.ok) throw new Error("Failed to set default address");
   },
 
-  deleteAddress: async ({address, tokenInput} : otherOnes) => { // addressId
+  deleteAddress: async (address:object, tokenInput:string) => { // addressId
     const response = await fetch(`${BASE_URL}/api/DeletetUserAddress`, {
       method: "POST",
       headers: {
