@@ -3,8 +3,7 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 
-export function useSiteAddress() {
-  const [siteAddress, setSiteAddress] = useState<string | null>(null);
+export function useGetSiteAddress(setSiteAddress:any) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,7 +14,7 @@ export function useSiteAddress() {
 
     try {
       const res = await axios.get("/api/siteAddress");
-      setSiteAddress(res.data);
+      setSiteAddress(res);
       return res.data;
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
@@ -25,5 +24,5 @@ export function useSiteAddress() {
     }
   }, []);
 
-  return { siteAddress, loading, error, getSiteAddress };
+  return { loading, error, getSiteAddress };
 }

@@ -160,3 +160,18 @@ interface loc {
 }
 
 export type addresses = loc[];
+
+type MenuItem = {
+  Id: string;
+  Name: string;
+  IdParent: string | null;
+  CountOfChild: string | null;
+  NameImage: string | null;
+  children: MenuItem[]; // recursive structure
+}
+export type MenuResponse = {
+  Data: MenuItem[];
+  ErrorList: string[];
+  resCode: number;
+  resMessage: string | null;
+}

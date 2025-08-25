@@ -1,2 +1,2 @@
 import { atom } from "jotai";
-export const siteUrlAddress = atom([]);
+export const siteUrlAddress = atom<string | null>(null);

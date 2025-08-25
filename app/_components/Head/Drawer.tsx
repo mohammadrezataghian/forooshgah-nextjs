@@ -20,7 +20,7 @@ import { usePathname } from "next/navigation";
 type DrawerDrawerProps = {
   anchor: SwipeableDrawerProps["anchor"];
   open: boolean;
-  toggleDrawer: (open: boolean) => () => void;
+  toggleDrawer: (open: boolean) => (event:any) => void;
 };
 
 const DrawerDrawer : React.FC<DrawerDrawerProps> = ({ anchor, open, toggleDrawer }) => {
@@ -122,7 +122,7 @@ const { removeProduct } = useRemoveProduct(setProductList);
               className="p-2 bg-blue-600 rounded-md text-white"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleDrawer(false)();
+                toggleDrawer(false)(e);
               }}
             >
               رفتن به سبد خرید

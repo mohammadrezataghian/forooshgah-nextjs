@@ -1,0 +1,134 @@
+'use client'
+import React, { useEffect, useState } from "react";
+import useGetMenu from "@/app/api/menu/hook";
+import { PiListBold } from "react-icons/pi";
+import { FaAngleLeft } from "react-icons/fa";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import { MenuResponse } from "@/types/types";
+
+const Menu = () => {
+
+  // menu data
+  const [menuData, setMenuData] = useState<MenuResponse | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
+  // START HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
+  function handleRefreshLS() {
+    // Check if the page was reloaded using the Performance API
+    const entries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
+    const navigationEntry = entries.length > 0 ? entries[0] : undefined;
+
+
+    if (navigationEntry && navigationEntry?.type === "reload") {
+      Cookies.remove("MenuData"); // Remove only 'MenuData' from localStorage if the page is reloaded
+      const fetchData = async () => {
+        try {
+          const data = await useGetMenu();
+          setMenuData(data);
+        } catch (error) {
+          console.error("Failed to fetch menu:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }
+  window.onload = handleRefreshLS;
+  // END HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
+
+  //get data
+  useEffect(() => {
+    if (Cookies.get("MenuData")) {
+      const data = JSON.parse(Cookies.get("MenuData") || '');
+      setMenuData(data);
+    } else {
+      const fetchData = async () => {
+        try {
+          const data = await useGetMenu();
+          setMenuData(data);
+        } catch (error) {
+          console.error("Failed to fetch menu:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, []);
+  const firstData = menuData?.Data || [];
+  const Data = firstData.length > 0 ? firstData[0].children : [];
+// end get data
+
+  return (
+    <>
+      {/* start menu */}
+      <div className="w-full h-10 bg-white lg:flex lg:px-5 2xl:px-64 justify-between hidden relative boxshadowmenu" dir="rtl">
+        {/* start menu desktop */}
+        <nav className="w-full h-full flex justify-end">
+          <div
+            className="w-auto flex items-end cursor-pointer relative openmegamenu"
+            onMouseEnter={() => setIsMenuOpen(true)} // Open on hover
+            onMouseLeave={() => setIsMenuOpen(false)} // Close when mouse leaves
+          >
+            <span className="pb-2 pr-1">دسته بندی کالاها</span>
+            <span className="pb-3">
+              <PiListBold />
+            </span>
+
+            {/* Mega Menu */}
+            {Data && Data.length > 0 && <div
+              className={`absolute w-72 h-[72vh] top-full right-0 bg-gray-300 flex flex-col megamenuu transition border-b-menu duration-500 ease-in-out ${
+               isMenuOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+            {/* <div
+              className={`absolute w-72 h-[72vh] top-full right-0 bg-gray-300 flex-col megamenuu transition-all border-b-menu ${
+                Data && Data.length > 0 && isMenuOpen ? "flex" : "hidden"
+              }`}
+            > */}
+              <div className="overflow-y-auto">
+                {Data &&
+                  Data.map((item:any, index:number) => (
+                    <div key={item.Id} className="group">
+                      <Link
+                        href={`/productList/${item.Name}`}
+                        className="text-[#2b2b2b] p-3 block group-hover:bg-white"
+                        onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                      >
+                        {item.Name}
+                      </Link>
+                      <div
+                        className={`w-[60vw] h-[72vh] bg-white absolute top-0 right-full overflow-y-auto z-50 p-4 transition-all border-b-menu ${
+                          index === 0
+                            ? "visible"
+                            : "invisible group-hover:visible"
+                        }`}
+                      >
+                        <div className="w-full h-full flex flex-col items-end flex-wrap">
+                          {item.children &&
+                            item.children.map((child:any) => (
+                              <Link
+                                href={`/productList/${child.Name}`}
+                                key={child.Id}
+                                className="text-[#2b2b2b] px-3 py-4 hover:text-red-600 w-auto h-auto flex items-center"
+                                onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                              >
+                                <FaAngleLeft />
+                                {child.Name}
+                              </Link>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>}
+          </div>
+        </nav>
+        {/* end menu desktop */}
+      </div>
+      {/* end menu */}
+    </>
+  );
+};
+
+export default Menu;
