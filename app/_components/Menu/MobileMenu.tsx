@@ -1,13 +1,15 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 import { IoMdHome } from "react-icons/io";
-import Svg from "../../global/svg/apps-svgrepo-com.svg";
+import Svg from "@/public/svg/apps-svgrepo-com.svg";
 import DrawerDrawer from "../Head/Drawer";
 import CustomDialog from "@/common/EnterModal/CustomDialog";
 import Badge from "@mui/material/Badge";
 import SidemenuDrawer from "./SideMenu";
-import Account from '../../global/svg/User.svg'
-import Search from '../../global/svg/Search_magnifyer.svg'
-import Basket from '../../global/svg/Shopping_cart.svg'
+import Account from '@/public/svg/User.svg'
+import Search from '@/public/svg/Search_magnifyer.svg'
+import Basket from '@/public/svg/Shopping_cart.svg'
 import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
 import Cookies from "js-cookie";
 import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
@@ -16,6 +18,7 @@ import { useAtom } from "jotai";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import UserPassDialog from "@/common/EnterModal/UsernameDialog";
 import Link from "next/link";
+import Image from "next/image";
 
 const MobileMenu = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -123,7 +126,7 @@ const handleCloseAccount = () => {
             event.preventDefault();
             setSidemenuDrawerOpen(true); 
           }} >
-            <img className="w-7 h-7" src={Svg} alt="" />
+            <Image className="w-7 h-7" src={Svg} alt="" />
             <p className=" text-xs"> دسته بندی ها</p>
           </a>
           {/* end basket categories/menuMobile*/}
@@ -136,18 +139,18 @@ const handleCloseAccount = () => {
               {isLoggedIn ? handleClickOpenAccount() : handleDialogOpen() }
             }}
           >
-            <img className="w-7 h-7" src={Account} alt="" />
+            <Image className="w-7 h-7" src={Account} alt="" />
             <p className=" text-xs">حساب کاربری</p>
           </a>
           {/* end account */}
           {/* start home */}
           <Link href="/" id="homebut" className="tab-link">
-            <IoMdHome className="absolute top-3 left-1/2 translate-x-1/2 text-2xl" />
+            <IoMdHome className="absolute top-3 left-1/3 translate-x-1/12 text-2xl" />
           </Link>
           {/* end home */}
           {/* start search */}
           <Link href="/Search" className="tab-link">
-            <img className="w-7 h-7" src={Search} alt="" />
+            <Image className="w-7 h-7" src={Search} alt="" />
             <p className=" text-xs">جستجو</p>
           </Link>
           {/* end search */}
@@ -161,7 +164,7 @@ const handleCloseAccount = () => {
               },
             }}
             badgeContent={selectedProductsCount} color="primary">
-              <img className="w-7 h-7" src={Basket} alt="" />
+              <Image className="w-7 h-7" src={Basket} alt="" />
             </Badge>
 
             <p className="text-xs">سبد خرید</p>

@@ -201,7 +201,6 @@ const user = userStr ? JSON.parse(userStr) : null;
   return (
     <>
       <header
-        dir="ltr"
         className="w-full 2xl:px-56 h-auto pt-5 pb-3 bg-white boxshadowHead"
       >
         <HeadReturn

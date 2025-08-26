@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
@@ -15,7 +17,7 @@ import { MenuResponse } from '@/types/types';
 
 // start styling the accordion children
 
-const Accordion = styled((props) => (
+const Accordion = styled((props: React.ComponentProps<typeof MuiAccordion>) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
 
@@ -24,7 +26,8 @@ const Accordion = styled((props) => (
   },
 }));
 
-const AccordionSummary = styled((props) => (
+const AccordionSummary = styled(
+  (props: React.ComponentProps<typeof MuiAccordionSummary>) => (
   <MuiAccordionSummary
     expandIcon={<AddIcon sx={{ fontSize: '1rem' }} />}
     {...props}
@@ -118,9 +121,11 @@ const [menuData, setMenuData] = useState<MenuResponse | null>(null);
       {/* structure of one accardion */}
       {/* structure of nested accordion */}
       {
-        Data.map((item) => (
+        Data.map((item:any) => (
           <div key={item.Id}>
-          <Accordion expanded={expanded === `panel${item.Id}`} onChange={handleChange(`panel${item.Id}`)} onClick={() => handleMouseClick(item.Id)}>
+          <Accordion expanded={expanded === `panel${item.Id}`} onChange={handleChange(`panel${item.Id}`)} 
+          // onClick={() => handleMouseClick(item.Id)}
+          >
           <AccordionSummary aria-controls={`panel${item.Id}d-content`} id={`panel${item.Id}d-header`}>
             <Typography component="span">{item.Name}</Typography>
           </AccordionSummary>

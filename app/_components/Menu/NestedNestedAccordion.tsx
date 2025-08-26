@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
@@ -8,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 // start handling nested nested accodion styles
 
-const Accordion = styled((props) => (
+const Accordion = styled((props: React.ComponentProps<typeof MuiAccordion>) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
   border: 'none', // Remove border for nested accordion
@@ -21,7 +23,8 @@ const Accordion = styled((props) => (
   },
 }));
 
-const AccordionSummary = styled((props) => (
+const AccordionSummary = styled(
+  (props: React.ComponentProps<typeof MuiAccordionSummary>) => (
   <MuiAccordionSummary
     expandIcon={<AddIcon sx={{ fontSize: '0.9rem' }} />}
     {...props}
@@ -39,7 +42,6 @@ const AccordionSummary = styled((props) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
   padding:'0',
   paddingRight:'30px',
   margin:'0'
@@ -48,19 +50,28 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 // end handling nested nested accodion styles
 
 // start nested nested accordion
+
+type NestedNestedAccordionProps = {
+  expandedNestedNested: string;
+  handleNestedNestedChange: (panel:any) => (event:any, newExpanded:any) =>void;
+  // subsubMenuData : [];
+  // lastMenuData : [];
+  // handleMouseClickSubSub : (item:any) => void;
+}
+
 const NestedNestedAccordion = ({ expandedNestedNested,
   handleNestedNestedChange,
-  subsubMenuData = [],
-  lastMenuData = [],
-  handleMouseClickSubSub = () => {},
-  }) => {
+  // subsubMenuData,
+  // lastMenuData,
+  // handleMouseClickSubSub,
+  }:NestedNestedAccordionProps) => {
   return (
     <>
-    {subsubMenuData && subsubMenuData.map((item:any) => (
+    {/* {subsubMenuData && subsubMenuData.map((item:any) => (
     <Accordion
       expanded={expandedNestedNested === `nestedNested${item.Id}`}
       onChange={handleNestedNestedChange(`nestedNested${item.Id}`)}
-      onClick={() => handleMouseClickSubSub(item.Id)}
+      // onClick={() => handleMouseClickSubSub(item.Id)}
     >
       <AccordionSummary aria-controls={`nestedNested${item.Id}d-content`} id={`nestedNested${item.Id}d-header`}>
         <Typography component="span">{item.Name}</Typography>
@@ -77,7 +88,7 @@ const NestedNestedAccordion = ({ expandedNestedNested,
         ))}
       </AccordionDetails>
     </Accordion>
-    ))}
+    ))} */}
     </>
   );
 };
