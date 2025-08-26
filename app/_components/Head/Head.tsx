@@ -157,7 +157,7 @@ useEffect(() => {
   };
 
   const setSiteAddressResponce = async (data:any) => {
-    if (data.Data) {
+    if (data && data.Data) {
       setSiteAddress(data.Data);
     }
   };

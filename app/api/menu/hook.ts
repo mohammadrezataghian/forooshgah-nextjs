@@ -3,12 +3,12 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useGetMenu = async () => {
+const useGetMenu = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
 
-  
+  const getMenu= async()=>{
     setLoading(true);
     setError(null);
 
@@ -34,8 +34,8 @@ const useGetMenu = async () => {
     } finally {
       setLoading(false);
     }
-
-  return { loading, error, response };
+  }
+  return { loading, error, response,getMenu };
 };
 
 export default useGetMenu;

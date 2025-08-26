@@ -9,6 +9,7 @@ import { MenuResponse } from "@/types/types";
 
 const Menu = () => {
 
+  const { loading, error, response,getMenu } = useGetMenu()
   // menu data
   const [menuData, setMenuData] = useState<MenuResponse | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
@@ -23,7 +24,7 @@ const Menu = () => {
       Cookies.remove("MenuData"); // Remove only 'MenuData' from localStorage if the page is reloaded
       const fetchData = async () => {
         try {
-          const data = await useGetMenu();
+          const data = await getMenu();
           setMenuData(data);
         } catch (error) {
           console.error("Failed to fetch menu:", error);
@@ -44,7 +45,7 @@ const Menu = () => {
     } else {
       const fetchData = async () => {
         try {
-          const data = await useGetMenu();
+          const data = await getMenu();
           setMenuData(data);
         } catch (error) {
           console.error("Failed to fetch menu:", error);

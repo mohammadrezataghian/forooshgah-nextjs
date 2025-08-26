@@ -64,6 +64,7 @@ type AccordionMenuProps = {
 
 export default function AccordionMenu({toggleDrawer}:AccordionMenuProps) {
 
+  const { loading, error, response,getMenu } = useGetMenu()
   // handle openning the nested accordions
   const [expanded, setExpanded] = React.useState('');
   const [expandedNested, setExpandedNested] = React.useState('');
@@ -90,7 +91,7 @@ const [menuData, setMenuData] = useState<MenuResponse | null>(null);
     }else{
       const fetchData = async () => {
         try {
-          const data = await useGetMenu();
+          const data = await getMenu();
           setMenuData(data);
         } catch (error) {
           console.error('Failed to fetch menu:', error);
