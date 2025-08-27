@@ -175,3 +175,37 @@ export type MenuResponse = {
   resCode: number;
   resMessage: string | null;
 }
+
+type ImageItem = {
+  MobileOrPc: boolean;
+  OutOrInLogin: boolean;
+  PatientOrPerson: boolean;
+  Base64Image: string | null;
+  UploadImageName: string;
+  ImageOrFile: boolean;
+  FileName: string;
+  IdDetail: number;
+  Id: number;
+  Description: string;
+  ImageLink: string;
+  ShowInBannerDetail: boolean;
+};
+
+export type Advertisement = {
+  Id: number;
+  Organization: string;
+  Description: string;
+  linkAddress: string;
+  Header: string;
+  StartDate: string; // ISO date string
+  EndDate: string;   // ISO date string
+  InsertTime: string; // ISO date string with ms
+  Payvast: string | null;
+  DeActive: boolean;
+  imageList: ImageItem[];
+  ShowInBanner: boolean;
+  NameTable: string;
+  OrderImage: number;
+  NameOrderImage: string;
+  HexColor: string | null;
+};

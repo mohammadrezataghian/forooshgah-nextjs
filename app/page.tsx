@@ -1,4 +1,5 @@
 import Head from "./_components/Head/Head";
+import MainSlider from "./_components/MainSlider/MainSlider";
 import Menu from "./_components/Menu/Menu";
 import MobileMenu from "./_components/Menu/MobileMenu";
 
@@ -10,6 +11,9 @@ export default function Home() {
       <Menu/>
     </div>
     <MobileMenu/>
+    <main className="w-full">
+      <MainSlider />
+    </main>
     </>
   );
 }
