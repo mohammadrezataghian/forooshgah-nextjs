@@ -2,6 +2,8 @@ import Head from "./_components/Head/Head";
 import MainSlider from "./_components/MainSlider/MainSlider";
 import Menu from "./_components/Menu/Menu";
 import MobileMenu from "./_components/Menu/MobileMenu";
+import ProductsSlider from "./_components/ProductSlider/ProductSlider";
+import SmallimageBoxes from "./_components/SmallImageBoxes/SmallImageBoxes";
 
 export default function Home() {
   return (
@@ -13,6 +15,8 @@ export default function Home() {
     <MobileMenu/>
     <main className="w-full">
       <MainSlider />
+      <SmallimageBoxes />
+      <ProductsSlider />
     </main>
     </>
   );
