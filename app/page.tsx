@@ -1,3 +1,4 @@
+import BigImageBoxes from "./_components/BigImageBoxes/BigImageBoxes";
 import Head from "./_components/Head/Head";
 import MainSlider from "./_components/MainSlider/MainSlider";
 import Menu from "./_components/Menu/Menu";
@@ -17,6 +18,7 @@ export default function Home() {
       <MainSlider />
       <SmallimageBoxes />
       <ProductsSlider />
+      <BigImageBoxes />
     </main>
     </>
   );
