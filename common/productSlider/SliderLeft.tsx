@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,7 +40,7 @@ const SliderLeft = ({params}:any) => {
 
   // handle loading
 useEffect(() => {
-  if (productDetails.length > 0) {
+  if (productDetails && productDetails.length > 0) {
     setLoading(false);
   }
 }, [productDetails]);

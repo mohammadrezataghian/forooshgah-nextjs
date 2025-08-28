@@ -1,3 +1,5 @@
+'use client'
+
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -82,7 +84,7 @@ const SliderLeftCard = ({
         {/* Product Image */}
         <Link
           href={{
-            pathname: "/products/productsdetails/[id]/[name]",
+            pathname: "/products/productsdetails",
             query: { id: id, name: encodeURIComponent(name) },
           }}
           className="flex justify-center overflow-hidden h-48 "

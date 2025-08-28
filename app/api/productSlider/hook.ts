@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";

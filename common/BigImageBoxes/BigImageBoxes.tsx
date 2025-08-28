@@ -1,9 +1,9 @@
+'use client'
+
 import React from "react";
 import { useAtom } from "jotai";
 import { banners } from "@/shared/banners";
 import { siteUrlAddress } from "@/shared/site.url.atom";
-import Image from "next/image";
-import image1 from '@/public/images/skeletonGif/layout-change-1756394580034.gif'
 
 type BigImageBoxesCommonProps={
     orderImage:number;
@@ -23,7 +23,7 @@ const orderImagetwo = banner?.advertisement?.find(item => item.OrderImage === or
         {orderImagetwo && orderImagetwo.imageList?.map((item)=>(
           <div key={item.Id} className="h-60 md:h-72 col-span-1 rounded-xl w-full ">
           <a className="w-full h-full flex justify-end" href={item.ImageLink}>
-            <Image className="w-full h-full object-fill max-w-[670px]  rounded-2xl" src={item.UploadImageName ? `${siteAddress}/assets/public/adv/${orderImagetwo.Id}/${item.Id}/${item.UploadImageName}` : item.Base64Image ?? image1} alt={item.Description} />
+            <img className="w-full h-full object-fill max-w-[670px]  rounded-2xl" src={item.UploadImageName ? `${siteAddress}/assets/public/adv/${orderImagetwo.Id}/${item.Id}/${item.UploadImageName}` : item.Base64Image ?? "/images/skeletonGif/layout-change-1756394580034.gif"} alt={item.Description} />
           </a>
         </div>
         ))}
