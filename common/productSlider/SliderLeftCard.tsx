@@ -6,8 +6,24 @@ import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
-import { Link } from "react-router";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
+import Link from "next/link";
+import { FilteredUser, filteredUsersType } from "@/types/types";
+
+type SliderLeftCardProps={
+  name:string;
+  images:string;
+  price:number;
+  prevPrice:number;
+  discount:number;
+  id:string;
+  setProducts:React.Dispatch<React.SetStateAction<filteredUsersType[]>>;
+  data:FilteredUser;
+  children?: React.ReactNode; //children?: number | undefined;
+  mojodi:number;
+  idForImage:number;
+  NameForooshgah:string;
+}
 
 const SliderLeftCard = ({
   name,
@@ -22,7 +38,7 @@ const SliderLeftCard = ({
   mojodi,
   idForImage,
   NameForooshgah,
-}) => {
+}:SliderLeftCardProps) => {
 
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
@@ -37,7 +53,7 @@ const SliderLeftCard = ({
 // end remove from cart
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
   const [siteAddress, setSiteAddress] = useAtom(siteUrlAddress);
@@ -65,8 +81,10 @@ const SliderLeftCard = ({
 
         {/* Product Image */}
         <Link
-          to={`/products/productsdetails/${id}/${encodeURIComponent(name)}`}
-          state={{ id: id }}
+          href={{
+            pathname: "/products/productsdetails/[id]/[name]",
+            query: { id: id, name: encodeURIComponent(name) },
+          }}
           className="flex justify-center overflow-hidden h-48 "
         >
           <img
@@ -78,7 +96,7 @@ const SliderLeftCard = ({
 
         {/* Product Info */}
         <div className="px-4 py-2">
-          <Link to={`/products/productsdetails/${id}/${encodeURIComponent(name)}`}>
+          <Link href={`/products/productsdetails/${id}/${encodeURIComponent(name)}`}>
             <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start min-h-[49px] line-clamp-2">
               {name}
             </h3>

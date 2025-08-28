@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SliderLeft from '@/common/productSlider/SliderLeft';
-import { Link } from 'react-router';
 import { useAtom } from "jotai";
 import { banners } from "@/shared/banners";
 import { siteUrlAddress } from "@/shared/site.url.atom";
+import Link from 'next/link';
 
-const ProductsSliderCommon = ({orderImage,threshold,params,title}) => {
+type ProductsSliderCommonProps={
+    orderImage: number;
+    threshold:number;
+    params:{
+        Order:number;
+        pageSize:string;
+        pageIndex:number;
+        namekala:string;
+    };
+    title:string;
+}
+
+const ProductsSliderCommon = ({orderImage,threshold,params,title}:ProductsSliderCommonProps) => {
     
     const [siteAddress] = useAtom(siteUrlAddress);
 // get data
 const [banner,setBanner] = useAtom(banners);
-const orderImageBestSeller = banner.advertisement?.find(item => item.OrderImage === orderImage)
+const orderImageBestSeller = banner?.advertisement?.find((item:any) => item.OrderImage === orderImage)
 // end get data
 
  // start lazyloading
   const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!ref) return;
@@ -50,7 +62,7 @@ const orderImageBestSeller = banner.advertisement?.find(item => item.OrderImage 
                             <img src={orderImageBestSeller && `${siteAddress}/assets/public/adv/${orderImageBestSeller.Id}/${orderImageBestSeller.imageList[0].Id}/${orderImageBestSeller.imageList[0].UploadImageName}`} alt={orderImageBestSeller && orderImageBestSeller.NameOrderImage} className='w-auto h-auto object-cover'/>
                         </div>
                         <div className='text-center lg:w-full lg:h-full lg:mt-10 text-nowrap'>
-                            <Link to="/ProductList" className='w-full h-full borderseeall lg:border-2 lg:border-white p-1 lg:p-2 text-white rounded-md lg:rounded-md lg:text-md text-xs sm:text-sm'>
+                            <Link href="/ProductList" className='w-full h-full borderseeall lg:border-2 lg:border-white p-1 lg:p-2 text-white rounded-md lg:rounded-md lg:text-md text-xs sm:text-sm'>
                                 مشاهده همه
                                 <ChevronLeftIcon className='xl:mr-5 lg:text-xl text-sm'/>
                             </Link>

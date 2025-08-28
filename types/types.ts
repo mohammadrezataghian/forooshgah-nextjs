@@ -207,5 +207,11 @@ export type Advertisement = {
   NameTable: string;
   OrderImage: number;
   NameOrderImage: string;
-  HexColor: string | null;
+  HexColor: string | undefined;
 };
+export type AdvertisementResponse = {
+  advertisement: Advertisement[];
+  loading: boolean;
+  error: string | null;
+};
+

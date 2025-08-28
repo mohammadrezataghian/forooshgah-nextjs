@@ -14,14 +14,13 @@ import { Pagination, Navigation } from "swiper/modules";
 import SliderLeftCard from "@/common/productSlider/SliderLeftCard";
 
 // import data
-import useGetProductDetails from "@/api/productSlider";
-import { v4 as uuidv4 } from "uuid";
+import useGetProductDetails from "@/app/api/productSlider/hook";
 import { drawerSessionUpdate } from "@/shared/drawer.product.atom";
 import { useAtom } from "jotai";
 import { productListUpdate } from "@/shared/product.list.atom";
 import LoadingSkeleton from "@/common/productSlider/LoadingSkeleton";
 
-const SliderLeft = ({params}) => {
+const SliderLeft = ({params}:any) => {
   const [drawerSession, setDrawerSessions] = useAtom(drawerSessionUpdate);
   const [products,setProducts] = useAtom(productListUpdate);
   const [loading,setLoading]= useState(true);
@@ -29,7 +28,7 @@ const SliderLeft = ({params}) => {
   useEffect(() => {
     if (drawerSession) {
       setProducts(drawerSession);
-      setDrawerSessions(false);
+      setDrawerSessions([]);
     }
   }, [drawerSession]);
 
@@ -96,7 +95,7 @@ useEffect(() => {
               className="mySecondSwiper"
             >
               <div className="w-full h-full">
-                {productDetails.map((data, index) => (
+                {productDetails.map((data:any, index:any) => (
                   <SwiperSlide key={data.IdStoreStock}>
                     <SliderLeftCard
                       discount={data.Takhfif}
@@ -107,14 +106,13 @@ useEffect(() => {
                       images={data.FldNameImageKalaList}
                       setProducts={setProducts}
                       data={data}
-                      i={index}
                       mojodi={data.Mojodi}
                       idForImage={data.IdKala}
                       NameForooshgah={data.NameForooshgah}
                     >
                       {products&&
                         products.find(
-                          (item) => item?.IdStoreStock === data.IdStoreStock
+                          (item:any) => item?.IdStoreStock === data.IdStoreStock
                         )?.count
                       }
                     </SliderLeftCard>
