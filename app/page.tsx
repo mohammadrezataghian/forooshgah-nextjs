@@ -6,6 +6,7 @@ import MainSlider from "./_components/MainSlider/MainSlider";
 import Menu from "./_components/Menu/Menu";
 import MobileMenu from "./_components/Menu/MobileMenu";
 import ProductsSlider from "./_components/ProductSlider/ProductSlider";
+import ProductsSliderFour from "./_components/ProductSliderFour/ProductSliderFour";
 import ProductsSliderThree from "./_components/ProductSliderThree/ProductSliderThree";
 import ProductsSliderTwo from "./_components/ProductSliderTwo/ProductSliderTwo";
 import SmallimageBoxes from "./_components/SmallImageBoxes/SmallImageBoxes";
@@ -27,6 +28,7 @@ export default function Home() {
       <BigImageBoxesTwo />
       <ProductsSliderThree />
       <CategoriesSlider  />
+      <ProductsSliderFour  />
 
       
     </main>

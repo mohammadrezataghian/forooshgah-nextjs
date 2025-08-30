@@ -12,7 +12,7 @@ type ProductsSliderCommonProps={
     orderImage: number;
     threshold:number;
     params:{
-        Order:number;
+        Order?:number;
         pageSize:string;
         pageIndex:number;
         namekala:string;
