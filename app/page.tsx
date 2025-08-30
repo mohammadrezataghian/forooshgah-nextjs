@@ -1,7 +1,9 @@
 import BigImageBoxes from "./_components/BigImageBoxes/BigImageBoxes";
 import BigImageBoxesTwo from "./_components/BigImageBoxesTwo/BigImageBoxesTwo";
+import CategoriesBox from "./_components/CategoriesBox/CategoriesBox";
 import CategoriesSlider from "./_components/CategoriesSlider/CategoriesSlider";
 import Head from "./_components/Head/Head";
+import Latest from "./_components/Latest/Latest";
 import MainSlider from "./_components/MainSlider/MainSlider";
 import Menu from "./_components/Menu/Menu";
 import MobileMenu from "./_components/Menu/MobileMenu";
@@ -29,6 +31,8 @@ export default function Home() {
       <ProductsSliderThree />
       <CategoriesSlider  />
       <ProductsSliderFour  />
+      <CategoriesBox  />
+      <Latest />
 
       
     </main>
