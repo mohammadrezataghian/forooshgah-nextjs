@@ -2,6 +2,7 @@ import BigImageBoxes from "./_components/BigImageBoxes/BigImageBoxes";
 import BigImageBoxesTwo from "./_components/BigImageBoxesTwo/BigImageBoxesTwo";
 import CategoriesBox from "./_components/CategoriesBox/CategoriesBox";
 import CategoriesSlider from "./_components/CategoriesSlider/CategoriesSlider";
+import Footer from "./_components/Footer/Footer";
 import Head from "./_components/Head/Head";
 import Latest from "./_components/Latest/Latest";
 import MainSlider from "./_components/MainSlider/MainSlider";
@@ -33,7 +34,7 @@ export default function Home() {
       <ProductsSliderFour  />
       <CategoriesBox  />
       <Latest />
-
+      <Footer />
       
     </main>
     </>

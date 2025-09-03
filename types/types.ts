@@ -215,3 +215,33 @@ export type AdvertisementResponse = {
   error: string | null;
 };
 
+
+export type ConfigItem ={
+  Id: number;
+  SiteID: number;
+  Type: number;
+  Key: string;
+  Value: string;
+  OldValue: string;
+  InsertTime: string;
+  Desc: string;
+  Title: string;
+  ShowInSettings: boolean;
+  TypeValue: string;
+  defaultItem: any[];
+  TypeSetting: string;
+  Content: {
+    Id: number;
+    Name: string | null;
+    OrderCode: number;
+    IdSetting: number;
+    Type: number;
+    Value: string | null;
+    AttributeDeskTop: string | null;
+    AttributeMobile: string | null;
+    InsertTime: string;
+    TypeName: string | null;
+    imageUrlList: string[];
+  };
+  imageUrlList: string[];
+}
