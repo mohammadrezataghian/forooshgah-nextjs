@@ -35,7 +35,7 @@ export default function Home() {
       <CategoriesBox  />
       <Latest />
       <Footer />
-      
+      {/* remove errors before new components */}
     </main>
     </>
   );

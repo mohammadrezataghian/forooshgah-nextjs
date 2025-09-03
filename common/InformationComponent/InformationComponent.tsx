@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import useGetConfig from '@/app/api/config/hook';
 import Gallery from './Gallery';
