@@ -101,9 +101,9 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">خدمات مشتریان</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/contactus" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/ContactUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               تماس با ما
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
                             <a href="/#/faq" className="block mb-[5px] text-right text-[#656565] text-[12px]">
