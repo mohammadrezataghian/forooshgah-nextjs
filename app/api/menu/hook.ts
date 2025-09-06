@@ -1,4 +1,5 @@
-// hooks/useGetScore.ts
+'use client'
+
 import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";

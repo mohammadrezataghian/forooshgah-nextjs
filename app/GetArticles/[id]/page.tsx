@@ -18,6 +18,7 @@ const GetArticles = () => {
     const saved = sessionStorage.getItem('ArticlesItem');
     if (saved) {
         setItem(JSON.parse(saved));
+        sessionStorage.removeItem('ArticlesItem')
     }
   }, []);
 // end get data

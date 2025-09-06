@@ -74,9 +74,9 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">اطلاع رسانی و آموزش</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/News" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/News" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               اخبار
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
                             <Link href="/AboutUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
