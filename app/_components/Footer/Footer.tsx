@@ -133,9 +133,9 @@ const enamadCode= `<img
                             </a>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/howtoshop" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/HowToShop" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               چطور سفارش خود را ثبت کنم؟
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
                             <a href="/#/takeback" className="block mb-[5px] text-right text-[#656565] text-[12px]">
