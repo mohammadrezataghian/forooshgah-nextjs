@@ -37,7 +37,7 @@ const useGetAdvertisement = (params:param,isMobile:boolean,loggedIn:boolean,shou
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/getscore",
+          "/api/mainSlider",
           err.message + " , An unknown error occurred in getSahamPersonScore",
         );
       }

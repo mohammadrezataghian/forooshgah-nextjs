@@ -73,11 +73,11 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
   // score
   const { loading, error, response, getScore } = useGetScore(userToken);
 
-  React.useEffect(() => {
-    if (!score && user) {
-      getScore(eshterakNo);
-    }
-  }, [user]);
+  // React.useEffect(() => {
+  //   if (!score && user) {
+  //     getScore(eshterakNo);
+  //   }
+  // }, [user]);
   
   React.useEffect(()=>{
     if (response) {

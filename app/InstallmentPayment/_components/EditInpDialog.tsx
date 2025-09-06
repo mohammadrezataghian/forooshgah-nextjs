@@ -9,7 +9,27 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { OutlinedInput } from '@mui/material';
 
-export default function Edit({open,setOpen,fixed,handleSubmitEdit}) {
+type DocumentItem = {
+    id: number;
+    idFactor: number;
+    base64Image: string;
+    Description: string;
+    fileName: string;
+  };
+  type EditFormData = {
+    fileName: string;
+    description: string;
+    image: string;
+  };
+  
+type EditProps={
+    open:boolean ;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    fixed: DocumentItem;
+    handleSubmitEdit: (data: EditFormData) => Promise<void> | void;
+}
+
+export default function Edit({open,setOpen,fixed,handleSubmitEdit}:EditProps) {
 
 const [fileName,setFileName] = React.useState('')
 const [description,setDescription] = React.useState('')
@@ -27,14 +47,14 @@ React.useEffect(() => {
     setOpen(false);
   };
 
-const handleFileChange = (e) => {
+const handleFileChange = (e:any) => {
   const file = e.target.files?.[0];
   if (!file) return;
 
   const reader = new FileReader();
   reader.onloadend = () => {
     const extension = file.name.split('.').pop()?.toLowerCase();
-    const mimeMap = {
+    const mimeMap: Record<string, string>= {
       png: 'image/png',
       jpg: 'image/jpeg',
       jpeg: 'image/jpeg',
@@ -69,7 +89,7 @@ const data = {
           <DialogContentText className="flex flex-col gap-3" component={'div'}>
           <div className="flex items-center justify-center w-full">
           <label
-                for="dropzone-file"
+                htmlFor="dropzone-file"
                 className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-gray-200"
               >
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">

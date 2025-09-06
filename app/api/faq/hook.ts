@@ -28,7 +28,7 @@ const useGetItems = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           null,
-          "/api/getscore",
+          "/api/faq",
           err.message + " , An unknown error occurred in getcommonquestion",
         );
       }

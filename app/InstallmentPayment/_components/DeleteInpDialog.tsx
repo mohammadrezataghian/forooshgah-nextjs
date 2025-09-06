@@ -7,7 +7,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-export default function Del({ open, setOpen, handleDel }) {
+
+type DelProps={
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    handleDel: ()=>void;
+}
+
+export default function Del({ open, setOpen, handleDel }:DelProps) {
   const handleClose = () => {
     setOpen(false);
   };

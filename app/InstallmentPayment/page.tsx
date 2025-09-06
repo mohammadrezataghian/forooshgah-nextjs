@@ -12,8 +12,8 @@ import Add from "./_components/AddInpDialog";
 import Edit from "./_components/EditInpDialog";
 import Del from "./_components/DeleteInpDialog";
 import useDelDoc from "@/app/api/deleteGhestRequest/hook";
-import useAddDoc from "@/api/installmentPayment/addDoc";
-import useEditDoc from "@/api/installmentPayment/editDoc";
+import useAddDoc from "@/app/api/insertGhestRequest/hook";
+import useEditDoc from "@/app/api/editGhestRequest/hook";
 import Loading from "./loading";
 import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
 
@@ -26,8 +26,8 @@ const InstallmentPayment = () => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDel, setOpenDel] = React.useState(false);
   const [fileName, setFileName] = React.useState("");
-  const [files, setFiles] = React.useState([]);
-  const [fileBase64List, setFileBase64List] = React.useState([]);
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [fileBase64List, setFileBase64List] = React.useState<string[]>([]);
   const [description, setDescription] = React.useState("");
   const [open, setOpen] = useState(false);
   // console.log(selectedId);
@@ -39,7 +39,7 @@ const InstallmentPayment = () => {
   
   useEffect(()=>{
     const data = localStorage.getItem("userFactor");
-    const factorInfo = JSON.parse(data);
+    const factorInfo = data ? JSON.parse(data) : null;
     getAddFactor(factorInfo,userToken);
   },[])
   // console.log(result);
@@ -101,7 +101,7 @@ useEffect(()=>{
  function fixBase64Image(obj:any) {
   const extension = obj.fileName.split('.').pop()?.toLowerCase();
 
-  const mimeMap = {
+  const mimeMap: Record<string, string>= {
     png: 'image/png',
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
