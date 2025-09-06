@@ -84,9 +84,9 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/articles" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/Articles" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               مقالات آموزشی
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
                             <a href="/#/video" className="block mb-[5px] text-right text-[#656565] text-[12px]">
