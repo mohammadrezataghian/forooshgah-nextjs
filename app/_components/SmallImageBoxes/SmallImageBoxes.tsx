@@ -79,7 +79,7 @@ const SmallimageBoxes = () => {
             <div className="flex justify-center">
               <Image
                 src={Image7}
-                alt=""
+                alt="Customers club"
                 className="w-20 h-20 object-cover rounded-2xl self-center"
               />
             </div>
