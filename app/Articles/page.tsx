@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
@@ -57,12 +59,13 @@ const Articles = () => {
                   <p className="text-justify line-clamp-4">{item.ShortBody}</p>
                   <Link
                     href={{
-                        pathname: `/articles/${item.FldId}`,
-                        query: { item: item, Id: item.FldId },
+                        pathname: `/GetArticles/${item.FldId}`,
+                        query: { Id: item.FldId },
                       }}
+                      onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(item))}
                     className="mt-auto p-1"
                   >
-                    برو به ویدیو{" "}
+                    برو به ویدیو
                     <span>
                       <ArrowBackIcon />
                     </span>

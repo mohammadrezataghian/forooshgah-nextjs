@@ -245,3 +245,39 @@ export type ConfigItem ={
   };
   imageUrlList: string[];
 }
+
+type VideoDetail = {
+  Id: number;
+  Code: number;
+  Description: string;
+  VideoName: string;
+};
+
+export type ArticleItem = {
+  FldId: number;
+  Title: string;
+  ShortBody: string;
+  LargeBody: string;
+  MainImage: string;
+  ImageGallury: string;
+  IsCommentable: boolean;
+  IsVerify: boolean;
+  NewsType: string;
+  FldInsertUser: string;
+  FldDeleted: boolean;
+  FldAttachment: string;
+  FldIdUser: number;
+  FldDeActive: boolean;
+  FldCategory: string;
+  FldSubCategory: string;
+  FldKeyWords: string;
+  FldVisitCount: number;
+  FldEditTime: string;
+  FldSource: string;
+  CreateDateTime: string;
+  PublishDateTime: string;
+  CreateDateTimeShamsi: string;
+  PublishDateTimeShamsi: string;
+  VideoList: string;
+  VideoDetailList?: VideoDetail[];
+};
