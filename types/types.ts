@@ -389,3 +389,20 @@ export type ProductDetails = {
   Sections: Section[];
   ShortDescription: string ;
 }
+
+
+type MenuData ={
+  Id: string;
+  Name: string;
+  IdParent: string | null;
+  CountOfChild: string | null;
+  NameImage: string | null;
+  children: MenuData[];
+}
+
+export type MenuDataResponse ={
+  Data: MenuData[];
+  ErrorList: any[]; // or string[] if you know they are only strings
+  resCode: number;
+  resMessage: string | null;
+}
