@@ -83,10 +83,7 @@ const SliderLeftCard = ({
 
         {/* Product Image */}
         <Link
-          href={{
-            pathname: "/products/productsdetails",
-            query: { id: id, name: encodeURIComponent(name) },
-          }}
+          href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}
           className="flex justify-center overflow-hidden h-48 "
         >
           <img
@@ -98,7 +95,7 @@ const SliderLeftCard = ({
 
         {/* Product Info */}
         <div className="px-4 py-2">
-          <Link href={`/products/productsdetails/${id}/${encodeURIComponent(name)}`}>
+          <Link href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}>
             <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start min-h-[49px] line-clamp-2">
               {name}
             </h3>

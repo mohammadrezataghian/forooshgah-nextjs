@@ -339,3 +339,53 @@ export type FactorAfterCalc ={
   MablagheHarGhest: number;
   KalaList: Product[];
 }
+
+
+export type Section = {
+  Id: number;
+  IdKala: number;
+  IdParent: number;
+  Title: string;
+  Description: string;
+  Template: string;
+  ImageName: string;
+}
+export type ProductDetails = {
+  RowNumber: number;
+  IdKala: number;
+  idGroupKala: number;
+  NameGroup: string;
+  CodeKala: string;
+  BarCodeKala: string;
+  NameKala: string;
+  DisplayNameKala: string;
+  NameLatinKala: string;
+  NameUnit: string;
+  FldDescription: string;
+  FldType: string;
+  FldUnit: string;
+  NameMark: string;
+  FldIdMark: number;
+  NameDegree: string;
+  FldIsExpire: boolean;
+  DeActive: boolean;
+  NameColor: string | null;
+  NameSize: string | null;
+  NameGhorfer: string;
+  Mojodi: number;
+  PriceForoosh: number;
+  IdStoreStock: string;
+  NameGhorfe: string;
+  DarsadMaliat: number;
+  TotalCountRecord: number;
+  idForooshGaha: number;
+  NameForooshgah: string;
+  PriceMasrafKonande: number;
+  PriceKharidAvg: number;
+  Takhfif: number;
+  PriceForooshAfterDiscount: number;
+  FldNameImageKalaList: string;
+  Attributes: any[]; // could be typed more specifically if you know its shape
+  Sections: Section[];
+  ShortDescription: string ;
+}

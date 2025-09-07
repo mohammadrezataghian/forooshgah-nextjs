@@ -1,0 +1,16 @@
+.image-gallery-thumbnails-container {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap; 
+    width: 100% !important; 
+  }
+  .image-gallery-thumbnails-wrapper {
+    display: inline-flex !important;
+    overflow-x: auto !important;
+  }
+  
+  .image-gallery-thumbnail {
+    display: inline-block !important;
+    overflow-x: auto !important;
+    width: 500px;
+  }
