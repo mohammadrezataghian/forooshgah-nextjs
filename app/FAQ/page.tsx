@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import { Divider } from "@mui/material";
 import useGetItems from "@/app/api/faq/hook";

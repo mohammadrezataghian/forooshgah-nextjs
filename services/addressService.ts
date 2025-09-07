@@ -11,14 +11,14 @@ type otherOnes = {
 
 
 export const addressService = {
-  getAllAddresses: async ({eshterakno, tokenInput} : getAll) => {
+  getAllAddresses: async (EshterakNo:{EshterakNo:number | string}, tokenInput:string) => {
     const response = await fetch(`${BASE_URL}/api/UserAddressList`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokenInput}`,
       },
-      body: JSON.stringify(eshterakno),
+      body: JSON.stringify(EshterakNo),
     });
     if (!response.ok) throw new Error("Failed to add address");
     return response.json();
