@@ -9,7 +9,7 @@ import Link from "next/link";
   
 type ImgMediaCardProps = {
     product:Product; 
-    siteAddress:string;
+    siteAddress:string | null;
 }
 
 

@@ -3,7 +3,12 @@ import {Stack,IconButton,List,ListItemButton,ListItemIcon,ListItemText,ListItem,
 import SearchIcon from "@mui/icons-material/Search";
 import useBrands from "./Brands";
 
-const CheckboxList = ({ checked = [], setChecked }) => {
+type CheckboxListProps={
+checked:number[]; 
+    setChecked:React.Dispatch<React.SetStateAction<number[]>>;
+}
+
+const CheckboxList = ({ checked , setChecked }:CheckboxListProps) => {
 
     const [brandFilter, setBrandFilter] = React.useState("");
   
@@ -44,7 +49,7 @@ const CheckboxList = ({ checked = [], setChecked }) => {
               "aria-label": "Search",
               style: { textAlign: "right", paddingInlineStart: ".8em" },
             }}
-            onInput={(ev) => {
+            onInput={(ev: React.ChangeEvent<HTMLInputElement>) => {
               setBrandFilter(ev.target.value.trim().toLowerCase());
             }}
           />

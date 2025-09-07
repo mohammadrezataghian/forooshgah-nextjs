@@ -23,8 +23,10 @@ import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import { selectedStore } from '@/shared/selectedStoreAtom';
 import { useFetchProducts } from "@/api/productList/productList";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { FcRemoveImage } from "react-icons/fc";
+import { ProductType } from "@/types/types";
+import { useParams } from "next/navigation";
 
 const theme = createTheme({
   direction: "rtl",
@@ -36,12 +38,25 @@ const cacheRtl = createCache({
 });
 document.documentElement.setAttribute("dir", "rtl");
 
+type payloadType ={
+    namekala: string;
+    pageIndex: number;
+    pageSize: number;
+    Brand?:string;
+    MinPrice?:number;
+    MaxPrice?:number;
+    OnlyAvailable?:number;
+    Category?:string;
+    Order?:number;
+    idForooshgah?:number
+}
+
 export default function ProductList() {
 
   const [siteAddress] = useAtom(siteUrlAddress);
   const [loading, setLoading] = React.useState(true);
-  const [products, setProducts] = React.useState([]);
-  const [checkedBrands, setCheckedBrands] = React.useState([]);
+  const [products, setProducts] = React.useState<ProductType>([]);
+  const [checkedBrands, setCheckedBrands] = React.useState<number[]>([]);
   const [priceFilter, setPriceFilter] = React.useState([0, 500000000]);
   const [onlyAvailable, setOnlyAvailable] = React.useState(false);
   const [sort, setSort] = React.useState(0);
@@ -49,7 +64,8 @@ export default function ProductList() {
   
   const [state] = useAtom(selectedStore);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { id: categoryFromPath } = useParams();
+  const params = useParams();
+  const categoryFromPath = params?.id as string;
   const decodedCategory = decodeURIComponent(categoryFromPath || "");
   const initialPage = parseInt(searchParams.get("page") || "1", 10);
   const [page, setPage] = React.useState(initialPage);
@@ -110,14 +126,14 @@ React.useEffect(() => {
 
     if ( selectedCategory !== decodedCategory) return;
 
-    const payload = {
+    const payload:payloadType = {
       namekala: "",
       pageIndex: 1,
       pageSize: 20,
     };
 
     if (checkedBrands && checkedBrands.length > 0) {
-      let stringifiedcheckedBrands = checkedBrands.toString(",")
+      let stringifiedcheckedBrands = checkedBrands.join(",")
       payload.Brand = stringifiedcheckedBrands;
       console.log("checkedBrands");
     }
@@ -212,9 +228,7 @@ React.useEffect(() => {
                         <FormControlLabel
                           control={<Switch />}
                           checked={onlyAvailable}
-                          onChange={(event) =>
-                            setOnlyAvailable(event.target.checked)
-                          }
+                          onChange={(_event, checked) => setOnlyAvailable(checked)}
                           label="فقط نمایش کالا‌های موجود:"
                           sx={{ direction: "rtl" }}
                         />

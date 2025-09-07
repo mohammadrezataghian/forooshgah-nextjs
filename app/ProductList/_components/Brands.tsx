@@ -17,8 +17,8 @@ const useBrands = () => {
   const uniqueProducts = Array.from(
     new Map(
       products
-        .filter(item => item.NameMark !== "ندارد") // Remove items where NameMark is "ندارد"
-        .map(item => [item.NameKala, item]) // Remove duplicates based on NameKala
+        .filter((item:any) => item.NameMark !== "ندارد") // Remove items where NameMark is "ندارد"
+        .map((item:any) => [item.NameKala, item]) // Remove duplicates based on NameKala
     ).values()
   );
   // filter gotten data

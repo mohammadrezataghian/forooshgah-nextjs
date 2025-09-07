@@ -3,10 +3,16 @@ import CheckboxList from "./CheckboxList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {Accordion,Card,Divider,AccordionSummary,AccordionDetails,Slider,Typography,Box} from "@mui/material";
 
+type FiltersProps = {
+    checked:number[]; 
+    setChecked:React.Dispatch<React.SetStateAction<number[]>>; 
+    priceFilter:number[]; 
+    setPriceFilter:React.Dispatch<React.SetStateAction<number[]>>;
+}
 
-const Filters = ({ checked, setChecked, priceFilter, setPriceFilter }) => {
+const Filters = ({ checked, setChecked, priceFilter, setPriceFilter }:FiltersProps) => {
 
-    const priceChangeTimeout = React.useRef(null);
+    const priceChangeTimeout = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
      // Format numbers with commas
       const autocomma = (number_input:number) => {
