@@ -1,6 +1,13 @@
+import { FactorAfterCalc, Product } from "@/types/types";
 import TotalFactorLoading from "./TotalFactorLoading";
 
-const TotalFactor = ({products,factoeAfrerCalc,loadingPrice}) => {
+type TotalFactorProps={
+  products:Product[];
+  factoeAfrerCalc:FactorAfterCalc;
+  loadingPrice:boolean;
+}
+
+const TotalFactor = ({products,factoeAfrerCalc,loadingPrice}:TotalFactorProps) => {
 
 // handle comma
     const autocomma = (number_input:number) =>

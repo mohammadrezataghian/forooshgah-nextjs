@@ -65,7 +65,7 @@ export type Address = {
     Hoghooghi: boolean;
     isAdmin: boolean;
   };
-  export type FilteredUser = {
+  export type Product = {
     RowNumber: number;
     IdKala: number;
     idGroupKala: number;
@@ -100,9 +100,10 @@ export type Address = {
     Takhfif: number;
     PriceForooshAfterDiscount: number;
     FldNameImageKalaList: string; // or string[] if you want
+    count?:number | undefined
 };
 // The array type
-export type filteredUsersType = FilteredUser[];
+export type ProductType = Product[];
 
 export type whereaboutes ={
   address: string;
@@ -281,3 +282,60 @@ export type ArticleItem = {
   VideoList: string;
   VideoDetailList?: VideoDetail[];
 };
+
+export type FactorAfterCalc ={
+  Id: number;
+  IdMaliPeriod: number;
+  Sal: number;
+  Mah: number;
+  EshterakNo: number;
+  No: number;
+  FactorDate: string | null;
+  FactorType: number;
+  Mablaghekol: number;
+  Discount: number;
+  KharidGhesti: number;
+  PishPardakhtGhest: number;
+  PardakhtShode: number;
+  GhabelePardakht: number;
+  Rezerve: boolean;
+  Maliat: number;
+  Conferm: boolean;
+  IdForooshgah: number;
+  IdFactoreMarjoe: number;
+  IdEllatMarjoe: number;
+  DateFirstGhabz: string | null;
+  ForooshVije: boolean;
+  LockFactor: boolean;
+  IdNoeErsal: number;
+  HazineErsal: number;
+  SaderShode: boolean;
+  TahvilShode: boolean;
+  IdServer: number;
+  integer: number;
+  HazineBasteBandi: number;
+  HazineKhadamat: number;
+  IdSaleFactor: number;
+  NameForooshgah: string | null;
+  MablagheKharidErsalRaygan: number;
+  ShenasePardakht: string | null;
+  ShomareCartReturn: string | null;
+  ShomareShaba: string | null;
+  SahebeHesab: string | null;
+  SharheMarju: string | null;
+  DateErsal: string;
+  DateTahvil: string;
+  IdUserTahvilDehande: number;
+  MarjuShode: boolean;
+  TaeedeTaminKonande: boolean;
+  TarikheTaeedeTaminKonande: string | null;
+  ErsalByTaminKonande: boolean;
+  TarikheErsalTaminKonande: string | null;
+  DarkhastKharidGhesti: boolean;
+  TaeedeDarkhastGhesti: boolean;
+  TarikheTaeedeKharidGhesti: string | null;
+  TedadGhest: number;
+  SarResidAvalinGhest: string | null;
+  MablagheHarGhest: number;
+  KalaList: Product[];
+}

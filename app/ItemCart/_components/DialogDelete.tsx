@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { Card } from '@mui/material';
+import { Product } from '@/types/types';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -21,7 +22,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedDialogs({opendialogdelete,setOpendialogdelete,namojod}) {
+type CustomizedDialogsProps ={
+  opendialogdelete:boolean;
+  setOpendialogdelete:React.Dispatch<React.SetStateAction<boolean>>;
+  namojod:[] | Product[];
+}
+
+export default function CustomizedDialogs({opendialogdelete,setOpendialogdelete,namojod}:CustomizedDialogsProps) {
 
 //   const handleOpenDeleteDialog = () => {
 //     setOpen(true);

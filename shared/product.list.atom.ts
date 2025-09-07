@@ -1,3 +1,4 @@
+import { Product } from "@/types/types";
 import { atom } from "jotai";
 
 const getInitialState = () => {
@@ -8,4 +9,4 @@ const getInitialState = () => {
   return []; // default value on the server
 };
 
-export const productListUpdate = atom(getInitialState());
+export const productListUpdate = atom<Product[]>(getInitialState() as Product[]);

@@ -8,6 +8,23 @@ import { siteUrlAddress } from "@/shared/site.url.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import Link from "next/link";
+import { Product } from "@/types/types";
+
+type CardItemProps={
+  name: string;
+  price:number;
+  prevPrice:number;
+  discount:number;
+  id:string;
+  count:number | undefined;
+  data:Product;
+  products:Product[];
+  setProducts:React.Dispatch<React.SetStateAction<Product[]>>;
+  images:string;
+  idForImage:number;
+  NameForooshgah:string;
+  kalalist:Product[];
+}
 
 const CardItem = ({
   name,
@@ -23,7 +40,7 @@ const CardItem = ({
   idForImage,
   NameForooshgah,
   kalalist
-}) => {
+}:CardItemProps) => {
 
   const [siteAddress] = useAtom(siteUrlAddress);
 

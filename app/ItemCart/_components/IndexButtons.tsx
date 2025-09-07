@@ -2,9 +2,20 @@
 
 import React from 'react'
 import { Button } from "@mui/material";
+import { Address, FactorAfterCalc, ProductType } from '@/types/types';
 
+type IndexButtonsProps = {
+  products:ProductType;
+  factoeAfrerCalc:FactorAfterCalc;
+  isLoggedIn:boolean;
+  setOpenModal:React.Dispatch<React.SetStateAction<boolean>>;
+  showdefaultaddress:Address | undefined;
+  handlecityDialogOpen:()=>void;
+  handleNavigation:()=>void;
+  handleClickOpen:()=>void;
+}
 
-const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefaultaddress,handlecityDialogOpen,handleNavigation,handleClickOpen}) => {
+const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefaultaddress,handlecityDialogOpen,handleNavigation,handleClickOpen}:IndexButtonsProps) => {
 
 
 

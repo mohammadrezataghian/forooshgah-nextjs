@@ -10,7 +10,7 @@ import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import { FilteredUser, filteredUsersType } from "@/types/types";
+import { Product, ProductType } from "@/types/types";
 
 type SliderLeftCardProps={
   name:string;
@@ -19,8 +19,8 @@ type SliderLeftCardProps={
   prevPrice:number;
   discount:number;
   id:string;
-  setProducts:React.Dispatch<React.SetStateAction<filteredUsersType[]>>;
-  data:FilteredUser;
+  setProducts:React.Dispatch<React.SetStateAction<ProductType[]>>;
+  data:Product;
   children?: React.ReactNode; //children?: number | undefined;
   mojodi:number;
   idForImage:number;

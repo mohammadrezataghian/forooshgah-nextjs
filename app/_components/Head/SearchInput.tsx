@@ -11,12 +11,12 @@ import { selectedStore } from '@/shared/selectedStoreAtom';
 import { inputValue } from '@/shared/inputs';
 import useGetKala from "@/app/api/searchInput/hook";
 import { useRouter } from 'next/navigation';
-import { filteredUsersType } from "@/types/types";
+import { ProductType } from "@/types/types";
 
 const SearchInput = () => {
-  const [apiUsers, setApiUsers] = useState<filteredUsersType>([]);
+  const [apiUsers, setApiUsers] = useState<ProductType>([]);
   const [searchItem, setSearchItem] = useAtom(inputValue);
-  const [filteredUsers, setFilteredUsers] = useState<filteredUsersType>([]);
+  const [filteredUsers, setFilteredUsers] = useState<ProductType>([]);
   const [isBoxVisible, setIsBoxVisible] = useState<boolean>(false);
   const [state] = useAtom(selectedStore)
   const router = useRouter();

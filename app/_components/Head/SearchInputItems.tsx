@@ -9,10 +9,10 @@ import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import {filteredUsersType} from '@/types/types'
+import {ProductType} from '@/types/types'
 
 type props = {
-  filteredUsers: filteredUsersType;
+  filteredUsers: ProductType;
   searchItem: string;
   setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
 }

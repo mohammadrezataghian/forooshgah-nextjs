@@ -8,7 +8,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ConfirmationDialog({open,setOpen,handleDelete,dialogTitle,dialogContent}) {
+type ConfirmationDialogProps ={
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  handleDelete:()=>void;
+  dialogTitle:string;
+  dialogContent:string;
+}
+
+export default function ConfirmationDialog({open,setOpen,handleDelete,dialogTitle,dialogContent}:ConfirmationDialogProps) {
   
   const handleClose = () => {
     setOpen(false);
