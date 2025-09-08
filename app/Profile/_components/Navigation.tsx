@@ -11,9 +11,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { type Navigation } from '@toolpad/core/AppProvider';
+import { sahamUserType } from '@/types/types';
 
 function useUser() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<sahamUserType | null>(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

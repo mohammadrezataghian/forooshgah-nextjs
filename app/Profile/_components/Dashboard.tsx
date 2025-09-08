@@ -5,11 +5,11 @@ import Cookies from "js-cookie";
 
 const Dashboard = () => {
 
-const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 // console.log(user);
 
 // handle comma
-const autocomma = (number_input) =>
+const autocomma = (number_input:number) =>
   new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
 

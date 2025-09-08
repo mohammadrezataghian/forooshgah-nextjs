@@ -2,15 +2,16 @@ import * as React from 'react';
 import { createTheme, styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { AiOutlineTrademarkCircle } from "react-icons/ai";
+import { type SidebarFooterProps} from '@toolpad/core/DashboardLayout';
 
-  function useDemoRouter(initialPath) {
+  function useDemoRouter(initialPath:any) {
     const [pathname, setPathname] = React.useState(initialPath);
   
     const router = React.useMemo(() => {
       return {
         pathname,
         searchParams: new URLSearchParams(),
-        navigate: (path) => setPathname(String(path)),
+        navigate: (path:any) => setPathname(String(path)),
       };
     }, [pathname]);
   
@@ -34,7 +35,7 @@ import { AiOutlineTrademarkCircle } from "react-icons/ai";
     },
   });
 
-  function SidebarFooter({ mini }) {
+  function SidebarFooter({ mini }:SidebarFooterProps) {
     return (
       <Typography
         variant="caption"
