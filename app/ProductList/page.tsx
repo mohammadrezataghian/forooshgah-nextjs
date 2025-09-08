@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from "react";
 import {
   Box,
@@ -22,11 +24,10 @@ import LoadingSkeleton from "./loading";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import { selectedStore } from '@/shared/selectedStoreAtom';
-import { useFetchProducts } from "@/api/productList/productList";
-import { useSearchParams } from "react-router";
+import useFetchProducts  from "@/app/api/productList/hook";
 import { FcRemoveImage } from "react-icons/fc";
 import { ProductType } from "@/types/types";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
 
 const theme = createTheme({
   direction: "rtl",
@@ -63,7 +64,9 @@ export default function ProductList() {
   const [selectedCategory, setSelectedCategory] = React.useState("")
   
   const [state] = useAtom(selectedStore);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const params = useParams();
   const categoryFromPath = params?.id as string;
   const decodedCategory = decodeURIComponent(categoryFromPath || "");
@@ -96,10 +99,9 @@ React.useEffect(() => {
 React.useEffect(() => {
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   if (page !== currentPage) {
-    setSearchParams((prev:any) => {
-      prev.set("page", page.toString());
-      return prev;
-    }, { replace: false });
+    const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`${pathname}?${params.toString()}`);
   }
 }, [page]);
 
@@ -115,11 +117,9 @@ React.useEffect(() => {
   // ✅ Only runs on actual filter changes
   setPage(1);
   setFilterVersion((v) => v + 1);
-  setSearchParams((prev:any) => {
-    const updated = new URLSearchParams(prev);
-    updated.set("page", "1");
-    return updated;
-  });
+  const params = new URLSearchParams(searchParams.toString());
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
 }, [JSON.stringify(checkedBrands), JSON.stringify(priceFilter), onlyAvailable, sort,state]);
 
   React.useEffect(() => {

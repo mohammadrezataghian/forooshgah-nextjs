@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { red } from "@mui/material/colors";

@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { productListBrands } from "@/shared/forBrands";

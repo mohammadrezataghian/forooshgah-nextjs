@@ -1,3 +1,5 @@
+'use client'
+
 import {Breadcrumbs,Link,Box,Container,Typography} from "@mui/material"
 
 
