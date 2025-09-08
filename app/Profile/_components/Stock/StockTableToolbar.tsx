@@ -1,18 +1,24 @@
 'use client'
 
-import useGetResidBeforePayment from "@/api/GetResidBeforePayment/getResidBeforePayment";
+import useGetResidBeforePayment from "@/app/api/getResidBeforePayment/hook";
 import { Button, Input, InputAdornment } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
+import { useRouter } from "next/navigation";
 
-export default function EnhancedTableToolbar({eshterakNo,userToken,getStocks}) {
+type EnhancedTableToolbarProps = {
+  eshterakNo:{ EshterakNo: string | number | undefined };
+  userToken:string | null;
+  getStocks:(params: { EshterakNo: string | number | undefined }) => Promise<void>;
+}
+
+export default function EnhancedTableToolbar({eshterakNo,userToken,getStocks}:EnhancedTableToolbarProps) {
 
     const [balance, setBalance] = useState(0);
     const [formattedValue, setFormattedValue] = useState("0");
-    const navigate = useNavigate();
+    const router = useRouter()
     const [open, setOpen] = useState(false);
       
       useEffect(() => {
@@ -21,7 +27,7 @@ export default function EnhancedTableToolbar({eshterakNo,userToken,getStocks}) {
         }, [balance]);
       
         // handle comma
-        const autocomma = (number) => {
+        const autocomma = (number:number) => {
             if (typeof number === 'number') {
                 return new Intl.NumberFormat("en-US").format(number);
             } else {
@@ -29,7 +35,7 @@ export default function EnhancedTableToolbar({eshterakNo,userToken,getStocks}) {
             }
         };
       
-        const handleInputChange = (e) => {
+        const handleInputChange = (e:any) => {
             const rawValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
             const parsedValue = rawValue ? parseInt(rawValue, 10) : 0; // Parse to integer, default to 0
             setBalance(parsedValue);
@@ -57,7 +63,9 @@ const param = {
     }
     useEffect(()=>{
       if (residResponse && residResponse?.data?.Data?.ID) {
-        navigate('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
+        // router.push('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
+        router.push('/PaymentMethods')
+        sessionStorage.setItem('state',JSON.stringify({state: { param: residResponse?.data?.Data }}))
        }
      },[residResponse])
     

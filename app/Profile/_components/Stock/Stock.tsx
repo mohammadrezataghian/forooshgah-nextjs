@@ -3,13 +3,13 @@
 import React, { useEffect } from "react";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import Cookies from "js-cookie";
-import useGetStocks from "@/api/stocks/stocks";
+import useGetStocks from "@/app/api/stocks/hook";
 import StockSkeleton from "./StockSkeleton";
 import StockTable from "./StockTable";
 
 const Stock = () => {
   
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
 

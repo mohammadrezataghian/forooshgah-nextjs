@@ -399,10 +399,22 @@ type MenuData ={
   NameImage: string | null;
   children: MenuData[];
 }
-
 export type MenuDataResponse ={
   Data: MenuData[];
   ErrorList: any[]; // or string[] if you know they are only strings
   resCode: number;
   resMessage: string | null;
 }
+
+
+export type StocksRecord = {
+  FldRowId: number;
+  FldDate: string;       
+  FldTozih: string;      
+  FldAction: string;     
+  FldAfzayesh: number;   
+  FldKahesh: number;    
+  FldMandeh: number;    
+};
+
+export type StocksRecordList = StocksRecord[];
