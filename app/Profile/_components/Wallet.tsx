@@ -17,24 +17,24 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { PiWalletFill } from "react-icons/pi";
 import Tooltip from "@mui/material/Tooltip";
 import Cookies from "js-cookie";
-import useGetWalletMoney from "@/api/wallet/getWalletMoney";
-import useGetResidBeforePayment from "@/api/GetResidBeforePayment/getResidBeforePayment";
-import { useNavigate } from "react-router";
+import useGetWalletMoney from "@/app/api/wallet/hook";
+import useGetResidBeforePayment from "@/app/api/getResidBeforePayment/hook";
 import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
+import { useRouter } from "next/navigation";
 
 const Wallet = () => {
   
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
-  const navigate = useNavigate()
+  const router = useRouter()
   const [open, setOpen] = useState(false);
   
   // init data
   const params = {
     "EshterakNo": eshterakNo
   }
-  const { Loading, Error, Response, getWallet } = useGetWalletMoney(userToken)
+  const { loading, error, response, getWallet } = useGetWalletMoney(userToken)
 
   useEffect(()=>{
     if (eshterakNo) {
@@ -49,12 +49,12 @@ const Wallet = () => {
 // end init data
 
 useEffect(() => {
-  if (Response?.data?.Data) {
-    setInitBalance(Response.data.Data);
+  if (response?.data?.Data) {
+    setInitBalance(response.data.Data);
   }else{
     setInitBalance(0)
   }
-}, [Response]);
+}, [response]);
 
   useEffect(() => {
       // Format the balance whenever it changes
@@ -62,7 +62,7 @@ useEffect(() => {
   }, [initBalance]);
 
   // handle comma
-  const autocomma = (number) => {
+  const autocomma = (number:any) => {
     if (typeof number === 'number') {
         return new Intl.NumberFormat("en-US").format(number);
     } else {
@@ -78,7 +78,7 @@ useEffect(() => {
   const handleWithdraw = () => {
       setBalance((prevBalance) => Math.max(0, prevBalance - 100000));
   };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const rawValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
     const parsedValue = rawValue ? parseInt(rawValue, 10) : 0; // Parse to integer, default to 0
     setBalance(parsedValue);
@@ -106,7 +106,9 @@ const { residLoading, residError, residResponse, getResidBeforePayment } = useGe
  }
  useEffect(()=>{
   if (residResponse && residResponse?.data?.Data?.ID) {
-    navigate('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
+    // router.push('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
+    router.push('/PaymentMethods')
+    sessionStorage.setItem('state',JSON.stringify({state: { param: residResponse?.data?.Data }}))
    }
  },[residResponse])
  
