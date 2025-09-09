@@ -4,7 +4,7 @@ import { PageContainer } from '@toolpad/core/PageContainer'
 import React, { useState } from 'react'
 import ToggleButtons from './ToggleButton'
 import ColorPicker from './ColorPicker'
-import useSaveMainConfig from '@/api/getMainConfig/saveMainConfig'
+import useSaveMainConfig from '@/app/api/saveMainConfig/hook'
 import { useAtom } from "jotai";
 import { mainConfig } from "@/shared/mainConfig";
 import { Button } from '@mui/material'
@@ -13,7 +13,7 @@ import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 
 const FrontSettings = () => {
  
-const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;  
+const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;  
 const userToken = localStorage.getItem("userToken");
 const [config,setConfig] =  useAtom(mainConfig)
 const data = config?.filter(item=>item.TypeSetting === "Config") || {}
@@ -32,6 +32,7 @@ const [message,setMessage] = useState("")
 const { saveConfig, loading, error,getSaveConfig } = useSaveMainConfig(setMessage,setOpensnackbar);
 
 const handleSave = () => {
+  if (colorDefault && colortxt && ColorBoxDefault && colorbg) {
   colorDefault.Value = colortxt;
   // FontDefault.Value = alignment;
   ColorBoxDefault.Value = colorbg;
@@ -39,6 +40,7 @@ const handleSave = () => {
   // const listConfig = [FontDefault, colorDefault, ColorBoxDefault];
   const params = { ListConfig: listConfig };
   getSaveConfig(params,userToken)
+  }
 };
 
 // use globally : bg-main-bg text-main-text

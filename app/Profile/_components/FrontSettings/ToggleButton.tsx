@@ -5,11 +5,16 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { VscTextSize } from "react-icons/vsc";
 
-export default function ToggleButtons({alignment,setAlignment}) {
+type ToggleButtonsProps={
+  alignment:string;
+  setAlignment:React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function ToggleButtons({alignment,setAlignment}:ToggleButtonsProps) {
 
   const handleAlignment = (
-    event,
-    newAlignment,
+    event:any,
+    newAlignment:any,
   ) => {
     if (newAlignment !== null) {
         setAlignment(newAlignment);

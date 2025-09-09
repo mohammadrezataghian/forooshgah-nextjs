@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function ColorPickerWithInput({color,setColor}) {
+type ColorPickerWithInputProps = {
+  color:string | undefined;
+  setColor:React.Dispatch<React.SetStateAction<string | undefined>>;
+}
 
-  const handleColorChange = (e) => {
+export default function ColorPickerWithInput({color,setColor}:ColorPickerWithInputProps) {
+
+  const handleColorChange = (e:any) => {
     setColor(e.target.value);
   };
 
