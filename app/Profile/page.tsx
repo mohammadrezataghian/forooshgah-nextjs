@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
