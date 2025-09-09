@@ -11,7 +11,7 @@ import LabTabs from "./ClubTabs";
 const CustomersClub = () => {
 
   const [score,setScore]= useAtom(ClubScore)
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
 

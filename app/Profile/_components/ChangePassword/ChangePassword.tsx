@@ -18,7 +18,7 @@ const schema = z.object({
 
 const ChangePassword = () => {
 
-const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 const userToken = localStorage.getItem("userToken");
 const [password, setPassword] = React.useState("");
 const [passwordError, setPasswordError] = useState("");
@@ -61,7 +61,7 @@ const { error, getChangePassword,loading,response } = useChangePassword(userToke
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  function showSnackbar(message) {
+  function showSnackbar(message:string) {
     setSnackbarMessage(message);
     setSnackbarOpen(true);
   }
@@ -86,7 +86,7 @@ const { error, getChangePassword,loading,response } = useChangePassword(userToke
         <Button
               onClick={handleGetChangePassword}
               className=" bg-green-500 text-white rounded-md h-10 px-8 text-lg"
-              variant="solid"
+              variant="contained"
             //   disabled={showOTP}
             >
               ثبت

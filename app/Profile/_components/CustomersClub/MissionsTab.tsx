@@ -9,7 +9,7 @@ const MissionsTab = ({items,loadingItems}) => {
     {loadingItems ? <MissionLoading/> : 
     <div className="w-full h-auto flex flex-col gap-5">
             {items &&
-              items?.Data?.List.map((item) => (
+              items?.Data?.List.map((item:any) => (
                 <div
                   key={item.FldId}
                   className="w-full lg:h-52 h-96 rounded-2xl flex lg:flex-row flex-col lg:gap-5 gap-2 container border border-gray-400 lg:pl-3"

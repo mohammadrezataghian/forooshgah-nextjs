@@ -6,12 +6,12 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { FcShop } from "react-icons/fc";
 import MissionsTab from "./MissionsTab";
-import ScoreHistoryTab from "./ScoreHistoryTab";
+import ScoreHistoryTab from "./ScoresHistoryTab";
 
 export default function LabTabs({ items, response,loadingItems }) {
   const [value, setValue] = React.useState("1");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event:any, newValue:any) => {
     setValue(newValue);
   };
 

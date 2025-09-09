@@ -37,7 +37,7 @@ const ScoreHistoryTab = ({ response }) => {
                 </tr>
               </thead>
               {response &&
-                response?.data?.Data?.List.map((item, index) => (
+                response?.data?.Data?.List.map((item:any, index:any) => (
                   <tbody key={item.FldId} >
                     <tr
                       className={`${
