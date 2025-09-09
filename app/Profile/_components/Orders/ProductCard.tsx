@@ -5,19 +5,27 @@ import { Card, CardContent, CardMedia, Typography, Checkbox, CardActionArea } fr
 import CheckIcon from '@mui/icons-material/Check';
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
-import { Link } from 'react-router';
+import Link from 'next/link';
+import { FactorReturn, ProductReturn } from '@/types/types';
+
+type ProductCard = {
+    product:ProductReturn;
+    isSelected?:boolean;
+    onSelect?: (productId:number) => void;
+    item:FactorReturn;
+}
 
 function ProductCard({
     product,
     isSelected,
     onSelect,
     item
-  }) {
+  }:ProductCard) {
 
 const [siteAddress, setSiteAddress] = useAtom(siteUrlAddress);
 
 // handle comma
-    const autocomma = (number_input) =>
+    const autocomma = (number_input:any) =>
     new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
 
@@ -56,7 +64,7 @@ if (images != null) {
             />
           </div>
          }
-          <Link to={`/products/productsdetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
+          <Link href={`/products/productsdetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
           <CardMedia
             component="img"
             height="200"
@@ -73,7 +81,7 @@ if (images != null) {
                 {autocomma(product.PriceMasrafKonande)} ریال
             </Typography>
            
-           {product.AccessToMarju && !item.MarjuShode && 
+           {product.AccessToMarju && !item.MarjuShode && onSelect &&
            <div onClick={() => onSelect(product.Id)} className={`w-full rounded-lg py-2 text-center text-sm font-medium transition-colors ${
               isSelected
                 ? 'bg-blue-500 text-white'

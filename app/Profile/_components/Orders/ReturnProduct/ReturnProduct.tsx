@@ -1,6 +1,5 @@
 'use client'
 
-import { Link, useLocation } from "react-router";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { Button, Divider } from "@mui/material";
@@ -12,9 +11,10 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import AlertDialogSlide from "./MessageDialog";
-import useGetReturnReason from "@/api/returnProduct/returnProduct";
-import useGetCalcFactor from "@/api/returnProduct/calcFactor";
-import useSubmitReturnProduct from "@/api/returnProduct/submitReturnProduct";
+import useGetReturnReason from "@/app/api/returnProduct/hook";
+import useGetCalcFactor from "@/app/api/calcFactorMarjue/hook";
+import useSubmitReturnProduct from "@/app/api/submitReturnProduct/hook";
+import Link from "next/link";
 
 // zod schema
 const schema = z.object({
@@ -34,9 +34,11 @@ const schema = z.object({
 
 const ReturnProduct = () => {
 
-  const location = useLocation();
-  const state = location.state || {};
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  // const location = useLocation();
+  const location = sessionStorage.getItem('') || '';
+  const parsedLocation = location && JSON.parse(location)
+  const state = parsedLocation.state || {};
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = localStorage.getItem("userToken");
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -65,7 +67,7 @@ const ReturnProduct = () => {
 // end handle data of form
 
 // get data from form
-  const onSubmit = async (data) => {
+  const onSubmit = async (data:any) => {
     // Handle form submission
     console.log(data);
     submitReturnProduct(data);
@@ -74,14 +76,14 @@ const ReturnProduct = () => {
 // end get data from form
 
 // handle comma
-const autocomma = (number_input) =>
+const autocomma = (number_input:number) =>
   new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
 
   return (
     <>
     {user ?  <form   className="lg:px-56 px-5 lg:py-24 py-10" onSubmit={handleSubmit(onSubmit)}>
-        <div sx={{ width: 'auto' }} variant="outlined" className="w-full h-auto p-10 ring-2 ring-gray-400 rounded-lg lg:grid lg:grid-cols-2 flex flex-col items-center gap-10 lg:items-start">
+        <div className="w-full h-auto p-10 ring-2 ring-gray-400 rounded-lg lg:grid lg:grid-cols-2 flex flex-col items-center gap-10 lg:items-start">
           <div className="flex justify-center w-full h-auto col-span-2 text-white flex-col items-center gap-3 text-lg ">
           <span className="p-3 w-full bg-green-500 text-center">مبلغ مرجوعی : {sumResponse && autocomma(sumResponse.GhabelePardakht)} ریال</span>
           <Divider className="w-full"/>
@@ -101,7 +103,7 @@ const autocomma = (number_input) =>
                 <MenuItem value="" disabled>
                   <em>انتخاب کنید</em>
                 </MenuItem>
-                {response && response.map((item) => (
+                {response && response.map((item:any) => (
                   <MenuItem key={item.Id} value={String(item.Id)}>{item.Name}</MenuItem>
                 ))}
               </Select>
@@ -186,7 +188,7 @@ const autocomma = (number_input) =>
       </form> : 
       <div className=" w-full flex flex-col items-center gap-3 p-10">
         <p className="text-red-500">لطفا ابتدا وارد حساب کاربری خود شوید.</p>
-        <Link to="/" className="bg-white p-3 rounded-lg ring-1 ring-blue-300">
+        <Link href="/" className="bg-white p-3 rounded-lg ring-1 ring-blue-300">
         صفحه ی اصلی
         </Link>  
       </div>}

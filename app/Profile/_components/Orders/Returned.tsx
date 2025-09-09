@@ -5,12 +5,12 @@ import { Card, Divider } from "@mui/material";
 import ReceiptLoading from "./ReceiptLoading";
 import { Container, Typography, Grid } from '@mui/material';
 import ProductCard from "./ProductCard";
-import useGetReceipts from "@/api/customerOrderList/customerOrderList";
+import useGetReceipts from "@/app/api/customerOrderList/hook";
 import { useEffect } from "react";
 
 const Returned = () => {
 
-const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 const eshterakNo = user?.EshterakNo;
 const userToken = localStorage.getItem("userToken");
 
@@ -26,7 +26,7 @@ const userToken = localStorage.getItem("userToken");
   // end get data
 
 // handle comma
-const autocomma = (number_input) =>
+const autocomma = (number_input:number) =>
   new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
 
@@ -40,7 +40,7 @@ const autocomma = (number_input) =>
             </div> : 
             <div className="w-full grid gap-5 lg:grid-cols-2 grid-cols-1 place-items-center text-sm xl:text-base">
             {receipts.length > 0 ? (
-              receipts.map((item) => (
+              receipts.map((item:any) => (
                 <Card
                   key={item.Id}
                   variant="outlined"
@@ -70,13 +70,13 @@ const autocomma = (number_input) =>
                     </Typography>
                     
                     <Grid container spacing={3}>
-                       {item.KalaList.map((kala) => ( 
-                        <Grid item xs={6} sm={6} md={6} key={kala.Id}>
+                       {item.KalaList.map((kala:any) => ( 
+                        <div  key={kala.Id}>
                           <ProductCard
                             product= {kala}
                             item={item}
                           />
-                        </Grid>
+                        </div>
                     ))}
                     </Grid>
                   </Container>

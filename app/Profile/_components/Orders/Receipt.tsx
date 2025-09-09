@@ -1,20 +1,21 @@
 'use client'
 
-import { Button, Card, Divider } from "@mui/material";
+import { Button, Card, Divider,Container } from "@mui/material";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import ReceiptLoading from "./ReceiptLoading";
-import { Container, Typography, Grid } from "@mui/material";
 import ProductCard from "./ProductCard";
-import { Link } from "react-router";
-import useGetReceipts from "@/api/customerOrderList/customerOrderList";
-import useDeleteFactor from "@/api/customerOrderList/deleteOrderFactor";
+import useGetReceipts from "@/app/api/customerOrderList/hook";
+import useDeleteFactor from "@/app/api/deleteOrderFactor/hook";
+import Link from "next/link";
+import { FactorReturn } from "@/types/types";
+import Grid from "@mui/material/Grid";
 
 const Receipt = () => {
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState<FactorReturn[]>([]);
   const [selectedFactor,setSelectedFactor] = useState(null)
 
   // get data
@@ -29,17 +30,17 @@ const Receipt = () => {
   // end get data
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
 
   // select product
-  const toggleProduct = (productId) => {
-    setSelectedProducts((prev) => {
+  const toggleProduct = (productId:any) => {
+    setSelectedProducts((prev:any) => {
       // Check if productId is already in the array
       if (prev.includes(productId)) {
         // Remove productId
-        return prev.filter((id) => id !== productId);
+        return prev.filter((id:any) => id !== productId);
       } else {
         // Add productId
         return [...prev, productId];
@@ -84,7 +85,7 @@ const Receipt = () => {
             ) : (
               <div className="w-full grid gap-5 lg:grid-cols-2 grid-cols-1 place-items-center text-sm xl:text-base p-1">
                 {receipts.length > 0 ? (
-                  receipts.map((item) => {
+                  receipts.map((item:any) => {
                     let bordercolor = "border-gray-300";
                     if (item.DarkhastKharidGhesti) {
                       bordercolor = "border-yellow-500";
@@ -173,8 +174,9 @@ const Receipt = () => {
                                   <>
                                     <div className="flex flex-col justify-end w-full items-center">
                                       <Link
-                                        to={"/PaymentMethods"}
-                                        state={{factor : item}}
+                                        href={"/PaymentMethods"}
+                                        // state={{factor : item}}
+                                        onClick={()=>(sessionStorage.setItem('state',JSON.stringify({factor : item})))}
                                         className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
                                       >
                                         پرداخت
@@ -206,8 +208,8 @@ const Receipt = () => {
                           </div>
                           <Container className="px-0">
                             <Grid container spacing={3}>
-                              {item.KalaList.map((kala) => (
-                                <Grid item xs={6} sm={6} md={6} key={kala.Id}>
+                              {item.KalaList.map((kala:any) => (
+                                <div key={kala.Id}>
                                   <ProductCard
                                     product={kala}
                                     item={item}
@@ -216,11 +218,11 @@ const Receipt = () => {
                                     )}
                                     onSelect={() => toggleProduct(kala.Id)}
                                   />
-                                </Grid>
+                                  </div>
                               ))}
                             </Grid>
                             {selectedProducts.length > 0 &&
-                              item.KalaList.some((product) =>
+                              item.KalaList.some((product:any) =>
                                 selectedProducts.includes(product.Id)
                               ) && (
                                 <div className="w-full pt-5 flex justify-center">
@@ -230,14 +232,15 @@ const Receipt = () => {
                                     className="text-red-500"
                                   >
                                     <Link
-                                      to={`/returnProduct/${item.Id}`}
-                                      state={{
-                                        ...item, // Add all item properties
-                                        // selectedProducts: selectedProducts, // selected products
-                                        KalaList: item.KalaList.filter((kala) =>
-                                          selectedProducts.includes(kala.Id)
-                                        ),
-                                      }}
+                                      href={`/returnProduct/${item.Id}`}
+                                      // state={{
+                                      //   ...item,
+                                      //   KalaList: item.KalaList.filter((kala:any) =>
+                                      //     selectedProducts.includes(kala.Id)
+                                      //   ),
+                                      // }}
+                                      onClick={()=>(sessionStorage.setItem('receipt',JSON.stringify({...item,KalaList:item.KalaList.filter((kala:any) =>
+                                             selectedProducts.includes(kala.Id))})))}
                                       className="text-inherit"
                                     >
                                       مرجوع کردن
