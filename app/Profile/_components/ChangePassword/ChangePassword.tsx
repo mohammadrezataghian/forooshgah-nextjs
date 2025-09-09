@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { PageContainer } from "@toolpad/core/PageContainer";
 import Cookies from 'js-cookie';
 import { Button, OutlinedInput } from '@mui/material';
-import { useChangePassword } from '@/api/changePassword/changePassword';
+import  useChangePassword  from '@/app/api/changePassword/hook';
 import * as z from 'zod';
 import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
@@ -49,7 +49,7 @@ const { error, getChangePassword,loading,response } = useChangePassword(userToke
     } catch (err) {
       if (err instanceof z.ZodError) {
         // Set the validation error message from Zod
-        setPasswordError(err.errors[0].message);
+        setPasswordError(err.issues[0].message);
       } else {
         showSnackbar("خطایی رخ داده است.");
       }

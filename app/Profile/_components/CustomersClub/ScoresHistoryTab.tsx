@@ -1,7 +1,11 @@
 import React from "react";
 import { PiCoins } from "react-icons/pi";
 
-const ScoreHistoryTab = ({ response }) => {
+type ScoreHistoryTabProps={
+  response:any;
+}
+
+const ScoreHistoryTab = ({ response }:ScoreHistoryTabProps) => {
   return (
     <>
       <div className="flex flex-col items-center justify-start py-10">

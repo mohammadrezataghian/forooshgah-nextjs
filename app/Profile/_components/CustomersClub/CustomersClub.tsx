@@ -1,7 +1,7 @@
 'use client'
 
-import useGetOffers from "@/api/customersClub/customerClubOffers";
-import useGetScore from "@/api/customersClub/customersClub";
+import useGetOffers from "@/app/api/customerClubOffers/hook";
+import useGetScore from "@/app/api/sahamPersonScore/hook";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { useAtom } from 'jotai';

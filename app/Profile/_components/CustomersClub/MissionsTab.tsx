@@ -3,7 +3,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PiCoins } from "react-icons/pi";
 import MissionLoading from './MissionLoading';
 
-const MissionsTab = ({items,loadingItems}) => {
+type MissionsTabProps = {
+  items:any;
+  loadingItems:boolean;
+}
+
+const MissionsTab = ({items,loadingItems}:MissionsTabProps) => {
   return (
     <>
     {loadingItems ? <MissionLoading/> : 

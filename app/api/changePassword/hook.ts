@@ -4,19 +4,19 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useGetScore = (userToken: any) => {
+const useChangePassword = (userToken: any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
 
-  const getScore = async (data: any) => {
+  const getChangePassword = async (params: any) => {
     setLoading(true);
     setError(null);
 
     try {
       const res = await axios.post(
-        "/api/getscore", // call YOUR Next.js API route
-        data,
+        "/api/changePassword",
+        params,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -25,17 +25,18 @@ const useGetScore = (userToken: any) => {
         }
       );
 
-      setResponse(res.data);
+      setResponse(res);
+      return res
     } catch (err: any) {
       setError(
-        err.message || "An unknown error occurred in getSahamPersonScore"
+        err.message || "An unknown error occurred in changepassword"
       );
 
       if (process.env.NODE_ENV === "production") {
         await addLog(
-          data,
-          "/api/getscore",
-          err.message + " , An unknown error occurred in getSahamPersonScore",
+          params,
+          "/api/changePassword",
+          err.message + " , An unknown error occurred in changepassword",
           userToken
         );
       }
@@ -44,7 +45,7 @@ const useGetScore = (userToken: any) => {
     }
   };
 
-  return { loading, error, response, getScore };
+  return { error, getChangePassword,loading,response };
 };
 
-export default useGetScore;
+export default useChangePassword;

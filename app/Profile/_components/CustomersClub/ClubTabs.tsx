@@ -8,7 +8,13 @@ import { FcShop } from "react-icons/fc";
 import MissionsTab from "./MissionsTab";
 import ScoreHistoryTab from "./ScoresHistoryTab";
 
-export default function LabTabs({ items, response,loadingItems }) {
+type LabTabsProps = {
+  items:any;
+  response:any;
+  loadingItems:boolean;
+}
+
+export default function LabTabs({ items, response,loadingItems }:LabTabsProps) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event:any, newValue:any) => {
