@@ -3,13 +3,13 @@
 import * as React from "react";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import Cookies from "js-cookie";
-import useGetInstallment from "@/api/installment/installment";
-import StockSkeleton from "../stock/StockSkeleton";
+import useGetInstallment from "@/app/api/installment/hook";
+import StockSkeleton from "../Stock/StockSkeleton";
 import InstallmentTable from "./InstallmentTable";
 
 const Installment = () => {
   const [openRowId, setOpenRowId] = React.useState(null);
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken") || null;
 

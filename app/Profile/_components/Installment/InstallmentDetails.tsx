@@ -1,20 +1,23 @@
 'use client'
 
-import useGetInstallmentDetails from "@/api/installment/installmentDetails";
+import useGetInstallmentDetails from "@/app/api/installmentDetails/hook";
 import Cookies from "js-cookie";
 import React from "react";
-import { useLocation } from "react-router";
-import ReceiptLoading from "../orders/ReceiptLoading";
-import ProductCard from "../orders/ProductCard";
+import ReceiptLoading from "../Orders/ReceiptLoading";
+import ProductCard from "../Orders/ProductCard";
 import { Card, Container, Divider, Grid, Typography } from "@mui/material";
 
 const InstallmentDetails = () => {
 
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = localStorage.getItem("userToken");
-  const location = useLocation();
-  const locationState = location.state;
-  const factorId = locationState?.id;
+
+  // const location = useLocation();
+  // const locationState = location.state;
+  // const factorId = locationState?.id;
+  const session = sessionStorage.getItem('id') || ''
+  const parsedSession = JSON.parse(session)
+  const factorId = parsedSession.id
 
   // get data
   const params = {
@@ -28,7 +31,7 @@ const InstallmentDetails = () => {
   console.log(installmentDetail);
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
 
@@ -93,13 +96,13 @@ const InstallmentDetails = () => {
                           </Typography>
 
                           <Grid container spacing={3}>
-                            {installmentDetail.Data.KalaList.map((kala) => (
-                              <Grid item xs={6} sm={6} md={6} key={kala.Id}>
+                            {installmentDetail.Data.KalaList.map((kala:any) => (
+                              <div key={kala.Id}>
                                 <ProductCard
                                   product={kala}
                                   item={installmentDetail.Data}
                                 />
-                              </Grid>
+                              </div>
                             ))}
                           </Grid>
                         </Container>

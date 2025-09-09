@@ -14,21 +14,28 @@ import {
   Button,
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { Link } from 'react-router';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import usePrintInstallment from '@/api/installment/PrintInstallment';
+import usePrintInstallment from '@/app/api/printInstallment/hook';
 import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
+import Link from 'next/link';
 
-const InstallmentTable = ({installment,setOpenRowId,openRowId,userToken}) => {
+type InstallmentTableProps = {
+  installment:null | any;
+  setOpenRowId:React.Dispatch<React.SetStateAction<any>>;
+  openRowId:any;
+  userToken:string | null;
+}
+
+const InstallmentTable = ({installment,setOpenRowId,openRowId,userToken}:InstallmentTableProps) => {
 
   // handle row click
-  const handleRowClick = (id) => {
-    setOpenRowId((prev) => (prev === id ? null : id));
+  const handleRowClick = (id:any) => {
+    setOpenRowId((prev:any) => (prev === id ? null : id));
   };
   // end handle row click
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
 
@@ -36,7 +43,7 @@ const InstallmentTable = ({installment,setOpenRowId,openRowId,userToken}) => {
 const { printDocLoading, printDocError, printDocResponse, getPrint } = usePrintInstallment(userToken)
 // end download pdf
 
-const handleDownload = (data)=>{
+const handleDownload = (data:any)=>{
   getPrint({"idGhestHeader":data})
 }
 
@@ -92,7 +99,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
 
                 <TableBody>
                   {installment &&
-                    installment.map((row) => (
+                    installment.map((row:any) => (
                       <React.Fragment key={row.FactorId}>
                         <TableRow
                           className="cursor-pointer hover:bg-gray-50 transition-all"
@@ -120,7 +127,10 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                             {autocomma(row.KoleKharid)} ریال
                           </TableCell>
                           <TableCell align="center">
-                            <Link className='flex gap-1 items-center justify-center p-4' to={`/InstallmentDetails/${row.FactorId}`} state={{id:row.FactorId}} onClick={(event) => {
+                            <Link className='flex gap-1 items-center justify-center p-4' href={`/InstallmentDetails/${row.FactorId}`}
+                            //  state={{id:row.FactorId}} 
+                             onClick={(event:any) => {
+                              sessionStorage.setItem('id',JSON.stringify({id:row.FactorId}))
                                event.stopPropagation();
                             }}>
                               <VisibilityIcon className='text-gray-400'/>
@@ -167,7 +177,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                     </TableHead>
 
                                     <TableBody>
-                                      {row.ListDetail.map((item) => (
+                                      {row.ListDetail.map((item:any) => (
                                         <TableRow key={item.Id}>
                                           <TableCell align="center">
                                             {item.Id}
