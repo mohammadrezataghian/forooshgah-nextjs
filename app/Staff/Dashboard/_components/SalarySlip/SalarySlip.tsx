@@ -1,6 +1,6 @@
 'use client'
 
-import useGetItems from '@/api/staff/salarySlip/salarySlip'
+import useGetItems from '@/app/api/getFishParam/hook'
 import { PageContainer } from '@toolpad/core/PageContainer'
 import React, { useEffect, useState } from 'react'
 import Combo from './Combo';
