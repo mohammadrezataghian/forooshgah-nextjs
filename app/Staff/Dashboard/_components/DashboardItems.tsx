@@ -5,8 +5,10 @@ import Typography from '@mui/material/Typography';
 import { AiOutlineTrademarkCircle } from "react-icons/ai";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import LockResetIcon from '@mui/icons-material/LockReset';
+import { type Navigation } from '@toolpad/core/AppProvider';
+import { type SidebarFooterProps} from '@toolpad/core/DashboardLayout';
 
-const NAVIGATION = [
+const NAVIGATION:Navigation = [
     {
       kind: 'header',
       title: 'آیتم های منو',
@@ -52,14 +54,14 @@ const NAVIGATION = [
     // },
   ];
 
-  function useDemoRouter(initialPath) {
+  function useDemoRouter(initialPath:any) {
     const [pathname, setPathname] = React.useState(initialPath);
   
     const router = React.useMemo(() => {
       return {
         pathname,
         searchParams: new URLSearchParams(),
-        navigate: (path) => setPathname(String(path)),
+        navigate: (path:any) => setPathname(String(path)),
       };
     }, [pathname]);
   
@@ -83,7 +85,7 @@ const NAVIGATION = [
     },
   });
 
-  function SidebarFooter({ mini }) {
+  function SidebarFooter({ mini }:SidebarFooterProps) {
     return (
       <Typography
         variant="caption"
