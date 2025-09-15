@@ -5,7 +5,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
-import Logo from "@/global/svg/logo1.png";
+import Logo from "@/public/logo/logo1.png";
 import { NAVIGATION, useDemoRouter, demoTheme, SidebarFooter } from './_components/DashboardItems';
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';

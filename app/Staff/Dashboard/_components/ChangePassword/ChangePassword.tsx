@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { PageContainer } from "@toolpad/core/PageContainer";
 import Cookies from 'js-cookie';
 import { Button, OutlinedInput } from '@mui/material';
-import { useChangePassword } from '@/api/staff/changePassword/changePasswordStaff';
+import  useChangePassword  from '@/app/api/changePasswordEmp/hook';
 import * as z from 'zod';
 import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
