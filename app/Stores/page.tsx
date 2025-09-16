@@ -36,7 +36,7 @@ const Stores = () => {
       .replace(/ك/g, "ک") // Normalize Arabic Kaf to Persian Kaf
       .replace(/\s+/g, " "); // Normalize multiple spaces to one
 
-  const filteredItems = items.filter((item:any) =>
+  const filteredItems = items && items.filter((item:any) =>
     normalize(item.Name).includes(normalize(searchText))
   );
   
@@ -60,7 +60,7 @@ const Stores = () => {
         <span>فروشگاه های تعاونی</span>
       </div>
       <div className="w-full h-auto flex flex-wrap md:flex-row flex-col-reverse gap-y-1">
-        {items.length > 0 && (
+        {items && items.length > 0 && (
           <>
             <div className="md:w-1/3 w-full h-[30vh]  lg:h-[80vh] md:h-[75vh] overflow-y-scroll bg-white flex flex-col gap-3 mb-24 xs:mb-0">
               <div className="w-full h-auto px-1">
