@@ -6,31 +6,37 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Slide from "@mui/material/Slide";
+import Slide, { SlideProps } from "@mui/material/Slide";
 import Cookies from "js-cookie";
 import useGetImages from "@/api/manageProduct/imageList";
 import { Divider } from "@mui/material";
 import { FiFilePlus } from "react-icons/fi";
 import { FaRegCircle } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
-import INPLoading from "@/pages/InstallmentPayment/INPLoading";
+import INPLoading from "@/app/InstallmentPayment/loading";
 import Add from "./AddImageDialog";
 import useAddDoc from "@/api/manageProduct/addImage";
 import useDelDoc from "@/api/manageProduct/deleteImage";
 import ConfirmationDialog from "@/common/ConfirmationDialog/ConfirmationDialog";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ImagesDialog({ open, setOpen, selectedRow }) {
+type ImagesDialogProps = {
+  open:boolean; 
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>; 
+  selectedRow:any;
+}
+
+export default function ImagesDialog({ open, setOpen, selectedRow }:ImagesDialogProps) {
   
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDel, setOpenDel] = React.useState(false);
   const [selectedId, setSelectedId] = React.useState(null);
   const [fileName, setFileName] = React.useState("");
-  const [files, setFiles] = React.useState([]);
+  const [files, setFiles] = React.useState<any[]>([]);
   const [fileBase64List, setFileBase64List] = React.useState([]);
   const [description, setDescription] = React.useState("");
 
@@ -177,7 +183,7 @@ export default function ImagesDialog({ open, setOpen, selectedRow }) {
                   ) : (
                     <>
                       {data && data?.length > 0 ? (
-                        data.map((item) => (
+                        data.map((item:any) => (
                           <div
                             key={item.id}
                             onClick={() =>

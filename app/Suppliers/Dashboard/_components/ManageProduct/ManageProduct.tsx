@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import Cookies from "js-cookie";
-import useGetListKala from "@/api/manageProduct/ListKala";
+import useGetListKala from "@/app/api/listKalaTaminKonande/hook";
 import CustomizedDialogs from "./DialogManageProduct";
 import EditProduct from "./EditProductDialog";
 import DeleteProductDialog from "./DeleteProductDialog";
@@ -42,7 +42,7 @@ const ManageProduct = () => {
   const [selectedRow, setSelectedRow] = React.useState(null);
 
   const user = Cookies.get("supplierUser")
-    ? JSON.parse(Cookies.get("supplierUser"))
+    ? JSON.parse(Cookies.get("supplierUser") || '')
     : null;
   const userToken = localStorage.getItem("supplierUserToken");
 
@@ -60,20 +60,19 @@ const ManageProduct = () => {
     rowsPerPage,
     refreshKey
   );
-console.log(list);
 
   // end get data
 
-  const handleClick = (event, id) => {
+  const handleClick = (event:any, id:any) => {
     const isSelected = selected === id;
     setSelected(isSelected ? null : id);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event:any, newPage:any) => {
     setPage(newPage + 1);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event:any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(1);
   };
@@ -201,7 +200,7 @@ console.log(list);
                       </TableHead>
                       <TableBody>
                         {visibleRows &&
-                          visibleRows.map((row, index) => {
+                          visibleRows.map((row:any, index:any) => {
                             const isItemSelected = selected === row.Id;
                             const labelId = `enhanced-table-checkbox-${index}`;
 
