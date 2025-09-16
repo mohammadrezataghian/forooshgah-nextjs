@@ -13,13 +13,13 @@ const Menu = () => {
   // menu data
   const [menuData, setMenuData] = useState<MenuResponse | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
+
   // START HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
-  function handleRefreshLS() {
-    // Check if the page was reloaded using the Performance API
+  
+  useEffect(() => {
     const entries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
     const navigationEntry = entries.length > 0 ? entries[0] : undefined;
-
-
+    
     if (navigationEntry && navigationEntry?.type === "reload") {
       Cookies.remove("MenuData"); // Remove only 'MenuData' from localStorage if the page is reloaded
       const fetchData = async () => {
@@ -33,8 +33,7 @@ const Menu = () => {
 
       fetchData();
     }
-  }
-  window.onload = handleRefreshLS;
+  }, []);
   // END HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
 
   //get data

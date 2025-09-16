@@ -12,6 +12,7 @@ import { MenuDataResponse } from '@/types/types';
 
 const RecipeReviewCard = () => {
 
+  const { loading, error, response,getMenu } = useGetMenu()
 // get data
 const [menuData, setMenuData] = useState<MenuDataResponse | null>(null);
 
@@ -22,7 +23,7 @@ useEffect(() => {
   }else{
     const fetchData = async () => {
       try {
-        const data = await useGetMenu();
+        const data = await getMenu();
         setMenuData(data);
       } catch (error) {
         console.error('Failed to fetch menu:', error);
