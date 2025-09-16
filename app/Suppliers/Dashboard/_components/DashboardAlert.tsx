@@ -6,7 +6,11 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Cookies from 'js-cookie';
 
-export default function TransitionAlerts({editInfoResponse}) {
+type TransitionAlertsProps ={
+  editInfoResponse:any;
+}
+
+export default function TransitionAlerts({editInfoResponse}:TransitionAlertsProps) {
   const [open, setOpen] = React.useState(true);
 
   React.useEffect(()=>{

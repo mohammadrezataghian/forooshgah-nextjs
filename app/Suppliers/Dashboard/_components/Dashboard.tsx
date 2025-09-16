@@ -73,7 +73,7 @@ useEffect(() => {
   }
 }, [ reset]);
 
-const onSubmit = (data) => {
+const onSubmit = (data:any) => {
 
   const normalizedShaba = data.ShomareShaba.startsWith("IR")
   ? data.ShomareShaba

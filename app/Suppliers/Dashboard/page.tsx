@@ -5,23 +5,27 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
-import Logo from "@/global/svg/logo1.png";
+import Logo from "@/public/logo/logo1.png";
 import { NAVIGATION, useDemoRouter, demoTheme, SidebarFooter } from './_components/DashboardItems';
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';  
-import { Helmet } from 'react-helmet-async';
 import Dashboard from './_components/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AlertDialog from '@/common/ProfileExitDialog/ProfileExitDialog';
 import ManageProduct from './_components/ManageProduct/ManageProduct';
-import useGetMainConfig from '@/api/getMainConfig/getMainConfig';
-import ManageOrders from './ManageOrders/ManageOrders';
+import useGetMainConfig from '@/app/api/getMainConfig/hook';
+import ManageOrders from './_components/ManageOrders/ManageOrders';
 import { useAtom } from "jotai";
 import { IsSupplierUserloggedIn } from "@/shared/isSupplierLoggedIn";
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+type ToolbarActionsSearchProps={
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 // exit account
-function ToolbarActionsSearch({ setOpen }) {
+function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 
   return (
     <div className='w-full '>
@@ -34,13 +38,13 @@ function ToolbarActionsSearch({ setOpen }) {
 }
 // end exit account
 
-const SuppliersDashboard = (props) => {
+const SuppliersDashboard = (props:any) => {
 
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [IsloggedIn,setIsLoggedIn] = useAtom(IsSupplierUserloggedIn);
-  const navigate= useNavigate();
+  const NextRouter = useRouter()
 
   const { window } = props;
 
@@ -84,7 +88,7 @@ const SuppliersDashboard = (props) => {
      Cookies.remove("supplierUser")
      setIsLoggedIn(false)
      localStorage.removeItem("supplierUserToken")
-     navigate("/")
+     NextRouter.push("/")
      setOpen(false);
    }
 
@@ -93,9 +97,8 @@ const SuppliersDashboard = (props) => {
 
   return (
     <>
-     <Helmet>
-        <title>حساب کاربری تامین کننده</title>
-    </Helmet>
+    <title>حساب کاربری تامین کننده</title>
+    <meta name="description" content="حساب کاربری تامین کننده" />
     {loading ? <div className='w-full flex justify-center pt-32'><CircularProgress /></div> 
     : 
     <div>
@@ -105,7 +108,7 @@ const SuppliersDashboard = (props) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری تامین کننده', logo: <img className='ml-2' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری تامین کننده', logo: <Image className='ml-2' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
       // session={session}
       // authentication={authentication}
     >
