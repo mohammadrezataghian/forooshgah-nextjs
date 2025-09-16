@@ -4,16 +4,17 @@ import React,{ useEffect, useMemo, useState } from "react";
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Cookies from "js-cookie";
 import TextField from "@mui/material/TextField";
-import { Button, Divider, InputAdornment, Switch } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import * as z from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useEditSupplierInfo from "@/api/supplierDashboard/supplierDashboard";
+import useEditSupplierInfo from "@/app/api/updateTaminKonandeInfo/hook";
 import EditIcon from '@mui/icons-material/Edit';
 import TransitionAlerts from "./DashboardAlert";
 
 // zod schema
 const schema = z.object({
+  IdTaminkonande: z.string().optional(),
   NameSahebeHesab: z.string().nonempty("این آیتم نمیتواند خالی باشد."),
   ShomareHesab: z.string()
     .nonempty("این آیتم نمیتواند خالی باشد.")
