@@ -8,10 +8,10 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import useGetInitData from '@/api/manageProduct/getInitData';
+import useGetInitData from '@/app/api/getInitData/hook';
 import EditAddForm from './EditAddForm';
 import Cookies from 'js-cookie';
-import useGetMaxCode from '@/api/manageProduct/MaxCode';
+import useGetMaxCode from '@/app/api/getMaxCodeKalaTaminKonande/hook';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -22,18 +22,24 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedDialogs({open,setOpen,onRefresh}) {
+type CustomizedDialogsProps = {
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  onRefresh:()=>void;
+}
+
+export default function CustomizedDialogs({open,setOpen,onRefresh}:CustomizedDialogsProps) {
   
   const handleClose = () => {
     setOpen(false);
   };
 
   // init data
-  const user = Cookies.get("supplierUser") ? JSON.parse(Cookies.get("supplierUser")) : null;
+  const user = Cookies.get("supplierUser") ? JSON.parse(Cookies.get("supplierUser") || '') : null;
   const userToken = localStorage.getItem("supplierUserToken");
-  const GroupKalaList = import.meta.env.VITE_API_URL_GROUPKALALIST;
-  const UnitKalaList = import.meta.env.VITE_API_URL_UNITKALALIST;
-  const GetTypeKalaList = import.meta.env.VITE_API_URL_GETTYPEKALALIST;
+  const GroupKalaList = process.env.API_URL_GROUPKALALIST as string
+  const UnitKalaList = process.env.API_URL_UNITKALALIST as string
+  const GetTypeKalaList = process.env.API_URL_GETTYPEKALALIST as string
 
   const group = useGetInitData(userToken, GroupKalaList);
   const unit = useGetInitData(userToken, UnitKalaList);
