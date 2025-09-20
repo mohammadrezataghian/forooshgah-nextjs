@@ -7,7 +7,7 @@ import { Button, Divider, Switch } from "@mui/material";
 import * as z from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useAddProduct from "@/api/manageProduct/addProduct";
+import useAddProduct from "@/app/api/addKalaTaminKonande/hook";
 
 // end search farsi handle
 const normalizePersian = (str = "") =>
@@ -35,6 +35,21 @@ const schema = z.object({
 });
 // end zod echema
 
+type EditAddFormProps={
+  groupResponse:any;
+  setSelectedGroupId:React.Dispatch<React.SetStateAction<any>>;
+  unitResponse:any;
+  setSelectedUnitId:React.Dispatch<React.SetStateAction<any>>;
+  typeResponse:any;
+  setSelectedTypeId:React.Dispatch<React.SetStateAction<any>>;
+  setChecked:React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose:()=>void;
+  userToken:string | null;
+  Code:any;
+  user:any | null;
+  onRefresh:()=>void;
+}
+
 const EditAddForm = ({
   groupResponse,
   setSelectedGroupId,
@@ -48,11 +63,11 @@ const EditAddForm = ({
   Code,
   user,
   onRefresh
-}) => {
+}:EditAddFormProps) => {
   // search farsi handle
-  const filterOptions = (options, { inputValue }) => {
+  const filterOptions = (options:any, { inputValue }:{inputValue:any}) => {
     const normalizedInput = normalizePersian(inputValue);
-    return options.filter((option) =>
+    return options.filter((option:any) =>
       normalizePersian(option.Name).includes(normalizedInput)
     );
   };
@@ -80,7 +95,7 @@ const EditAddForm = ({
  const { addProductLoading, addProductError, addProductResponse, AddProduct } = useAddProduct(userToken);
  // end api for submit
 
- const onSubmit = (data) => {
+ const onSubmit = (data:any) => {
   const finalData = {
     ...data,
     Code,
@@ -118,7 +133,7 @@ if (addProductResponse && addProductResponse?.data?.resCode && addProductRespons
                     setSelectedGroupId(newValue ? newValue.Id : null); // update external state if needed
                   }}
                   value={
-                    groupResponse?.find((item) => item.Id === field.value) ||
+                    groupResponse?.find((item:any) => item.Id === field.value) ||
                     null
                   }
                   options={groupResponse || []}
@@ -155,7 +170,7 @@ if (addProductResponse && addProductResponse?.data?.resCode && addProductRespons
                   field.onChange(newValue?.Id || '');
                   setSelectedUnitId(newValue?.Id || null);
                 }}
-                value={unitResponse?.find(item => item.Id === field.value) || null}
+                value={unitResponse?.find((item:any) => item.Id === field.value) || null}
                 options={unitResponse || []}
                 getOptionLabel={(option) => option.Name || ''}
                 isOptionEqualToValue={(option, value) => option.Id === value?.Id}
@@ -186,7 +201,7 @@ if (addProductResponse && addProductResponse?.data?.resCode && addProductRespons
                   field.onChange(newValue?.Id || '');
                   setSelectedTypeId(newValue?.Id || null);
                 }}
-                value={typeResponse?.find(item => item.Id === field.value) || null}
+                value={typeResponse?.find((item:any) => item.Id === field.value) || null}
                 options={typeResponse || []}
                 getOptionLabel={(option) => option.Name || ''}
                 isOptionEqualToValue={(option, value) => option.Id === value?.Id}
