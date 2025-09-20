@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import useGetDeleteKala from "@/api/manageProduct/deleteProduct";
+import useGetDeleteKala from "@/app/api/deleteKalaTaminKonande/hook";
 import { Button, Divider } from "@mui/material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -20,7 +20,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const DeleteProductDialog = ({ open, setOpen, selected,onRefresh,setSelected }) => {
+type DeleteProductDialogProps = {
+  open:boolean; 
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>; 
+  selected:null | any;
+  onRefresh:()=>void;
+  setSelected:React.Dispatch<React.SetStateAction<any>>;
+}
+
+const DeleteProductDialog = ({ open, setOpen, selected,onRefresh,setSelected }:DeleteProductDialogProps) => {
 
   const userToken = localStorage.getItem("supplierUserToken");
 
