@@ -8,8 +8,8 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import useGetInitData from '@/api/manageProduct/getInitData';
-import useGetOneKala from '@/api/manageProduct/oneKalaTaminKonande';
+import useGetInitData from '@/app/api/getInitData/hook';
+import useGetOneKala from '@/app/api/getOneKalaTaminKonande/hook';
 import Cookies from 'js-cookie';
 import EditForm from './EditForm';
 
@@ -22,19 +22,26 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+type EditProductProps= {
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  selected:null | any;
+  setSelected:null | any;
+  onRefresh:()=>void;
+}
 
-const EditProduct = ({open,setOpen,selected,setSelected,onRefresh}) => {
+const EditProduct = ({open,setOpen,selected,setSelected,onRefresh}:EditProductProps) => {
 
   const handleClose = () => {
     setOpen(false);
   };
 
   // init data
-    const user = Cookies.get("supplierUser") ? JSON.parse(Cookies.get("supplierUser")) : null;
+    const user = Cookies.get("supplierUser") ? JSON.parse(Cookies.get("supplierUser") || '') : null;
     const userToken = localStorage.getItem("supplierUserToken");
-    const GroupKalaList = import.meta.env.VITE_API_URL_GROUPKALALIST;
-    const UnitKalaList = import.meta.env.VITE_API_URL_UNITKALALIST;
-    const GetTypeKalaList = import.meta.env.VITE_API_URL_GETTYPEKALALIST;
+    const GroupKalaList = process.env.API_URL_GROUPKALALIST as string
+    const UnitKalaList = process.env.API_URL_UNITKALALIST as string
+    const GetTypeKalaList = process.env.API_URL_GETTYPEKALALIST as string
   
     const group = useGetInitData(userToken, GroupKalaList);
     const unit = useGetInitData(userToken, UnitKalaList);
@@ -83,7 +90,7 @@ const EditProduct = ({open,setOpen,selected,setSelected,onRefresh}) => {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            <EditForm groupResponse={groupResponse} setSelectedGroupId={setSelectedGroupId} unitResponse={unitResponse} setSelectedUnitId={setSelectedUnitId} typeResponse={typeResponse} setSelectedTypeId={setSelectedTypeId} setChecked={setChecked} handleClose={handleClose} userToken={userToken} user={user} kala={kala} setSelected={setSelected} onRefresh={onRefresh}/> 
+            <EditForm groupResponse={groupResponse} setSelectedGroupId={setSelectedGroupId} unitResponse={unitResponse} setSelectedUnitId={setSelectedUnitId} typeResponse={typeResponse} setSelectedTypeId={setSelectedTypeId} setChecked={setChecked} handleClose={handleClose} userToken={userToken} kala={kala} setSelected={setSelected} onRefresh={onRefresh}/> 
           </Typography>
         </DialogContent>
       </BootstrapDialog>
