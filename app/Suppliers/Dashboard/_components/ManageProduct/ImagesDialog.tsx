@@ -8,15 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide, { SlideProps } from "@mui/material/Slide";
 import Cookies from "js-cookie";
-import useGetImages from "@/api/manageProduct/imageList";
+import useGetImages from "@/app/api/getKalaImageList/hook";
 import { Divider } from "@mui/material";
 import { FiFilePlus } from "react-icons/fi";
 import { FaRegCircle } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import INPLoading from "@/app/InstallmentPayment/loading";
 import Add from "./AddImageDialog";
-import useAddDoc from "@/api/manageProduct/addImage";
-import useDelDoc from "@/api/manageProduct/deleteImage";
+import useAddDoc from "@/app/api/insertKalaImage/hook";
+import useDelDoc from "@/app/api/deleteKalaImage/hook";
 import ConfirmationDialog from "@/common/ConfirmationDialog/ConfirmationDialog";
 
 const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
