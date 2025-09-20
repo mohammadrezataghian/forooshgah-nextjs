@@ -26,7 +26,7 @@ type EditProductProps= {
   open:boolean;
   setOpen:React.Dispatch<React.SetStateAction<boolean>>;
   selected:null | any;
-  setSelected:null | any;
+  setSelected:React.Dispatch<React.SetStateAction<null | any>>;
   onRefresh:()=>void;
 }
 
