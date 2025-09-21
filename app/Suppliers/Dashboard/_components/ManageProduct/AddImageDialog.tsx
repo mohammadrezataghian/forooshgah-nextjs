@@ -9,13 +9,27 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { OutlinedInput } from "@mui/material";
 
-export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,fileBase64List,setFileBase64List,description,setDescription,handleSubmit}) {
+type AddProps = {
+  open:boolean; 
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  fileName:string;
+  setFileName:React.Dispatch<React.SetStateAction<string>>;
+  files:any[];
+  setFiles:React.Dispatch<React.SetStateAction<any[]>>;
+  fileBase64List:any;
+  setFileBase64List:React.Dispatch<React.SetStateAction<any>>;
+  description:string;
+  setDescription:React.Dispatch<React.SetStateAction<string>>;
+  handleSubmit:()=>void;
+}
+
+export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,fileBase64List,setFileBase64List,description,setDescription,handleSubmit}:AddProps) {
   
   const handleClose = () => {
     setOpen(false);
   };
 
-  const fileToBase64 = (file) => {
+  const fileToBase64 = (file:any) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);  // base64 string
@@ -24,11 +38,11 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
     });
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = async (e:any) => {
     const selectedFiles = Array.from(e.target.files);
     const allowedExtensions = ["png", "jpg", "jpeg"];
   
-    const validNewFiles = selectedFiles.filter((file) => {
+    const validNewFiles = selectedFiles.filter((file:any) => {
       const ext = file.name.split(".").pop().toLowerCase();
       return allowedExtensions.includes(ext);
     });
@@ -41,7 +55,7 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
   
     // Prevent duplicate files by name
     const uniqueNewFiles = validNewFiles.filter(
-      (newFile) => !files.some((existingFile) => existingFile.name === newFile.name)
+      (newFile:any) => !files.some((existingFile:any) => existingFile.name === newFile.name)
     );
   
     const newBase64List = await Promise.all(uniqueNewFiles.map(fileToBase64));
@@ -59,7 +73,7 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
   };
   
 
-  const handleRemoveFile = (index) => {
+  const handleRemoveFile = (index:any) => {
     const updatedFiles = [...files];
     const updatedBase64 = [...fileBase64List];
 
@@ -84,7 +98,7 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
           <DialogContentText className="flex flex-col gap-3" component={'div'}>
             <div className="flex items-center justify-center w-full">
               <label
-                for="dropzone-file"
+                htmlFor="dropzone-file"
                 className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-100 hover:bg-gray-200"
               >
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -115,7 +129,7 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
             </div>
             {files.length > 0 && (
               <div className="space-y-2 mt-4">
-                {files.map((file, index) => (
+                {files.map((file:any, index:any) => (
                   <div
                     key={index}
                     className="flex justify-between items-center bg-gray-50 border px-3 py-2 rounded"
