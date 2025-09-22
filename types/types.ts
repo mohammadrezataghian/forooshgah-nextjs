@@ -522,3 +522,10 @@ export type FactorReturn = {
   MablagheHarGhest: number;
   KalaList: ProductReturn[];
 }
+
+
+export type verifyStatus = {
+  id: number;
+  stat: string;
+  default: boolean;
+}

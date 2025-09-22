@@ -11,6 +11,12 @@ import useSubmitSearch from "@/app/api/listForooshTaminKonande/hook";
 import DataTable from "./DataTable";
 import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
 
+type SelectedDate = {
+  year: number;
+  month: { number: number };
+  day: number;
+};
+
 const ManageOrders = () => {
   
   const verifyStatus = [
@@ -41,8 +47,8 @@ const ManageOrders = () => {
     return cookie ? JSON.parse(cookie) : null;
   }, []); // user
   const userToken = localStorage.getItem("supplierUserToken"); // token
-  const [selectedDateFrom, setSelectedDateFrom] = useState(); // from
-  const [selectedDateTo, setSelectedDateTo] = useState(); // to
+  const [selectedDateFrom, setSelectedDateFrom] = useState<SelectedDate | null>(null); // from
+  const [selectedDateTo, setSelectedDateTo] = useState<SelectedDate | null>(null); // to
   const [selectedStat, setSelectedStat] = React.useState(
     verifyStatus.find((item) => item.default)?.id.toString() ?? ""
   ); // stat
