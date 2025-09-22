@@ -14,24 +14,29 @@ import { Button } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FullScreenDialog from "./ShowInfoDialog";
 
-const DataTable = ({ Response,handleSearch }) => {
+type DataTableProps = {
+  Response:any;
+  handleSearch:()=>void;
+}
+
+const DataTable = ({ Response,handleSearch }:DataTableProps) => {
   const data = Response ? Response?.data?.Data : [];
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [open, setOpen] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event:any, newPage:any) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event:any) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   // handle comma
-  const autocomma = (number_input) =>
+  const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
 
@@ -57,7 +62,7 @@ const DataTable = ({ Response,handleSearch }) => {
             </TableHead>
             <TableBody>
               {data &&
-                data.map((item) => (
+                data.map((item:any) => (
                   <TableRow key={item.Id} hover role="checkbox" tabIndex={-1}>
                     <TableCell align="center">{item.EshterakNO}</TableCell>
                     <TableCell align="center" className="text-nowrap">

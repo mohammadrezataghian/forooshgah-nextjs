@@ -1,16 +1,23 @@
 'use client'
 
 import React, { useRef } from 'react'
-import DatePicker from "react-multi-date-picker";
+import DatePicker, { DatePickerRef } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { InputAdornment } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { DateObject } from "react-multi-date-picker";
 
-const DatePickerFrom = ({selectedDate,setSelectedDate,Placeholder}) => {
+type DatePickerFromProps = {
+  selectedDate: DateObject | null;
+  setSelectedDate:React.Dispatch<React.SetStateAction<DateObject | null>>;
+  Placeholder:string;
+}
 
-const datePickerRef = useRef();
+const DatePickerFrom = ({selectedDate,setSelectedDate,Placeholder}:DatePickerFromProps) => {
+
+const datePickerRef = useRef<DatePickerRef>(null);
 
   return (
     <>
@@ -32,7 +39,7 @@ const datePickerRef = useRef();
               : ''
           }
           placeholder={Placeholder}
-          onClick={() => datePickerRef.current.openCalendar()}
+          onClick={() => datePickerRef.current?.openCalendar()}
           className='w-full h-10'
           startAdornment={ // 👉 put it here!
             <InputAdornment position="start">
