@@ -6,10 +6,19 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import useSupplierConfirmation from '@/api/manageOrders/taeedTaminKonande';
+import useSupplierConfirmation from '@/app/api/taeedTaminKonande/hook';
 import SimpleSnackbar from './StepperAlert';
 
-export default function HorizontalLinearStepper({steps,idSupplier,factorId,url,init,handleSearch}) {
+type HorizontalLinearStepperProps = {
+  steps:string[];
+  idSupplier:any;
+  factorId:string | number;
+  url:string;
+  init:any;
+  handleSearch:()=>void;
+}
+
+export default function HorizontalLinearStepper({steps,idSupplier,factorId,url,init,handleSearch}:HorizontalLinearStepperProps) {
     
   const [activeStep, setActiveStep] = React.useState(init ? 1 : 0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -22,7 +31,7 @@ export default function HorizontalLinearStepper({steps,idSupplier,factorId,url,i
   }
   const { confirmationLoading, confirmationError, confirmationResponse, getConfirmation } = useSupplierConfirmation(userToken,url)
   
-  const isStepSkipped = (step) => {
+  const isStepSkipped = (step:any) => {
     return skipped.has(step);
   };
 
@@ -47,7 +56,7 @@ if (confirmationResponse && confirmationResponse?.data?.Data === true && confirm
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map((label:any, index:any) => {
           const stepProps = {};
           const labelProps = {};
           return (

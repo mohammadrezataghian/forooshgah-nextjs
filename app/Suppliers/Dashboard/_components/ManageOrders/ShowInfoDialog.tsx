@@ -6,20 +6,27 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
+import Slide, { SlideProps } from '@mui/material/Slide';
 import Cookies from 'js-cookie';
-import useGetReceipts from '@/api/manageOrders/orderList';
-import ReceiptLoading from '@/pages/Profile/orders/ReceiptLoading';
+import useGetReceipts from '@/app/api/getFactorInfo/hook';
+import ReceiptLoading from '@/app/Profile/_components/Orders/ReceiptLoading';
 import { Card, Divider } from "@mui/material";
 import { Container, Typography, Grid } from '@mui/material';
-import ProductCard from '@/pages/Profile/orders/ProductCard';
+import ProductCard from '@/app/Profile/_components/Orders/ProductCard';
 import HorizontalLinearStepper from './Stepper';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({open,setOpen,selectedRow,handleSearch}) {
+type FullScreenDialogProps = {
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  selectedRow:any;
+  handleSearch:()=>void;
+}
+
+export default function FullScreenDialog({open,setOpen,selectedRow,handleSearch}:FullScreenDialogProps) {
   
   const user = React.useMemo(() => {
       const cookie = Cookies.get("supplierUser");
@@ -45,7 +52,7 @@ export default function FullScreenDialog({open,setOpen,selectedRow,handleSearch}
 const receipt = receipts ? receipts?.data?.Data : [];
 
 // handle comma
-const autocomma = (number_input) =>
+const autocomma = (number_input:number) =>
   new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
 
@@ -53,8 +60,8 @@ const stepsStat = ['تایید نشده', 'تایید شده'];
 const stepsDelivery = ['ارسال نشده', 'ارسال کردن'];
 const idSupplier = selectedRow && selectedRow?.idTaminKonande
 const factorId = receipt && receipt?.Id
-const statUrl = import.meta.env.VITE_API_URL_TAEEDETAMINKONANDE;
-const deliveryUrl = import.meta.env.VITE_API_URL_ERSALETAMINKONANDE;
+const statUrl = process.env.API_URL_TAEEDETAMINKONANDE as string;
+const deliveryUrl = process.env.API_URL_ERSALETAMINKONANDE as string;
 const initStepperStat = selectedRow && selectedRow?.TaeedeTaminKonande
 const initStepperDelivery = selectedRow && selectedRow?.ErsalByTaminKonande
 
@@ -124,8 +131,8 @@ const initStepperDelivery = selectedRow && selectedRow?.ErsalByTaminKonande
                     </Typography>
                     
                     <Grid container spacing={3}>
-                       {receipt.KalaList.map((kala) => ( 
-                        <Grid item xs={6} sm={6} md={6} key={kala.Id}>
+                       {receipt.KalaList.map((kala:any) => ( 
+                        <Grid key={kala.Id}>
                           <ProductCard
                             product= {kala}
                             item={receipt}
