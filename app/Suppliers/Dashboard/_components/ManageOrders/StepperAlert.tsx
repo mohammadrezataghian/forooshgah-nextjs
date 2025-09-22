@@ -1,18 +1,23 @@
 'use client'
 
 import * as React from 'react';
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function SimpleSnackbar({open,setOpen}) {
+type SimpleSnackbarProps = {
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function SimpleSnackbar({open,setOpen}:SimpleSnackbarProps) {
   
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') return;
     setOpen(false);
   };
 

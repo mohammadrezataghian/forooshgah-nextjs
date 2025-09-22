@@ -1,7 +1,12 @@
 import * as React from "react";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const TruncatedText = ({ text, limit = 40 }) => {
+type TruncatedTextProps={
+  text:string;
+  limit:number;
+}
+
+const TruncatedText = ({ text, limit = 40 }:TruncatedTextProps) => {
     const [expanded, setExpanded] = React.useState(false);
   
     if (!text) return null;

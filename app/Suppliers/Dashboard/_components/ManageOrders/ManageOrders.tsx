@@ -7,7 +7,7 @@ import RowRadioButtonsGroup from "./RadioButtons";
 import Cookies from "js-cookie";
 import { Button, OutlinedInput } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import useSubmitSearch from "@/api/manageOrders/manageOrder";
+import useSubmitSearch from "@/app/api/listForooshTaminKonande/hook";
 import DataTable from "./DataTable";
 import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
 
@@ -62,9 +62,9 @@ const ManageOrders = () => {
   const fromPlaceholder = "از تاریخ";
   const toPlaceholder = "تا تاریخ";
 
-  const { Loading, Error, Response, submitSearch } = useSubmitSearch(userToken);
+  const { loading, error, response, submitSearch } = useSubmitSearch(userToken);
 
-  const convertToDate = (dateObj) => {
+  const convertToDate = (dateObj:any) => {
     // handle missplaced dates
     if (!dateObj) return null;
     return new Date(dateObj.year, dateObj.month.number - 1, dateObj.day);
@@ -184,7 +184,7 @@ const ManageOrders = () => {
               </div>
             </div>
             <div className="flex p-5">
-              {Loading ? (
+              {loading ? (
                 <Button
                   loading
                   variant="outlined"
