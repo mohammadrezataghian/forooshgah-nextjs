@@ -11,7 +11,7 @@ export async function GET() {
       return NextResponse.json(res.data);
 
     } catch (err: any) {
-      console.error("Failed to fetch siteAddress:", err);
+      console.error("Failed to fetch ForooshgahList:", err);
   
       // Add log only in production
       if (process.env.NODE_ENV === "production") {

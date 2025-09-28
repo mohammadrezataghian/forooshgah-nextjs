@@ -70,7 +70,6 @@ const SliderLeftCard = ({
     image = `${siteAddress}/assets/public/kala/product.jpg`;
   }
   // end handle image
-console.log(siteAddress);
 
   return (
     <>

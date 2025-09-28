@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useAtom } from "jotai";
 import { selectedStore } from "@/shared/selectedStoreAtom";
-import useForooshgahList from "@/app/api/foroooshgahList/hook";
+import useGetItems from "@/app/api/forooshgahList/hook";
 
 const ForooshgahList = () => {
 
@@ -14,7 +14,7 @@ const ForooshgahList = () => {
   const [focused, setFocused] = useState(false);
 
  // get data
- const { ForooshgahList, loading, error, getForooshgahList } = useForooshgahList();
+ const { items, loading, error } = useGetItems();
  // end get data
 
   // تغییر مقدار انتخاب شده
@@ -57,7 +57,7 @@ const ForooshgahList = () => {
             <option value={0} className="text-right">
               انتخاب فروشگاه
             </option>
-            {ForooshgahList && ForooshgahList.map((item:any) => (
+            {items && items.map((item:any) => (
               <option key={item.Id} value={item.Id} className="text-right">
                 {item.Name}
               </option>
