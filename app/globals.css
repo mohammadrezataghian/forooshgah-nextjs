@@ -33,7 +33,8 @@
   src: url("../public/fonts/Tanha-FD.woff2");
 }
 
-*{
+* {
+  direction: rtl;
   font-family: FarsiFont,Farsinum ,sans-serif ,Arial, Helvetica !important;
 }
 

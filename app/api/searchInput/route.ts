@@ -4,14 +4,14 @@ import { addLog } from "@/app/api/addlog/addlog";
 
 const GetKala = process.env.API_URL_GETKALA as string;
 
-export async function GET(payload:any) {
+export async function POST(request: Request) {
     try {
-
-      const res = await axios.post(GetKala,payload);
+      const body = await request.json();
+      const res = await axios.post(GetKala, body);
       return NextResponse.json(res.data);
 
     } catch (err: any) {
-      console.error("Failed to fetch siteAddress:", err);
+      console.error("Failed to fetch GetKala:", err);
   
       // Add log only in production
       if (process.env.NODE_ENV === "production") {

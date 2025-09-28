@@ -65,10 +65,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
       <div className="w-full h-full">
         {searchItem.length < 2 &&
           filteredUsers.length === 0 &&
-          !hasSearched && <p className="mt-10 mr-5">محصولی یافت نشد</p>}
+          !hasSearched && <p className="mt-10 mr-5 text-right">محصولی یافت نشد</p>}
         {loading && <SearchLoading />}
         {!loading && hasSearched && filteredUsers.length === 0 && (
-          <p className="mt-10 mr-5">محصولی یافت نشد</p>
+          <div className="mt-10 mr-5 text-right">محصولی یافت نشد</div>
         )}
         {!loading && filteredUsers.length > 0 && (
           <div className="flex flex-wrap w-full h-auto px-2 gap-5">
@@ -115,7 +115,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     {/* Product Image */}
                     <Link
                       href={{
-                        pathname: "/products/productsdetails/[IdStoreStock]/[NameKala]",
+                        pathname: "/products/productsdetails/",
                         query: { IdStoreStock: data.IdStoreStock, NameKala: data.NameKala },
                       }}
                       onClick={() => setIsBoxVisible(false)}
@@ -128,7 +128,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     <div className="p-4">
                       <Link
                         href={{
-                          pathname: "/products/productsdetails/[IdStoreStock]/[NameKala]",
+                          pathname: "/products/productsdetails/",
                           query: { IdStoreStock: data.IdStoreStock, NameKala: data.NameKala },
                         }}
                         onClick={() => setIsBoxVisible(false)}

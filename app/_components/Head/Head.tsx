@@ -34,7 +34,6 @@ const Head = () => {
   const [showdefaultaddress, setshowdefaultaddress] = useAtom<
   Address | undefined
   >(address);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("user"));
   const [loggedIn, setloggedIn] = useAtom(IsUserloggedIn);
   const [errorLoadAddress, setErrorLoadAddress] = useState<string | null>(null);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
@@ -70,7 +69,7 @@ const handleDeleteAddress = (address: any) => {
 };
 
 const handlecityDialogOpen = () => {
-  if (isLoggedIn) {
+  if (loggedIn) {
     //citydialogOpen(true);
     loadAddresses();
     setIsAddressModalOpen(true);
@@ -79,7 +78,7 @@ const handlecityDialogOpen = () => {
 };
 
 const handleSelectMapOpen = () => {
-  if (isLoggedIn) {
+  if (loggedIn) {
     citysetDialogOpen(true);
   }
 };
@@ -93,10 +92,10 @@ const loadAddresses = async () => {
   setTokenInpt(token || "");
   if (eshterakNo && userToken && userToken != "") {
     try {
-      const data = await addressService.getAllAddresses({
-        eshterakno: eshterakNo?.EshterakNo ?? "",
-        tokenInput: userToken || "",
-      });
+      const data = await addressService.getAllAddresses(
+        eshterakNo,
+        userToken
+      );
       
       setUserAddressAndSetdefaultAddress(data.Data);
     } catch (err) {
@@ -153,7 +152,7 @@ const { loading, error,getSiteAddress } = useGetSiteAddress(setSiteAddress)
 useEffect(() => {
   const fetchSiteAddress = async () => {
     const data = await getSiteAddress()
-    setSiteAddressResponce(data.data)
+    setSiteAddressResponce(data?.data)
   };
 
   const setSiteAddressResponce = async (data:any) => {
@@ -166,24 +165,12 @@ useEffect(() => {
     fetchSiteAddress();
   }
 
-  const checkLoginStatus = () => {
-    setIsLoggedIn(!!Cookies.get("user"));
-  };
-
-  // Run once on mount and also whenever cookies might change
-  checkLoginStatus();
-
-  // Set an interval to check for updates every second
-  const interval = setInterval(checkLoginStatus, 1000);
-  loadAddresses();
-  return () => clearInterval(interval);
-}, [siteAddress, setSiteAddress, isLoggedIn]);
+}, [siteAddress, setSiteAddress, loggedIn]);
 
 // alert dialog
 const handleExit = () => {
   Cookies.remove("user");
   setloggedIn(false);
-  setIsLoggedIn(false); // Manually update state
   localStorage.removeItem("userToken");
   setOpenAlertDialog(false);
 };
@@ -206,7 +193,7 @@ const user = userStr ? JSON.parse(userStr) : null;
         <HeadReturn
           toggleDrawer={toggleDrawer}
           selectedProductsCount={selectedProductsCount}
-          isLoggedIn={isLoggedIn}
+          isLoggedIn={loggedIn}
           user={user}
           handleClickOpen={handleClickOpen}
           handleDialogOpen={handleDialogOpen}

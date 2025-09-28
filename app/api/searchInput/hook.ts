@@ -1,29 +1,44 @@
-"use client";
+'use client'
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { addLog } from "@/app/api/addlog/addlog";
 
-export default function useGetKala(setApiUsers:any) {
-
+const useFetchProducts = (setApiUsers:any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // useCallback so the function reference is stable
-  const getGetKala = useCallback(async (payload:any) => {
+  const fetchProducts = async (payload: any) => {
     setLoading(true);
     setError(null);
 
     try {
-      const res = await axios.post("/api/searchInput",payload);
-      setApiUsers(res.data.Data.lst);
-      return res.data;
+      const res = await axios.post(
+        "/api/searchInput",
+        payload,
+      );
+
+      setApiUsers(res.data.Data.lst || []);
+      return res
     } catch (err: any) {
-      setError(err.message || "An unknown error occurred");
-      return null;
+      setError(
+        err.message || "An unknown error occurred in getKala"
+      );
+
+      if (process.env.NODE_ENV === "production") {
+        await addLog(
+          payload,
+          "/api/getKala",
+          err.message + " , An unknown error occurred in getCodeSabteName",
+          ''
+        );
+      }
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
-  return { loading, error, getGetKala };
-}
+  return { loading, error, fetchProducts };
+};
+
+export default useFetchProducts;

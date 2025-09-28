@@ -48,7 +48,7 @@ const SearchInput = () => {
 
   // ✅ Debounced API request (prevents too many calls)
 
-  const { loading, error, getGetKala } = useGetKala(setApiUsers);
+  const { loading, error, fetchProducts } = useGetKala(setApiUsers);
 
   useEffect(() => {
     if (deferredSearchTerm.trim().length < 2) {
@@ -65,7 +65,7 @@ const SearchInput = () => {
       if(state !== 0){
         payload.idForooshgah = state
       }
-      getGetKala(payload);
+      fetchProducts(payload);
     }, 1000); // Debounce API calls (500ms delay)
 
     return () => clearTimeout(debounceTimeout); // Cleanup function
@@ -137,10 +137,10 @@ const SearchInput = () => {
                     router.push('/search')
                     // router.replace('/dashboard');
                   }}
-                  className="py-1 px-2 text-[#0AF8D8] text-xs sm:text-md"
+                  className="py-1 px-2 text-[#0AF8D8] text-xs sm:text-md text-right cursor-pointer flex items-center"
                 >
-                  برو به صفحه ی جستجو
                   <ArrowBackIosIcon className="text-sm" />
+                  <span>برو به صفحه ی جستجو</span>
                 </button>
                 <span className="text-xs sm:text-lg">محصولات</span>
               </div>

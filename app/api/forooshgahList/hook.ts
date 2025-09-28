@@ -20,7 +20,6 @@ const useGetItems = () => {
       );
 
       setItems(res?.data?.Data?.lst || []);
-      console.log(res);
       
     } catch (err: any) {
       setError(

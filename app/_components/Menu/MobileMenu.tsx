@@ -68,25 +68,10 @@ const MobileMenu = () => {
     const selectedProductsCount = useInterceptLocalProducts();
     // end handle cart count
 
-const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("user"));
 
-useEffect(() => {
-  const checkLoginStatus = () => {
-    setIsLoggedIn(!!Cookies.get("user"));
-  };
-
-  // Run once on mount and also whenever cookies might change
-  checkLoginStatus();
-  
-  // Set an interval to check for updates every second
-  const interval = setInterval(checkLoginStatus, 1000);
-
-  return () => clearInterval(interval);
-}, []);
 const handleExit = () => {
   Cookies.remove("user");
   setloggedIn(false)
-  setIsLoggedIn(false); // Manually update state
   localStorage.removeItem('userToken')
   setOpenAlertDialog(false)
 };
@@ -136,7 +121,7 @@ const handleCloseAccount = () => {
             className="tab-link"
             onClick={(event) => {
               event.preventDefault();
-              {isLoggedIn ? handleClickOpenAccount() : handleDialogOpen() }
+              {loggedIn ? handleClickOpenAccount() : handleDialogOpen() }
             }}
           >
             <Image className="w-7 h-7" src={Account} alt="" />
