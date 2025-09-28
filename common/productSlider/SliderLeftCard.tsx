@@ -11,6 +11,7 @@ import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
 import { Product, ProductType } from "@/types/types";
+import Image from "next/image";
 
 type SliderLeftCardProps={
   name:string;
@@ -69,6 +70,7 @@ const SliderLeftCard = ({
     image = `${siteAddress}/assets/public/kala/product.jpg`;
   }
   // end handle image
+console.log(siteAddress);
 
   return (
     <>
@@ -82,16 +84,21 @@ const SliderLeftCard = ({
         </div>}
 
         {/* Product Image */}
+        <div className="w-full flex justify-center">
         <Link
           href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}
-          className="flex justify-center overflow-hidden h-48 "
+          className="flex justify-center overflow-hidden h-[168px] w-[168px]"
         >
-          <img
+            <Image
             src={image}
             alt={name}
-            className=" h-48 object-contain transition-transform duration-300 group-hover:scale-110 w-48 rounded-none pt-1"
-          />
+            width={168}
+            height={168}
+            unoptimized
+            className=" transition-transform duration-300 group-hover:scale-110 rounded-none pt-1"
+          /> 
         </Link>
+        </div>
 
         {/* Product Info */}
         <div className="px-4 py-2">
@@ -110,7 +117,7 @@ const SliderLeftCard = ({
               </span>
             )}
           </div>
-          <div>
+          <div className="flex">
             <span className="text-sm  text-gray-500">{NameForooshgah}</span>
           </div>
         </div>
