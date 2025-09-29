@@ -83,7 +83,7 @@ const { removeProduct } = useRemoveProduct(setProductList);
               products.find((item:any) => item?.IdStoreStock === el.IdStoreStock)?.count;
             return (
               <Card variant="outlined" key={el.IdStoreStock} className="overflow-y-hidden py-3 pl-2 pr-1 gap-1">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-1">
                   
                 <div className="flex flex-col items-start justify-between align-middle gap-x-5">
                   {forceRender ? <></> : <></>}
@@ -145,6 +145,17 @@ const { removeProduct } = useRemoveProduct(setProductList);
       onClose={toggleDrawer(false)}
       onOpen={toggleDrawer(true)}
       className="z-[100000]"
+      ModalProps={{
+        // keepMounted: true,
+        sx: {
+          zIndex: 100000, // make sure this is higher than your header's z-index
+        },
+      }}
+      PaperProps={{
+        sx: {
+          zIndex: 100000,
+        },
+      }}
     >
       {list()}
     </SwipeableDrawer>

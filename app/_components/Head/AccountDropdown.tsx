@@ -132,7 +132,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                       onClick={() => {
                         sessionStorage.setItem("goTo", "customerClub");
                       }}
-                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: 7
+                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: {score && score}
                     </Link>
                       <span className='flex w-full'><PiCoins  className="text-xl scale-x-[-1] text-gray-600"/></span>
                     </MenuItem>
