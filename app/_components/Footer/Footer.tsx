@@ -49,7 +49,7 @@ const enamadCode= `<img
             <div className="flex flex-wrap gap-y-5 justify-between">
               <b className="text-[19px] block float-right">خرید آسان، تحویل سریع </b>
               <div>
-                <a href="https://ble.ir/taavonibmi" target="_blank" className=" btn_hover w-[150px] h-[38px] text-[12px] mr-[10px] leading-[38px] float-left rounded-[4px] overflow-hidden border-none block relative text-white">
+                <a href="https://ble.ir/taavonibmi" target="_blank" className="bg-[#10CCC7] btn_hover w-[150px] h-[38px] text-[12px] mr-[10px] leading-[38px] float-left rounded-[4px] overflow-hidden border-none block relative text-white">
                   <span className="pr-[10px] block w-full absolute right-0 top-0 z-[2] h-full">
                     <HelpIcon className="ml-1 mb-1" />
                     نیاز به کمک دارید ؟

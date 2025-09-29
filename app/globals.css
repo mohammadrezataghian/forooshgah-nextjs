@@ -504,3 +504,93 @@ a#homebut{
  }
   /* END STYLING PAGINATION */
 /*end Latest */
+
+
+
+/* footer */
+.customDialogClose{
+  color: black;
+}
+.LocationOnIcon{
+  color: #880808;
+}
+.city{
+  color: black !important;
+  font-size: 14px !important;
+}
+.searchIcon{
+  color: red;
+}
+.boxshadowHead{
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}  
+
+.btn_hover {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.btn_hover:hover::before {
+  right: 0;
+}
+
+.btn_hover::before {
+  z-index: 1;
+  -moz-transition-property: right;
+  transition-property: right;
+  -o-transition-property: right;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -moz-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  -webkit-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+  content: '';
+  display: block;
+  width: 100%;
+  position: absolute;
+  right: -100%;
+  top: 0;
+  height: 100%;
+  background-image: -moz-linear-gradient(0deg, #0BAFAA 0%, #11D0CB 100%);
+  background-image: -webkit-linear-gradient(0deg, #0BAFAA 0%, #11D0CB 100%);
+  background-image: -ms-linear-gradient(0deg, #0BAFAA 0%, #11D0CB 100%);
+  background-image: linear-gradient(0deg, #0BAFAA 0%, #11D0CB 100%);
+}
+
+.btn_hover::after {
+  z-index: 1;
+  transition-property: right;
+  -moz-transition-property: right;
+  -o-transition-property: right;
+  -webkit-transition-property: right;
+  transition-property: right;
+  transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  -webkit-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+  content: '';
+  display: block;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-image: -moz-linear-gradient(0deg, #11D0CB 0%, #0BAFAA 100%);
+  background-image: -webkit-linear-gradient(0deg, #11D0CB 0%, #0BAFAA 100%);
+  background-image: -ms-linear-gradient(0deg, #11D0CB 0%, #0BAFAA 100%);
+  background-image: linear-gradient(0deg, #11D0CB 0%, #0BAFAA 100%);
+}
+
+.footer_description div div {
+  text-align: right;
+  direction: rtl;
+}
+
+.flex-row-reverse{
+  visibility: hidden;
+}
+/* endfooter */
