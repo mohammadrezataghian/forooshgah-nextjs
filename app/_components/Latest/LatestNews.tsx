@@ -31,7 +31,7 @@ const LatestNews = () => {
         <div className="slidernews h-72 px-2">
           {data && <SliderNews data={data}/>}
         </div>}
-        <div className="pl-3 py-3">
+        <div className="pl-3 py-3 flex justify-end">
           <Link className="text-xs" href="/News">
             مشاهده آرشیو
             <ArrowBackIcon className="text-sm mr-1" />

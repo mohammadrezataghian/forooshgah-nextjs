@@ -103,7 +103,7 @@ const Menu = () => {
                             : "invisible group-hover:visible"
                         }`}
                       >
-                        <div className="w-full h-full flex flex-col items-end flex-wrap">
+                        <div className="w-full h-full flex flex-col flex-wrap-reverse items-start ">
                           {item.children &&
                             item.children.map((child:any) => (
                               <Link

@@ -69,7 +69,7 @@ setBanner(banners)
   
   return (
     <>
-      <div className="w-full h-48 md:h-80 mt-5 2xl:px-64 flex gap-5 justify-center lg:px-5 px-2">
+      <div className="w-full h-48 md:h-80 pt-5 2xl:px-64 flex gap-5 justify-center lg:px-5 px-2">
         {/* start two desktop boxes */}
         {loading ? <SmallSkeleton/> : 
         <div className="w-1/4 h-full lg:grid grid-rows-2 gap-5 hidden">
@@ -79,7 +79,7 @@ setBanner(banners)
               <img
                 src={item.UploadImageName ? `${siteAddress}/assets/public/adv/${orderImagezero.Id}/${item.Id}/${item.UploadImageName}` : item.Base64Image}
                 alt={item.Description}
-                className="object-cover w-full h-full rounded-2xl"
+                className="object-fill w-full h-full rounded-2xl"
               />
             </a>
           </div>

@@ -73,7 +73,7 @@ const SliderNews = (data:any) => {
                           alt={item.Title}
                         />                  
                 </Link>
-                <p className="text-xs my-2 ps-1 text-gray-500">تاریخ : <span>{item.PublishDateTimeShamsi}</span></p>
+                <p className="text-xs my-2 ps-1 text-gray-500 text-right">تاریخ : <span>{item.PublishDateTimeShamsi}</span></p>
                 <p className="text-sm ps-1 flex ">
                   <Link
                     // href={`/#/newsInformation/newsdetails/${item.FldId}`}

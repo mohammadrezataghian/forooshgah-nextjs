@@ -22,7 +22,7 @@ export default function Home() {
       <Menu/>
     </div>
     <MobileMenu/>
-    <main className="w-full">
+    <main className="w-full bg-[#F4F4F4]">
       <MainSlider />
       <SmallimageBoxes />
       <ProductsSlider />
