@@ -133,10 +133,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                         }}
                         onClick={() => setIsBoxVisible(false)}
                       >
-                        <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start">
+                        <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right">
                           {data.NameKala}
                         </h3>
-                        <h3 className="md:text-lg text-sm text-gray-500 hover:text-blue-500 transition text-start pt-1">
+                        <h3 className="md:text-lg text-sm text-gray-500 hover:text-blue-500 transition pt-1 text-right">
                           {data.NameForooshgah}
                         </h3>
                       </Link>
@@ -147,9 +147,9 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                             {autocomma(data.PriceForoosh)}
                           </span>
                         )}
-                        <span className="text-xl font-bold text-green-600">
-                          {autocomma(data.PriceForooshAfterDiscount)}&nbsp;ریال
-                        </span>
+                        <div className="text-xl font-bold text-green-600 flex gap-1">
+                        <span>ریال</span><span>{autocomma(data.PriceForooshAfterDiscount)}</span>
+                        </div>
                       </div>
                     </div>
                   </div>

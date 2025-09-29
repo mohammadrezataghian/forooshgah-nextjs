@@ -28,11 +28,11 @@ const SliderLeft = ({params}:any) => {
   const [loading,setLoading]= useState(true);
 
   useEffect(() => {
-    if (drawerSession) {
+    if (drawerSession && drawerSession.length > 0) {
       setProducts(drawerSession);
-      setDrawerSessions([]);
+      setDrawerSessions([]); // clear once
     }
-  }, [drawerSession]);
+  }, [drawerSession, setProducts, setDrawerSessions]);
 
 // get data
   const { productDetails, loadingProducts, error } = useGetProductDetails(params);

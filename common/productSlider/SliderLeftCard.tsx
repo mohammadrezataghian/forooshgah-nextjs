@@ -20,7 +20,7 @@ type SliderLeftCardProps={
   prevPrice:number;
   discount:number;
   id:string;
-  setProducts:React.Dispatch<React.SetStateAction<ProductType[]>>;
+  setProducts:React.Dispatch<React.SetStateAction<Product[]>>;
   data:Product;
   children?: React.ReactNode; //children?: number | undefined;
   mojodi:number;

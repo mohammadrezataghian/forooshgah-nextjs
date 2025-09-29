@@ -125,6 +125,9 @@ const SearchInput = () => {
               color: "black", // Change this to your desired placeholder color
               opacity: 1, // Optional: Make sure the placeholder is fully opaque
             },
+            "& input::focus" : {
+              backgroundColor:"white"
+            }
           }}
         />
         {isBoxVisible && (
