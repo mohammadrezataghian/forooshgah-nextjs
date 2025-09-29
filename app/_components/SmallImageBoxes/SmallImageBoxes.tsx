@@ -18,7 +18,7 @@ const SmallimageBoxes = () => {
       <div className="w-full h-auto mt-5 grid grid-rows-3 xs:grid-rows-2 xs:grid-cols-3 lg:grid-rows-1 grid-cols-2 lg:grid-cols-6 2xl:px-60 pt-5 xs:gap-y-5 gap-y-8 gap-x-14">
         {/* structure of one box */}
         <div className="w-full h-full px-6">
-          <Link href={'/stores'} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={'/Stores'} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image1}

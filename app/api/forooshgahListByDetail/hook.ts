@@ -35,6 +35,7 @@ const useGetForooshgahDetails = () => {
       setLoading(false);
     }
   };
+  getItems()
 },[])
 
   return { items, loading, error };
