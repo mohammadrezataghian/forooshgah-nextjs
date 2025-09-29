@@ -41,8 +41,9 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
         open={open}
         onClose={handleCloseAccount}
         slots={{ transition: Transition }}
-        className='z-[10000]'
+        className='z-[100000]'
       >
+        <div className='z-[100000]'>
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
             <IconButton
@@ -58,6 +59,7 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
             </Typography>
           </Toolbar>
         </AppBar>
+        
         <List>
           <ListItemButton>
           <Link onClick={handleCloseAccount} href={`/profile/${user?.Id}`} className='text-inherit flex'><span>پروفایل</span><AccountCircleIcon className='text-gray-600 mr-1'/></Link>
@@ -76,6 +78,7 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
             }} className='flex'>خروج از حساب کاربری<BiExit className="text-xl scale-x-[-1] mr-1 text-gray-600"/></div>
           </ListItemButton>
         </List>
+        </div>
       </Dialog>
     </React.Fragment>
   );

@@ -17,7 +17,7 @@ import SmallimageBoxes from "./_components/SmallImageBoxes/SmallImageBoxes";
 export default function Home() {
   return (
     <>
-    <div className="w-full sticky top-0 z-[10000] rastchin">
+    <div className="w-full sticky top-0 z-[1000] rastchin">
       <Head/>
       <Menu/>
     </div>

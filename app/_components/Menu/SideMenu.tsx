@@ -11,7 +11,17 @@ const SidemenuDrawer = ({ isOpen, toggleDrawer }:SidemenuDrawerProps) => {
   
 
   return (
-    <SwipeableDrawer anchor="right" open={isOpen} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)} className="z-[100000]">
+    <SwipeableDrawer anchor="right" open={isOpen} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)} className="z-[100000]" ModalProps={{
+      // keepMounted: true,
+      sx: {
+        zIndex: 100000, // make sure this is higher than your header's z-index
+      },
+    }}
+    PaperProps={{
+      sx: {
+        zIndex: 100000,
+      },
+    }}>
           {/*START ACCORDION  */}
             <div className="w-[320px] h-full overflow-scroll">
               <AccordionMenu toggleDrawer={toggleDrawer}/>

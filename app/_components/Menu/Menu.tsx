@@ -91,7 +91,7 @@ const Menu = () => {
                     <div key={item.Id} className="group">
                       <Link
                         href={`/productList/${item.Name}`}
-                        className="text-[#2b2b2b] p-3 block group-hover:bg-white"
+                        className="text-[#2b2b2b] p-3 block group-hover:bg-white text-right"
                         onClick={() => setIsMenuOpen(false)} // Close menu on link click
                       >
                         {item.Name}
