@@ -127,10 +127,15 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
                     <MenuItem onClick={handleClose}><Link href={`/profile/${userId}`} className='flex justify-between text-inherit w-full flex-nowrap'><AccountCircleIcon className="text-xl mr-1 text-gray-600"/><span>پروفایل</span></Link></MenuItem>
                     {/* <MenuItem onClick={handleClose} className='flex justify-end'><Link to={'/receipts'} className='text-inherit'>سفارشات من<ReceiptLongIcon className='text-gray-600 mr-1'/></Link></MenuItem> */}
-                    <MenuItem className='flex justify-between flex-nowrap gap-1'><PiCoins  className="text-xl scale-x-[-1] text-gray-600"/><Link onClick={() => {
-                      sessionStorage.setItem("goTo", "customerClub");
-                        }}
-                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: {score && score}</Link></MenuItem>
+                    <MenuItem className='flex justify-between flex-row-reverse flex-nowrap gap-1'>
+                    <Link 
+                      onClick={() => {
+                        sessionStorage.setItem("goTo", "customerClub");
+                      }}
+                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: 7
+                    </Link>
+                      <span className='flex w-full'><PiCoins  className="text-xl scale-x-[-1] text-gray-600"/></span>
+                    </MenuItem>
                     <MenuItem onClick={handleClickOpen} className='flex justify-between flex-nowrap gap-1'><BiExit className="text-xl scale-x-[-1] text-gray-600"/><span>خروج از حساب کاربری</span></MenuItem>
                   </MenuList>
                 </ClickAwayListener>
