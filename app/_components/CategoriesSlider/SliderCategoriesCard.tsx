@@ -16,7 +16,7 @@ const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) 
 
 // set site address and image
     const [siteAddress] = useAtom(siteUrlAddress);
-    const [image,SetImage] = useState("")
+    const [image,SetImage] = useState<string | null>(null)
     useEffect(()=>{
       if(siteAddress){
         const imageInit =  `${siteAddress}/assets/public/category/${id}/${NameImage}`
@@ -27,6 +27,7 @@ const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) 
 
   return (
     <>
+    {image && 
       <div className="w-full h-full" id={id}>
         <Link
           href={`/productList/${name}`}
@@ -40,6 +41,7 @@ const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) 
           </div>
         </Link>
       </div>
+      }
     </>
   );
 };
