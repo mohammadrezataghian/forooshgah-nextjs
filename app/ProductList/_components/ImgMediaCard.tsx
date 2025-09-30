@@ -37,9 +37,9 @@ type ImgMediaCardProps = {
       <>
         <Link
           className="block"
-          href={`/products/productsdetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}
+          href={`/ProductDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}
         >
-          <Card sx={{ minHeight: 320 }}>
+          <Card sx={{ minHeight: 353,position:"relative"}}>
             <div className="w-full min-h-[180px] max-h-[162px] h-auto flex justify-center">
               <img
                 className="min-h-[180px] h-auto max-h-[162px] object-contain"
@@ -49,10 +49,18 @@ type ImgMediaCardProps = {
             </div>
             <Divider />
             <CardContent className="relative">
-              <Typography gutterBottom variant="body2" component="div">
+              <Typography gutterBottom variant="body2" component="div" 
+              sx={{
+                marginBottom: 0,
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}>
                 {product.NameKala}
               </Typography>
-              <div className="mt-2 flex items-baseline space-x-2 gap-4">
+              <div className="flex items-baseline space-x-2 gap-4">
                 <span className="text-xl font-bold text-blue-600">
                   {autocomma(product.PriceForooshAfterDiscount)}&nbsp;ریال
                 </span>
@@ -68,14 +76,14 @@ type ImgMediaCardProps = {
               {product.Takhfif !== 0 && <div className="absolute bottom-0 right-2 bg-red-500 text-white text-sm font-bold py-1 px-2 rounded z-10">
                 -{product.Takhfif}%
               </div>}
+            </CardContent>
               {product.Mojodi === 0 && (
-                <div className="mt-2">
+                <div className="absolute bottom-4 right-4">
                   <span className="bg-red-500 text-white p-1 rounded-md text-xs">
                     ناموجود
                   </span>
                 </div>
               )}
-            </CardContent>
           </Card>
         </Link>
       </>
