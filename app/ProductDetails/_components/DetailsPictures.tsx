@@ -95,7 +95,7 @@ const DetailsPictures = ({ imagee, name, IdKala }:DetailsPicturesProps) => {
             src={item.original}
             alt={item.originalAlt}
             className="image-gallery-image"
-            style={{ width: "100%", maxHeight: "500px", objectFit: "contain" }}
+            style={{ width: "100%", maxHeight: "820px", objectFit: "contain" }}
           />
         ) : (
           <MagnifierImage

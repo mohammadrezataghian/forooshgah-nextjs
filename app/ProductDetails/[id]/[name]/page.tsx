@@ -137,7 +137,7 @@ useEffect(()=>{
           {/* product details */}
           {/* product image */}
           <div className="w-full xl:w-1/2 h-auto  flex xl:p-10 pb-2 justify-center">
-            <div className=" xs:w-[350px] xs:h-auto borderproductdetails overflow-hidden">
+            <div className=" xs:w-[350px] xs:h-auto borderproductdetails overflow-hidden rastchin">
               <DetailsPictures
                 imagee={data.FldNameImageKalaList}
                 name={data.NameKala}

@@ -14,3 +14,13 @@
     overflow-x: auto !important;
     width: 500px;
   }
+
+  .image-gallery-thumbnails .image-gallery-thumbnail {
+    width: 80px;      /* set the width you want */
+    height: 80px;     /* optional: keep square */
+  }
+  
+  .image-gallery-thumbnail img {
+    object-fit: cover;
+  }
+  
