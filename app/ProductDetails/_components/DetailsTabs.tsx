@@ -32,7 +32,7 @@ useEffect(() => {
 
   return (
     <>
-    {data && (data.Attributes?.length > 0 || data.ShortDescription || data?.Sections?.length > 0) && <Box sx={{ width: '100%', typography: 'body1' }}>
+    {data && (data.Attributes?.length > 0 || data.ShortDescription || data?.Sections?.length > 0) && value && <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -68,7 +68,9 @@ useEffect(() => {
                     {Array.isArray(data?.Sections) && data.Sections.map((item:any)=>(
                         <div key={item.Id} className='flex flex-col gap-5'>
                             <p className='leading-7' dangerouslySetInnerHTML={{ __html: item.Description }}></p>
+                            {item.ImageName && 
                             <img src={item.ImageName} alt={item.Title} />
+                            }
                         </div>
                     ))}
                 </div>
