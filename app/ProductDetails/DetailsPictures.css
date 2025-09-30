@@ -16,11 +16,14 @@
   }
 
   .image-gallery-thumbnails .image-gallery-thumbnail {
-    width: 80px;      /* set the width you want */
-    height: 80px;     /* optional: keep square */
+    width: 100px !important;      /* set the width you want */
+    height: 100px;
+    overflow-y: hidden;     /* optional: keep square */
   }
   
   .image-gallery-thumbnail img {
-    object-fit: cover;
+    object-fit: contain;
+    width: 92px;      /* set the width you want */
+    height: 92px;
   }
   
