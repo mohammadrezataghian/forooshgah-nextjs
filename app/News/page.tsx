@@ -47,8 +47,8 @@ const params = {
           {/* start card */}
           
           {loadingNews ? <LoadingNews/> : data && data.map((item:any)=>(
-            <>
-            <div key={item.FldId} className='w-full h-auto flex justify-between gap-5'>
+            <React.Fragment key={item.FldId}>
+            <div className='w-full h-auto flex justify-between gap-5'>
             <div className='flex flex-col items-start gap-2 w-3/4'>
               <h3 className='font-bold text-justify'>{item.Title}</h3>
               <p className='text-justify line-clamp-4'>{item.ShortBody}</p>
@@ -61,7 +61,7 @@ const params = {
             </div>
           </div>
           <Divider/>
-          </>
+          </React.Fragment>
           ))}
           {/* end card */}
           {data && 

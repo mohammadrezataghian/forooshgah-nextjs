@@ -55,7 +55,7 @@ const enamadCode= `<img
                     نیاز به کمک دارید ؟
                   </span>
                 </a>
-                <Link href='/stores' className="btn_hover rounded-[4px] overflow-hidden border-none block relative text-white w-[150px] h-[38px] text-[12px] leading-[38px]  ">
+                <Link href='/Stores' className="btn_hover rounded-[4px] overflow-hidden border-none block relative text-white w-[150px] h-[38px] text-[12px] leading-[38px]  ">
                   <span className="text-white pr-[10px] block w-full absolute right-0 top-0 z-[2] h-full after:absolute after:mt-[-9px] after:right-[9px] after:top-1/2">
                     <LocationOnIcon className="ml-1 mb-1" />
                     فروشگاه های تعاونی مصرف کارکنان بانک ملی{" "}
@@ -89,9 +89,9 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/video" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/Videos" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               ویدئو
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -111,14 +111,14 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/privacypolicy" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/PrivacyPolicy" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               سیاست حفظ حریم شخصی افراد
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/rules" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/Rules" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               قوانین و مقررات استفاده از فروشگاه
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -128,9 +128,9 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">راهنمای خرید</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/trust" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/Trust" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               چطور اطمینان پیدا کنم؟
-                            </a>
+                            </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
                             <Link href="/HowToShop" className="block mb-[5px] text-right text-[#656565] text-[12px]">
@@ -138,9 +138,9 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <a href="/#/takeback" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/TakeBack" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               راه‌های بازگرداندن سفارش چگونه است؟
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>

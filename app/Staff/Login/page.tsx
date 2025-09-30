@@ -172,7 +172,7 @@ useEffect(()=>{
                 <div>
                     <button
                     onClick={handleGetVerificationCode}
-                    className="w-full text-center bg-red-500 text-white rounded-md h-12 "
+                    className="w-full text-center bg-red-500 text-white rounded-md h-12 cursor-pointer"
                     disabled={showOTP}
                     >
                     تایید شماره موبایل
@@ -204,7 +204,7 @@ useEffect(()=>{
                         {canResend ? (
                             <button
                             onClick={handleGetVerificationCode}
-                            className="w-full bg-red-500 text-white h-12 text-center rounded-md"
+                            className="w-full bg-red-500 text-white h-12 text-center rounded-md cursor-pointer"
                             >
                             ارسال مجدد کد
                             </button>
@@ -213,7 +213,7 @@ useEffect(()=>{
                             onClick={() => {
                                 handleSubmitVerification(); // Show Snackbar as part of the verification logic
                             }}
-                            className="w-full bg-red-500 text-white h-11 text-center rounded-md"
+                            className="w-full bg-red-500 text-white h-11 text-center rounded-md cursor-pointer"
                             disabled={timer === 0}
                             >
                             ثبت

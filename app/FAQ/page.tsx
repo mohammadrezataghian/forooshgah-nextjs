@@ -19,7 +19,7 @@ const FAQ = () => {
       <div className="w-full h-auto bg-white flex flex-col lg:px-64 px-5 gap-10 pt-10 pb-24">
         {items &&
           items.map((item:any) => (
-            <div key={item.id} className="w-full flex flex-col gap-1">
+            <div key={item.Id} className="w-full flex flex-col gap-1">
               <p className="text-lg text-justify">{item.Code} - {item.Question}</p>
               <p className="text-gray-600 text-justify">{item.Answer}</p>
             </div>
