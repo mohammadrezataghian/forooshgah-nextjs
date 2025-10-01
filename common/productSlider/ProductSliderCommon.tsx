@@ -64,7 +64,7 @@ const orderImageBestSeller = banner?.advertisement?.find((item:any) => item.Orde
                             <img src={orderImageBestSeller && `${siteAddress}/assets/public/adv/${orderImageBestSeller.Id}/${orderImageBestSeller.imageList[0].Id}/${orderImageBestSeller.imageList[0].UploadImageName}`} alt={orderImageBestSeller && orderImageBestSeller.NameOrderImage} className='w-auto h-auto object-cover'/>
                         </div>
                         <div className='text-center lg:w-full lg:h-full lg:mt-10 text-nowrap'>
-                            <Link href="/ProductList" className='w-full h-full borderseeall lg:border-2 lg:border-white p-1 lg:p-2 text-white rounded-md lg:rounded-md lg:text-md text-xs sm:text-sm'>
+                            <Link href="/ProductList/AllCategories" className='w-full h-full borderseeall lg:border-2 lg:border-white p-1 lg:p-2 text-white rounded-md lg:rounded-md lg:text-md text-xs sm:text-sm'>
                                 مشاهده همه
                                 <ChevronLeftIcon className='xl:mr-5 lg:text-xl text-sm'/>
                             </Link>

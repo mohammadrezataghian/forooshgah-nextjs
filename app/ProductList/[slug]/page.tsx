@@ -14,12 +14,12 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import ImgMediaCard from "./_components/ImgMediaCard";
-import RecipeReviewCard from "./_components/RecipeReviewCard";
-import Filters from "./_components/Filters";
-import OtherControls from "./_components/OtherControls";
+import ImgMediaCard from "../_components/ImgMediaCard";
+import RecipeReviewCard from "../_components/RecipeReviewCard";
+import Filters from "../_components/Filters";
+import OtherControls from "../_components/OtherControls";
 // filters
-import PaginationRounded from "./_components/Pagination";
+import PaginationRounded from "../_components/Pagination";
 import LoadingSkeleton from "./loading";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
@@ -28,6 +28,7 @@ import useFetchProducts  from "@/app/api/productList/hook";
 import { FcRemoveImage } from "react-icons/fc";
 import { ProductType } from "@/types/types";
 import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
+import Cookies from "js-cookie";
 
 const theme = createTheme({
   direction: "rtl",
@@ -68,7 +69,7 @@ export default function ProductList() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
-  const categoryFromPath = params?.id as string;
+  const categoryFromPath = params?.slug as string;
   const decodedCategory = decodeURIComponent(categoryFromPath || "");
   const initialPage = parseInt(searchParams.get("page") || "1", 10);
   const [page, setPage] = React.useState(initialPage);
@@ -148,7 +149,7 @@ React.useEffect(() => {
       payload.OnlyAvailable = 1; // true
       console.log("onlyAvailable");
     }
-    if (selectedCategory !== "") {
+    if (selectedCategory !== "" && selectedCategory !== 'AllCategories') {
       payload.Category = selectedCategory;
       console.log("selectedCategory");
     }
@@ -202,7 +203,7 @@ React.useEffect(() => {
                     top:120,
                     backgroundColor: '#F4F4F4',
                     }}>
-                      <RecipeReviewCard />
+                      <RecipeReviewCard/>
                       {/* filters */}
                       <Filters 
                         checked={checkedBrands} 

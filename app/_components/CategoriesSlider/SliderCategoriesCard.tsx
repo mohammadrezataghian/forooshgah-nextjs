@@ -30,7 +30,7 @@ const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) 
     {image && 
       <div className="w-full h-full" id={id}>
         <Link
-          href={`/productList/${name}`}
+          href={`/ProductList/${name}`}
           className="block w-full h-full rounded-lg overflow-hidden text-[#323232]"
         >
           <div className="w-full h-[80%] ">
