@@ -98,7 +98,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
           onClick={handleToggle}
           className='flex gap-2 w-full'
         >
-          <AccountCircleIcon className='text-gray-600'/><span><ArrowDropDownIcon/>{user && user.FirstName} {user && user.LastName}</span>
+          <AccountCircleIcon className='text-gray-600'/><span className='text-gray-600'><ArrowDropDownIcon/>{user && user.FirstName} {user && user.LastName}</span>
         </Button>
         <Popper
           open={open}
