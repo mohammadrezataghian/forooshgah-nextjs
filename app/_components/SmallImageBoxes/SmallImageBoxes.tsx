@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Image1 from "@/public/images/smallImageBoxes/Bank.png";
 // import Image2 from "@/public/images/smallImageBoxes/Acceptanceofgoods.png";
@@ -10,9 +11,14 @@ import Image8 from "@/public/images/smallImageBoxes/Supplier.png";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
+import { useAtom } from "jotai";
+import { IsStaffUserloggedIn } from "@/shared/isStaffLoggedIn";
 
 const SmallimageBoxes = () => {
   
+const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
+console.log(IsloggedIn);
+
   return (
     <>
       <div className="w-full h-auto mt-5 grid grid-rows-3 xs:grid-rows-2 xs:grid-cols-3 lg:grid-rows-1 grid-cols-2 lg:grid-cols-6 2xl:px-60 pt-5 xs:gap-y-5 gap-y-8 gap-x-14">
@@ -61,7 +67,7 @@ const SmallimageBoxes = () => {
           </Link>
         </div>
         <div className="w-full h-full px-6">
-          <Link href={(Cookies.get("staffUser")) ? "/Staff/Dashboard" : "/Staff/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={IsloggedIn ? "/Staff/Dashboard" : "/Staff/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image5}
