@@ -118,7 +118,7 @@ const { removeProduct } = useRemoveProduct(setProductList);
         {products && products.length > 0 && (
           <div className="w-full h-full flex justify-center">
             <Link
-              href="/itemcart"
+              href="/ItemCart"
               className="p-2 bg-blue-600 rounded-md text-white"
               onClick={(e) => {
                 e.stopPropagation();

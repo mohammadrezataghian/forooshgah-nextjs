@@ -88,7 +88,7 @@ useEffect(()=>{
     }, [balance]);
 
     useEffect(() => {
-      if (opendialogdelete === false) {
+      if (opendialogdelete === false && balance) {
         const mojod = products.filter(
           (item:any) => !balance.some((nm:any) => nm.IdKala === item.IdKala)
         );
