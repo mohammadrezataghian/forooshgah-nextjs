@@ -134,7 +134,7 @@ useEffect(()=>{
         <title>ورود</title>
         <meta name="description" content="ورود" />
         <div className='w-full h-screen flex justify-center items-center bg-white'>
-            <div className='w-full lg:w-[400px] lg:h-[500px] p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl'>
+            <div className='w-full lg:w-[400px] lg:h-[520px] p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl'>
                 <div className='w-full h-auto flex justify-center'>   
                     <Image src={Logo} alt=""  className='w-24'/>
                 </div>
@@ -162,7 +162,7 @@ useEffect(()=>{
                 <div>
                     <button
                     onClick={handleGetVerificationCode}
-                    className="w-full text-center bg-yellow-500 text-white rounded-md h-12 "
+                    className="w-full text-center bg-yellow-500 text-white rounded-md h-12 cursor-pointer"
                     disabled={showOTP}
                     >
                     تایید شماره موبایل
@@ -206,7 +206,7 @@ useEffect(()=>{
                                 // handleClose(); // Close the dialog after a slight delay
                                 }, 1500); // Delay in milliseconds
                             }}
-                            className="w-full bg-yellow-500 text-white h-11 text-center rounded-md"
+                            className="w-full bg-yellow-500 text-white h-11 text-center rounded-md cursor-pointer"
                             disabled={timer === 0}
                             >
                             ثبت

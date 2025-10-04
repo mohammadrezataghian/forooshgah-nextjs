@@ -131,7 +131,7 @@ const initStepperDelivery = selectedRow && selectedRow?.ErsalByTaminKonande
                     </Typography>
                     
                     <Grid container spacing={3}>
-                       {receipt.KalaList.map((kala:any) => ( 
+                       {receipt && receipt.KalaList && receipt.KalaList.map((kala:any) => ( 
                         <Grid key={kala.Id}>
                           <ProductCard
                             product= {kala}

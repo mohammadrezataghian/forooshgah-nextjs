@@ -29,7 +29,7 @@ function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 
   return (
     <div className='w-full '>
-      <button className='bg-gray-300 text-black rounded-md p-1' onClick={() => setOpen(true)}>
+      <button className='bg-gray-300 text-black rounded-md p-1 cursor-pointer' onClick={() => setOpen(true)}>
         <LogoutIcon className='text-black'/>
         <span>خروج</span>
       </button>
@@ -108,7 +108,7 @@ const SuppliersDashboard = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری تامین کننده', logo: <Image className='ml-2' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری تامین کننده', logo: <Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
       // session={session}
       // authentication={authentication}
     >
@@ -165,6 +165,9 @@ const SuppliersDashboard = (props:any) => {
         },
         '& .MuiStack-root': {
           ml:0 
+        },
+        '& nav.MuiBox-root[aria-label="Desktop"]': {
+        borderLeft: '1px solid lightgray',
         },
       }}
       >

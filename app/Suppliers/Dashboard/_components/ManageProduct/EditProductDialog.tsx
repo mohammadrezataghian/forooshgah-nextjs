@@ -89,7 +89,7 @@ const EditProduct = ({open,setOpen,selected,setSelected,onRefresh}:EditProductPr
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography gutterBottom component='div'>
             <EditForm groupResponse={groupResponse} setSelectedGroupId={setSelectedGroupId} unitResponse={unitResponse} setSelectedUnitId={setSelectedUnitId} typeResponse={typeResponse} setSelectedTypeId={setSelectedTypeId} setChecked={setChecked} handleClose={handleClose} userToken={userToken} kala={kala} setSelected={setSelected} onRefresh={onRefresh}/> 
           </Typography>
         </DialogContent>
