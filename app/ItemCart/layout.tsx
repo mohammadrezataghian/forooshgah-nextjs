@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from '@/app/_components/Head/Head'
-import Footer from '@/app/_components/Footer/Footer';
 import Menu from '@/app/_components/Menu/Menu';
 import MobileMenu from '@/app/_components/Menu/MobileMenu';
 
@@ -16,8 +15,7 @@ const layout = ({
             <Menu/>
         </div>
         <MobileMenu />
-            <main>{children}</main>
-        <Footer/>
+            <main className='bg-[#F4F4F4] pb-24 min-h-screen'>{children}</main>
     </>
   )
 }
