@@ -112,8 +112,10 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
     }
     const res = await getSubmitLogin(param)
       if (res?.data.resCode === 1) {
+        Cookies.remove('user')
         Cookies.set("user", JSON.stringify(res.data.Data), { expires: 12 / 24 });
         setIsloggedIn(true)
+        localStorage.removeItem("userToken")
         localStorage.setItem("userToken", res.data.token);
         showSnackbar("با موفقیت وارد شدید!");
         setMobileNumber("");

@@ -71,8 +71,10 @@ const params = {
        
        if (res?.data?.resCode === 1 && res?.data?.Data) {
          showSnackbar('با موفقیت وارد شدید')
+         Cookies.remove('user')
          Cookies.set("user", JSON.stringify(res?.data?.Data), { expires: 12 / 24 });
          setIsloggedIn(true)
+         localStorage.removeItem("userToken")
          localStorage.setItem("userToken", res?.data?.token);
          setUsername('')
          setPassword('')

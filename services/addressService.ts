@@ -1,5 +1,4 @@
-const BASE_URL = process.env.API_BASE_URL;
-
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 type getAll = {
     eshterakno : number | string;
     tokenInput : string
@@ -11,8 +10,9 @@ type otherOnes = {
 
 
 export const addressService = {
-  getAllAddresses: async (EshterakNo:{EshterakNo:number | string}, tokenInput:string) => {
-    const response = await fetch(`${BASE_URL}/api/UserAddressList`, {
+  getAllAddresses: async (EshterakNo:{EshterakNo:number}, tokenInput:string) => {
+    const url = `${BASE_URL}/api/UserAddressList`
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

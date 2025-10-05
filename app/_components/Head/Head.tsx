@@ -16,7 +16,6 @@ import HeadReturn from "./HeadReturn";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import UserPassDialog from "@/common/EnterModal/UsernameDialog";
-import { Address } from "@/types/types";
 
 const Head = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -31,9 +30,7 @@ const Head = () => {
     EshterakNo: 0,
   });
   const [deleteAddress, setdeleteAddress] = useState(null);
-  const [showdefaultaddress, setshowdefaultaddress] = useAtom<
-  Address | undefined
-  >(address);
+  const [showdefaultaddress, setshowdefaultaddress] = useAtom(address)
   const [loggedIn, setloggedIn] = useAtom(IsUserloggedIn);
   const [errorLoadAddress, setErrorLoadAddress] = useState<string | null>(null);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
@@ -86,20 +83,27 @@ const handleSelectMapOpen = () => {
 const loadAddresses = async () => {
   const obj = Cookies.get("user");
   const userData = obj && JSON.parse(obj);
-  setUserToken(localStorage.getItem("userToken") || "");
-  setEshterakNoInpt(userData && userData.EshterakNo);
-  const token = localStorage.getItem("userToken");
-  setTokenInpt(token || "");
-  if (eshterakNo && userToken && userToken != "") {
+  const token = localStorage.getItem("userToken") || '';
+  const eshterakNo = userData?.EshterakNo;
+
+  setUserToken(token);
+  setEshterakNoInpt(eshterakNo);
+  setTokenInpt(token);
+
+  if (eshterakNo && token && token != "") {
+    console.log(eshterakNo);
+    console.log(userToken);
+    
     try {
       const data = await addressService.getAllAddresses(
-        eshterakNo,
-        userToken
+        { EshterakNo: eshterakNo },
+        token
       );
-      
+
       setUserAddressAndSetdefaultAddress(data.Data);
     } catch (err) {
-      setErrorLoadAddress("Failed to load addresses");
+      console.error("API call failed:", err);
+      throw Error("Failed to load addresses");
     }
   }
 };

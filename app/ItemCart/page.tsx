@@ -33,7 +33,7 @@ export default function ItemCart() {
   //address
   const [addresses, setAdreesses] = useState([]);
   const [userToken, setUserToken] = useState(""); // در یافت توکن از نرم افزار
-  const [eshterakNo, setEshterakNo] = useState<{EshterakNo:string | number}>({EshterakNo:''}); // در یافت توکن از نرم افزار
+  const [eshterakNo, setEshterakNo] = useState<{EshterakNo:number}>({EshterakNo:0}); // در یافت توکن از نرم افزار
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [citydialogOpen, citysetDialogOpen] = useState(false);
   const [location, setLocation] = useState("");
@@ -186,19 +186,26 @@ const handleSelectAddress = (address:any) => {
   const loadAddresses = async () => {
     const obj = Cookies.get("user");
     const userData = obj && JSON.parse(obj);
-    setUserToken(localStorage.getItem("userToken") || '');
-    setEshterakNoInpt(userData.EshterakNo);
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("userToken") || '';
+    const eshterakNo = userData?.EshterakNo;
+
+    setUserToken(token);
+    setEshterakNoInpt(eshterakNo);
     setTokenInpt(token);
-    if (eshterakNo && userToken && userToken != "") {
+
+    if (eshterakNo && token && token != "") {
+      console.log(eshterakNo);
+      console.log(userToken);
+      
       try {
         const data = await addressService.getAllAddresses(
-          eshterakNo,
-          userToken
+          { EshterakNo: eshterakNo },
+          token
         );
 
         setUserAddressAndSetdefaultAddress(data.Data);
       } catch (err) {
+        console.error("API call failed:", err);
         throw Error("Failed to load addresses");
       }
     }
@@ -243,6 +250,7 @@ const handleSelectAddress = (address:any) => {
     setDialogOpen(false);
   };
 // end custom dialog settings
+console.log(isLoggedIn);
 
   return (
     <>

@@ -1,3 +1,6 @@
-import { atom } from 'jotai';
+'use client'
 
-export const IsUserloggedIn = atom(false);
+import { atom } from 'jotai';
+import Cookies from "js-cookie";
+
+export const IsUserloggedIn = atom(!!Cookies.get('user'));
