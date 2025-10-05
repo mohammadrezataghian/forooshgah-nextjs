@@ -19,7 +19,7 @@ const TotalFactor = ({products,factoeAfrerCalc,loadingPrice}:TotalFactorProps) =
     {loadingPrice ? <TotalFactorLoading/> : 
     <>
     {products && products.length > 0 && factoeAfrerCalc && (
-        <div className="w-full flex justify-center h-auto mb-10 text-xl">
+        <div className="w-full flex justify-center h-auto mb-10 text-xl lg:px-64">
           <div className="px-5 xs:px-0 w-full xs:w-2/3 h-auto flex flex-col items-start gap-5">
             <div className="w-full flex justify-between bordercartcard">
               <span>قیمت کالاها</span>

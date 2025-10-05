@@ -21,7 +21,7 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
 
   return (
     <>
-    <div className="flex flex-col gap-1 mb-28">
+    <div className="flex flex-col gap-1 mb-28 items-center gap-5">
         {products && products?.length > 0 && factoeAfrerCalc && (
           <>
             {!isLoggedIn && (
@@ -36,7 +36,7 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
             {isLoggedIn && !showdefaultaddress && (
               <button
                 onClick={handlecityDialogOpen}
-                className=" bg-blue-400 py-2 w-1/2 sm:w-1/4 mx-auto text-white text-center rounded-sm"
+                className=" bg-blue-400 py-2 w-1/2 sm:w-1/4 mx-auto text-white text-center rounded-sm cursor-pointer"
               >
                 انتخاب آدرس و ادامه خرید
               </button>
@@ -57,8 +57,9 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
         {products && products?.length > 0 && factoeAfrerCalc && (
           <Button
             variant="contained"
-            className="py-2 w-1/2 sm:w-1/4 mx-auto bg-red-500 text-white mt-5"
+            className="py-2 w-1/2 sm:w-1/4 mx-auto text-white mt-5"
             onClick={handleClickOpen}
+            color='error'
           >
             حذف سبد خرید
           </Button>
