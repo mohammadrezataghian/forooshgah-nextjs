@@ -42,6 +42,7 @@ export default function Del({ open, setOpen, handleDel }:DelProps) {
             }}
             sx={{
               borderColor: "#c49402", // Outline color
+              color:'#c49402',
               "&:hover": {
                 borderColor: "#544001", // Outline on hover
                 backgroundColor: "rgb(247, 243, 228)", // Optional subtle hover bg
@@ -56,6 +57,7 @@ export default function Del({ open, setOpen, handleDel }:DelProps) {
             onClick={handleClose}
             sx={{
               borderColor: "red", // Outline color
+              color:'#f20511',
               "&:hover": {
                 borderColor: "darkred", // Outline on hover
                 backgroundColor: "rgba(255,0,0,0.04)", // Optional subtle hover bg

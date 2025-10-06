@@ -137,7 +137,7 @@ export default function Add({ open, setOpen,fileName,setFileName,files,setFiles,
                     <span className="text-sm">{file.name}</span>
                     <button
                       type="button"
-                      className="text-red-500 text-xs"
+                      className="text-red-500 text-xs cursor-pointer"
                       onClick={() => handleRemoveFile(index)}
                     >
                       حذف

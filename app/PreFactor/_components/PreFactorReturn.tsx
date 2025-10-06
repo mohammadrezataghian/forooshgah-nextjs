@@ -268,7 +268,7 @@ const hasColor = userKala?.some((row:any) => row?.NameColor);
                   پرداخت
                 </Link>
                 <Link
-                  href={"/installmentPayment"}
+                  href={"/InstallmentPayment"}
                   className="!bg-yellow-500 text-white py-2 rounded-md w-40 text-center px-1"
                   onClick={()=>{
                     sessionStorage.setItem('noeErsal',String(selectedItem));
