@@ -529,3 +529,121 @@ export type verifyStatus = {
   stat: string;
   default: boolean;
 }
+
+
+
+
+export type ApiResponse = {
+  KalaList: Kala[];
+  IdNoeErsal: number;
+  Person: Person;
+};
+export type Kala = {
+  Tedad?: number;
+  RowNumber?: number;
+  IdKala?: number;
+  idGroupKala?: number;
+  NameGroup?: string;
+  CodeKala?: string;
+  BarCodeKala?: string | null;
+  NameKala?: string;
+  DisplayNameKala?: string;
+  NameLatinKala?: string | null;
+  NameUnit?: string;
+  FldDescription?: string | null;
+  FldType?: string;
+  FldUnit?: string;
+  NameMark?: string | null; 
+  FldIdMark?: number;
+  NameDegree?: string;
+  FldIsExpire?: boolean;
+  DeActive?: boolean;
+  NameColor?: string | null;
+  ColorHexCode?: string | null;
+  NameSize?: string | null;
+  NameGhorfer?: string;
+  Mojodi?: number;
+  PriceForoosh?: number;
+  IdStoreStock?: string;
+  NameGhorfe?: string;
+  DarsadMaliat?: number;
+  TotalCountRecord?: number;
+  idForooshGaha?: number;
+  NameForooshgah?: string;
+  PriceMasrafKonande?: number;
+  PriceKharidAvg?: number;
+  Takhfif?: number;
+  PriceForooshAfterDiscount?: number;
+  FldNameImageKalaList?: string;
+  FldIdModel?: number;
+  FldModelName?: string | null;
+  SimilarProducts?: unknown | null;
+  Attributes?: Attribute[];
+  Sections?: Sections[];
+  ShortDescription?: string;
+};
+type Attribute = {
+  AttributeName: string;
+  FldIdAttribute: number;
+  IsColor: boolean;
+  AttributeValue: string;
+  FldIdAttributeValue: number;
+};
+type Sections = {
+  Id: number;
+  IdKala: number;
+  IdParent: number;
+  Title: string;
+  Description: string;
+  Template: string;
+  ImageName: string;
+};
+type Person = {
+  Id: number;
+  ParentId: number | null;
+  FirstName: string;
+  LastName: string;
+  FatherName: string;
+  PersonNo: string;
+  CartId: string;
+  Dateouzviyat: string;
+  ShomareShenasname: string;
+  Tel: string;
+  Address: string;
+  Email: string;
+  Married: boolean;
+  Sex: boolean;
+  NationalCode: string;
+  WorkPlaceId: number;
+  JobId: string;
+  JobCaseId: string;
+  SaghfeKharidGhest: number;
+  MehaleSoddor: string;
+  Mobile: string;
+  EshterakNo: number;
+  Fldvaziat_Sahamdar: string;
+  NameJobCase: string;
+  NameJob: string;
+  NameWorkPlace: string;
+  IdBank: string;
+  NameBank: string;
+  MandeBedhi: number;
+  ShomareMelli_H: string;
+  ShomareEghtesadi_H: string;
+  CodeShobe_H: string;
+  CodePosti: string;
+  ShomareGozarname: string;
+  Hoghooghi: boolean;
+  isAdmin: boolean;
+};
+
+
+
+
+
+export type NoeErsal = {
+  Id: number;
+  Name: string;
+};
+
+export type NoeErsalList = NoeErsal[];
