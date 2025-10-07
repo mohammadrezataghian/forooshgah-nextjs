@@ -236,7 +236,7 @@ const hasColor = userKala?.some((row:any) => row?.NameColor);
                         <StyledTableCell align="center">
                           {location ? <Link
                             href={"/PaymentMethods"}
-                            onClick={()=>(sessionStorage.setItem('amount',JSON.stringify({ amount: userInfoo.GhabelePardakht  })))}
+                            onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({ amount: userInfoo.GhabelePardakht  })))}
                             className="!bg-success text-white py-2 px-10 rounded-md bg-green-500"
                           >
                             پرداخت
@@ -262,7 +262,7 @@ const hasColor = userKala?.some((row:any) => row?.NameColor);
                 <>
                 <Link
                   href={"/PaymentMethods"}
-                  onClick={()=>(sessionStorage.setItem('amount',JSON.stringify({ amount: userInfoo.GhabelePardakht  })))}
+                  onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({ amount: userInfoo.GhabelePardakht  })))}
                   className="!bg-success text-white py-2 rounded-md w-40 text-center bg-green-500"
                 >
                   پرداخت

@@ -65,7 +65,7 @@ const param = {
       if (residResponse && residResponse?.data?.Data?.ID) {
         // router.push('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
         router.push('/PaymentMethods')
-        sessionStorage.setItem('state',JSON.stringify({state: { param: residResponse?.data?.Data }}))
+        sessionStorage.setItem('paymentMethodsState',JSON.stringify({ param: residResponse?.data?.Data }))
        }
      },[residResponse])
     

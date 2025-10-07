@@ -1,0 +1,371 @@
+'use client'
+
+import Cookies from "js-cookie";
+import React, { useState, useEffect } from "react";
+import PaymentTypeCard from "./_components/PaymentTypeCard";
+import {
+  Box,
+  useMediaQuery,
+  Typography,
+  Grid,
+  Button,
+  Divider,
+} from "@mui/material";
+import { siteUrlAddress } from "@/shared/site.url.atom";
+import { payfullOrPart } from "@/shared/payment";
+import { useAtom } from "jotai";
+import useGetAddFactor from "@/app/api/addFactor/hook";
+import useGetResults from "@/app/api/activeGetWayOnlinePayment/hook";
+import { useRouter } from "next/navigation";
+
+type selectedItemType = {
+  Code:string;
+  Id:number;
+  Name:string;
+  imgaddress:string;
+}
+
+const PaymentMethods = () => {
+
+  const [userFactor,setUserFactor] = useState('')
+  const [userFactorFlag,setUserFactorFlag] = useState(false)
+  const [paymentLink, setPaymentLink] = useState(""); // ذخیره لینک پرداخت
+  const [userToken, setUserToken] = useState(""); // در یافت توکن از نرم افزار
+  const [paymentType, setPaymentType] = useState<selectedItemType[]>([]); // در یافت توکن از نرم افزار
+  const [eshterakNo, setEshterakNo] = useState(0); // در یافت توکن از نرم افزار
+  const [callBackLink, setCallBackLink] = useState("");
+  const [selectedItem, setSelectedItem] = useState<selectedItemType | null>(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const [factorSaved, setFatorSaved] = useState(false);
+  const [WebFactorId, setIdFactor] = useState(0);
+  const isMobile = useMediaQuery("(max-width:600px)"); // بررسی حالت موبایل
+  const [siteAddress] = useAtom(siteUrlAddress);
+  const [isPart,setIsPart] = useAtom(payfullOrPart);
+  const [timer, setTimer] = useState(null); // ذخیره تایمر
+  const [sadaWindowopen, setSadadWindowOpen] = useState(false);
+  const [isGeneratedFactor,setIsGeneratedFactor] = useState<boolean | null>(null)
+  const [noeTarakonesh,setNoeTarakonesh] = useState<number | null>(null)
+  const [isButtonClicked,setIsButtonClicked] = useState(false)
+  
+  const VerifySadadToken = process.env.API_URL_VERIFYSADADTOKEN as string;
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const [amount,setAmount] = useState<null | number>(null)
+  const { results, loadingResults, errorResults,getReturnReason } = useGetResults();
+  const { result, loading, error,getAddFactor } = useGetAddFactor();
+  const rawState = sessionStorage.getItem('paymentMethodsState');
+  const state = rawState ? JSON.parse(rawState) : null;
+  const router = useRouter();
+console.log(state);
+
+//get userfactor from local storage
+useEffect(()=>{
+  if (!userFactor && !userFactorFlag) {
+    const storedFactor = localStorage.getItem("userFactor");
+    if (storedFactor) {
+      setUserFactor(storedFactor);
+      setUserFactorFlag(true)
+    }
+  }
+},[])
+
+  useEffect(()=>{
+    if (localStorage.getItem('goToPay') == String(WebFactorId)) {
+      setIsButtonClicked(true)
+    }   
+  },[WebFactorId,isButtonClicked])
+
+useEffect(()=>{
+  if (state) {
+    if(state?.param){
+      setIsGeneratedFactor(false)
+      setNoeTarakonesh(state?.param?.NoeTarakonesh)
+    }else{
+      setIsGeneratedFactor(true)
+      setNoeTarakonesh(0)
+    }
+  }
+},[rawState])
+
+  useEffect(()=>{
+    if (state) {
+      if (state?.amount) {
+        setAmount(state?.amount)
+        setIsPart(false)
+      }else if (state?.factor){
+        setAmount(state?.factor?.GhabelePardakht)
+        setIsPart(true)
+      }else if(state?.param){
+        setAmount(state?.param?.Amount)
+        setIsPart(true)
+      }
+    }
+  },[rawState])
+
+  useEffect(()=>{
+    if (state?.factor?.Id) {
+      afterSaveFactor(state?.factor)
+      setIsPart(true)
+    }else if(state?.param?.ID){
+      afterSaveFactor(state)
+      setIsPart(true)
+    }else{
+      if (result && result?.length == 0 && userFactorFlag){
+      const token = localStorage.getItem("userToken") || '';
+      async function saveFactor(tokenInput:string) {
+        const factorInfo = JSON.parse(userFactor);
+        const res = await getAddFactor(factorInfo,tokenInput);
+         afterSaveFactor(res?.data)
+      }
+      saveFactor(token)
+      setIsPart(false)
+    }
+    }
+  },[rawState,userFactor])
+
+  // remove userfactor from local storage after sending it to the api
+  useEffect(()=>{
+    if (result && result?.data?.resCode === 1){
+      localStorage.removeItem("userFactor")
+      setUserFactorFlag(false)
+    }
+  },[result])
+  
+  
+  const afterSaveFactor = async (data:any) => {
+    if (data.resCode == 1 && data.Data) {
+      setFatorSaved(true);
+      saveFactoreId(data.Data.Id);
+    }else if(data.param){
+      saveFactoreId(data.param.ID);
+    }else{
+      setFatorSaved(true);
+      saveFactoreId(data.Id);
+    }
+  };
+
+  const saveFactoreId = (factoreIdReturn:any) => {
+    setIdFactor(factoreIdReturn);
+  };
+
+  useEffect(() => {
+  const fetchdata = async () => {
+    const obj = Cookies.get("user");
+    const token = localStorage.getItem("userToken");
+    if (obj && token) {
+      setUserToken(localStorage.getItem("userToken") || '');
+      const userData = JSON.parse(obj);
+      setEshterakNo(userData.EshterakNo);
+      setIsLogin(true);
+      // if (WebFactorId === 0) {
+      //   saveFactor(token);
+      // }
+      const res = await getReturnReason(token)
+      setPaymentTypeResponce(res?.data)
+    }
+  }
+  fetchdata()
+  }, [callBackLink, selectedItem]);
+
+  const setPaymentTypeResponce = async (data:any) => {
+    if (data?.Data) {
+      let baseAddress = "/src/assets/images/bankPayment";
+      if (process.env.NODE_ENV === "development") {
+        baseAddress = "/src/assets/images/bankPayment";
+      } else {
+        baseAddress = `${siteAddress}/assets/images/bankPayment`;
+      }
+      const dataWithImage = data.Data.map((el:any) => {
+        return {
+          ...el,
+          imgaddress: `${baseAddress}/${el.Id}.png`,
+        };
+      });
+      setPaymentType(dataWithImage);
+    }
+  };
+
+  const handlePayment = async () => {
+    if (!selectedItem) {
+      alert("لطفاً یک روش پرداخت انتخاب کنید.");
+      return;
+    }
+
+    let paymentLinkAddressUrl = "";
+    let callbackLindAddress = "";
+    const ids = selectedItem.Id;
+    switch (ids) {
+      case 1:
+        paymentLinkAddressUrl = "/api/payByZarinPal";
+        callbackLindAddress = `${siteAddress}/#/VerifyZarinPal`;
+        setCallBackLink(callbackLindAddress);
+        break;
+      case 2:
+        paymentLinkAddressUrl = "/api/GetSamanKishToken";
+        callbackLindAddress = `${siteAddress}/pub/VerifySamanKishToken`;
+        setCallBackLink(callbackLindAddress);
+        break;
+      case 3:
+        paymentLinkAddressUrl = "/api/GetBehPardakhtRefId";
+        callbackLindAddress = `${siteAddress}/pub/VerifyBehPardakht`;
+        setCallBackLink(callbackLindAddress);
+        break;
+      case 4:
+        paymentLinkAddressUrl = "/api/GetSadadToken";
+        callbackLindAddress = VerifySadadToken;
+        setCallBackLinkState(callbackLindAddress);
+        break;
+      default:
+        paymentLinkAddressUrl = "";
+        callbackLindAddress = "";
+        setCallBackLink(callbackLindAddress);
+        break;
+    }
+    const paymentData = {
+      eshterakNo,
+      amount,
+      callBackLink,
+      WebFactorId,
+    };
+
+    const p = { ...paymentData, Description: "افزایش موجودی" ,NoeTarakonesh :noeTarakonesh};
+    try {
+      const response = await fetch(`${apiUrl}${paymentLinkAddressUrl}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(p),
+      });
+      const data = await response.json();
+      if (data.resCode == 1 && data.Data) {
+        window.open(data.Data, "_blank");
+        const ids = selectedItem.Id;
+        if (ids == 4) {
+          setSadadWindowOpen(true);
+        }
+        localStorage.removeItem("goToPay")
+        localStorage.setItem("goToPay",String(WebFactorId))
+        setIsButtonClicked(true)
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("مشکلی در برقراری ارتباط با سرور به وجود آمده است.");
+    }
+  };
+
+  const setCallBackLinkState = (input:any) => {
+    setCallBackLink(input);
+  };
+
+  const handleItemSelect = (item:any) => {
+    setSelectedItem(item);
+  };
+
+const handleNavigationBack =()=>{
+  router.back();
+}
+
+  return (
+    <>
+    {(userFactor == '' && !isPart) ? 
+    <div className="w-full h-screen flex justify-center items-center">
+      <div className="p-16 bg-blue-500 text-white flex flex-col items-center justify-center gap-8 rounded-md">
+        <p className="text-center text-xl">فاکتور وجود ندارد!</p>
+        <button onClick={handleNavigationBack} className="text-white border border-white p-3 rounded-md">بازگشت به صفحه ی قبل</button>
+      </div>
+    </div> : ((userFactor && result && result?.data?.resCode === 1) || isPart) ?  
+    <>
+    {state ? <div className="bg-white h-[100vh]">
+      <Box
+        className="flex justify-center items-center bg-[#1976d2] text-white text-center font-bold"
+        sx={{
+          padding: 2,
+          boxShadow: 3,
+          marginBottom: 2,
+          fontSize: isMobile ? "18px" : "24px", // اندازه متن برای موبایل و دسکتاپ
+        }}
+      >
+        قابل پرداخت: {amount &&  amount.toLocaleString()} ریال
+      </Box>
+
+      {isLogin && (
+        <Box className="mt-10">
+          <Box
+            className="flex justify-center items-center p-[2px] text-black mb-2 text-center font-bold"
+            sx={{
+              fontSize: isMobile ? "18px" : "24px", // اندازه متن برای موبایل و دسکتاپ
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              انتخاب روش پرداخت:
+            </Typography>
+          </Box>
+
+          <Grid container spacing={1} justifyContent={"center"} alignItems={"center"} gap={3}>
+            {paymentType && paymentType.map((item) => (
+              <div key={item.Id} className="flex justify-center">
+                <PaymentTypeCard 
+                  item={item} 
+                  onSelectItem={()=>
+                  handleItemSelect(item)
+                  }
+                  selectedItem={selectedItem}
+                />
+              </div>
+            ))}
+          </Grid>
+          <Divider className="mt-10" />
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            className="flex-col gap-5 mt-10"
+          >
+            <Typography variant="body1" color="text.primary">
+              روش پرداخت: {selectedItem && selectedItem.Name}
+            </Typography>
+            <Button
+              onClick={handlePayment}
+              variant="contained"
+              color="primary"
+              size="medium"
+              className=" text-white"
+              disabled={isButtonClicked}
+            >
+              {" "}
+              پرداخت{" "}
+            </Button>
+          </div>
+        </Box>
+      )}
+
+      {!isLogin && (
+        <Box
+          className="flex justify-center items-center bg-[#1976d2] text-white text-center font-bold"
+          sx={{
+            padding: 2,
+            borderRadius: "8px",
+            boxShadow: 3,
+            marginBottom: 2,
+            fontSize: isMobile ? "18px" : "24px", // اندازه متن برای موبایل و دسکتاپ
+          }}
+        >
+          لطفا جهت پرداخت ابتدا وارد سایت شوید
+        </Box>
+      )}
+
+      {paymentLink && (
+        <p>
+          <a href={paymentLink} target="_blank" rel="noopener noreferrer">
+            لینک پرداخت
+          </a>
+        </p>
+      )}
+    </div> : <div className="w-full flex justify-center p-10"><span>اطلاعاتی برای نمایش وجود ندارد!</span></div> }
+    </>
+    : <div className="p-3">در حال انتقال به صفحه ی موردنظر هستید...</div>
+    }
+    </>
+  );
+};
+
+export default PaymentMethods;

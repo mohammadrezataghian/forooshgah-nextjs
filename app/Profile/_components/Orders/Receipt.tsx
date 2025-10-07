@@ -176,7 +176,7 @@ const Receipt = () => {
                                       <Link
                                         href={"/PaymentMethods"}
                                         // state={{factor : item}}
-                                        onClick={()=>(sessionStorage.setItem('state',JSON.stringify({factor : item})))}
+                                        onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
                                         className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
                                       >
                                         پرداخت
