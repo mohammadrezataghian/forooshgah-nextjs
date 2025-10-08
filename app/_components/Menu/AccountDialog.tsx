@@ -62,7 +62,7 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
         
         <List>
           <ListItemButton>
-          <Link onClick={handleCloseAccount} href={`/profile/${user?.Id}`} className='text-inherit flex'><span>پروفایل</span><AccountCircleIcon className='text-gray-600 mr-1'/></Link>
+          <Link onClick={handleCloseAccount} href={`/Profile`} className='text-inherit flex'><span>پروفایل</span><AccountCircleIcon className='text-gray-600 mr-1'/></Link>
           </ListItemButton>
           <ListItemButton>
           <Link onClick={() => {

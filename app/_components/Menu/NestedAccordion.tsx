@@ -85,7 +85,7 @@ const NestedAccordion = ({
 
     // start nested accordion
     <>
-    <div className='ps-1 py-3 flex'><Link onClick={toggleDrawer(false)} href={`/productList/${nameLink}`}>{nameLink}</Link></div>
+    <div className='ps-1 py-3 flex'><Link onClick={toggleDrawer(false)} href={`/ProductList/${nameLink}`}>{nameLink}</Link></div>
     {item?.children.map((item:any) => (
       <div key={item.Id}>
       <Accordion
@@ -98,7 +98,7 @@ const NestedAccordion = ({
       </AccordionSummary>
       <AccordionDetails>
         <Typography component="div">
-        <div className='ps-1 py-3 flex'><Link onClick={toggleDrawer(false)} href={`/productList/${item.Name}`}>{item.Name}</Link></div>
+        <div className='ps-1 py-3 flex'><Link onClick={toggleDrawer(false)} href={`/ProductList/${item.Name}`}>{item.Name}</Link></div>
         <NestedNestedAccordion
           expandedNestedNested={expandedNestedNested}
           handleNestedNestedChange={handleNestedNestedChange}

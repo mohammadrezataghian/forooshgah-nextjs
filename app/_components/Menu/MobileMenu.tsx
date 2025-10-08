@@ -107,7 +107,7 @@ const handleCloseAccount = () => {
             ></path>
           </svg>
           {/* start categories/menuMobile*/}
-          <a className="tab-link sidemenu " onClick={(event) => {
+          <a className="tab-link sidemenu cursor-pointer" onClick={(event) => {
             event.preventDefault();
             setSidemenuDrawerOpen(true); 
           }} >
@@ -118,7 +118,7 @@ const handleCloseAccount = () => {
           {/* start account */}
           <a
             data-toggle="modal"
-            className="tab-link"
+            className="tab-link cursor-pointer"
             onClick={(event) => {
               event.preventDefault();
               {loggedIn ? handleClickOpenAccount() : handleDialogOpen() }
@@ -130,7 +130,7 @@ const handleCloseAccount = () => {
           {/* end account */}
           {/* start home */}
           <Link href="/" id="homebut" className="tab-link">
-            <IoMdHome className="absolute top-3 left-1/3 translate-x-1/12 text-2xl" />
+            <IoMdHome className="absolute top-3 text-2xl" />
           </Link>
           {/* end home */}
           {/* start search */}
@@ -140,7 +140,7 @@ const handleCloseAccount = () => {
           </Link>
           {/* end search */}
           {/* start basket */}
-          <a className="tab-link" onClick={toggleDrawer(true)} 
+          <a className="tab-link cursor-pointer" onClick={toggleDrawer(true)} 
           >
             <Badge
             sx={{
