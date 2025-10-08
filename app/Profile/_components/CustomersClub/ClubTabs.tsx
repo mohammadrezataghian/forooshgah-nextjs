@@ -12,9 +12,10 @@ type LabTabsProps = {
   items:any;
   response:any;
   loadingItems:boolean;
+  score:number | null;
 }
 
-export default function LabTabs({ items, response,loadingItems }:LabTabsProps) {
+export default function LabTabs({ items, response,loadingItems,score }:LabTabsProps) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event:any, newValue:any) => {
@@ -43,7 +44,7 @@ export default function LabTabs({ items, response,loadingItems }:LabTabsProps) {
         <TabPanel value="2">
           <div className="w-full h-auto">
             <div className="container h-96 ">
-              <ScoreHistoryTab response={response}/>
+              <ScoreHistoryTab response={response} score={score}/>
             </div>
           </div>
         </TabPanel>

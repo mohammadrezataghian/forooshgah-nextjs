@@ -3,9 +3,10 @@ import { PiCoins } from "react-icons/pi";
 
 type ScoreHistoryTabProps={
   response:any;
+  score:number | null;
 }
 
-const ScoreHistoryTab = ({ response }:ScoreHistoryTabProps) => {
+const ScoreHistoryTab = ({ response,score }:ScoreHistoryTabProps) => {
   return (
     <>
       <div className="flex flex-col items-center justify-start py-10">
@@ -17,7 +18,7 @@ const ScoreHistoryTab = ({ response }:ScoreHistoryTabProps) => {
                 <PiCoins className="text-yellow-500 text-2xl" />
                 <span>امتیاز:</span>
               </div>
-              <span>{response?.data?.Data.Score}</span>
+              <span>{score}</span>
             </div>
           )}
         </div>

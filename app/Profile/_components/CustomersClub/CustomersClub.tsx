@@ -39,7 +39,7 @@ const CustomersClub = () => {
       {user && eshterakNo && userToken ? (
         <div className="w-full flex justify-center items-center h-screen">
           <div className="w-full flex justify-center container h-full mt-0">
-            <LabTabs items={items} loadingItems={loadingItems} response={response} />
+            <LabTabs items={items} loadingItems={loadingItems} response={response} score={score}/>
           </div>
         </div>
       ) : (
