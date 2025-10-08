@@ -1,4 +1,6 @@
-import React from "react";
+'use client'
+
+import React, { useEffect } from "react";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
@@ -7,6 +9,9 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Receipt from "./Receipt";
 import Returned from "./Returned";
+import { useAtom } from "jotai";
+import { siteUrlAddress } from "@/shared/site.url.atom";
+import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 
 function CustomTabPanel(props:any) {
   const { children, value, index, ...other } = props;
@@ -39,10 +44,31 @@ function a11yProps(index:any) {
 
 const Orders = () => {
   const [value, setValue] = React.useState(0);
+  const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
 
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue);
   };
+
+  const { loading, error,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+
+  useEffect(() => {
+    const fetchSiteAddress = async () => {
+      const data = await getSiteAddress()
+      setSiteAddressResponce(data?.data)
+    };
+  
+    const setSiteAddressResponce = async (data:any) => {
+      if (data && data.Data) {
+        setSiteAddress(data.Data);
+      }
+    };
+  
+    if (!siteAddress) {
+      fetchSiteAddress();
+    }
+  
+  }, [siteAddress, setSiteAddress]);
 
   return (
     <>

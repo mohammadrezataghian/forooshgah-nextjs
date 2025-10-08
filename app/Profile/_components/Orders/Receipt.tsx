@@ -68,8 +68,6 @@ const Receipt = () => {
     },[deleteFactorResponse])
   //end delete factor
 
-  // console.log(receipts);
-
   return (
     <>
       {user ? (
@@ -86,43 +84,44 @@ const Receipt = () => {
               <div className="w-full grid gap-5 lg:grid-cols-2 grid-cols-1 place-items-center text-sm xl:text-base p-1">
                 {receipts.length > 0 ? (
                   receipts.map((item:any) => {
-                    let bordercolor = "border-gray-300";
+                    let bordercolor = "#d1d5db";
                     if (item.DarkhastKharidGhesti) {
-                      bordercolor = "border-yellow-500";
+                      bordercolor = "#eab308";
                     }
                     return (
                       <Card
                         key={item.Id}
                         variant="outlined"
-                        className={`w-full py-5 px-1 grid grid-cols-2 gap-y-3 ${bordercolor}`}
+                        style={{ borderColor:bordercolor }}
+                        className={`w-full py-5 px-1 grid grid-cols-2 gap-y-3 border `}
                       >
                         <div className="flex flex-col justify-end">
-                          <p className="text-nowrap">
+                          <p className="mb-auto !text-xs md:!text-sm">
                             جمع فاکتور :{" "}
                             {autocomma(item.Mablaghekol + item.Maliat)} ریال
                           </p>
                           <Divider />
                         </div>
                         <div className="flex flex-col justify-end">
-                          <p className="text-nowrap text-center">
+                          <p className="mb-auto text-center !text-xs md:!text-sm">
                             تاریخ : {item.FactorDate}
                           </p>
                           <Divider />
                         </div>
                         <div className="flex flex-col justify-end">
-                          <p className="text-nowrap text-right">
+                          <p className="mb-auto text-right !text-xs md:!text-sm">
                             مالیات : {autocomma(item.Maliat)} ریال
                           </p>
                           <Divider />
                         </div>
                         <div className="flex flex-col justify-end">
-                          <p className="text-nowrap text-center">
+                          <p className="mb-auto text-center !text-xs md:!text-sm">
                             هزینه ارسال : {autocomma(item.HazineErsal)} ریال
                           </p>
                           <Divider />
                         </div>
                         <div className="flex flex-col justify-end">
-                          <p className="text-green-500  overflow-hidden whitespace-nowrap">
+                          <p className="text-green-500  mb-auto !text-xs md:!text-sm">
                             قابل پرداخت : {autocomma(item.GhabelePardakht)} ریال
                           </p>
                           <Divider />
@@ -131,11 +130,11 @@ const Receipt = () => {
                           <>
                             <div className="w-full flex items-center flex-col">
                               {item.TaeedeDarkhastGhesti ? (
-                                <p className="w-fit text-nowrap bg-yellow-500 px-1 text-white rounded-sm">
+                                <p className="w-fit mb-auto bg-yellow-500 px-1 text-white rounded-sm !text-xs md:!text-sm">
                                   خرید قسطی تایید شده
                                 </p>
                               ) : (
-                                <p className="w-fit text-nowrap bg-red-400 px-1 text-white rounded-sm">
+                                <p className="w-fit mb-auto bg-red-400 px-1 text-white rounded-sm  !text-xs md:!text-sm">
                                   خرید قسطی تایید نشده
                                 </p>
                               )}
@@ -144,27 +143,27 @@ const Receipt = () => {
                             {item.TaeedeDarkhastGhesti && (
                               <>
                                 <div className="flex flex-col justify-end">
-                                  <p className="text-nowrap text-right">
+                                  <p className="mb-auto text-right !text-xs md:!text-sm">
                                     تعداد اقساط : {item.TedadGhest}
                                   </p>
                                   <Divider />
                                 </div>
                                 <div className="flex flex-col justify-end">
-                                  <p className="text-nowrap text-xs md:text-base text-center">
+                                  <p className="!text-xs md:!text-sm text-center mb-auto">
                                     تاریخ سررسید قسط اول:{" "}
                                     {item.SarResidAvalinGhest}
                                   </p>
                                   <Divider />
                                 </div>
-                                <div className="flex flex-col justify-end">
-                                  <p className="text-nowrap text-right text-xs md:text-base">
+                                <div className="flex flex-col justify-end ">
+                                  <p className="text-right !text-xs md:!text-sm mb-auto">
                                     مبلغ هر قسط:{" "}
                                     {autocomma(item.MablagheHarGhest)} ریال
                                   </p>
                                   <Divider />
                                 </div>
                                 <div className="flex flex-col justify-end">
-                                  <p className="text-nowrap text-xs md:text-base text-center">
+                                  <p className="!text-xs md:!text-sm text-center mb-auto">
                                     تاریخ تایید خرید قسطی:{" "}
                                     {item.TarikheTaeedeKharidGhesti}
                                   </p>
@@ -177,7 +176,7 @@ const Receipt = () => {
                                         href={"/PaymentMethods"}
                                         // state={{factor : item}}
                                         onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
-                                        className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
+                                        className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 !text-xs md:!text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
                                       >
                                         پرداخت
                                       </Link>
@@ -186,7 +185,7 @@ const Receipt = () => {
                                       <Button
                                         variant="outlined"
                                         color="error"
-                                        className="text-red-500 py-1.5 md:w-2/3 text-sm"
+                                        className="text-red-500 !py-1.5 md:w-2/3 !text-xs md:!text-sm text-nowrap text-center !px-2 !rounded-md"
                                         onClick={()=>(setSelectedFactor(item.Id))}
                                       >
                                         حذف درخواست قسطی
@@ -207,7 +206,7 @@ const Receipt = () => {
                             <span className="pt-2">اقلام سبد خرید:</span>
                           </div>
                           <Container className="px-0">
-                            <Grid container spacing={3}>
+                            <div className="grid grid-cols-2 gap-2">
                               {item.KalaList.map((kala:any) => (
                                 <div key={kala.Id}>
                                   <ProductCard
@@ -220,7 +219,7 @@ const Receipt = () => {
                                   />
                                   </div>
                               ))}
-                            </Grid>
+                            </div>
                             {selectedProducts.length > 0 &&
                               item.KalaList.some((product:any) =>
                                 selectedProducts.includes(product.Id)
@@ -229,7 +228,7 @@ const Receipt = () => {
                                   <Button
                                     variant="outlined"
                                     color="error"
-                                    className="text-red-500"
+                                    className="text-red-500 cursor-pointer"
                                   >
                                     <Link
                                       href={`/returnProduct/${item.Id}`}

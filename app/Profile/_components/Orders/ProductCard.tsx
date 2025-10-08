@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import Link from 'next/link';
 import { FactorReturn, ProductReturn } from '@/types/types';
+import Image from 'next/image';
 
 type ProductCard = {
     product:ProductReturn;
@@ -64,20 +65,16 @@ if (images != null) {
             />
           </div>
          }
-          <Link href={`/products/productsdetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
-          <CardMedia
-            component="img"
-            height="200"
-            image={image}
-            alt={product.NameKala}
-            className="h-[100px] object-contain"
-          />
+          <Link href={`/ProductDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
+          <div className='w-full h-auto flex justify-center'>
+            <Image src={image} alt={product.NameKala} height={200} width={100} unoptimized />
+          </div>
           </Link>
           <CardContent className="space-y-2">
-            <h3 className="font-medium line-clamp-2 text-right min-h-[42px]">
-                {product.NameKala}
+            <h3 className="font-medium line-clamp-2 text-right min-h-[42px] !text-xs md:!text-sm text-wrap">
+                {product.NameKala} 
             </h3>   
-            <Typography variant="subtitle1" className="text-blue-600 font-medium">
+            <Typography variant="subtitle1" className="!text-blue-600 font-medium !text-xs md:!text-sm">
                 {autocomma(product.PriceMasrafKonande)} ریال
             </Typography>
            

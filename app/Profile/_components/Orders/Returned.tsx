@@ -47,29 +47,29 @@ const autocomma = (number_input:number) =>
                   className="w-[336px] lg:w-[322px] xl:w-[366px] py-5 px-2  grid grid-cols-2 gap-y-2"
                 >
                   <div>
-                    <p className="text-nowrap">تاریخ : {item.FactorDate}</p>
+                    <p className="mb-auto !text-xs md:!text-sm">تاریخ : {item.FactorDate}</p>
                     <Divider/>
                   </div>
                   <div>
-                  <p className="text-green-500  overflow-hidden whitespace-nowrap">جمع فاکتور : {autocomma(item.GhabelePardakht)} ریال</p>
+                  <p className="text-green-500  mb-auto !text-xs md:!text-sm">جمع فاکتور : {autocomma(item.GhabelePardakht)} ریال</p>
                   <Divider/>
                   </div>
                   <div>
-                  <p className="text-nowrap">مالیات : {autocomma(item.Maliat)} ریال</p>
+                  <p className="mb-auto !text-xs md:!text-sm">مالیات : {autocomma(item.Maliat)} ریال</p>
                   <Divider/>
                   </div>
                   <div>
-                  <p className="text-nowrap">هزینه ارسال : {autocomma(item.HazineErsal)} ریال</p>
+                  <p className="mb-auto !text-xs md:!text-sm">هزینه ارسال : {autocomma(item.HazineErsal)} ریال</p>
                   <Divider/>
                   </div>
                   <div className="col-span-2">
 
-                  <Container className="px-0">
-                    <Typography variant="h4" component="h1" className="mb-8 text-lg">
+                  <Container className="!px-0">
+                    <Typography variant="h4" component="h1" className="!mb-8 !text-lg">
                       اقلام سبد خرید:
                     </Typography>
                     
-                    <Grid container spacing={3}>
+                    <div className="grid grid-cols-2 gap-2">
                        {item.KalaList.map((kala:any) => ( 
                         <div  key={kala.Id}>
                           <ProductCard
@@ -78,7 +78,7 @@ const autocomma = (number_input:number) =>
                           />
                         </div>
                     ))}
-                    </Grid>
+                    </div>
                   </Container>
                   </div>
                 </Card>

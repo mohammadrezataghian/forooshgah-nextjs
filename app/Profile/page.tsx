@@ -132,6 +132,9 @@ const Profile = (props:any) => {
         '& .MuiButtonBase-root .MuiListItemButton-root ': {
           justifyContent:"end" 
         },
+        '& nav.MuiBox-root[aria-label="Desktop"]': {
+          borderLeft: '1px solid lightgray',
+        },
       }}
       >
        {router.pathname === '/' && (
