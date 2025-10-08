@@ -6,7 +6,6 @@ const GetCustomerClubOffers = process.env.API_URL_GETCUSTOMERCLUBOFFERS as strin
 
 export async function GET(request: Request) {
   try {
-    const body = await request.json();
     const token = request.headers.get("authorization");
 
     const res = await axios.get(GetCustomerClubOffers, {
