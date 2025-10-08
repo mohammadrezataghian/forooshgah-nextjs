@@ -52,10 +52,15 @@ const PaymentMethods = () => {
   const [amount,setAmount] = useState<null | number>(null)
   const { results, loadingResults, errorResults,getReturnReason } = useGetResults();
   const { result, loading, error,getAddFactor } = useGetAddFactor();
-  const rawState = sessionStorage.getItem('paymentMethodsState');
-  const state = rawState ? JSON.parse(rawState) : null;
+  const [state, setState] = useState<any>(null);
   const router = useRouter();
-console.log(state);
+  
+useEffect(() => {
+  // Only runs in the browser
+  const rawState = sessionStorage.getItem('paymentMethodsState');
+  const savedState = rawState ? JSON.parse(rawState) : null;
+  setState(savedState);
+}, []);
 
 //get userfactor from local storage
 useEffect(()=>{
@@ -84,7 +89,7 @@ useEffect(()=>{
       setNoeTarakonesh(0)
     }
   }
-},[rawState])
+},[state])
 
   useEffect(()=>{
     if (state) {
@@ -99,7 +104,7 @@ useEffect(()=>{
         setIsPart(true)
       }
     }
-  },[rawState])
+  },[state])
 
   useEffect(()=>{
     if (state?.factor?.Id) {
@@ -109,7 +114,7 @@ useEffect(()=>{
       afterSaveFactor(state)
       setIsPart(true)
     }else{
-      if (result && result?.length == 0 && userFactorFlag){
+      if (userFactorFlag){
       const token = localStorage.getItem("userToken") || '';
       async function saveFactor(tokenInput:string) {
         const factorInfo = JSON.parse(userFactor);
@@ -120,7 +125,7 @@ useEffect(()=>{
       setIsPart(false)
     }
     }
-  },[rawState,userFactor])
+  },[state,userFactor])
 
   // remove userfactor from local storage after sending it to the api
   useEffect(()=>{
@@ -272,7 +277,7 @@ const handleNavigationBack =()=>{
     <div className="w-full h-screen flex justify-center items-center">
       <div className="p-16 bg-blue-500 text-white flex flex-col items-center justify-center gap-8 rounded-md">
         <p className="text-center text-xl">فاکتور وجود ندارد!</p>
-        <button onClick={handleNavigationBack} className="text-white border border-white p-3 rounded-md">بازگشت به صفحه ی قبل</button>
+        <button onClick={handleNavigationBack} className="text-white border border-white p-3 rounded-md cursor-pointer">بازگشت به صفحه ی قبل</button>
       </div>
     </div> : ((userFactor && result && result?.data?.resCode === 1) || isPart) ?  
     <>
@@ -330,6 +335,7 @@ const handleNavigationBack =()=>{
               size="medium"
               className=" text-white"
               disabled={isButtonClicked}
+              loading={loadingResults}
             >
               {" "}
               پرداخت{" "}
