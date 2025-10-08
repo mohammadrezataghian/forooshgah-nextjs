@@ -99,8 +99,8 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
 
                 <TableBody>
                   {installment &&
-                    installment.map((row:any) => (
-                      <React.Fragment key={row.FactorId}>
+                    installment.map((row:any,index:any) => (
+                      <React.Fragment key={index}>
                         <TableRow
                           className="cursor-pointer hover:bg-gray-50 transition-all"
                           onClick={() => handleRowClick(row.FactorId)}
@@ -177,8 +177,8 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                     </TableHead>
 
                                     <TableBody>
-                                      {row.ListDetail.map((item:any) => (
-                                        <TableRow key={item.Id}>
+                                      {row.ListDetail.map((item:any,index:any) => (
+                                        <TableRow key={index}>
                                           <TableCell align="center">
                                             {item.Id}
                                           </TableCell>

@@ -43,8 +43,8 @@ export default function EnhancedTableHead() {
     return (
       <TableHead className="bg-gray-300">
         <TableRow>
-          {headCells.map((headCell) => (
-            <TableCell key={headCell.id} align="center" padding="normal">
+          {headCells && headCells.map((headCell,index) => (
+            <TableCell key={index} align="center" padding="normal">
               {headCell.label}
             </TableCell>
           ))}

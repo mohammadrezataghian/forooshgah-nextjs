@@ -18,14 +18,14 @@ const CustomersClub = () => {
   const { loading, error, response, getScore } = useGetScore(userToken);
 
   useEffect(() => {
-      if (!score && user) {
+      if (score === null && user) {
         getScore({EshterakNo : eshterakNo});
       }
-  }, [user]);
+  }, [user,score]);
     
     useEffect(()=>{
       if (response) {
-        setScore(response?.data?.Data?.Score) 
+        setScore(response?.Data?.Score) 
       }
       if(!response && user){
         getScore({EshterakNo : eshterakNo});

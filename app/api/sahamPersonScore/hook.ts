@@ -15,7 +15,7 @@ const useGetScore = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/getscore", // call YOUR Next.js API route
+        "/api/sahamPersonScore", // call YOUR Next.js API route
         data,
         {
           headers: {
@@ -34,7 +34,7 @@ const useGetScore = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/getscore",
+          "/api/sahamPersonScore",
           err.message + " , An unknown error occurred in getSahamPersonScore",
           userToken
         );

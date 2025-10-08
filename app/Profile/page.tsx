@@ -78,7 +78,7 @@ const Profile = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری', logo: <Image className='ml-2' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری', logo: <Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
       // session={session}
       // authentication={authentication}
     >

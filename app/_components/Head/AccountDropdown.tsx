@@ -133,7 +133,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                       onClick={() => {
                         sessionStorage.setItem("goTo", "customerClub");
                       }}
-                      href={`/profile/${user?.Id}`}>امتیاز باشگاه: {score ? score : 0}
+                      href={`/Profile`}>امتیاز باشگاه: {score ? score : 0}
                     </Link>
                     </MenuItem>
                     <MenuItem onClick={handleClickOpen} className='flex justify-between flex-nowrap gap-1'><BiExit className="text-xl scale-x-[-1] text-gray-600"/><span>خروج از حساب کاربری</span></MenuItem>

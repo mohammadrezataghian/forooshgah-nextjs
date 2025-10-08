@@ -128,18 +128,18 @@ const dialogContent = `مبلغ انتخاب شده کمتر از ${autocomma(20
               <CardContent className="flex flex-col gap-6 items-center p-6 py-14">
                 <Typography
                   variant="h6"
-                  className="text-center text-gray-600 flex justify-center items-center gap-1"
+                  className="text-center flex justify-center items-center gap-1"
                 >
-                  <PiWalletFill className="text-2xl" />
-                  <span>کیف پول شما</span>
+                  <PiWalletFill className="text-2xl text-gray-500" />
+                  <span className="text-gray-500">کیف پول شما</span>
                 </Typography>
 
-                <Typography variant="h4" className="text-green-600 font-bold">
-                  <span>{formattedBalance} ریال</span>
+                <Typography variant="h4" className="font-bold">
+                  <span className="text-green-600">{formattedBalance} ریال</span>
                 </Typography>
                 <Divider className="w-full"/>
                 <div>
-                  <span className="font-bold text-green-900 text-lg">شارژ کیف پول</span>
+                  <span className="font-bold text-green-900 text-md">شارژ کیف پول</span>
                 </div>
                 <div className="flex justify-between gap-3 w-full">
                   <Tooltip title="افزایش">
@@ -148,7 +148,7 @@ const dialogContent = `مبلغ انتخاب شده کمتر از ${autocomma(20
                       variant="outlined"
                       color="primary"
                       fullWidth
-                      className="rounded-full !w-20 h-20"
+                      className="!rounded-full !w-20 h-20"
                     >
                       <AddIcon className="text-4xl text-blue-400" />
                     </Button>
@@ -161,7 +161,7 @@ const dialogContent = `مبلغ انتخاب شده کمتر از ${autocomma(20
                         <InputAdornment position="end" sx={{
                           // Target the typography element within InputAdornment
                           '& .MuiTypography-root': {
-                            fontSize: '1.5rem', 
+                            fontSize: '1.5rem',
                           },
                         }} className="pr-2">
                           ریال
@@ -174,7 +174,7 @@ const dialogContent = `مبلغ انتخاب شده کمتر از ${autocomma(20
                       variant="outlined"
                       color="error"
                       fullWidth
-                      className="rounded-full w-20 h-20"
+                      className="!rounded-full !w-20 h-20"
                     >
                       <RemoveIcon className="text-4xl text-red-400" />
                     </Button>

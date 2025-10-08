@@ -68,7 +68,7 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
           <Link onClick={() => {
             sessionStorage.setItem("goTo", "customerClub");
             }}
-            href={`/profile/${user?.Id}`}  className='text-inherit flex items-center'>امتیاز باشگاه: {score && score}<PiCoins className='text-gray-600 mr-1 text-xl'/></Link>
+            href={`/Profile`}  className='text-inherit flex items-center'>امتیاز باشگاه: {score && score}<PiCoins className='text-gray-600 mr-1 text-xl'/></Link>
           </ListItemButton>
           <Divider />
           <ListItemButton>
