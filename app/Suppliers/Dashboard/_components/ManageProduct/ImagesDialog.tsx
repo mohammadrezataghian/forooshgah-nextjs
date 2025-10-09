@@ -161,7 +161,7 @@ export default function ImagesDialog({ open, setOpen, selectedRow }:ImagesDialog
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5 xl:px-64 py-5 container items-center">
                   <div className="lg:col-span-3 md:col-span-2 col-span-1 flex justify-center gap-10 bg-white p-3 rounded-lg shadow-md">
                     <button
-                      className="flex items-center px-3 py-1"
+                      className="flex items-center px-3 py-1 cursor-pointer"
                       onClick={() => setOpenAdd(true)}
                     >
                       <span>جدید</span> <FiFilePlus className="text-xl" />
@@ -169,7 +169,7 @@ export default function ImagesDialog({ open, setOpen, selectedRow }:ImagesDialog
                     <button
                       className={
                         selectedId
-                          ? "flex items-center px-3 py-1"
+                          ? "flex items-center px-3 py-1 cursor-pointer"
                           : "flex items-center px-3 py-1 text-gray-500"
                       }
                       disabled={!selectedId}
@@ -231,7 +231,7 @@ export default function ImagesDialog({ open, setOpen, selectedRow }:ImagesDialog
                                       : `data:image/png;base64,${item.base64Image}`
                                   }
                                   alt="تصویر فایل"
-                                  className="w-full h-48 object-contain rounded-md border"
+                                  className="w-full h-48 object-contain rounded-md border border-gray-200"
                                 />
                               </div>
                             )}
