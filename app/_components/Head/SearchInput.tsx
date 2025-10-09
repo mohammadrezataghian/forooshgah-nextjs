@@ -131,7 +131,7 @@ const SearchInput = () => {
           }}
         />
         {isBoxVisible && (
-          <div className={`w-[100vw] h-[90vh] bg-white absolute z-[123456789] xs:-right-3 sm:-right-5 md:-right-5 lg:-right-72 xl:-right-80 2xl:-right-[500px] top-14 xl:px-20 md:px-10 lg:px-10 sm:px-7 2xl:px-64 xs:px-7 py-5 -right-2 px-5  borderSearch ${isBoxVisible ? 'visible' : 'invisible'} transition-all`}>
+          <div className={`w-[95vw] xl:w-[97vw] 2xl:w-[95vw] h-[90vh] bg-white absolute z-[123456789] xs:-right-3 sm:-right-5 md:-right-5 lg:-right-[270px] xl:-right-[290px] 2xl:-right-[460px] top-14 xl:px-20 md:px-10 lg:px-10 sm:px-7 2xl:px-64 xs:px-7 py-5 -right-2 px-5  borderSearch ${isBoxVisible ? 'visible' : 'invisible'} transition-all`}>
             <div className="w-full h-full">
               <div className="flex justify-between items-baseline w-full h-auto text-[#0AF8D8] borderSubSearch pb-2 pr-5 mb-3">
                 <button
