@@ -182,14 +182,14 @@ const foundProducts = localStorage.getItem("foundproducts") && JSON.parse(localS
     <>
       <title>جستجوی محصولات</title>
       <meta name="description" content="جستجوی محصولات" />  
-      <div className="w-full h-auto md:flex-row justify-between items-center flex my-5 flex-col border-b border-gray-500 gap-3 pb-5">
+      <div className="w-full h-auto md:flex-row justify-between items-center flex flex-col border-b border-gray-500 gap-3 py-5">
         <div className="flex items-center gap-1 px-3">
         <input
           type="text"
           value={searchItem}
           onChange={handleInputChange}
           placeholder="محصول، گروه کالا یا برند مورد نظرتان را اینجا جستجو کنید"
-          className="w-[370px] h-8 border pr-2 border-red-500 rounded-sm"
+          className="w-[370px] h-8 border pr-2 border-red-500 rounded-sm placeholder:text-sm"
         />
         </div>
         <div>

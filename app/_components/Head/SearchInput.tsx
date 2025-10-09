@@ -137,7 +137,7 @@ const SearchInput = () => {
                 <button
                   onClick={() => {
                     setIsBoxVisible(false);
-                    router.push('/search')
+                    router.push('/Search')
                     // router.replace('/dashboard');
                   }}
                   className="py-1 px-2 text-[#0AF8D8] text-xs sm:text-md text-right cursor-pointer flex items-center"

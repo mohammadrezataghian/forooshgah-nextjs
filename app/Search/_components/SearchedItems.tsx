@@ -75,7 +75,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
         <p className="mt-10">محصولی یافت نشد</p>
       )}
       {!loading && filteredUsers && filteredUsers.length > 0 && (
-        <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10">
+        <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
           {filteredUsers.map((data:any) => {
             const imageSrc = data.FldNameImageKalaList
               ? `${siteAddress}/assets/public/kala/${data.IdKala}/${
@@ -89,7 +89,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 className="relative h-full w-full rounded-lg shadow-lg border border-gray-200 bg-white overflow-hidden group"
               >
                 <Link
-                  href={`/products/productsdetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
+                  href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                   className="flex justify-center overflow-hidden h-48"
                 >
                   <img
@@ -103,7 +103,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 {data.Takhfif !== 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold py-1 px-2 rounded z-10">
                   -{data.Takhfif}%
                 </div>}
-                  <Link href={`/products/productsdetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
+                  <Link href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
                     <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start">
                       {data.NameKala}
                     </h3>
