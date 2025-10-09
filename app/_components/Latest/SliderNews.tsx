@@ -60,11 +60,9 @@ const SliderNews = (data:any) => {
             <SwiperSlide key={item.FldId}>
               <div className="w-full">
                 <Link
-                  // href={`/#/newsInformation/newsdetails/${item.FldId}`}
-                  href={{
-                    pathname: `/news/${item.FldId}`,
-                    query: { item: item },
-                  }}
+                  // href={`/#/newsInformation/newsdetails/${item.FldId}`}`/GetNews/${item.FldId}
+                  href={`/GetNews/${item.FldId}`}
+                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
                   className="w-full h-full block"
                 >
                         <img
@@ -77,10 +75,8 @@ const SliderNews = (data:any) => {
                 <p className="text-sm ps-1 flex ">
                   <Link
                     // href={`/#/newsInformation/newsdetails/${item.FldId}`}
-                    href={{
-                        pathname: `/news/${item.FldId}`,
-                        query: { item: item },
-                      }}
+                    href={`/GetNews/${item.FldId}`}
+                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
                     className="line-clamp-2 hover:text-blue-500 text-black pb-3"
                   >
                     {item.Title}

@@ -17,7 +17,6 @@ import { IsStaffUserloggedIn } from "@/shared/isStaffLoggedIn";
 const SmallimageBoxes = () => {
   
 const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
-console.log(IsloggedIn);
 
   return (
     <>
