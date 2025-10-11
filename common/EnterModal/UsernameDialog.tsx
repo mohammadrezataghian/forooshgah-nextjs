@@ -182,9 +182,13 @@ function showSnackbar(message:string) {
           className="h-10 w-full"
           inputProps={{ style: { textAlign: 'center' } }}
           sx={{
-            '& input:-webkit-autofill': {
-              WebkitBoxShadow: '0 0 0 1000px white inset',
-              WebkitTextFillColor: '#000',
+            "& .MuiInputBase-input": {
+              textAlign: "center",        // keep centered
+              paddingRight: "30px",        // remove extra padding
+            },
+            "& input:-webkit-autofill": {
+              WebkitBoxShadow: "0 0 0 1000px white inset",
+              WebkitTextFillColor: "#000",
             },
           }}
           endAdornment={
