@@ -144,6 +144,11 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
           className="h-10"
           inputProps={{ style: { textAlign: 'center' } }}
           autoFocus
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleGetVerificationCode();
+            }
+          }}
         />
         {mobileError && (
         <p className="text-red-500 text-sm mt-0 mb-1">{mobileError}</p>
@@ -183,6 +188,14 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
                 className=" mb-5 h-10 w-full"
                 inputProps={{ style: { textAlign: 'center' } }}
                 autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmitVerification(); // Submit when Enter is pressed
+                    setTimeout(() => {
+                      handleClose(); // Close dialog after short delay
+                    }, 1500);
+                  }
+                }}
               />
               {timer > 0 && (
                 <div className="w-full flex justify-center">
