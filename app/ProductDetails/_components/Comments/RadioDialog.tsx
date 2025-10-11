@@ -33,7 +33,7 @@ export default function RadioDialog({open,setOpen,value,setValue,firstName,lastN
         onClose={handleClose}
         className='z-[10000]'
       >
-        <DialogTitle>نحوه ی نمایش دیدگاه ها
+        <DialogTitle className='!text-lg'>نحوه ی نمایش دیدگاه ها
         <IconButton
           aria-label="close"
           onClick={handleClose}

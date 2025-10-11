@@ -15,6 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RadioDialog from './RadioDialog';
 import useGetCreateComment from '@/app/api/createComment/hook';
 import svg from '@/public/images/comment/add-comment-thank-you.svg'
+import Image from 'next/image';
 
 type SubmitCommentDialogProps = {
     open:boolean;
@@ -120,7 +121,9 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
         {showFeedback ? 
           <DialogContent>
             <div className='flex flex-col gap-14 items-center md:p-5 w-full'>
-              <div><img src={svg} alt="thank-you" /></div>
+              <div>
+                <Image src={svg} alt="thank-you" />
+              </div>
               <div className='text-center font-bold text-2xl text-nowrap'>{`${user?.FirstName} عزیز! از مشارکتتان ممنونیم!`}</div>
               <div className='text-center text-lg'>ممکن است کمی زمان ببرد تا دیدگاه شما پس از بررسی نمایش داده شود، اما با نوشتن این دیدگاه، کمک بزرگی به دیگران برای انتخاب بهتر کرده اید!</div>
               <Divider className='w-full mb-[-27px]'/>
@@ -129,7 +132,7 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
           </DialogContent>
          :
          <>
-        <DialogTitle className='font-bold'>ثبت دیدگاه
+        <DialogTitle className='!font-bold !text-lg'>ثبت دیدگاه
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -147,22 +150,22 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
         <DialogContent>
           <DialogContentText className='font-bold flex gap-5 items-center flex-nowrap overflow-hidden'>
               <FcComments className='text-5xl flex-shrink-0'/>
-              <span className='line-clamp-2'>{nameKala}</span>
+              <span className='line-clamp-2 text-sm font-bold'>{nameKala}</span>
           </DialogContentText>
-          <Divider className='my-5'/>
+          <div className='w-full my-5'><Divider/></div>
           {/* form */}
           <div className='w-full flex flex-col gap-2 '>
             {/* label */}
-            <div className='flex text-lg'><span>متن دیدگاه:</span><span className='text-red-500'>*</span></div>
+            <div className='flex'><span className='text-base'>متن دیدگاه:</span><span className='text-red-500'>*</span></div>
             {/* form + combo*/}
             <div className='w-full border border-gray-400 rounded-lg'>
               <textarea
               onChange={handleChange}
-              className='w-full border-b border-gray-400 rounded-t-lg  placeholder:text-right placeholder:lg:text-lg placeholder:text-wrap p-3 min-h-32 resize-none' 
+              className='w-full border-b border-gray-400 rounded-t-lg placeholder:text-gray-300 placeholder:text-right lg:placeholder:!text-base placeholder:text-wrap p-3 min-h-32 resize-none placeholder:!text-sm' 
               placeholder='نظر خود را در مورد این کالا با کاربران دیگر به اشتراک بگذارید..' />
               {/* rating */}
               <div className='w-full flex p-3 pt-2 justify-between border-b border-gray-400 items-center'>
-              <div><span>امتیازدهی : </span></div>
+              <div><span className='text-sm'>امتیازدهی : </span></div>
               <Rating
                 name="size-large"
                 value={ratingValue}
@@ -177,18 +180,20 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
               />
             </div>
             {/* combo */}
-              <div className='w-full flex justify-between p-3 text-sm'>
-                <span>{user?.FirstName} {user?.LastName}</span>
+              <div className='w-full flex justify-between p-3 '>
+                <span className='text-xs'>{user?.FirstName} {user?.LastName}</span>
                 <div 
                 className='flex items-center text-sm gap-1 cursor-pointer' 
                 onClick={handleClick}>
-                  <span>{radioValue}</span><ExpandMoreIcon className='text-sm'/>
+                  <span className='!text-xs'>{radioValue}</span><ExpandMoreIcon className='!text-sm'/>
                 </div>
               </div>
             </div>
-            <Divider className='mt-32 mb-5'/>
-            <Button disabled={!buttonState} className='w-full text-white py-3 text-lg' variant='contained' color='info' onClick={handleSubmit}>ثبت دیدگاه</Button>
-            <div className='flex justify-center text-xs lg:text-sm text-nowrap pt-1'><span>ثبت دیدگاه به معنی موافقت باقوانین انتشار تعاونی بانک ملی است.</span></div>
+            <div className='mt-32 mb-5 w-full'>
+                <Divider/>
+            </div>
+            <Button disabled={!buttonState} className='w-full !text-white !py-3 text-lg' variant='contained' color='info' onClick={handleSubmit}>ثبت دیدگاه</Button>
+            <div className='flex justify-center  pt-1'><span className='!text-xs lg:!text-sm text-center'>ثبت دیدگاه به معنی موافقت باقوانین انتشار تعاونی بانک ملی است.</span></div>
           </div>
         </DialogContent>
         </>

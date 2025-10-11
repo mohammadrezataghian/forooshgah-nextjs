@@ -216,23 +216,25 @@ useEffect(()=>{
                 {isAdded ?
                 <div className="flex justify-end"> 
                   <div className="w-fit flex gap-5 shadow p-2 items-center bg-gray-200 rounded-md">
-                    <button onClick={() => {handleAddProduct(data)}}>
+                    <button className="cursor-pointer" onClick={() => {handleAddProduct(data)}}>
                       <FaPlus className="text-2xl text-green-500"/>
                     </button>
                     <span className="text-2xl">{itemCount}</span>
-                    <button onClick={() => {handleRemoveProduct(data)}}>{itemCount < 2 ? <FaRegTrashAlt className="text-red-500 text-2xl"/> : <FaMinus className="text-2xl text-red-500"/>}</button>
+                    <button className="cursor-pointer" onClick={() => {handleRemoveProduct(data)}}>{itemCount < 2 ? <FaRegTrashAlt className="text-red-500 text-2xl"/> : <FaMinus className="text-2xl text-red-500"/>}</button>
                   </div>
                 </div>
                 : 
+                <div className="flex justify-end w-full">
                 <button
                   type="button"
-                  className=' text-white p-3 rounded-md bg-blue-500'
+                  className=' text-white p-3 rounded-md bg-blue-500 cursor-pointer'
                   onClick={() => {
                     handleAddProduct(data);
                   }}
                 >
                   {buttonText}
                 </button>
+                </div>
                 }
               </p>
             ) : (
