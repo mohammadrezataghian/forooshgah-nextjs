@@ -71,7 +71,7 @@ const autocomma = (number_input:number) =>
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom className='pl-20 text-red-500 pb-5'>
-            محصولات زیر ناموجود بوده و از سبد خرید حذف میگردند :
+          محصولات زیر به علت ناکافی بودن موجودی درخواستی یا ناموجود شدن از سبد خرید حذف میگردند :
           </Typography>
          <div className='flex flex-col gap-3'>
             {namojod && namojod.map((item:any)=>(
