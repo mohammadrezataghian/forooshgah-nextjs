@@ -138,7 +138,7 @@ const Stores = () => {
                       offset={15}
                       closeButton={true}
                     >
-                      <div className="text-sm font-semibold">{item.Name}</div>
+                      <div className="text-sm font-semibold cursor-pointer" onClick={() => handleItemClick(item)}>{item.Name}</div>
                     </Mapir.Popup>
                   </React.Fragment>
                 ))}
