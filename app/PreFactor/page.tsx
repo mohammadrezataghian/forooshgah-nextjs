@@ -25,6 +25,17 @@ if (sessionStorage.getItem('noeErsal')) {
   const [location, setLocation] = useAtom(address)
 // end location
 
+React.useEffect(()=>{
+  if (location){
+    localStorage.setItem('preFactorAddress',JSON.stringify(location))
+  }else{
+   const storageLocation = localStorage.getItem('preFactorAddress')
+   if (storageLocation) {
+    setLocation(JSON.parse(storageLocation))
+   }
+  }
+},[location])
+
 // get noe ersal list
   const { ersalList, loadingErsalList, errorErsalList } = useGetNoeErsalList()
 // get noe ersal list
