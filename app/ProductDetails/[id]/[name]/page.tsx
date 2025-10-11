@@ -10,12 +10,18 @@ import useGetProductDetails from "@/app/api/getKalaDetails/hook";
 import LoadingSkeleton from "./loading";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { usePathname } from "next/navigation";
+import CustomizedDividers from "../../_components/ColorButtons";
 
 const ProductDetails = () => {
   const [products, setProducts] = useAtom(productListUpdate);
   const [buttonText, setButtonText] = useState("افزودن به سبد خرید");
   const [isAdded, setIsAdded] = useState(false);
   const [itemCount, setItemCount] = useState<number | undefined>(0);
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedHexColor, setSelectedHexColor] = useState('');
+  const [priceAfterSelection, setPriceAfterSelection] = useState(0);
+  const [mojodiAfterSelection,setMojodiAfterSelection] = useState(0);
+  const [selectedItem,setSelectedItem] = useState(null)
 
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
@@ -75,6 +81,15 @@ useEffect(()=>{
   }
   // handle remove product
 
+ // handle name color
+ useEffect(()=>{
+  if (data){
+    setSelectedColor(data.NameColor)
+    setSelectedHexColor(data.ColorHexCode)
+  }
+},[data])
+// end handle name color
+
   return (
     <>
     {data &&
@@ -112,6 +127,15 @@ useEffect(()=>{
             <p className="mb-3 font-bold">
               نام فروشگاه : <span className="text-[#3f4064]">{data.NameForooshgah}</span>
             </p>
+            <div className="mb-3 font-bold flex gap-1"><span>رنگ :</span> <span className="text-[#3f4064]">{selectedColor}</span> <span className="w-3 h-3 rounded-full self-center" style={{backgroundColor:selectedHexColor}}></span></div>
+            {data && data?.SimilarProducts && data?.SimilarProducts?.length > 0 && (
+              <div className="w-full">
+                <div>
+                  <CustomizedDividers SimilarProducts={data?.SimilarProducts} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedHexColor={setSelectedHexColor} setPriceAfterSelection={setPriceAfterSelection} setSelectedItem={setSelectedItem} setMojodiAfterSelection={setMojodiAfterSelection}/>
+                </div>
+              </div>
+            )
+            }
             {data.Mojodi > 0 ? (
               <p>
                 <button
