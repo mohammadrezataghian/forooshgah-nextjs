@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useDeferredValue } from "react";
+import React, { useEffect, useState, useDeferredValue, useRef  } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import { LuPackageSearch } from "react-icons/lu";
@@ -12,6 +12,7 @@ import { inputValue } from '@/shared/inputs';
 import useGetKala from "@/app/api/searchInput/hook";
 import { useRouter } from 'next/navigation';
 import { ProductType } from "@/types/types";
+import { usePathname } from "next/navigation";
 
 const SearchInput = () => {
   const [apiUsers, setApiUsers] = useState<ProductType>([]);
@@ -21,15 +22,28 @@ const SearchInput = () => {
   const [state] = useAtom(selectedStore)
   const router = useRouter();
   const [wasNavigatedBack, setWasNavigatedBack] = useState(false);
+  const pathname = usePathname();
+  const prevIndexRef = useRef(null);
   
   // handle keep box open on navigation back
   useEffect(() => {
-    const handlePopState = () => {
-      setWasNavigatedBack(true);
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+    // Each entry has a unique key in React Router
+    const currentIndex = window.history.state?.idx;
+
+    if (prevIndexRef.current !== null) {
+      if (currentIndex < prevIndexRef.current) {
+        // ✅ Navigated back
+        setWasNavigatedBack(true);
+      } else {
+        // Forward or push → don’t reopen
+        setWasNavigatedBack(false);
+        setIsBoxVisible(false); 
+      }
+    }
+
+    prevIndexRef.current = currentIndex;
+  }, [pathname]);
+
   useEffect(() => {
     if (wasNavigatedBack && searchItem.length > 0 && filteredUsers ) {
       setIsBoxVisible(true);

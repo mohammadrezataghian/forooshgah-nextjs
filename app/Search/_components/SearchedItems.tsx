@@ -76,7 +76,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
       )}
       {!loading && filteredUsers && filteredUsers.length > 0 && (
         <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
-          {filteredUsers.map((data:any) => {
+          {filteredUsers && filteredUsers.map((data:any) => {
             const imageSrc = data.FldNameImageKalaList
               ? `${siteAddress}/assets/public/kala/${data.IdKala}/${
                   data.FldNameImageKalaList.split(",")[0]
@@ -122,7 +122,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                     )}
                   </div>
                 </div>
-
+                {data.Mojodi > 0 ?
                 <div className="flex gap-2 justify-between p-1">
                   <IconButton
                     color="primary"
@@ -144,6 +144,11 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                     <MdRemove />
                   </IconButton>
                 </div>
+                : 
+                <div className="flex p-1 px-4 pb-3">
+                  <span className="bg-red-500 rounded-md text-white px-3 py-1">ناموجود</span>
+                </div>
+                }
               </div>
             );
           })}
