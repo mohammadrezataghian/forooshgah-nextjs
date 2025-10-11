@@ -30,6 +30,7 @@ const address = data?.find(item => item.Key === "webAppContactAddress")
 const mail = data?.find(item => item.Key === "webAppContactMail")
 const tel = data?.find(item => item.Key === "webAppContactTell")
 const support = data?.find(item => item.Key === "webAppContactBaleSupport")
+const accountingSupport = data?.find(item => item.Key === "webAppContactBaleAccountingSupport")
 const supportTxt = data?.find(item => item.Key === "webAppContactBaleSupportTxt")
 const offer = data?.find(item => item.Key === "webAppContactBaleChat")
 const offerTxt = data?.find(item => item.Key === "webAppContactBaleChatTxt")
@@ -75,6 +76,12 @@ const offerTxt = data?.find(item => item.Key === "webAppContactBaleChatTxt")
                 <FcAssistant  className="text-2xl" />
                 <Typography variant="body1" className="text-right"><a href={support && support.Value} target="_blank" className="underline">
                   {supportTxt && supportTxt.Value}
+                  </a></Typography>
+              </div>
+              <div className="flex items-center gap-3">
+                <FcAssistant  className="text-2xl" />
+                <Typography variant="body1" className="text-right"><a href={accountingSupport && accountingSupport.Value} target="_blank" className="underline">
+                  {accountingSupport && accountingSupport.Title}
                   </a></Typography>
               </div>
               <div className="flex items-center gap-3">

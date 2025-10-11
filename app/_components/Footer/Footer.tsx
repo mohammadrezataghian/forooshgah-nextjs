@@ -129,7 +129,7 @@ const enamadCode= `<img
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
                             <Link href="/Trust" className="block mb-[5px] text-right text-[#656565] text-[12px]">
-                              چطور اطمینان پیدا کنم؟
+                            چطور از سایت خرید قسطی نمایم؟
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">

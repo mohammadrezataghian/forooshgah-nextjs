@@ -10,7 +10,7 @@ const paramKey = "WepAppHowToMakeSureToSale"
     <>
     <div className='w-full p-5 text-lg font-bold h-auto flex justify-center items-center bg-white'>
           <h5>
-            چگونه اطمینان پیدا کنم
+          چطور از سایت خرید قسطی نمایم؟
           </h5>
         </div>
         <Divider/>
