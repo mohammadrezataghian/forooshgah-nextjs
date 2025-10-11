@@ -101,6 +101,8 @@ export type Address = {
     PriceForooshAfterDiscount: number;
     FldNameImageKalaList: string; // or string[] if you want
     count?:number | undefined
+    ColorName:string;
+    HexaColor:string
 };
 // The array type
 export type ProductType = Product[];

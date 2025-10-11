@@ -27,3 +27,12 @@
     height: 92px;
   }
   
+ /* price change */
+ @keyframes price-change {
+  0%   { background-color: #e5e7eb; } /* gray-200 */
+  100% { background-color: transparent; }
+}
+
+.animate-price-change {
+  animation: price-change 2s ease;
+}

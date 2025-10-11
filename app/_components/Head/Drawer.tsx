@@ -91,6 +91,10 @@ const { removeProduct } = useRemoveProduct(setProductList);
                     {el?.NameKala}
                   </p>
                   <p>{autocomma(el?.PriceForooshAfterDiscount)} ریال</p>
+                  <p className="flex flex-row gap-1">
+                    <span>{el?.NameColor}</span>
+                    <span className="w-2 h-2 rounded-full self-center" style={{backgroundColor:el?.ColorHexCode}}></span>
+                  </p>
                   <p>{el?.NameMark}</p>
                   {count && <p className="text-green-400 text-center">{count} {el.NameUnit}</p>}
                 </div>

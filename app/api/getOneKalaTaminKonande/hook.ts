@@ -45,6 +45,7 @@ const useGetOneKala = (params:any,userToken:any,selected:any) => {
         setLoadingKala(false);
     }
   };
+  getOneKala()
 }, [selected]);
 
   return { kala, loadingKala, errorKala };

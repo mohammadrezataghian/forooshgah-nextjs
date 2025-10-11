@@ -11,17 +11,23 @@ import LoadingSkeleton from "./loading";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { usePathname } from "next/navigation";
 import CustomizedDividers from "../../_components/ColorButtons";
+import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
+import { Divider } from "@mui/material";
+import { FaPlus,FaRegTrashAlt,FaMinus } from "react-icons/fa";
+import { Product } from "@/types/types";
+import useGetComments from "@/app/api/getComments/hook";
+import Comments from "../../_components/Comments/Comments";
 
 const ProductDetails = () => {
   const [products, setProducts] = useAtom(productListUpdate);
   const [buttonText, setButtonText] = useState("افزودن به سبد خرید");
   const [isAdded, setIsAdded] = useState(false);
-  const [itemCount, setItemCount] = useState<number | undefined>(0);
+  const [itemCount, setItemCount] = useState<number>(0);
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedHexColor, setSelectedHexColor] = useState('');
   const [priceAfterSelection, setPriceAfterSelection] = useState(0);
   const [mojodiAfterSelection,setMojodiAfterSelection] = useState(0);
-  const [selectedItem,setSelectedItem] = useState(null)
+  const [selectedItem,setSelectedItem] = useState<Product | null>(null)
 
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
@@ -60,35 +66,104 @@ useEffect(()=>{
   const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
   // end add to cart
 
-  useEffect(() => {
+   // remove from cart
+   const { removeProduct } = useRemoveProduct(setProducts);
+   // end remove from cart
+
+   useEffect(() => {
     const productInCart = products.find(
-      (item) => item.IdStoreStock === data?.IdStoreStock
+      (item) => item.IdStoreStock === data?.IdStoreStock && item.NameColor === data?.NameColor
     );
-    const count = productInCart ? productInCart.count : 0;
+    const count = productInCart?.count ?? 0;
 
     setIsAdded(!!productInCart);
     setItemCount(count);
     setButtonText(
-      count && count > 0 ? `به سبد خرید اضافه شد (${count})` : "افزودن به سبد خرید"
+      count > 0 ? `به سبد خرید اضافه شد (${count})` : "افزودن به سبد خرید"
     );
   }, [products, data]);
 
-  // handle remove product
-  function removeProduct(productId:any) {
-    setProducts((prevProducts) =>
-      prevProducts.filter((item) => item.IdStoreStock !== productId)
+  useEffect(() => {
+    if (!selectedItem) return;
+  
+    const productInCart = products.find(
+      (item) =>
+        item.IdStoreStock === String(selectedItem.IdStoreStock) &&
+        item.NameColor === selectedItem.ColorName
     );
-  }
-  // handle remove product
+  
+    const count = productInCart?.count ?? 0;
+  
+    setIsAdded(!!productInCart);
+    setItemCount(count);
+    setButtonText(
+      count > 0 ? `به سبد خرید اضافه شد (${count})` : "افزودن به سبد خرید"
+    );
+  }, [selectedItem, products]);
 
  // handle name color
  useEffect(()=>{
   if (data){
     setSelectedColor(data.NameColor)
     setSelectedHexColor(data.ColorHexCode)
+    setPriceAfterSelection(data.PriceForooshAfterDiscount)
+    setMojodiAfterSelection(data.Mojodi)
   }
 },[data])
 // end handle name color
+
+// handle add selected item
+const handleAddProduct = (data:any) => {
+  if (selectedItem) {
+    const editedData = {
+      ...data,
+      BarCodeKala: selectedItem.BarCodeKala,
+      CodeKala: selectedItem.CodeKala,
+      NameColor: selectedItem.ColorName,
+      ColorHexCode: selectedItem.HexaColor,
+      IdKala: selectedItem.IdKala,
+      NameKala: selectedItem.NameKala,
+      PriceForooshAfterDiscount: selectedItem.PriceForoosh,
+      IdStoreStock: String(selectedItem.IdStoreStock),
+    };
+    addProduct(editedData);
+  } else {
+    addProduct(data);
+  }
+};
+
+const handleRemoveProduct = (data:any) => {
+  if (selectedItem) {
+    const editedData = {
+      ...data,
+      BarCodeKala: selectedItem.BarCodeKala,
+      CodeKala: selectedItem.CodeKala,
+      NameColor: selectedItem.ColorName,
+      ColorHexCode: selectedItem.HexaColor,
+      IdKala: selectedItem.IdKala,
+      NameKala: selectedItem.NameKala,
+      PriceForooshAfterDiscount: selectedItem.PriceForoosh,
+      IdStoreStock: String(selectedItem.IdStoreStock),
+    };
+    removeProduct(editedData);
+  } else {
+    removeProduct(data);
+  }
+};
+// end handle add selected item
+
+// comments
+const param = {
+  "FldIdKala": data?.IdKala,
+};
+const { comments, commentsLoading, commentsError,getDetailsComments } = useGetComments();
+useEffect(()=>{
+  if (data && data?.IdKala){
+    getDetailsComments(param)
+  }
+},[data])
+
+// end comments
 
   return (
     <>
@@ -107,11 +182,11 @@ useEffect(()=>{
             <h1 className="text-xl bg-blueGray-200 p-5 font-bold mb-10 rounded-sm">
               {data.NameKala}
             </h1>
-            <p className="mb-3 font-bold">
-              قیمت : <span className="text-[#3f4064]">{autocomma(data.PriceForooshAfterDiscount)}</span>{" "}
+            <p className="mb-3 font-bold text-xl">
+              قیمت : <span key={priceAfterSelection} className="text-[#3f4064] animate-price-change p-2 rounded-lg">{autocomma(priceAfterSelection)}</span>{" "}
               ریال
             </p>
-            <p className="mb-2 font-bold">موجودی : <span className="text-[#3f4064]">{data.Mojodi} {data.NameUnit}</span> </p>
+            <p className="mb-2 font-bold">موجودی : <span key={mojodiAfterSelection} className="text-[#3f4064] animate-price-change p-1 rounded-lg">{mojodiAfterSelection} {data.NameUnit}</span> </p>
             <p className="mb-2 font-bold">
               کد کالا : <span className="text-[#3f4064]">{data.BarCodeKala}</span>
             </p>
@@ -138,17 +213,27 @@ useEffect(()=>{
             }
             {data.Mojodi > 0 ? (
               <p>
+                {isAdded ?
+                <div className="flex justify-end"> 
+                  <div className="w-fit flex gap-5 shadow p-2 items-center bg-gray-200 rounded-md">
+                    <button onClick={() => {handleAddProduct(data)}}>
+                      <FaPlus className="text-2xl text-green-500"/>
+                    </button>
+                    <span className="text-2xl">{itemCount}</span>
+                    <button onClick={() => {handleRemoveProduct(data)}}>{itemCount < 2 ? <FaRegTrashAlt className="text-red-500 text-2xl"/> : <FaMinus className="text-2xl text-red-500"/>}</button>
+                  </div>
+                </div>
+                : 
                 <button
                   type="button"
-                  className={`text-white p-3 rounded-md ${
-                    isAdded ? "bg-green-500" : "bg-blue-500"
-                  }`}
+                  className=' text-white p-3 rounded-md bg-blue-500'
                   onClick={() => {
-                    addProduct(data);
+                    handleAddProduct(data);
                   }}
                 >
                   {buttonText}
                 </button>
+                }
               </p>
             ) : (
               <p>
@@ -176,6 +261,18 @@ useEffect(()=>{
           <DetailsTabs data={data}/>
         </div>
         {/* end tabs */}
+        {data &&
+        <>
+        <div className="2xl:px-64">
+          <Divider />
+        </div>
+        {/* comments  */}
+        <div className="w-full h-auto pb-24 bg-white px-3 md:px-10 2xl:px-64 pt-5">
+          <Comments comments = {comments} nameKala={data?.NameKala} IdKala={data?.IdKala}/>
+        </div>
+        </>
+        }
+        {/* end comments */}
         </>
       )}
       <MessageSnackbar snackbarOpen={opensnackbar} autoHideDuration={3000} snackbarMessage={"محصولات انتخابی باید فقط از یک فروشگاه باشند"} setSnackbarOpen={setOpensnackbar}/>
