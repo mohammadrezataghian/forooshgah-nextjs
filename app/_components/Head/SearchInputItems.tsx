@@ -54,8 +54,6 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
   useEffect(() => {
     if (filteredUsers.length > 0) {
       setLoading(false);
-    } else if (hasSearched) {
-      setLoading(false);
     }
   }, [filteredUsers, hasSearched]);
   // end handle search loading and messages
