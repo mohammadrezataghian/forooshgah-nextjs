@@ -11,6 +11,8 @@ import { schema, cellphoneSchema } from "./schemas"
 import { handleFileChange } from "./_components/ImageInput"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import EastIcon from '@mui/icons-material/East';
+import Link from "next/link";
 
 type FieldErrors = Record<string, string>;
 
@@ -200,7 +202,7 @@ const StockRequest = () => {
       <meta name="description" content="سهامدار جدید" />
       <div className="w-full h-auto flex justify-center bg-white p-10">
         <div className="w-full container">
-          <div className="w-full p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl">
+          <div className="w-full p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl relative">
             <div className="w-full h-auto flex justify-center">
               <Image src={stockRequestImg} alt="" className="w-24" />
             </div>
@@ -457,6 +459,7 @@ const StockRequest = () => {
                 </Button>
               </div>
             </div>
+            <Link href='/' className='absolute top-20 right-5'> <EastIcon className="lg:text-3xl"/></Link>
           </div>
         </div>
         <AutoHideDialog open={open} onClose={() => setOpen(false)} duration={duration} dialogTitle={dialogTitle} dialogContent={dialogContent}

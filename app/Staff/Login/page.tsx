@@ -12,6 +12,8 @@ import UserPassDialog from './_components/UsernameDialog';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import EastIcon from '@mui/icons-material/East';
+import Link from 'next/link';
 
 // zod schema for validation
 const schema = z.object({
@@ -137,7 +139,7 @@ useEffect(()=>{
         <title>ورود</title>
         <meta name="description" content="ورود" />
         <div className='w-full h-screen flex justify-center items-center bg-white'>
-            <div className='w-full lg:w-[400px] lg:h-auto p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl'>
+            <div className='w-full lg:w-[400px] lg:h-auto p-5 lg:border lg:border-gray-300 flex flex-col gap-5 lg:rounded-xl relative'>
                 <div className='w-full h-auto flex justify-center'>   
                     <Image src={Logo} alt=""  className='w-24'/>
                 </div>
@@ -222,6 +224,7 @@ useEffect(()=>{
                         </div>
                     )}
                 </div>
+                <Link href='/' className='absolute top-16 right-5'> <EastIcon/></Link>
             </div>
         </div>
        

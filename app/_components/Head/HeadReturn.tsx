@@ -84,7 +84,9 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
                   برای مکان یابی ابتدا وارد شوید
                 </span>
               )}
-              {isLoggedIn && showdefaultaddress && showdefaultaddress?.AddressCompact}
+              <div className='line-clamp-1'>
+                {isLoggedIn && showdefaultaddress && showdefaultaddress.AddressCompact}
+              </div>
               {isLoggedIn &&  !showdefaultaddress &&"لطفا آدرس خود را انتخاب کنید"}
             </Button>
           </div>
