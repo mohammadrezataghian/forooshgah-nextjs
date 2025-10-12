@@ -124,7 +124,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 </div>
                 {data.Mojodi > 0 ?
                 <div className="flex gap-2 justify-between p-1">
-                  <IconButton
+                  {/* <IconButton
                     color="primary"
                     className="border-4 border-solid border-blue-400"
                     onClick={() => addProduct(data)}
@@ -142,7 +142,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                     onClick={() => removeProduct(data)}
                   >
                     <MdRemove />
-                  </IconButton>
+                  </IconButton> */}
                 </div>
                 : 
                 <div className="flex p-1 px-4 pb-3">

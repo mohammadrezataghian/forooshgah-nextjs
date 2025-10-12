@@ -83,7 +83,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                 >
                   {data.Mojodi > 0 ?  
                   <div className="flex mb-1 justify-between w-5/6 lg:justify-normal lg:items-center gap-3">
-                    <Button
+                    {/* <Button
                     variant="outlined"
                     color="success"
                       className="text-3xl w-0.5 h-10"
@@ -103,7 +103,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                       onClick={() => removeProduct(data)}
                     >
                       -
-                    </Button>
+                    </Button> */}
                   </div>
                   :
                   <p>

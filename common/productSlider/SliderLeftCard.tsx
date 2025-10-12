@@ -121,7 +121,7 @@ const SliderLeftCard = ({
           </div>
         </div>
 
-        {mojodi > 0 && (
+        {/* {mojodi > 0 && (
           <div className="flex  justify-between px-2 ">
             <IconButton
               color="primary"
@@ -139,7 +139,7 @@ const SliderLeftCard = ({
               <AddIcon />
             </IconButton>
           </div>
-        )}
+        )} */}
         {mojodi === 0 && (
           <div className="flex justify-end">
             <span className="bg-red-600 text-white p-1 rounded-md text-sm ml-5">
