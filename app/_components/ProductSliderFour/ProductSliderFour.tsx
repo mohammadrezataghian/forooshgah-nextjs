@@ -9,6 +9,7 @@ const params = {
   namekala: "",
   pageIndex: 4,
   pageSize: "10",
+  Order: 8
 };
 // end params for slider
 const title = 'یک دسته از محصولات'

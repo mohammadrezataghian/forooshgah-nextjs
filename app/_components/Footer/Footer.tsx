@@ -112,7 +112,7 @@ const enamadCode= `<img
                           </li>
                           <li className="block mb-[5px] text-right">
                             <Link href="/PrivacyPolicy" className="block mb-[5px] text-right text-[#656565] text-[12px]">
-                              سیاست حفظ حریم شخصی افراد
+                              سیاست های فروشگاه
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">

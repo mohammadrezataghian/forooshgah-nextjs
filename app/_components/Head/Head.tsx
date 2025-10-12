@@ -53,11 +53,26 @@ const Head = () => {
     //end handle enter dialog
     
     //strat handle city dialog
-    const handleSelectAddress = (address: any) => {
-  setDefaultAddress(address);
-  addressService.setDefaultAddress(address, userToken);
-  loadAddresses();
-};
+    const handleSelectAddress = async (address:any) => {
+  
+      setAdreesses((prev:any) =>
+        prev.map((item:any) =>
+          item.Id === address.Id
+            ? { ...item, SetDefault: true }
+            : { ...item, SetDefault: false }
+        )
+      );
+    
+      setDefaultAddress(address);
+    
+      try {
+        await addressService.setDefaultAddress(address, userToken);
+      } catch (err) {
+        console.error("Failed to set default address:", err);
+      }
+    };
+
+
 const handleDeleteAddress = (address: any) => {
   setdeleteAddress(address);
   setIsAddressModalOpen(false);

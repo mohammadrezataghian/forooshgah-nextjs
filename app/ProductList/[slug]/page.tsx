@@ -51,6 +51,7 @@ type payloadType ={
     Category?:string;
     Order?:number;
     idForooshgah?:number
+    SortOrder?:number 
 }
 
 export default function ProductList() {
@@ -158,12 +159,16 @@ React.useEffect(() => {
       console.log("page");
     }
     if (sort > 0) {
-      payload.Order = sort;
+      payload.SortOrder = sort;
       console.log("sort");
     }
     if(state !== 0){
       payload.idForooshgah = state
       console.log("state");
+    }
+    if(sessionStorage.getItem('ProductListOrderParam')){
+      payload.Order = Number(sessionStorage.getItem('ProductListOrderParam'))
+      console.log(Number(sessionStorage.getItem('ProductListOrderParam')));
     }
 
     fetchProducts(payload);

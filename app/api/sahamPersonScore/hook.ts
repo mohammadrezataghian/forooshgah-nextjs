@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useGetScore = (userToken: any) => {
+const useGetScore = (userToken: any,setScore:any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -26,6 +26,7 @@ const useGetScore = (userToken: any) => {
       );
 
       setResponse(res.data);
+      setScore(res?.data?.Data?.Score)
     } catch (err: any) {
       setError(
         err.message || "An unknown error occurred in getSahamPersonScore"
