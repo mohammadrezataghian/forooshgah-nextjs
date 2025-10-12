@@ -87,7 +87,7 @@ export default function FullScreenDialog({
               response?.data?.Data?.map((item:any, index:any) => (
                 <div
                   key={index}
-                  className="border border-blue-400 w-full h-auto flex flex-col gap-3 ps-2 py-5 rounded-lg"
+                  className="border border-blue-400 w-full h-auto flex flex-col gap-3 pe-2 py-5 rounded-lg"
                 >
                   <div className="w-full flex gap-1">
                     <span>آخرین وضعیت:</span>
