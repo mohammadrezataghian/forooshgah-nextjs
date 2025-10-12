@@ -87,7 +87,7 @@ const SearchInput = () => {
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {
-    if (deferredSearchTerm) {
+    if (deferredSearchTerm && pathname != '/Search') {
       const filteredItems = apiUsers
       setFilteredUsers(filteredItems);
       setIsBoxVisible(searchItem.length > 0);

@@ -179,7 +179,7 @@ useEffect(()=>{
           {/* product details */}
           <div className=" w-full xl:w-1/2 h-auto p-10">
             {/* {`id : ${id}`} */}
-            <h1 className="text-xl bg-blueGray-200 p-5 font-bold mb-10 rounded-sm">
+            <h1 className="text-xl bg-gray-200 p-5 font-bold mb-10 rounded-sm">
               {data.NameKala}
             </h1>
             <p className="mb-3 font-bold text-xl">
@@ -212,7 +212,7 @@ useEffect(()=>{
             )
             }
             {data.Mojodi > 0 ? (
-              <p>
+              <div>
                 {isAdded ?
                 <div className="flex justify-end"> 
                   <div className="w-fit flex gap-5 shadow p-2 items-center bg-gray-200 rounded-md">
@@ -236,7 +236,7 @@ useEffect(()=>{
                 </button>
                 </div>
                 }
-              </p>
+              </div>
             ) : (
               <p>
                 <span className="bg-red-500 rounded-md py-2 px-4 text-white">
