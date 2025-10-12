@@ -8,7 +8,8 @@ import ProductCard from "./ProductCard";
 import useDeleteFactor from "@/app/api/deleteOrderFactor/hook";
 import Link from "next/link";
 import { FactorReturn } from "@/types/types";
-import Grid from "@mui/material/Grid";
+import usePrintFactor from "@/app/api/printFactor/hook";
+import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
 
 type ReceiptProps={
   tahvil:boolean;
@@ -27,6 +28,7 @@ const Receipt = ({tahvil,getReceipts,receipts,params,loading,response}:ReceiptPr
   const [selectedFactor,setSelectedFactor] = useState(null)
   const [tahvilShode,setTahvilShode] = useState([]);
   const [tahvilNashode,setTahvilNashode] = useState([]);
+  const [disableButton,setDisableButton] = useState(false)
   
 
   // handle comma
@@ -74,6 +76,31 @@ const Receipt = ({tahvil,getReceipts,receipts,params,loading,response}:ReceiptPr
       setTahvilNashode(receipts?.filter( (item:any) => item.TahvilShode == false))
     }
   },[receipts])
+
+  //  download factor
+
+const { printDocLoading, printDocError, printDocResponse, getPrint } = usePrintFactor(userToken)
+
+const handleDownloadFactor = (id:number) =>{
+  const param ={
+    IdFactor : id
+  }
+  if (id){
+    getPrint(param)
+    setDisableButton(true)
+  }
+}
+
+useEffect(()=>{
+if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.resCode == 1){
+  const link = document.createElement("a");
+  link.href = printDocResponse.data.Data;
+  link.download = "document.pdf";
+  link.click();
+}
+},[printDocResponse])
+
+//  download factor
 
   return (
     <>
@@ -256,6 +283,12 @@ const Receipt = ({tahvil,getReceipts,receipts,params,loading,response}:ReceiptPr
                               )}
                           </Container>
                         </div>
+                        <div className="pt-3 w-full flex justify-center col-span-2">
+                              <Button variant="contained" color="success" className="text-white" onClick={()=>(handleDownloadFactor(item.Id))} disabled={disableButton}>
+                                دانلود فاکتور
+                              </Button>
+                        </div>
+                        {printDocLoading && <SimpleBackdrop open={true}/>}
                       </Card>
                     );
                   })
