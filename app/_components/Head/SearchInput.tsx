@@ -75,15 +75,16 @@ const SearchInput = () => {
         NameKala: deferredSearchTerm,
         pageIndex: 1,
         pageSize: 50,
+        idForooshgah : state,
       };
-      if(state !== 0){
-        payload.idForooshgah = state
-      }
+      // if(state !== 0){
+      //   payload.idForooshgah = state
+      // }
       fetchProducts(payload);
     }, 1000); // Debounce API calls (500ms delay)
 
     return () => clearTimeout(debounceTimeout); // Cleanup function
-  }, [deferredSearchTerm]);
+  }, [deferredSearchTerm,state]);
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {

@@ -16,7 +16,7 @@ type payload = {
   pageIndex: number,
   pageSize: number,
   idForooshgah?:number;
-  Order?:number;
+  SortOrder?:number;
 }
 
 const Search = () => {
@@ -55,12 +55,13 @@ const { loading, error, fetchProducts } = useFetchProducts();
         NameKala: deferredSearchTerm,
         pageIndex: 1,
         pageSize: 100,
+        idForooshgah : state,
       };
-      if (state !== 0) {
-        payload.idForooshgah = state;
-      }
+      // if (state !== 0) {
+      //   payload.idForooshgah = state;
+      // }
       if (sort > 0) {
-        payload.Order = sort;
+        payload.SortOrder = sort;
       }
     
       try {
@@ -73,7 +74,7 @@ const { loading, error, fetchProducts } = useFetchProducts();
     }, 1000);// Debounce API calls (500ms delay)
 
     return () => clearTimeout(debounceTimeout); // Cleanup function
-  }, [deferredSearchTerm,sort]);
+  }, [deferredSearchTerm,sort,state]);
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {

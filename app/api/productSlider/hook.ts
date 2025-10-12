@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useGetProductDetails = (params:any) => {
+const useGetProductDetails = (params:any,selectedItem:any) => {
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [productDetails, setProductDetails] = useState<any>(null);
@@ -17,7 +17,7 @@ const useGetProductDetails = (params:any) => {
     try {
       const res = await axios.post(
         "/api/productSlider", // call YOUR Next.js API route
-        { ...params }
+        params
       );
 
       setProductDetails(res?.data?.Data?.lst || []);
@@ -38,7 +38,7 @@ const useGetProductDetails = (params:any) => {
     }
   };
   getProductDetails()
-}, []);
+}, [selectedItem]);
   return { loadingProducts, error, productDetails };
 };
 

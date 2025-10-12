@@ -21,11 +21,13 @@ import { drawerSessionUpdate } from "@/shared/drawer.product.atom";
 import { useAtom } from "jotai";
 import { productListUpdate } from "@/shared/product.list.atom";
 import LoadingSkeleton from "@/common/productSlider/LoadingSkeleton";
+import { selectedStore } from "@/shared/selectedStoreAtom";
 
 const SliderLeft = ({params}:any) => {
   const [drawerSession, setDrawerSessions] = useAtom(drawerSessionUpdate);
   const [products,setProducts] = useAtom(productListUpdate);
   const [loading,setLoading]= useState(true);
+  const [selectedItem, setSelectedItem] = useAtom(selectedStore);
 
   useEffect(() => {
     if (drawerSession && drawerSession.length > 0) {
@@ -35,7 +37,7 @@ const SliderLeft = ({params}:any) => {
   }, [drawerSession, setProducts, setDrawerSessions]);
 
 // get data
-  const { productDetails, loadingProducts, error } = useGetProductDetails(params);
+const { productDetails, loadingProducts, error } = useGetProductDetails({...params,idForooshgah:selectedItem},selectedItem);
 // end get data
 
   // handle loading

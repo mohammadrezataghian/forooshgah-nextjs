@@ -132,6 +132,7 @@ React.useEffect(() => {
       namekala: "",
       pageIndex: 1,
       pageSize: 20,
+      idForooshgah : state,
     };
 
     if (checkedBrands && checkedBrands.length > 0) {
@@ -162,10 +163,10 @@ React.useEffect(() => {
       payload.SortOrder = sort;
       console.log("sort");
     }
-    if(state !== 0){
-      payload.idForooshgah = state
-      console.log("state");
-    }
+    // if(state !== 0){
+    //   payload.idForooshgah = state
+    //   console.log("state");
+    // }
     if(sessionStorage.getItem('ProductListOrderParam')){
       payload.Order = Number(sessionStorage.getItem('ProductListOrderParam'))
       console.log(Number(sessionStorage.getItem('ProductListOrderParam')));
