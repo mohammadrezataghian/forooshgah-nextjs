@@ -35,7 +35,7 @@ const schema = z.object({
 const ReturnProduct = () => {
 
   // const location = useLocation();
-  const location = sessionStorage.getItem('') || '';
+  const location = sessionStorage.getItem('ReturnProductState') || '';
   const parsedLocation = location && JSON.parse(location)
   const state = parsedLocation.state || {};
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;

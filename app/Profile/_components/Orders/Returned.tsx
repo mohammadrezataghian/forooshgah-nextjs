@@ -1,15 +1,18 @@
 'use client'
 
 import Cookies from "js-cookie";
-import { Card, Divider } from "@mui/material";
+import { Button,Card, Divider } from "@mui/material";
 import ReceiptLoading from "./ReceiptLoading";
 import { Container, Typography, Grid } from '@mui/material';
 import ProductCard from "./ProductCard";
 import useGetReceipts from "@/app/api/customerOrderList/hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import FullScreenDialog from './StatusReturnedDialog';
+import useGetStatusMarjue from "@/app/api/getStatusMarju/hook";
 
 const Returned = () => {
 
+const [open, setOpen] = useState(false);
 const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 const eshterakNo = user?.EshterakNo;
 const userToken = localStorage.getItem("userToken");
@@ -29,6 +32,23 @@ const userToken = localStorage.getItem("userToken");
 const autocomma = (number_input:number) =>
   new Intl.NumberFormat("en-US").format(number_input);
 //handle comma
+
+// handle dialog open
+const { response, loadingStatus, errorStatus,getStatusMarjue } = useGetStatusMarjue(userToken)
+
+const handleClick = (FactoreId:number,IdMaliPeriod:number)=>{
+
+  setOpen(true)
+
+  const param = {
+    "IdFactoreMarjoe" : FactoreId,
+    "IdMaliPeriod" : IdMaliPeriod,
+}
+  if (FactoreId && IdMaliPeriod){
+    getStatusMarjue(param);
+  }
+}
+// end handle dialog open
 
   return (
     <>
@@ -62,10 +82,30 @@ const autocomma = (number_input:number) =>
                   <p className="mb-auto !text-xs md:!text-sm">هزینه ارسال : {autocomma(item.HazineErsal)} ریال</p>
                   <Divider/>
                   </div>
+                  <div className='flex gap-1 items-center flex-wrap'>
+                      <span className='text-xs text-nowrap'>وضعیت مرجوعی:</span>
+                      <span
+                      className={`text-xs text-nowrap ${
+                        item.LastMarjuStatus === "تایید شده"
+                          ? "text-green-500"
+                          : item.LastMarjuStatus === "رد شده"
+                          ? "text-red-500"
+                          : "text-yellow-500"
+                        }`}
+                        >
+                          {item.LastMarjuStatus}
+                      </span>
+                    </div>
+                    <div className="flex justify-center">
+                    <Button className='text-sm text-white bg-blue-400' size='small' variant='contained' onClick={(e)=>{
+                      handleClick(item.Id,item.IdMaliPeriod);
+                      }}>جزئیات مرجوعی</Button>
+                    </div>
+
                   <div className="col-span-2">
 
                   <Container className="!px-0">
-                    <Typography variant="h4" component="h1" className="!mb-8 !text-lg">
+                    <Typography variant="h4" component="h1" className="!mb-8 !text-lg text-black">
                       اقلام سبد خرید:
                     </Typography>
                     
@@ -96,6 +136,7 @@ const autocomma = (number_input:number) =>
           <span>برای مشاهده ی فاکتورها ابتدا وارد شوید</span>
         </div>
       )}
+      <FullScreenDialog open={open} setOpen={setOpen} response={response} loadingStatus={loadingStatus}/>
     </>
   )
 }

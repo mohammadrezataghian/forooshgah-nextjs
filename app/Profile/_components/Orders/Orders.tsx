@@ -14,6 +14,7 @@ import { siteUrlAddress } from "@/shared/site.url.atom";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import Cookies from "js-cookie";
 import useGetReceipts from "@/app/api/customerOrderList/hook";
+import useGetOrderStatus from "@/app/api/getOrderStatus/hook";
 
 function CustomTabPanel(props:any) {
   const { children, value, index, ...other } = props;
@@ -60,6 +61,10 @@ const Orders = () => {
     getReceipts(params)
   },[])
 // end get data
+
+// get order status 
+const { response, loadingStatus, errorStatus } = useGetOrderStatus()
+// end get order status
 
   const [value, setValue] = React.useState(0);
   const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
@@ -112,7 +117,7 @@ const Orders = () => {
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <Receipt tahvil={false} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading}/>
+            <Receipt tahvil={false} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading} response={response}/>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             <Receipt tahvil={true} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading}/>
