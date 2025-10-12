@@ -12,6 +12,8 @@ import Returned from "./Returned";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
+import Cookies from "js-cookie";
+import useGetReceipts from "@/app/api/customerOrderList/hook";
 
 function CustomTabPanel(props:any) {
   const { children, value, index, ...other } = props;
@@ -43,6 +45,22 @@ function a11yProps(index:any) {
 }
 
 const Orders = () => {
+
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
+  const eshterakNo = user?.EshterakNo;
+  const userToken = localStorage.getItem("userToken");
+
+// get data
+  const params = {
+    EshterakNo: eshterakNo,
+    typeFactore: 0,
+  };
+  const { receipts, loading: ReceiptLoading, error: ReceiptError,getReceipts } = useGetReceipts(userToken);
+  useEffect(()=>{
+    getReceipts(params)
+  },[])
+// end get data
+
   const [value, setValue] = React.useState(0);
   const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
 
@@ -88,14 +106,18 @@ const Orders = () => {
               centered
               indicatorColor="secondary"
             >
-              <Tab label="تکمیل شده" {...a11yProps(0)} />
-              <Tab label="مرجوع شده" {...a11yProps(1)} />
+              <Tab sx={{ fontWeight: "bold", fontSize: "16px", color: "gray" }} label="جاری" {...a11yProps(0)} />
+              <Tab sx={{ fontWeight: "bold", fontSize: "16px", color: "gray" }} label="تحویل شده" {...a11yProps(1)} />
+              <Tab sx={{ fontWeight: "bold", fontSize: "16px", color: "gray" }} label="مرجوع شده" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <Receipt />
+            <Receipt tahvil={false} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading}/>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
+            <Receipt tahvil={true} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading}/>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
             <Returned/>
           </CustomTabPanel>
         </Box>

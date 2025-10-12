@@ -5,29 +5,28 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import ReceiptLoading from "./ReceiptLoading";
 import ProductCard from "./ProductCard";
-import useGetReceipts from "@/app/api/customerOrderList/hook";
 import useDeleteFactor from "@/app/api/deleteOrderFactor/hook";
 import Link from "next/link";
 import { FactorReturn } from "@/types/types";
 import Grid from "@mui/material/Grid";
 
-const Receipt = () => {
+type ReceiptProps={
+  tahvil:boolean;
+  getReceipts:any;
+  receipts:any;
+  params:any;
+  loading:boolean;
+}
+
+const Receipt = ({tahvil,getReceipts,receipts,params,loading}:ReceiptProps) => {
+
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
-  const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
   const [selectedProducts, setSelectedProducts] = useState<FactorReturn[]>([]);
   const [selectedFactor,setSelectedFactor] = useState(null)
-
-  // get data
-  const params = {
-    EshterakNo: eshterakNo,
-    typeFactore: 0,
-  };
-  const { receipts, loading, error,getReceipts } = useGetReceipts(userToken);
-  useEffect(()=>{
-    getReceipts(params)
-  },[])
-  // end get data
+  const [tahvilShode,setTahvilShode] = useState([]);
+  const [tahvilNashode,setTahvilNashode] = useState([]);
+  
 
   // handle comma
   const autocomma = (number_input:number) =>
@@ -68,6 +67,13 @@ const Receipt = () => {
     },[deleteFactorResponse])
   //end delete factor
 
+  useEffect(()=>{
+    if (receipts){
+      setTahvilShode(receipts?.filter( (item:any) => item.TahvilShode == true))
+      setTahvilNashode(receipts?.filter( (item:any) => item.TahvilShode == false))
+    }
+  },[receipts])
+
   return (
     <>
       {user ? (
@@ -82,7 +88,7 @@ const Receipt = () => {
               </div>
             ) : (
               <div className="w-full grid gap-5 lg:grid-cols-2 grid-cols-1 place-items-center text-sm xl:text-base p-1">
-                {receipts.length > 0 ? (
+                {receipts && receipts.length > 0 ? (
                   receipts.map((item:any) => {
                     let bordercolor = "#d1d5db";
                     if (item.DarkhastKharidGhesti) {
