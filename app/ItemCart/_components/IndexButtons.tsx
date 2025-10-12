@@ -21,7 +21,7 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
 
   return (
     <>
-    <div className="flex flex-col gap-1 mb-28 items-center gap-5">
+    <div className="flex flex-col mb-28 items-center gap-5">
         {products && products?.length > 0 && factoeAfrerCalc && (
           <>
             {!isLoggedIn && (
@@ -47,6 +47,7 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
                 className="py-2 w-1/2 sm:w-1/4 mx-auto bg-green-500 text-white "
                 onClick={() => {
                   handleNavigation();
+                  sessionStorage.setItem('noeErsal',String(0))
                 }}
               >
                 ادامه خرید
