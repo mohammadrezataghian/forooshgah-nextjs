@@ -1,4 +1,5 @@
-// declare module "mapir-react-component" {
+declare module "mapir-react-component" 
+// {
 //   import { ComponentType } from "react";
 
 //   interface TransformRequestOptions {
