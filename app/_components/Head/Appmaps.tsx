@@ -150,7 +150,7 @@ console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
 
   return (
     <>
-      <div className="App h-[90%]">
+      <div className="h-[94%] lg:!h-[94%] overflow-hidden w-full">
         <Mapir
           zoom={[zooooom]}
           center={center}
@@ -218,7 +218,7 @@ console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
             placeholder="دنبال کجا می&zwnj;گردید...&#128269;"
             onChange={(e) => setText(e.target.value)}
             value={text}
-            className="w-full"
+            className="w-full placeholder:text-center pe-2"
           />
           {results.length > 0 && (
             <div className="clear-seachMap" onClick={clearSearch}>

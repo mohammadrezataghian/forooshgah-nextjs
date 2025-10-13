@@ -242,7 +242,7 @@ React.useEffect(() => {
       </DialogContent>
       <div className="px-5 py-2 text-gray-700 flex flex-col gap-1">
         <div>آدرس :</div>
-        <div className="text-sm">{showFirstAddress && showFirstAddress.address_compact}</div>
+        <div className="!text-xs line-clamp-2">{showFirstAddress && showFirstAddress.address_compact}</div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="px-5 py-2 space-y-2">
         <div className="space-y-2">
