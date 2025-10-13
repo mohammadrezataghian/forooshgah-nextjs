@@ -303,11 +303,15 @@ React.useEffect(() => {
             // onClick={()=>onSend()}
             type="submit"
             disabled={!isValid}
-            className={`w-full px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${
-              isValid
-                ? "bg-blue-500 hover:bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-500 cursor-not-allowed"
-            }`}
+            fullWidth
+            sx={{
+              bgcolor: isValid ? "primary.main" : "grey.200",
+              color: isValid ? "white" : "grey.600",
+              "&:hover": {
+                bgcolor: isValid ? "primary.dark" : "grey.300",
+              },
+            }}
+            
           >
             همین جا درسته
           </Button>
