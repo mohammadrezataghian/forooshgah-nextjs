@@ -88,6 +88,11 @@ body {
 /* head */
 
 /* appmaps */
+.mapboxgl-map{
+  width: 100% !important;
+  height: 100% !important;
+}
+
 #searchMap {
   height: 30px;
 }

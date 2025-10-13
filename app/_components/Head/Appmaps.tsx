@@ -150,7 +150,7 @@ console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
 
   return (
     <>
-      <div className="h-[94%] lg:!h-[94%] overflow-hidden w-full">
+      <div className="h-[94%] lg:!h-[94%] overflow-hidden w-full relative">
         <Mapir
           zoom={[zooooom]}
           center={center}
