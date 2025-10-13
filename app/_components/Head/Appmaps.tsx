@@ -215,7 +215,7 @@ console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
             autoComplete="off"
             type="text"
             id="searchMap"
-            placeholder="دنبال کجا می‌گردید..."
+            placeholder="دنبال کجا می&zwnj;گردید...&#128269;"
             onChange={(e) => setText(e.target.value)}
             value={text}
             className="w-full"

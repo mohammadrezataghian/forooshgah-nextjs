@@ -246,14 +246,14 @@ React.useEffect(() => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="px-5 py-2 space-y-2">
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block !text-sm lg:!text-base font-medium text-gray-600">
             آدرس دقیق*
           </label>
           <div className="relative">
             <input
               {...register("preciseAddress")}
               type="text"
-              className={`${getInputStyle("preciseAddress")} text-center`}
+              className={`${getInputStyle("preciseAddress")} text-center placeholder:text-gray-300`}
               placeholder=" آدرس, پلاک, واحد,طبقه, زنگ"
             />
             {errors.preciseAddress ? (
@@ -273,14 +273,14 @@ React.useEffect(() => {
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block !text-sm lg:!text-base font-medium text-gray-600">
             کد پستی
           </label>
           <div className="relative">
             <input
               {...register("postalCode")}
               type="text"
-              className={`${getInputStyle("postalCode")} text-center`}
+              className={`${getInputStyle("postalCode")} text-center placeholder:text-gray-300`}
               placeholder=" کد پستی "
             />
             {errors.postalCode ? (
