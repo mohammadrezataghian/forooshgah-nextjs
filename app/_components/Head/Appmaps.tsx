@@ -41,6 +41,10 @@ export default function Appmaps() {
   const [lon, setLon] = useState<number>(51.42);
   const [address, setAddress] = useState<string>("مکان تقریبی شما");
   const [zooooom, setZooooom] = useState<number>(10);
+console.log(address);
+console.log(markerArray);
+console.log(results);
+console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
 
   const search = (options: SearchOptions) => {
     if (!options.text) return;
@@ -205,26 +209,26 @@ export default function Appmaps() {
         </Mapir>
       </div>
 
-      <div className="container search-box">
-        <div className="container search-box__item flex-row">
+      <div className="container search-boxMap">
+        <div className="containerMap search-box__itemMap flex-row">
           <input
             autoComplete="off"
             type="text"
-            id="search"
+            id="searchMap"
             placeholder="دنبال کجا می‌گردید..."
             onChange={(e) => setText(e.target.value)}
             value={text}
             className="w-full"
           />
           {results.length > 0 && (
-            <div className="clear-seach" onClick={clearSearch}>
+            <div className="clear-seachMap" onClick={clearSearch}>
               <span>&#10006;</span>
             </div>
           )}
         </div>
 
         {results.length > 0 && (
-          <div className="container search-box__item search-results">
+          <div className="containerMap search-box__itemMap search-resultsMap">
             {results.map((item, i) =>
               item.notFound ? (
                 <p key={i}>نتیجه‌ای یافت نشد</p>
@@ -234,16 +238,16 @@ export default function Appmaps() {
                   onClick={() =>
                     item.geom?.coordinates && reverseFunction2(item.geom.coordinates)
                   }
-                  className="search-result-item"
+                  className="search-result-itemMap"
                 >
-                  <p className="search-result-item-title">
+                  <p className="search-result-item-titleMap">
                     <img
                       alt="markerIcon"
                       src="https://map.ir/css/images/marker-default-white.svg"
                     />
                     {item.title}
                   </p>
-                  <p className="search-result-item-address">{item.address}</p>
+                  <p className="search-result-item-addressMap">{item.address}</p>
                 </div>
               )
             )}

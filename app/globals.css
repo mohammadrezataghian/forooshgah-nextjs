@@ -88,6 +88,85 @@ body {
 /* head */
 
 /* appmaps */
+#searchMap {
+  height: 30px;
+}
+/* textarea:focus, */
+.search-box__itemMap > input:focus {
+  outline: none;
+}
+
+.containerMap {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0);
+  direction: rtl;
+  text-align: right;
+  margin-top: 5px;  
+  /* font-size: 1.4rem; */
+}
+
+.search-boxMap {
+  position: absolute;
+  /* bottom: 33%; */
+  left: 0;
+  z-index: 1000;
+}
+
+.search-box__itemMap {
+  background-color: white;
+  margin-top: 3px;
+  border-top: none;
+  border: 1px solid #a8a7a7;
+  border-radius: 5px;
+  width: 100% !important;
+}
+
+.search-resultsMap {
+  overflow: auto;
+  max-height: 40vh;
+  /* display: none; */
+}
+
+.search-result-itemMap {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+.search-result-itemMap img {
+  width: 20px;
+  margin-left: 5px;
+}
+.search-result-item-titleMap {
+  font-weight: bolder;
+}
+.search-result-item-addressMap {
+  font-size: 1rem;
+}
+
+.clear-seachMap {
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+  padding: 6px;
+  /* display: none; */
+}
+
+/* .btn-seachMap {
+  background-color: #ff0871;
+  height: 40px;
+  width: 60px;
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #a8a7a7;
+  line-height: 40px;
+} */
 
 /* appmaps */
 
