@@ -19,8 +19,14 @@ import Cookies from "js-cookie";
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { addressService } from "@/services/addressService";
-import Appmaps from "@/app/_components/Head/Appmaps";
 import { sahamUserType, whereaboutes } from "@/types/types";
+import dynamic from 'next/dynamic';
+const DynamicComponentWithNoSSR = dynamic(
+  () => {
+    return import('@/app/_components/Head/Appmaps');
+  },
+  { ssr: false }
+);
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -230,7 +236,7 @@ React.useEffect(() => {
         </IconButton>
       </DialogTitle>
       <DialogContent dividers>
-        <Appmaps/>
+        <DynamicComponentWithNoSSR/>
         {/* {alert.open && ( // Show the alert if open
           <Alert
             severity={alert.severity}

@@ -1,68 +1,58 @@
 'use client'
 
-import useGetForooshgahDetails from "@/app/api/forooshgahListByDetail/hook";
 import React, { useState } from "react";
-import Mapir from "mapir-react-component";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
 import { Button, Divider } from "@mui/material";
 import PinDropIcon from "@mui/icons-material/PinDrop";
+import useGetForooshgahDetails from "@/app/api/forooshgahListByDetail/hook";
+import "leaflet/dist/leaflet.css";
 
-// Set up the Mapir token
-const Map = Mapir.setToken({
-  transformRequest: (url:any) => ({
-    url,
-    headers: {
-      "x-api-key":
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY4ZjdjY2Y3ZmY0YWVkZjY3YjA4YmI3OGFhMTk1MTRhMDlmYzk0NjBlZGEyNWM1NjgzYThlNDQ0MzgzMTkwMDgzYzY5ODMwYzc0OGM1MmY2In0.eyJhdWQiOiIzMjA3OCIsImp0aSI6IjY4ZjdjY2Y3ZmY0YWVkZjY3YjA4YmI3OGFhMTk1MTRhMDlmYzk0NjBlZGEyNWM1NjgzYThlNDQ0MzgzMTkwMDgzYzY5ODMwYzc0OGM1MmY2IiwiaWF0IjoxNzQ1Mzg5OTc2LCJuYmYiOjE3NDUzODk5NzYsImV4cCI6MTc0Nzk4MTk3Niwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.MFTa5q1VTJVJxPriZ8vHdcWXsCeEk3UBBjBk4aeqv5shwGxR91Js9pWAYjIYuaalgojXFkINKxspa-FjS6mJpkBCWli_W-TmVKWvkNd2vcWY2Y-fg4nRk_vggM3e-UmBplyjr53aFb_KtIDcl00rMQn_uR7G0Gb_Nzybj9XUK8o7KV8iCrOiNJczESt-tr49rC-f7QWWClyHTmheROjbWkslVKj50jwhK6EH_k-pv1HCA6rpufi5FBgU2IiEhRw2KXojUASv8KciX0uBPzM1JHu-bXPU7KfPviKTY4qlEHT-OOuyrbXFoDsNgmu2_VvKWrTpa4KrKyWT0PdxMObEPQ",
-      "Mapir-SDK": "reactjs",
-    },
-  }),
+// Fix default icon issue in Leaflet
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
-const Stores = () => {
-  
-  // get data
-  const { items, loading, error } = useGetForooshgahDetails();
-  // end get data
-  const [searchText, setSearchText] = useState("");
-  const [selectedCoordinates, setSelectedCoordinates] = useState([
-    51.441342, 35.691672,
-  ]); // default center
-  const [zoomLevel, setZoomLevel] = useState([7]);
-  const normalize = (str:any) =>
-    str
-      .trim()
-      .toLowerCase()
-      .replace(/ي/g, "ی") // Normalize Arabic Yeh to Persian Yeh
-      .replace(/ك/g, "ک") // Normalize Arabic Kaf to Persian Kaf
-      .replace(/\s+/g, " "); // Normalize multiple spaces to one
+// Component to programmatically move the map
+const FlyToMarker = ({ position }: { position: [number, number] }) => {
+  const map = useMap();
+  map.flyTo(position, 14, { duration: 1.2 });
+  return null;
+};
 
-  const filteredItems = items && items.filter((item:any) =>
+const Stores = () => {
+  const { items } = useGetForooshgahDetails();
+  const [searchText, setSearchText] = useState("");
+  const [selectedCoordinates, setSelectedCoordinates] = useState<[number, number]>([35.691672, 51.441342]);
+
+  const normalize = (str: string) =>
+    str.trim().toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/\s+/g, " ");
+
+  const filteredItems = items?.filter((item: any) =>
     normalize(item.Name).includes(normalize(searchText))
   );
-  
-  const handleItemClick = (item:any) => {
-    setSelectedCoordinates([item.longitude, item.latitude]);
-    setZoomLevel([14]); // Zoom in
-  };
 
-  const handleRouting = (item:any) => {
-    const latitude = item.latitude;
-    const longitude = item.longitude;
-  
-    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-
-    window.open(googleMapsUrl, "_blank"); // or neshanUrl / baladUrl
+  const handleItemClick = (item: any) => {
+    setSelectedCoordinates([item.latitude,item.longitude ]);
   };
   
+  const handleRouting = (item: any) => {
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}`;
+    window.open(googleMapsUrl, "_blank");
+  };
+
   return (
     <>
       <div className="w-full bg-white p-5 md:flex justify-center text-lg font-bold hidden">
         <span>فروشگاه های تعاونی</span>
       </div>
       <div className="w-full h-auto flex flex-wrap md:flex-row flex-col-reverse gap-y-1">
-        {items && items.length > 0 && (
+        {filteredItems && filteredItems.length > 0 && (
           <>
-            <div className="md:w-1/3 w-full h-[30vh]  lg:h-[80vh] md:h-[75vh] overflow-y-scroll bg-white flex flex-col gap-3 mb-24 xs:mb-0">
+            {/* Left panel */}
+            <div className="md:w-1/3 w-full h-[30vh] lg:h-[80vh] md:h-[75vh] overflow-y-scroll bg-white flex flex-col gap-3 mb-24 xs:mb-0">
               <div className="w-full h-auto px-1">
                 <input
                   type="text"
@@ -72,14 +62,12 @@ const Stores = () => {
                   className="border px-4 py-2 rounded w-full text-right text-base border-blue-400"
                 />
               </div>
-              {filteredItems.map((item:any) => (
+              {filteredItems.map((item: any) => (
                 <React.Fragment key={item.Id}>
                   <div className="w-full flex flex-col gap-2 px-3">
                     <div className="flex items-baseline text-wrap">
-                      <span className="align-bottom">
-                        <PinDropIcon className="text-green-600" />
-                        نام فروشگاه :
-                      </span>
+                      <PinDropIcon className="text-green-600" />
+                      <span className="ml-1">نام فروشگاه :</span>
                       <span>{item.Name}</span>
                     </div>
                     <div className="flex">
@@ -111,38 +99,40 @@ const Stores = () => {
                 </React.Fragment>
               ))}
             </div>
+
+            {/* Right panel - Leaflet map */}
             <div className="md:w-2/3 w-full lg:h-[80vh] md:h-[75vh] h-[50vh]">
-              <Mapir
-                Map={Map}
+              <MapContainer
                 center={selectedCoordinates}
-                zoom={zoomLevel}
-                containerStyle={{ width: "100%", height: "100%" }}
+                zoom={7}
+                style={{ width: "100%", height: "100%" }}
               >
-                {filteredItems.map((item:any) => (
-                  <React.Fragment key={item.Id}>
-                    <Mapir.Marker
-                      coordinates={[item.longitude, item.latitude]}
-                      anchor="bottom"
-                    >
-                      <div
-                        style={{
-                          background: "red",
-                          borderRadius: "50%",
-                          width: 10,
-                          height: 10,
-                        }}
-                      />
-                    </Mapir.Marker>
-                    <Mapir.Popup
-                      coordinates={[item.longitude, item.latitude]}
-                      offset={15}
-                      closeButton={true}
-                    >
-                      <div className="text-sm font-semibold cursor-pointer" onClick={() => handleItemClick(item)}>{item.Name}</div>
-                    </Mapir.Popup>
-                  </React.Fragment>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+                />
+                <FlyToMarker position={selectedCoordinates} />
+                {filteredItems.map((item: any) => (
+                  <Marker key={item.Id} position={[item.latitude, item.longitude]}>
+                    <Popup>
+                      <div className="flex flex-col gap-1 z-50">
+                        <span className="font-semibold cursor-pointer" onClick={() => handleItemClick(item)}>
+                          {item.Name}
+                        </span>
+                        <span>تلفن: {item.Tel}</span>
+                        <span>آدرس: {item.Address}</span>
+                        <Button
+                          variant="contained"
+                          className="bg-blue-500 text-white mt-1"
+                          onClick={() => handleRouting(item)}
+                        >
+                          مسیریابی
+                        </Button>
+                      </div>
+                    </Popup>
+                  </Marker>
                 ))}
-              </Mapir>
+              </MapContainer>
             </div>
           </>
         )}
