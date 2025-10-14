@@ -92,6 +92,12 @@ body {
   width: 100% !important;
   height: 100% !important;
 }
+.mapboxgl-popup{
+  visibility: visible;
+  display: block;
+  width: 150px;
+  height: 150px;
+}
 
 #searchMap {
   height: 30px;

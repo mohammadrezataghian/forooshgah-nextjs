@@ -79,12 +79,12 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/AboutUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/aboutUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               درباره ما
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/Articles" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/articles" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               مقالات آموزشی
                             </Link>
                           </li>
@@ -101,12 +101,12 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">خدمات مشتریان</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <Link href="/ContactUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/contactUs" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               تماس با ما
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/FAQ" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/faq" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               پرسش‌های متداول کاربران
                             </Link>
                           </li>

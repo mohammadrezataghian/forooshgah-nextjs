@@ -41,10 +41,6 @@ export default function Appmaps() {
   const [lon, setLon] = useState<number>(51.42);
   const [address, setAddress] = useState<string>("مکان تقریبی شما");
   const [zooooom, setZooooom] = useState<number>(10);
-console.log(address);
-console.log(markerArray);
-console.log(results);
-console.log(JSON.parse(localStorage.getItem('whereaboutes') || ''));
 
   const search = (options: SearchOptions) => {
     if (!options.text) return;

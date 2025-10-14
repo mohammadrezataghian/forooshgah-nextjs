@@ -80,7 +80,7 @@ const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
           </Link>
         </div>
         <div className="w-full h-full px-6">
-          <Link href="/CustomersClub" className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href="/customersClub" className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image7}

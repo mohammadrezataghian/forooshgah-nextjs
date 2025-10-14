@@ -63,7 +63,7 @@ export default function VerifyZarinPal() {
           setIsSuccessAndNavigate(data);
           if (factorInfo) {
             deleteShoppingCard();
-            router.push('/FactorInfo')
+            router.push('/factorInfo')
             localStorage.setItem('FactorInfoState',JSON.stringify({ state: { factorInfo } }))
           }
         })

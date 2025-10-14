@@ -64,7 +64,7 @@ export default function VerifySadad() {
               deleteShoppingCard();
               setMessage("پرداخت با موفقیت انجام شد.");
               setFactorInfo(data.Data);
-              router.push('/FactorInfo')
+              router.push('/factorInfo')
               localStorage.setItem('FactorInfoState',JSON.stringify({ state: { factorInfo } }))
             } else {
               setMessage("پرداخت موفق");

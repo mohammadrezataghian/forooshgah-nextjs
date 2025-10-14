@@ -15,7 +15,7 @@ const CustomersClub = () => {
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
 
-  const { loading, error, response, getScore } = useGetScore(userToken);
+  const { loading, error, response, getScore } = useGetScore(userToken,setScore);
 
   useEffect(() => {
       if (score === null && user) {

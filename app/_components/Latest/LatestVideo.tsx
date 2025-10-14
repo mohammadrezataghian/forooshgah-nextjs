@@ -34,7 +34,7 @@ const LatestVideo = () => {
           )}
         </div>
         <div className="pl-3 py-5 flex justify-end">
-          <Link className="text-xs mt-auto" href="/Articles">
+          <Link className="text-xs mt-auto" href="/articles">
             مشاهده آرشیو
             <ArrowBackIcon className="text-sm mr-1" />
           </Link>
