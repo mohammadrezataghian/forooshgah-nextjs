@@ -55,7 +55,7 @@ const enamadCode= `<img
                     نیاز به کمک دارید ؟
                   </span>
                 </a>
-                <Link href='/Stores' className="btn_hover rounded-[4px] overflow-hidden border-none block relative text-white w-[150px] h-[38px] text-[12px] leading-[38px]  ">
+                <Link href='/stores' className="btn_hover rounded-[4px] overflow-hidden border-none block relative text-white w-[150px] h-[38px] text-[12px] leading-[38px]  ">
                   <span className="text-white pr-[10px] block w-full absolute right-0 top-0 z-[2] h-full after:absolute after:mt-[-9px] after:right-[9px] after:top-1/2">
                     <LocationOnIcon className="ml-1 mb-1" />
                     فروشگاه های تعاونی مصرف کارکنان بانک ملی{" "}
@@ -74,7 +74,7 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">اطلاع رسانی و آموزش</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <Link href="/News" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/news" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               اخبار
                             </Link>
                           </li>
@@ -89,7 +89,7 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/Videos" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/videos" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               ویدئو
                             </Link>
                           </li>
@@ -111,12 +111,12 @@ const enamadCode= `<img
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/PrivacyPolicy" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/privacyPolicy" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               سیاست های فروشگاه
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/Rules" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/rules" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               قوانین و مقررات استفاده از فروشگاه
                             </Link>
                           </li>
@@ -128,17 +128,17 @@ const enamadCode= `<img
                         <strong className="block mb-[15px] text-[14px]">راهنمای خرید</strong>
                         <ul className="xs:block">
                           <li className="block mb-[5px] text-right">
-                            <Link href="/Trust" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/trust" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                             چطور از سایت خرید قسطی نمایم؟
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/HowToShop" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/howToShop" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               چطور سفارش خود را ثبت کنم؟
                             </Link>
                           </li>
                           <li className="block mb-[5px] text-right">
-                            <Link href="/TakeBack" className="block mb-[5px] text-right text-[#656565] text-[12px]">
+                            <Link href="/takeBack" className="block mb-[5px] text-right text-[#656565] text-[12px]">
                               راه‌های بازگرداندن سفارش چگونه است؟
                             </Link>
                           </li>

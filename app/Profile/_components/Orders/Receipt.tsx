@@ -265,7 +265,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                     className="text-red-500 cursor-pointer"
                                   >
                                     <Link
-                                      href={`/ReturnProduct`}
+                                      href={`/returnProduct`}
                                       // state={{
                                       //   ...item,
                                       //   KalaList: item.KalaList.filter((kala:any) =>
@@ -474,7 +474,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                     className="text-red-500 cursor-pointer"
                                   >
                                     <Link
-                                      href={`/ReturnProduct`}
+                                      href={`/returnProduct`}
                                       // state={{
                                       //   ...item,
                                       //   KalaList: item.KalaList.filter((kala:any) =>

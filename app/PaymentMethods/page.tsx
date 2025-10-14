@@ -201,7 +201,7 @@ useEffect(()=>{
     switch (ids) {
       case 1:
         paymentLinkAddressUrl = "/api/payByZarinPal";
-        callbackLindAddress = `${siteAddress}/#/VerifyZarinPal`;
+        callbackLindAddress = `${siteAddress}/VerifyZarinPal`;
         setCallBackLink(callbackLindAddress);
         break;
       case 2:

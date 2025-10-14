@@ -32,7 +32,7 @@ const LatestNews = () => {
           {data && <SliderNews data={data}/>}
         </div>}
         <div className="pl-3 py-3 flex justify-end">
-          <Link className="text-xs" href="/News">
+          <Link className="text-xs" href="/news">
             مشاهده آرشیو
             <ArrowBackIcon className="text-sm mr-1" />
           </Link>
