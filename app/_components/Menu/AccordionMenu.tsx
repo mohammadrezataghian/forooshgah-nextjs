@@ -85,7 +85,7 @@ export default function AccordionMenu({toggleDrawer}:AccordionMenuProps) {
 const [menuData, setMenuData] = useState<MenuResponse | null>(null);
 
   React.useEffect(() => {
-    if(Cookies.get('MenuData')){
+    if(!!Cookies.get('MenuData')){
       const data = JSON.parse(Cookies.get('MenuData') || '');
       setMenuData(data);
     }else{

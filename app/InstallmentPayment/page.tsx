@@ -8,14 +8,15 @@ import { FaEdit } from "react-icons/fa";
 import { FiFilePlus } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaRegCircle } from "react-icons/fa";
-import Add from "./_components/AddInpDialog";
-import Edit from "./_components/EditInpDialog";
-import Del from "./_components/DeleteInpDialog";
 import useDelDoc from "@/app/api/deleteGhestRequest/hook";
 import useAddDoc from "@/app/api/insertGhestRequest/hook";
 import useEditDoc from "@/app/api/editGhestRequest/hook";
 import Loading from "./loading";
-import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
+import dynamic from "next/dynamic";
+const Add = dynamic(() => import("./_components/AddInpDialog"), {ssr: false,});
+const Edit = dynamic(() => import("./_components/EditInpDialog"), {ssr: false,});
+const Del = dynamic(() => import("./_components/DeleteInpDialog"), {ssr: false,});
+const AutoHideDialog = dynamic(() => import("@/common/AutoHideDialog/AutoHideDialog"), {ssr: false,});
 
 const InstallmentPayment = () => {
 
