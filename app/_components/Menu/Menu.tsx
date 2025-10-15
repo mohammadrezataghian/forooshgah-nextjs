@@ -38,7 +38,7 @@ const Menu = () => {
 
   //get data
   useEffect(() => {
-    if (Cookies.get("MenuData")) {
+    if (!!Cookies.get("MenuData")) {
       const data = JSON.parse(Cookies.get("MenuData") || '');
       setMenuData(data);
     } else {
