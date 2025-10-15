@@ -59,7 +59,7 @@ const Data = firstData.length > 0 ? firstData[0].children : [];
                     <ListItemIcon sx={{ minWidth: "0" }}>
                       <ChevronLeftIcon />
                     </ListItemIcon>
-                    <Link href={`/ProductList/${category.Name}`}>{category.Name}</Link>
+                    <Link href={`/productList/${category.Name}`}>{category.Name}</Link>
                   </ListItemButton>
                   <Divider />
                 </React.Fragment>

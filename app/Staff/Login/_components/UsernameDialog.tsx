@@ -117,7 +117,7 @@ function showSnackbar(message:string) {
 React.useEffect(()=>{
       if (responseUsername && responseUsername?.data?.resCode && responseUsername?.data?.resCode === 1){
         setTimeout(() => {
-          router.push("/Staff/Dashboard");
+          router.push("/staff/Dashboard");
         },1500);
       }
 },[responseUsername])

@@ -103,13 +103,13 @@ const { removeProduct } = useRemoveProduct(setProductList);
                 <div className="flex flex-col justify-between">
                   {count && count > 0 && 
                   <div className="flex gap-3 items-center boxshadowHead p-2">
-                    <Button sx={{ minWidth: 0, padding: 0 }} className="px-2" onClick={() => addProduct(el)} disabled={whatPagee === "/itemcart" || whatPagee === "/PreFactor" ? true : false}><GoPlus className="text-2xl text-green-500 cursor-pointer"/></Button>
+                    <Button sx={{ minWidth: 0, padding: 0 }} className="px-2" onClick={() => addProduct(el)} disabled={whatPagee === "/itemcart" || whatPagee === "/preFactor" ? true : false}><GoPlus className="text-2xl text-green-500 cursor-pointer"/></Button>
                     <span className="font-[20px]">{count}</span>
-                    <Button sx={{ minWidth: 0, padding: 0 }} className="px-2" onClick={() => removeProduct(el)} disabled={whatPagee === "/PreFactor" }><FiMinus className="text-2xl text-red-500 cursor-pointer"/></Button>
+                    <Button sx={{ minWidth: 0, padding: 0 }} className="px-2" onClick={() => removeProduct(el)} disabled={whatPagee === "/preFactor" }><FiMinus className="text-2xl text-red-500 cursor-pointer"/></Button>
                   </div>}
                   <div className="flex justify-center">
                     <div>
-                  {!(whatPagee === "/PreFactor") && <AiFillDelete
+                  {!(whatPagee === "/preFactor") && <AiFillDelete
                     className="text-red-600 text-xl cursor-pointer"
                     onClick={() => deleteItem(el)}
                   />}

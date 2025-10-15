@@ -65,7 +65,7 @@ const orderImageBestSeller = banner?.advertisement?.find((item:any) => item.Orde
                         </div>
                         <div className='text-center lg:w-full lg:h-full lg:mt-10 text-nowrap'>
                             <Link 
-                              href="/ProductList/AllCategories" 
+                              href="/productList/AllCategories" 
                               onClick={()=>(params?.Order && sessionStorage.setItem('ProductListOrderParam',JSON.stringify(params?.Order)))}
                               className='w-full h-full borderseeall lg:border-2 lg:border-white p-1 lg:p-2 text-white rounded-md lg:rounded-md lg:text-md text-xs sm:text-sm'>
                                 مشاهده همه

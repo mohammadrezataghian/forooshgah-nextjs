@@ -90,7 +90,7 @@ const Menu = () => {
                   Data.map((item:any, index:number) => (
                     <div key={item.Id} className="group">
                       <Link
-                        href={`/ProductList/${item.Name}`}
+                        href={`/productList/${item.Name}`}
                         className="text-[#2b2b2b] p-3 block group-hover:bg-white text-right"
                         onClick={() => setIsMenuOpen(false)} // Close menu on link click
                       >
@@ -107,7 +107,7 @@ const Menu = () => {
                           {item.children &&
                             item.children.map((child:any) => (
                               <Link
-                                href={`/ProductList/${child.Name}`}
+                                href={`/productList/${child.Name}`}
                                 key={child.Id}
                                 className="text-[#2b2b2b] px-3 py-4 hover:text-red-600 w-auto h-auto flex items-center"
                                 onClick={() => setIsMenuOpen(false)} // Close menu on link click

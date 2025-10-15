@@ -37,7 +37,7 @@ type ImgMediaCardProps = {
       <>
         <Link
           className="block"
-          href={`/ProductDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}
+          href={`/productDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}
         >
           <Card sx={{ minHeight: 353,position:"relative"}}>
             <div className="w-full min-h-[180px] max-h-[162px] h-auto flex justify-center">

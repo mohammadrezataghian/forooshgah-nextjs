@@ -9,10 +9,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import Cookies from 'js-cookie';
 import useGetReceipts from '@/app/api/getFactorInfo/hook';
-import ReceiptLoading from '@/app/Profile/_components/Orders/ReceiptLoading';
+import ReceiptLoading from '@/app/profile/_components/Orders/ReceiptLoading';
 import { Card, Divider } from "@mui/material";
 import { Container, Typography, Grid } from '@mui/material';
-import ProductCard from '@/app/Profile/_components/Orders/ProductCard';
+import ProductCard from '@/app/profile/_components/Orders/ProductCard';
 import HorizontalLinearStepper from './Stepper';
 
 const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {

@@ -137,7 +137,7 @@ const handleCloseAccount = () => {
           </Link>
           {/* end home */}
           {/* start search */}
-          <Link href="/Search" className="tab-link">
+          <Link href="/search" className="tab-link">
             <Image className="w-7 h-7" src={Search} alt="" />
             <p className=" text-xs">جستجو</p>
           </Link>

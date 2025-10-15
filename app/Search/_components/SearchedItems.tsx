@@ -89,7 +89,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 className="relative h-full w-full rounded-lg shadow-lg border border-gray-200 bg-white overflow-hidden group"
               >
                 <Link
-                  href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
+                  href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                   className="flex justify-center overflow-hidden h-48"
                 >
                   <img
@@ -103,7 +103,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 {data.Takhfif !== 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold py-1 px-2 rounded z-10">
                   -{data.Takhfif}%
                 </div>}
-                  <Link href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
+                  <Link href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
                     <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start">
                       {data.NameKala}
                     </h3>

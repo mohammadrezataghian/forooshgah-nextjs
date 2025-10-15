@@ -119,7 +119,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                     onKeyDown={handleListKeyDown}
                   >
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
-                    <MenuItem onClick={handleClose}><Link href={`/Profile`} className='flex justify-between text-inherit w-full flex-nowrap'><AccountCircleIcon className="text-xl mr-1 text-gray-600"/><span>پروفایل</span></Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link href={`/profile`} className='flex justify-between text-inherit w-full flex-nowrap'><AccountCircleIcon className="text-xl mr-1 text-gray-600"/><span>پروفایل</span></Link></MenuItem>
                     {/* <MenuItem onClick={handleClose} className='flex justify-end'><Link to={'/receipts'} className='text-inherit'>سفارشات من<ReceiptLongIcon className='text-gray-600 mr-1'/></Link></MenuItem> */}
                     <MenuItem className='flex justify-between flex-nowrap gap-1'>
                       <span className='flex w-full'><PiCoins  className="text-xl scale-x-[-1] text-gray-600"/></span>
@@ -127,7 +127,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
                       onClick={() => {
                         sessionStorage.setItem("goTo", "customerClub");
                       }}
-                      href={`/Profile`}>امتیاز باشگاه: {score ? score : 0}
+                      href={`/profile`}>امتیاز باشگاه: {score ? score : 0}
                     </Link>
                     </MenuItem>
                     <MenuItem onClick={handleClickOpen} className='flex justify-between flex-nowrap gap-1'><BiExit className="text-xl scale-x-[-1] text-gray-600"/><span>خروج از حساب کاربری</span></MenuItem>

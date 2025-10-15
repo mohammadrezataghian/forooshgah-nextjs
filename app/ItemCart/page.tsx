@@ -113,7 +113,7 @@ const { price, loadingPrice, errorPrice } = useGetTotalFactor(dataToSend);
 
   // handle navigation
   const handleNavigation = () => {
-    router.push("/PreFactor")
+    router.push("/preFactor")
   };
   // end handle navigation
 

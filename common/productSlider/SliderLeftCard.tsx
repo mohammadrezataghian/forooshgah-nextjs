@@ -85,7 +85,7 @@ const SliderLeftCard = ({
         {/* Product Image */}
         <div className="w-full flex justify-center">
         <Link
-          href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}
+          href={`/productDetails/${id}/${encodeURIComponent(name)}`}
           className="flex justify-center overflow-hidden h-[168px] w-[168px]"
         >
             <Image
@@ -101,7 +101,7 @@ const SliderLeftCard = ({
 
         {/* Product Info */}
         <div className="px-4 py-2">
-          <Link href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}>
+          <Link href={`/productDetails/${id}/${encodeURIComponent(name)}`}>
             <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start min-h-[49px] line-clamp-2">
               {name}
             </h3>

@@ -128,7 +128,7 @@ const router = useRouter()
 useEffect(()=>{
       if (submitLoginStaff && submitLoginStaff?.data?.resCode && submitLoginStaff?.data?.resCode === 1){
         setTimeout(() => {
-          router.push("/Staff/Dashboard");
+          router.push("/staff/Dashboard");
         },1500);
       }
 },[submitLoginStaff])

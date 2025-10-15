@@ -88,7 +88,7 @@ const SearchInput = () => {
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {
-    if (deferredSearchTerm && pathname != '/Search') {
+    if (deferredSearchTerm && pathname != '/search') {
       const filteredItems = apiUsers
       setFilteredUsers(filteredItems);
       setIsBoxVisible(searchItem.length > 0);
@@ -152,7 +152,7 @@ const SearchInput = () => {
                 <button
                   onClick={() => {
                     setIsBoxVisible(false);
-                    router.push('/Search')
+                    router.push('/search')
                     // router.replace('/dashboard');
                   }}
                   className="py-1 px-2 text-[#0AF8D8] text-xs sm:text-md text-right cursor-pointer flex items-center"

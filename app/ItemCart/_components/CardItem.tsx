@@ -78,7 +78,7 @@ const CardItem = ({
 
         {/* Product Image */}
         <Link
-          href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}
+          href={`/productDetails/${id}/${encodeURIComponent(name)}`}
           className="flex justify-center overflow-hidden h-48"
         >
           <Image
@@ -93,7 +93,7 @@ const CardItem = ({
 
         {/* Product Info */}
         <div className="p-4 ">
-          <Link href={`/ProductDetails/${id}/${encodeURIComponent(name)}`}>
+          <Link href={`/productDetails/${id}/${encodeURIComponent(name)}`}>
             <h3 className="md:text-lg text-md text-[#23254e] hover:text-blue-500 transition text-start max-h-[49px] min-h-[49px] line-clamp-2 overflow-visible">
               {name}
             </h3>

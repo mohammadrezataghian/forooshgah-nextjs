@@ -52,7 +52,7 @@ const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
           </a>
         </div>
         <div className="w-full h-full px-6">
-          <Link href="/StockRequest" className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href="/stockRequest" className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image6}
@@ -66,7 +66,7 @@ const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
           </Link>
         </div>
         <div className="w-full h-full px-6">
-          <Link href={IsloggedIn ? "/Staff/Dashboard" : "/Staff/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={IsloggedIn ? "/staff/Dashboard" : "/staff/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image5}
@@ -94,7 +94,7 @@ const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
           </Link>
         </div>
         <div className="w-full h-full px-6">
-          <Link href={(Cookies.get("supplierUser")) ? "/Suppliers/Dashboard" : "/Suppliers/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={(Cookies.get("supplierUser")) ? "/suppliers/Dashboard" : "/suppliers/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image8}

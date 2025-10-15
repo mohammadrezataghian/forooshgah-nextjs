@@ -65,7 +65,7 @@ if (images != null) {
             />
           </div>
          }
-          <Link href={`/ProductDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
+          <Link href={`/productDetails/${product.IdStoreStock}/${encodeURIComponent(product.NameKala)}`}>
           <div className='w-full h-auto flex justify-center'>
             <Image src={image} alt={product.NameKala} height={200} width={100} unoptimized />
           </div>

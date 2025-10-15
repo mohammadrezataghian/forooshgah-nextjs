@@ -120,7 +120,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     
                     {/* Product Image */}
                     <Link
-                      href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
+                      href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                       onClick={() => setIsBoxVisible(false)}
                       className="flex justify-center overflow-hidden h-max p-1"
                     >
@@ -130,7 +130,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     {/* Product Info */}
                     <div className="p-4">
                       <Link
-                        href={`/ProductDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
+                        href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                         onClick={() => setIsBoxVisible(false)}
                       >
                         <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right">

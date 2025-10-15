@@ -62,13 +62,13 @@ export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,ha
         
         <List>
           <ListItemButton>
-          <Link onClick={handleCloseAccount} href={`/Profile`} className='text-inherit flex'><span>پروفایل</span><AccountCircleIcon className='text-gray-600 mr-1'/></Link>
+          <Link onClick={handleCloseAccount} href={`/profile`} className='text-inherit flex'><span>پروفایل</span><AccountCircleIcon className='text-gray-600 mr-1'/></Link>
           </ListItemButton>
           <ListItemButton>
           <Link onClick={() => {
             sessionStorage.setItem("goTo", "customerClub");
             }}
-            href={`/Profile`}  className='text-inherit flex items-center'>امتیاز باشگاه: {score && score}<PiCoins className='text-gray-600 mr-1 text-xl'/></Link>
+            href={`/profile`}  className='text-inherit flex items-center'>امتیاز باشگاه: {score && score}<PiCoins className='text-gray-600 mr-1 text-xl'/></Link>
           </ListItemButton>
           <Divider />
           <ListItemButton>
