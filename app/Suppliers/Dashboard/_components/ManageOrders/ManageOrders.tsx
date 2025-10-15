@@ -8,9 +8,10 @@ import Cookies from "js-cookie";
 import { Button, OutlinedInput } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import useSubmitSearch from "@/app/api/listForooshTaminKonande/hook";
-import DataTable from "./DataTable";
-import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
 import { DateObject } from "react-multi-date-picker";
+import dynamic from "next/dynamic";
+const AutoHideDialog = dynamic(() => import("@/common/AutoHideDialog/AutoHideDialog"), { ssr: false });
+const DataTable = dynamic(() => import("./DataTable"), { ssr: false });
 
 const ManageOrders = () => {
   

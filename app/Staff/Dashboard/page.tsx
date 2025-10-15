@@ -10,12 +10,12 @@ import { NAVIGATION, useDemoRouter, demoTheme, SidebarFooter } from './_componen
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AlertDialog from '@/common/ProfileExitDialog/ProfileExitDialog';
 import useGetMainConfig from '@/app/api/getMainConfig/hook';
 import Profile from './_components/Profile/Profile';
 import dynamic from 'next/dynamic';
 const SalarySlip = dynamic(() => import('./_components/SalarySlip/SalarySlip'), { ssr: false });
 const ChangePassword = dynamic(() => import('./_components/ChangePassword/ChangePassword'), { ssr: false });
+const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
 import { useAtom } from "jotai";
 import { IsStaffUserloggedIn } from '@/shared/isStaffLoggedIn';
 import { useRouter } from 'next/navigation';

@@ -6,7 +6,8 @@ import * as z from "zod";
 import { Button, OutlinedInput } from "@mui/material";
 import useGetStockRequest from "@/app/api/getCodeSabteName/hook";
 import useGetSubmitStockRequest from "@/app/api/requestForRegisterSahamPerson/hook";
-import AutoHideDialog from "@/common/AutoHideDialog/AutoHideDialog";
+import dynamic from "next/dynamic";
+const AutoHideDialog = dynamic(() => import("@/common/AutoHideDialog/AutoHideDialog"), { ssr: false });
 import { schema, cellphoneSchema } from "./schemas"
 import { handleFileChange } from "./_components/ImageInput"
 import Image from "next/image";

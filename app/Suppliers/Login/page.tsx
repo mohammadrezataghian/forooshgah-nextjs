@@ -8,7 +8,8 @@ import useGetSubmitLoginSupplier from '@/app/api/loginTaminKonandeByMobile/hook'
 import { useAtom } from "jotai";
 import { IsSupplierUserloggedIn } from "@/shared/isSupplierLoggedIn";
 import Cookies from 'js-cookie';
-import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
+import dynamic from 'next/dynamic';
+const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), { ssr: false });
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import EastIcon from '@mui/icons-material/East';

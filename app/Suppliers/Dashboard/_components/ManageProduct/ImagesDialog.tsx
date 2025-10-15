@@ -14,10 +14,11 @@ import { FiFilePlus } from "react-icons/fi";
 import { FaRegCircle } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import INPLoading from "@/app/installmentPayment/loading";
-import Add from "./AddImageDialog";
 import useAddDoc from "@/app/api/insertKalaImage/hook";
 import useDelDoc from "@/app/api/deleteKalaImage/hook";
-import ConfirmationDialog from "@/common/ConfirmationDialog/ConfirmationDialog";
+import dynamic from "next/dynamic";
+const ConfirmationDialog = dynamic(() => import("@/common/ConfirmationDialog/ConfirmationDialog"), { ssr: false });
+const Add = dynamic(() => import("./AddImageDialog"), { ssr: false });
 
 const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

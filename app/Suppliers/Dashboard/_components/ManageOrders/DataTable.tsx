@@ -12,7 +12,8 @@ import TableRow from "@mui/material/TableRow";
 import TruncatedText from "./TextTruncate";
 import { Button } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import FullScreenDialog from "./ShowInfoDialog";
+import dynamic from "next/dynamic";
+const FullScreenDialog = dynamic(() => import("./ShowInfoDialog"), { ssr: false });
 
 type DataTableProps = {
   Response:any;

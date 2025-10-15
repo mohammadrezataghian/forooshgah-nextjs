@@ -22,12 +22,13 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import Cookies from "js-cookie";
 import useGetListKala from "@/app/api/listKalaTaminKonande/hook";
-import CustomizedDialogs from "./DialogManageProduct";
-import EditProduct from "./EditProductDialog";
-import DeleteProductDialog from "./DeleteProductDialog";
+import dynamic from "next/dynamic";
+const CustomizedDialogs = dynamic(() => import("./DialogManageProduct"), { ssr: false });
+const EditProduct = dynamic(() => import("./EditProductDialog"), { ssr: false });
+const DeleteProductDialog = dynamic(() => import("./DeleteProductDialog"), { ssr: false });
+const ImagesDialog = dynamic(() => import("./ImagesDialog"), { ssr: false });
 import ManageProductSkeleton from "./LoadingManageProduct";
 import { Button } from "@mui/material";
-import ImagesDialog from "./ImagesDialog";
 
 const ManageProduct = () => {
   

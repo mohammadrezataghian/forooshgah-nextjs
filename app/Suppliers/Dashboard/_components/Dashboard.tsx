@@ -10,7 +10,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useEditSupplierInfo from "@/app/api/updateTaminKonandeInfo/hook";
 import EditIcon from '@mui/icons-material/Edit';
-import TransitionAlerts from "./DashboardAlert";
+import dynamic from "next/dynamic";
+const TransitionAlerts = dynamic(() => import("./DashboardAlert"), { ssr: false });
 
 // zod schema
 const schema = z.object({
