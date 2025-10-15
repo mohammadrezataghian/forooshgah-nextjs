@@ -84,10 +84,8 @@ const SliderNews = (data:any) => {
                 </p>
                 <p className="text-sm flex line-clamp-2 text-justify pl-3">
                   <Link className="line-clamp-2 text-justify text-gray-500 hover:text-blue-500" 
-                  href={{
-                    pathname: `/news/${item.FldId}`,
-                    query: { item: item },
-                  }}>
+                  href={`/getNews/${item.FldId}`}
+                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}>
                     {item.ShortBody}</Link>
                 </p>
               </div>

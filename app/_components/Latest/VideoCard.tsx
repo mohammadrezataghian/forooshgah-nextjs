@@ -14,10 +14,8 @@ const VideoCard = (data:any) => {
     <div className="w-full h-auto mx-auto bg-white rounded-lg shadow-md overflow-hidden">
       {/* Video-like Image */}
       <Link
-        href={{
-            pathname: `/articles/${data.item.FldId}`,
-            query: { item: data.item },
-          }}
+        href={`/getArticles/${data.item.FldId}`}
+        onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(data.item))}
         className="relative block group w-full h-40 rounded-md"
       >
         <img
@@ -44,19 +42,16 @@ const VideoCard = (data:any) => {
         </p>
         {/* Description */}
         <Link
-          href={{
-            pathname: `/articles/${data.item.FldId}`,
-            query: { item: data.item },
-          }}
+          href={`/getArticles/${data.item.FldId}`}
+          onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(data.item))}
           className="w-full block text-gray-800 hover:text-blue-600 transition-colors"
         >
           <span className="line-clamp-1">{data.item.Title}</span>
         </Link>
         <p className=" flex">
-          <Link href={{
-            pathname: `/articles/${data.item.FldId}`,
-            query: { item: data.item },
-          }} className="text-gray-500 hover:text-blue-600 text-sm line-clamp-2 text-justify">{data.item.ShortBody}</Link>
+          <Link href={`/getArticles/${data.item.FldId}`}
+           onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(data.item))}
+           className="text-gray-500 hover:text-blue-600 text-sm line-clamp-2 text-justify">{data.item.ShortBody}</Link>
           </p>
       </div>
     </div>

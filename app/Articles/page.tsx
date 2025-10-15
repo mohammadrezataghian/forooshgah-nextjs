@@ -48,20 +48,17 @@ const Articles = () => {
         <Divider />
         {/* start card */}
         {loadingNews ? <LoadingNews/> :
-         data && data.map((item:any) => (
+         data && data.map((item:any,index:any) => (
             <>
               <div
-                key={item.FldId}
+                key={index}
                 className="w-full h-auto flex justify-between gap-5"
               >
                 <div className="flex flex-col items-start gap-2 md:w-3/4 w-1/2">
                   <h3 className="font-bold text-justify">{item.Title}</h3>
                   <p className="text-justify line-clamp-4">{item.ShortBody}</p>
                   <Link
-                    href={{
-                        pathname: `/getArticles/${item.FldId}`,
-                        query: { Id: item.FldId },
-                      }}
+                    href={`/getArticles/${item.FldId}`}
                       onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(item))}
                     className="mt-auto p-1"
                   >
