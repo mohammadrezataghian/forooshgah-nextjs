@@ -6,7 +6,8 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { FcShop } from "react-icons/fc";
 import MissionsTab from "./MissionsTab";
-import ScoreHistoryTab from "./ScoresHistoryTab";
+import dynamic from "next/dynamic";
+const ScoreHistoryTab = dynamic(() => import("./ScoresHistoryTab"), {ssr: false,});
 
 type LabTabsProps = {
   items:any;

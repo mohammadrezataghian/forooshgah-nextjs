@@ -7,12 +7,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { Button, Divider, Rating } from '@mui/material';
 import { FcComments } from "react-icons/fc";
 import Cookies from 'js-cookie';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RadioDialog from './RadioDialog';
+import dynamic from "next/dynamic";
+const RadioDialog = dynamic(() => import('./RadioDialog'), {ssr: false,});
+const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), {ssr: false,});
 import useGetCreateComment from '@/app/api/createComment/hook';
 import svg from '@/public/images/comment/add-comment-thank-you.svg'
 import Image from 'next/image';

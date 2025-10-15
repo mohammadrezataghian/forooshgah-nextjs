@@ -11,7 +11,7 @@ const useGetInstallmentDetails = (params:any,userToken:any) => {
 
   useEffect(() => {
   const getInstallmentDetail = async () => {
-    if (!params) return;
+    if (!params.idFactor) return;
     setLoading(true);
     setError(null);
 
@@ -46,7 +46,7 @@ const useGetInstallmentDetails = (params:any,userToken:any) => {
     }
   };
   getInstallmentDetail()
-  }, []);
+  }, [params.idFactor]);
 
   return { installmentDetail, loading, error };
 };

@@ -5,9 +5,10 @@ import StarRating from './StarRating'
 import { Button, Divider } from '@mui/material'
 import CommentText from './CommentTruncate'
 import Cookies from 'js-cookie'
-import CustomDialog from '@/common/EnterModal/CustomDialog'
-import UserPassDialog from '@/common/EnterModal/UsernameDialog'
-import SubmitCommentDialog from './SubmitCommentDialog'
+import dynamic from "next/dynamic";
+const CustomDialog = dynamic(() => import('@/common/EnterModal/CustomDialog'), {ssr: false,});
+const UserPassDialog = dynamic(() => import('@/common/EnterModal/UsernameDialog'), {ssr: false,});
+const SubmitCommentDialog = dynamic(() => import('./SubmitCommentDialog'), {ssr: false,});
 
 type CommentsProps = {
     comments:any;

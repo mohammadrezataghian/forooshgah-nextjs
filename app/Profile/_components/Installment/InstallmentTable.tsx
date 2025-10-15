@@ -127,10 +127,10 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                             {autocomma(row.KoleKharid)} ریال
                           </TableCell>
                           <TableCell align="center">
-                            <Link className='flex gap-1 items-center justify-center p-4' href={`/InstallmentDetails/${row.FactorId}`}
+                            <Link className='flex gap-1 items-center justify-center p-4' href={`/profile/installmentDetails`}
                             //  state={{id:row.FactorId}} 
                              onClick={(event:any) => {
-                              sessionStorage.setItem('id',JSON.stringify({id:row.FactorId}))
+                              sessionStorage.setItem('idInstallmentDetails',JSON.stringify({id:row.FactorId}))
                                event.stopPropagation();
                             }}>
                               <VisibilityIcon className='text-gray-400'/>
