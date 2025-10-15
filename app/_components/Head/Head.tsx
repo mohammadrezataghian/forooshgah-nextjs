@@ -12,7 +12,10 @@ import { siteUrlAddress } from "@/shared/site.url.atom";
 import UserAddressModal from "@/common/address/UserAddressModal";
 import { addressService } from "@/services/addressService";
 import { address } from "@/shared/Address";
-import HeadReturn from "./HeadReturn";
+import dynamic from "next/dynamic";
+const HeadReturn = dynamic(() => import("./HeadReturn"), {
+  ssr: false,
+});
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import UserPassDialog from "@/common/EnterModal/UsernameDialog";

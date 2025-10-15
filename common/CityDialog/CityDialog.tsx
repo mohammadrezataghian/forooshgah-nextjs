@@ -77,7 +77,14 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
     mode: "onChange",
   });
 
-  const userToken = localStorage.getItem("userToken") ?? '';
+  const [userToken, setUserToken] = React.useState('');
+
+  React.useEffect(() => {
+    
+      const token = localStorage.getItem("userToken") ?? '';
+      setUserToken(token);
+    
+  }, []);
 
   // get user object
   let interval: NodeJS.Timeout | null = null; // Declare interval outside

@@ -64,9 +64,12 @@ const MobileMenu = () => {
   };
   // end sidemenu Drawer Handlers
 
-  //handle cart count
-    const selectedProductsCount = useInterceptLocalProducts();
-    // end handle cart count
+  const [selectedProductsCount, setSelectedProductsCount] = useState(0);
+
+  const count = useInterceptLocalProducts();
+useEffect(() => {
+  setSelectedProductsCount(count);
+}, []);
 
 
 const handleExit = () => {
