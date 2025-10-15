@@ -1,3 +1,5 @@
+'use client'
+
 import { FactorAfterCalc, Product } from "@/types/types";
 import TotalFactorLoading from "./TotalFactorLoading";
 
@@ -21,15 +23,15 @@ const TotalFactor = ({products,factoeAfrerCalc,loadingPrice}:TotalFactorProps) =
     {products && products.length > 0 && factoeAfrerCalc && (
         <div className="w-full flex justify-center h-auto mb-10 text-xl lg:px-64">
           <div className="px-5 xs:px-0 w-full xs:w-2/3 h-auto flex flex-col items-start gap-5">
-            <div className="w-full flex justify-between bordercartcard">
+            <div className="w-full flex justify-between border-b border-gray-300">
               <span>قیمت کالاها</span>
               <span>{autocomma(factoeAfrerCalc.Mablaghekol)} ریال</span>
             </div>
-            <div className="w-full flex justify-between bordercartcard">
+            <div className="w-full flex justify-between border-b border-gray-300">
               <span>مالیات</span>
               <span>{autocomma(factoeAfrerCalc.Maliat)} ریال</span>
             </div>
-            <div className="w-full flex justify-between bordercartcard text-green-500">
+            <div className="w-full flex justify-between border-b border-gray-300 text-green-500">
               <span>جمع سبد خرید</span>
               <span>{autocomma(factoeAfrerCalc.GhabelePardakht)} ریال</span>
             </div>

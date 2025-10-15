@@ -1,24 +1,27 @@
 'use client'
 
-import CardItem from "./_components/CardItem";
+import * as React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { productListUpdate } from "@/shared/product.list.atom";
-import CityDialog from "@/common/CityDialog/CityDialog";
-import UserAddressModal from "@/common/address/UserAddressModal";
 import { addressService } from "@/services/addressService";
 import { address } from '@/shared/Address';
-import CustomizedDialogs from "./_components/DialogDelete";
-import TotalFactor from "./_components/TotalFactor";
-import IndexButtons from "./_components/IndexButtons";
 import useGetCartBalance from "@/app/api/itemCart/hook";
 import useGetTotalFactor from '@/app/api/totalFactor/hook';
-import UserPassDialog from "@/common/EnterModal/UsernameDialog";
-import CustomDialog from "@/common/EnterModal/CustomDialog";
-import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
-import ConfirmationDialog from "@/common/ConfirmationDialog/ConfirmationDialog";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+const IndexButtons = dynamic(() => import("./_components/IndexButtons"), {ssr: false,});
+const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), {ssr: false,});
+const UserPassDialog = dynamic(() => import("@/common/EnterModal/UsernameDialog"), {ssr: false,});
+const CityDialog = dynamic(() => import("@/common/CityDialog/CityDialog"), {ssr: false,});
+const ConfirmationDialog = dynamic(() => import("@/common/ConfirmationDialog/ConfirmationDialog"), {ssr: false,});
+const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), {ssr: false,});
+const UserAddressModal = dynamic(() => import("@/common/address/UserAddressModal"), {ssr: false,});
+const CustomizedDialogs = dynamic(() => import("./_components/DialogDelete"), {ssr: false,});
+import CardItem from "./_components/CardItem"
+import TotalFactor from "./_components/TotalFactor"
+
 
 export default function ItemCart() {
 
@@ -263,35 +266,41 @@ const handleSelectAddress = async (address:any) => {
     setDialogOpen(false);
   };
 // end custom dialog settings
-console.log(isLoggedIn);
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
 
   return (
     <>
       <title>سبد خرید</title>
       <meta name="description" content="سبد خرید اینترنتی" />
       <div className="p-10 pt-3 gap-5 flex overflow-x-auto mb-5 w-full">
-        {products && products.length > 0 ? (
+        {mounted && products && products.length > 0 ? (
           products?.map((data:any, index:any) => (
-            <CardItem
-              discount={data.Takhfif}
-              id={data.IdStoreStock}
-              prevPrice={data.PriceForoosh}
-              price={data.PriceForooshAfterDiscount}
-              name={data.NameKala}
-              data={data}
-              key={index}
-              images={data.FldNameImageKalaList}
-              NameForooshgah={data.NameForooshgah}
-              count={
-                products.find(
-                  (item:any) => item?.IdStoreStock === data.IdStoreStock
-                )?.count
-              }
-              products={products}
-              setProducts={setProducts}
-              idForImage={data.IdKala}
-              kalalist={price?.KalaList}
-            ></CardItem>
+            <React.Fragment key={index}>
+              <CardItem
+                discount={data.Takhfif}
+                id={data.IdStoreStock}
+                prevPrice={data.PriceForoosh}
+                price={data.PriceForooshAfterDiscount}
+                name={data.NameKala}
+                data={data}
+                key={index}
+                images={data.FldNameImageKalaList}
+                NameForooshgah={data.NameForooshgah}
+                count={
+                  products.find(
+                    (item:any) => item?.IdStoreStock === data.IdStoreStock
+                  )?.count
+                }
+                products={products}
+                setProducts={setProducts}
+                idForImage={data.IdKala}
+                kalalist={price?.KalaList}
+              />
+            </React.Fragment>
           ))
         ) : (
           <div className="w-full flex justify-center">

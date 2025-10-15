@@ -59,13 +59,18 @@ const CardItem = ({
   //handle comma
 
   // handle immage
-  let image = "";
-  if (images != null) {
-    image = images.split(",")[0];
-    image = `${siteAddress}/assets/public/kala/${idForImage}/${image}`;
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+  let img = "";
+  if (images) {
+    img = images.split(",")[0];
+    img = `${siteAddress}/assets/public/kala/${idForImage}/${img}`;
   } else {
-    image = `${siteAddress}/assets/public/kala/product.jpg`;
+    img = `${siteAddress}/assets/public/kala/product.jpg`;
   }
+  setImageSrc(img);
+}, [images, idForImage, siteAddress]);
   // end handle image
 
   return (
@@ -77,19 +82,20 @@ const CardItem = ({
         </div>}
 
         {/* Product Image */}
+        {imageSrc && 
         <Link
           href={`/productDetails/${id}/${encodeURIComponent(name)}`}
           className="flex justify-center overflow-hidden h-48"
         >
           <Image
-            src={image}
+            src={imageSrc}
             alt={name}
             width={192}
             height={192}
             unoptimized
             className="w-48 h-48  object-contain transition-transform duration-300 group-hover:scale-110 pt-1"
           />
-        </Link>
+        </Link>}
 
         {/* Product Info */}
         <div className="p-4 ">
@@ -121,7 +127,7 @@ const CardItem = ({
           >
             <MdAdd />
           </IconButton>
-          {products?.find((item:any) => item?.IdKala === data.IdKala)?.count}
+          {products && products?.find((item:any) => item?.IdKala === data.IdKala)?.count}
           <IconButton
             color="primary"
             className="border-4 border-solid border-blue-400"
