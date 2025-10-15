@@ -107,7 +107,7 @@ const { residLoading, residError, residResponse, getResidBeforePayment } = useGe
  useEffect(()=>{
   if (residResponse && residResponse?.data?.Data?.ID) {
     // router.push('/PaymentMethods', {state: { param: residResponse?.data?.Data }})
-    router.push('/PaymentMethods')
+    router.push('/paymentMethods')
     sessionStorage.setItem('paymentMethodsState',JSON.stringify({ param: residResponse?.data?.Data }))
    }
  },[residResponse])

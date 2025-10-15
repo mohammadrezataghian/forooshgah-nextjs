@@ -13,7 +13,7 @@ import { Divider } from "@mui/material";
 import { FiFilePlus } from "react-icons/fi";
 import { FaRegCircle } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
-import INPLoading from "@/app/InstallmentPayment/loading";
+import INPLoading from "@/app/installmentPayment/loading";
 import Add from "./AddImageDialog";
 import useAddDoc from "@/app/api/insertKalaImage/hook";
 import useDelDoc from "@/app/api/deleteKalaImage/hook";

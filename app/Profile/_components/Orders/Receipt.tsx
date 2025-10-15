@@ -207,7 +207,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                   <>
                                     <div className="flex flex-col justify-end w-full items-center">
                                       <Link
-                                        href={"/PaymentMethods"}
+                                        href={"/paymentMethods"}
                                         // state={{factor : item}}
                                         onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
                                         className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 !text-xs md:!text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
@@ -391,7 +391,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                 <>
                                   <div className="flex flex-col justify-end w-full items-center">
                                     <Link
-                                      href={"/PaymentMethods"}
+                                      href={"/paymentMethods"}
                                       // state={{factor : item}}
                                         onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
                                       className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 !text-xs md:!text-sm rounded-md bg-white hover:bg-blue-100 transition-all"

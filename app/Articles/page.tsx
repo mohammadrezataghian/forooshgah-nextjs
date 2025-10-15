@@ -59,7 +59,7 @@ const Articles = () => {
                   <p className="text-justify line-clamp-4">{item.ShortBody}</p>
                   <Link
                     href={{
-                        pathname: `/GetArticles/${item.FldId}`,
+                        pathname: `/getArticles/${item.FldId}`,
                         query: { Id: item.FldId },
                       }}
                       onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(item))}

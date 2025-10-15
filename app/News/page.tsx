@@ -52,7 +52,7 @@ const params = {
             <div className='flex flex-col items-start gap-2 w-3/4'>
               <h3 className='font-bold text-justify'>{item.Title}</h3>
               <p className='text-justify line-clamp-4'>{item.ShortBody}</p>
-              <Link href={`/GetNews/${item.FldId}`}
+              <Link href={`/getNews/${item.FldId}`}
               onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
               className='mt-auto p-1'>برو به خبر <span><ArrowBackIcon/></span></Link>
             </div>
