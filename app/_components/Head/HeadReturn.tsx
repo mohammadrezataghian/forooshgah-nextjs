@@ -3,7 +3,6 @@
 import React from 'react'
 import Basket from "@/public/svg/Shopping_cart_24.svg";
 import { Badge } from "@mui/material";
-import MenuListComposition from "./AccountDropdown";
 import Button from "@mui/material/Button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchInput from "./SearchInput";
@@ -12,6 +11,8 @@ import Logo from "@/public/logo/logo.png";
 import Link from 'next/link';
 import Image from "next/image";
 import { Address } from '@/types/types';
+import dynamic from 'next/dynamic';
+const MenuListComposition = dynamic(() => import("./AccountDropdown"), {ssr: false,});
   
 type headReturnType={
 

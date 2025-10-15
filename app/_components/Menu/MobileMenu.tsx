@@ -3,22 +3,23 @@
 import React, { useEffect, useState } from "react";
 import { IoMdHome } from "react-icons/io";
 import Svg from "@/public/svg/apps-svgrepo-com.svg";
-import DrawerDrawer from "../Head/Drawer";
-import CustomDialog from "@/common/EnterModal/CustomDialog";
 import Badge from "@mui/material/Badge";
-import SidemenuDrawer from "./SideMenu";
 import Account from '@/public/svg/User.svg'
 import Search from '@/public/svg/Search_magnifyer.svg'
 import Basket from '@/public/svg/Shopping_cart.svg'
 import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
 import Cookies from "js-cookie";
-import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
-import FullScreenDialog from "./AccountDialog";
 import { useAtom } from "jotai";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
-import UserPassDialog from "@/common/EnterModal/UsernameDialog";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+const AlertDialog = dynamic(() => import("@/common/ProfileExitDialog/ProfileExitDialog"), { ssr: false });
+const DrawerDrawer = dynamic(() => import("../Head/Drawer"), { ssr: false });
+const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), { ssr: false });
+const UserPassDialog = dynamic(() => import("@/common/EnterModal/UsernameDialog"), { ssr: false });
+const SidemenuDrawer = dynamic(() => import("./SideMenu"), { ssr: false });
+const FullScreenDialog = dynamic(() => import("./AccountDialog"), { ssr: false });
 
 const MobileMenu = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);

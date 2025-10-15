@@ -1,24 +1,22 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Drawer from "./Drawer";
-import CustomDialog from "@/common/EnterModal/CustomDialog";
-import CityDialog from "@/common/CityDialog/CityDialog";
 import Cookies from "js-cookie";
 import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
-import AlertDialog from "@/common/ProfileExitDialog/ProfileExitDialog";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
-import UserAddressModal from "@/common/address/UserAddressModal";
 import { addressService } from "@/services/addressService";
 import { address } from "@/shared/Address";
 import dynamic from "next/dynamic";
-const HeadReturn = dynamic(() => import("./HeadReturn"), {
-  ssr: false,
-});
+const HeadReturn = dynamic(() => import("./HeadReturn"), {ssr: false,});
+const UserAddressModal = dynamic(() => import("@/common/address/UserAddressModal"), {ssr: false,});
+const AlertDialog = dynamic(() => import("@/common/ProfileExitDialog/ProfileExitDialog"), {ssr: false,});
+const CityDialog = dynamic(() => import("@/common/CityDialog/CityDialog"), {ssr: false,});
+const UserPassDialog = dynamic(() => import("@/common/EnterModal/UsernameDialog"), {ssr: false,});
+const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), {ssr: false,});
+const Drawer = dynamic(() => import("./Drawer"), {ssr: false,});
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
-import UserPassDialog from "@/common/EnterModal/UsernameDialog";
 
 const Head = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);

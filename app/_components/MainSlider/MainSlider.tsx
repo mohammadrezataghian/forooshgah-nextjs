@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState,useEffect } from "react";
-import SwiperSlider from "./Swiper";
 import { useAtom } from "jotai";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import { banners } from "@/shared/banners";
@@ -10,6 +9,8 @@ import { siteUrlAddress } from "@/shared/site.url.atom";
 import MainSliderLoadingSkeleton from "./LoadingSkeleton";
 import SmallSkeleton from "./SmallSkeleton";
 import Cookies from "js-cookie";
+import dynamic from "next/dynamic";
+const SwiperSlider = dynamic(() => import("./Swiper"), {ssr: false,});
 
 const MainSlider = () => {
 

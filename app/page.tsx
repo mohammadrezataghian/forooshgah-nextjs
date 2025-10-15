@@ -1,3 +1,5 @@
+'use client'
+
 import BigImageBoxes from "./_components/BigImageBoxes/BigImageBoxes";
 import BigImageBoxesTwo from "./_components/BigImageBoxesTwo/BigImageBoxesTwo";
 import CategoriesBox from "./_components/CategoriesBox/CategoriesBox";
