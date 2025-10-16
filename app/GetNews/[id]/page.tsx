@@ -19,21 +19,31 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useAtom } from "jotai";
 import { siteUrlAddress } from "@/shared/site.url.atom";
 import { ArticleItem } from '@/types/types';
+import { usePathname } from 'next/navigation';
+import useGetNews from '@/app/api/getNewsArticles/hook';
 
 
 const GetNews = () => {
   
-    const [item, setItem] = useState<ArticleItem | null>(null);
-    const [siteAddress] = useAtom(siteUrlAddress);
-  // get data
-  useEffect(() => {
-      const saved = sessionStorage.getItem('NewsItem');
-      if (saved) {
-          setItem(JSON.parse(saved));
-          sessionStorage.removeItem('NewsItem')
+    const params = usePathname()
+    const segment = params.split('/')
+    const id = segment[2]
+    
+    const { loadingNews, error, News,getNews } = useGetNews()
+    useEffect(()=>{
+      const param ={
+      "IdNewsOrArticles" : id,
+      "pageIndex" : 1,
+      "pageSize" : 1
       }
-    }, []);
-  const images = item?.ImageGallury?.split(",")
+      if(id){
+        getNews(param)
+      }
+    },[id])
+    
+    const [siteAddress] = useAtom(siteUrlAddress);
+  
+  const images = News?.ImageGallury?.split(",");
   // end get data
 
   const progressCircle = useRef<SVGSVGElement | null>(null);
@@ -45,17 +55,14 @@ const progressContent = useRef<HTMLSpanElement | null>(null);
     }
   };
 
-  if (!item) {
-    return <div className="text-center mt-10">Loading...</div>; // safe fallback
-  }
-  
   return (
     <>
+    {News && 
     <div className='lg:px-64 xl:px-96 px-3 pt-10 bg-white pb-24'>
       <div className='w-full h-auto flex flex-col gap-5'>
-        <h1 className='text-xl'>{item.Title}</h1>
+        <h1 className='text-xl'>{News.Title}</h1>
         <Divider/>
-        <p className='text-justify'>{item.ShortBody}</p>
+        <p className='text-justify'>{News.ShortBody}</p>
         <div className='h-auto w-full'>
         <Swiper
         spaceBetween={0}
@@ -86,7 +93,7 @@ const progressContent = useRef<HTMLSpanElement | null>(null);
               <div className="w-full h-auto">
                 <img
                   className="w-full lg:h-[60vh] h-auto object-cover"
-                  src={`${siteAddress}/assets/public/News/Gallery/${item.FldId}/${image}`}
+                  src={`${siteAddress}/assets/public/News/Gallery/${News.FldId}/${image}`}
                 />
               </div>
             </SwiperSlide>
@@ -102,17 +109,18 @@ const progressContent = useRef<HTMLSpanElement | null>(null);
       </Swiper>
         </div>
         <p className='text-justify leading-8'>
-        {item.LargeBody}
+        {News.LargeBody}
         </p>
         <Divider/>
-          {item.VideoList &&
+          {News.VideoList &&
           <>
             <p className='text-lg'>ویدیو :</p>
-            <video src={`${siteAddress}/assets/public/News/Video/${item.FldId}/${item.VideoList}`} controls></video>
+            <video src={`${siteAddress}/assets/public/News/Video/${News.FldId}/${News.VideoList}`} controls></video>
           </>
           }
       </div>
     </div>
+    }
     </>
   )
 }
