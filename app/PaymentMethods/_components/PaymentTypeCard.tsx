@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Card, CardMedia, Typography } from '@mui/material';
 
+
 type PaymentTypeCardProps = {
     item:any; 
     onSelectItem:(item:any)=>void;
@@ -21,7 +22,6 @@ const PaymentTypeCard = ({ item, onSelectItem,selectedItem }:PaymentTypeCardProp
       // console.log(item.imgaddress);      
     })
     
-     
     
     return (
       <>
@@ -31,7 +31,7 @@ const PaymentTypeCard = ({ item, onSelectItem,selectedItem }:PaymentTypeCardProp
       : '1px solid transparent' }}>
         <CardMedia
           component="img"
-          className='object-contain'
+          className='!object-contain'
           image={item.imgaddress}// URL تصویر
           alt={item.Name}
         />

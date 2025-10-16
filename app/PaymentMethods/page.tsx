@@ -17,6 +17,7 @@ import { useAtom } from "jotai";
 import useGetAddFactor from "@/app/api/addFactor/hook";
 import useGetResults from "@/app/api/activeGetWayOnlinePayment/hook";
 import { useRouter } from "next/navigation";
+import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 
 type selectedItemType = {
   Code:string;
@@ -39,7 +40,7 @@ const PaymentMethods = () => {
   const [factorSaved, setFatorSaved] = useState(false);
   const [WebFactorId, setIdFactor] = useState(0);
   const isMobile = useMediaQuery("(max-width:600px)"); // بررسی حالت موبایل
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const [siteAddress,setSiteAddress] = useAtom(siteUrlAddress);
   const [isPart,setIsPart] = useAtom(payfullOrPart);
   const [timer, setTimer] = useState(null); // ذخیره تایمر
   const [sadaWindowopen, setSadadWindowOpen] = useState(false);
@@ -54,6 +55,26 @@ const PaymentMethods = () => {
   const { result, loading, error,getAddFactor } = useGetAddFactor();
   const [state, setState] = useState<any>(null);
   const router = useRouter();
+
+  const { loading:loadingsiteaddress, error:errorsiteaddress,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+  
+    const fetchSiteAddress = async () => {
+      const data = await getSiteAddress()
+      setSiteAddressResponce(data?.data)
+    };
+    const setSiteAddressResponce = async (data:any) => {
+      if (data && data.Data) {
+        setSiteAddress(data.Data);
+        console.log(data.Data);
+        
+      }
+    };
+    useEffect(() => {
+      if (siteAddress) return;
+      (async () => {
+        await fetchSiteAddress();
+      })();
+    }, [siteAddress]);
   
 useEffect(() => {
   // Only runs in the browser
@@ -153,6 +174,7 @@ useEffect(()=>{
   };
 
   useEffect(() => {
+    if (siteAddress) {
   const fetchdata = async () => {
     const obj = Cookies.get("user");
     const token = localStorage.getItem("userToken");
@@ -169,16 +191,12 @@ useEffect(()=>{
     }
   }
   fetchdata()
-  }, [callBackLink, selectedItem]);
+}
+  }, [callBackLink, selectedItem,siteAddress]);
 
   const setPaymentTypeResponce = async (data:any) => {
     if (data?.Data) {
-      let baseAddress = "/src/assets/images/bankPayment";
-      if (process.env.NODE_ENV === "development") {
-        baseAddress = "/src/assets/images/bankPayment";
-      } else {
-        baseAddress = `${siteAddress}/assets/images/bankPayment`;
-      }
+      let baseAddress = `${siteAddress}/assets/images/bankPayment`;
       const dataWithImage = data.Data.map((el:any) => {
         return {
           ...el,
@@ -233,6 +251,8 @@ useEffect(()=>{
     };
 
     const p = { ...paymentData, Description: "افزایش موجودی" ,NoeTarakonesh :noeTarakonesh};
+    console.log(p);
+    
     try {
       const response = await fetch(`${apiUrl}${paymentLinkAddressUrl}`, {
         method: "POST",
@@ -270,6 +290,7 @@ useEffect(()=>{
 const handleNavigationBack =()=>{
   router.back();
 }
+console.log(siteAddress);
 
   return (
     <>
