@@ -49,9 +49,8 @@ const Articles = () => {
         {/* start card */}
         {loadingNews ? <LoadingNews/> :
          data && data.map((item:any,index:any) => (
-            <>
+            <React.Fragment key={index}>
               <div
-                key={index}
                 className="w-full h-auto flex justify-between gap-5"
               >
                 <div className="flex flex-col items-start gap-2 md:w-3/4 w-1/2">
@@ -59,7 +58,6 @@ const Articles = () => {
                   <p className="text-justify line-clamp-4">{item.ShortBody}</p>
                   <Link
                     href={`/getArticles/${item.FldId}`}
-                      onClick={()=> sessionStorage.setItem('ArticlesItem',JSON.stringify(item))}
                     className="mt-auto p-1"
                   >
                     برو به ویدیو
@@ -87,7 +85,7 @@ const Articles = () => {
                 </div>
               </div>
               <Divider />
-            </>
+            </React.Fragment>
           ))}
         {/* end card */}
         {data && (

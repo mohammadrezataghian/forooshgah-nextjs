@@ -62,7 +62,6 @@ const SliderNews = (data:any) => {
                 <Link
                   // href={`/#/newsInformation/newsdetails/${item.FldId}`}`/GetNews/${item.FldId}
                   href={`/getNews/${item.FldId}`}
-                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
                   className="w-full h-full block"
                 >
                         <img
@@ -76,7 +75,6 @@ const SliderNews = (data:any) => {
                   <Link
                     // href={`/#/newsInformation/newsdetails/${item.FldId}`}
                     href={`/getNews/${item.FldId}`}
-                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
                     className="line-clamp-2 hover:text-blue-500 text-black pb-3"
                   >
                     {item.Title}
@@ -84,8 +82,7 @@ const SliderNews = (data:any) => {
                 </p>
                 <p className="text-sm flex line-clamp-2 text-justify pl-3">
                   <Link className="line-clamp-2 text-justify text-gray-500 hover:text-blue-500" 
-                  href={`/getNews/${item.FldId}`}
-                  onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}>
+                  href={`/getNews/${item.FldId}`}>
                     {item.ShortBody}</Link>
                 </p>
               </div>

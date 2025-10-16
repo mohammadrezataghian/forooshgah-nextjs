@@ -53,7 +53,6 @@ const params = {
               <h3 className='font-bold text-justify'>{item.Title}</h3>
               <p className='text-justify line-clamp-4'>{item.ShortBody}</p>
               <Link href={`/getNews/${item.FldId}`}
-              onClick={()=> sessionStorage.setItem('NewsItem',JSON.stringify(item))}
               className='mt-auto p-1'>برو به خبر <span><ArrowBackIcon/></span></Link>
             </div>
             <div className='w-44 h-44'>
