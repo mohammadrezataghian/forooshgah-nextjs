@@ -28,6 +28,7 @@ type selectedItemType = {
 
 const PaymentMethods = () => {
 
+  const [userObj,setUserObj] = useState<any>(null)
   const [userFactor,setUserFactor] = useState('')
   const [userFactorFlag,setUserFactorFlag] = useState(false)
   const [paymentLink, setPaymentLink] = useState(""); // ذخیره لینک پرداخت
@@ -44,11 +45,13 @@ const PaymentMethods = () => {
   const [isPart,setIsPart] = useAtom(payfullOrPart);
   const [timer, setTimer] = useState(null); // ذخیره تایمر
   const [sadaWindowopen, setSadadWindowOpen] = useState(false);
+  const [noPayWindowopen, setNopayWindowOpen] = useState(false);
   const [isGeneratedFactor,setIsGeneratedFactor] = useState<boolean | null>(null)
   const [noeTarakonesh,setNoeTarakonesh] = useState<number | null>(null)
   const [isButtonClicked,setIsButtonClicked] = useState(false)
   
   const VerifySadadToken = process.env.API_URL_VERIFYSADADTOKEN as string;
+  const VerifyNoPay = process.env.API_URL_VERIFYNOPAY as string;
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [amount,setAmount] = useState<null | number>(null)
   const { results, loadingResults, errorResults,getReturnReason } = useGetResults();
@@ -212,6 +215,10 @@ useEffect(()=>{
       alert("لطفاً یک روش پرداخت انتخاب کنید.");
       return;
     }
+    const obj = Cookies.get("user");
+    if (obj) {
+      setUserObj(JSON.parse(obj))
+    }
 
     let paymentLinkAddressUrl = "";
     let callbackLindAddress = "";
@@ -235,7 +242,12 @@ useEffect(()=>{
       case 4:
         paymentLinkAddressUrl = "/api/GetSadadToken";
         callbackLindAddress = VerifySadadToken;
-        setCallBackLinkState(callbackLindAddress);
+        setCallBackLink(callbackLindAddress);
+        break;
+      case 5:
+        paymentLinkAddressUrl = "/api/getTokenNoPay";
+        callbackLindAddress = VerifyNoPay;
+        setCallBackLink(callbackLindAddress);
         break;
       default:
         paymentLinkAddressUrl = "";
@@ -249,9 +261,13 @@ useEffect(()=>{
       callBackLink,
       WebFactorId,
     };
+    const paymentDataNoPay = {
+      CellNumber:userObj.Mobile,
+      Amount:amount,
+      WebFactorId:WebFactorId,
+    }
 
-    const p = { ...paymentData, Description: "افزایش موجودی" ,NoeTarakonesh :noeTarakonesh};
-    console.log(p);
+    const p = selectedItem?.Id == 5 ? paymentDataNoPay : { ...paymentData, Description: "افزایش موجودی" ,NoeTarakonesh :noeTarakonesh};
     
     try {
       const response = await fetch(`${apiUrl}${paymentLinkAddressUrl}`, {
@@ -263,11 +279,16 @@ useEffect(()=>{
         body: JSON.stringify(p),
       });
       const data = await response.json();
+      console.log(data);
+      
       if (data.resCode == 1 && data.Data) {
         window.open(data.Data, "_blank");
         const ids = selectedItem.Id;
         if (ids == 4) {
           setSadadWindowOpen(true);
+        }
+        if (ids == 5) {
+          setNopayWindowOpen(true);
         }
         localStorage.removeItem("goToPay")
         localStorage.setItem("goToPay",String(WebFactorId))
@@ -279,10 +300,6 @@ useEffect(()=>{
     }
   };
 
-  const setCallBackLinkState = (input:any) => {
-    setCallBackLink(input);
-  };
-
   const handleItemSelect = (item:any) => {
     setSelectedItem(item);
   };
@@ -290,7 +307,6 @@ useEffect(()=>{
 const handleNavigationBack =()=>{
   router.back();
 }
-console.log(siteAddress);
 
   return (
     <>
