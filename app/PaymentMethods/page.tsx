@@ -18,6 +18,8 @@ import useGetAddFactor from "@/app/api/addFactor/hook";
 import useGetResults from "@/app/api/activeGetWayOnlinePayment/hook";
 import { useRouter } from "next/navigation";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
+import useGetBonCards from "@/app/api/getBonCards/hook";
+import Bon from "./_components/Bon";
 
 type selectedItemType = {
   Code:string;
@@ -29,6 +31,7 @@ type selectedItemType = {
 const PaymentMethods = () => {
 
   const [userObj,setUserObj] = useState<any>(null)
+  const [userTok,setUserTok] = useState<any>(null)
   const [userFactor,setUserFactor] = useState('')
   const [userFactorFlag,setUserFactorFlag] = useState(false)
   const [paymentLink, setPaymentLink] = useState(""); // ذخیره لینک پرداخت
@@ -58,6 +61,9 @@ const PaymentMethods = () => {
   const { result, loading, error,getAddFactor } = useGetAddFactor();
   const [state, setState] = useState<any>(null);
   const router = useRouter();
+  // inside Bon component
+  const [showBonSection, setShowBonSection] = useState(true)
+  const [selectedId, setSelectedId] = useState<null | number>(null)
 
   // GET SITE ADDRESS
 
@@ -81,15 +87,6 @@ const PaymentMethods = () => {
       })();
     }, [siteAddress]);
   // END GET SITE ADDRESS
-
-  //START BON CARD
-
-    
-
-  // END BON CARD
-
-
-
 
 useEffect(() => {
   // Only runs in the browser
@@ -172,6 +169,19 @@ useEffect(()=>{
   },[result])
   
   
+//START BON CARD
+useEffect(()=>{
+  const token = localStorage.getItem("userToken");
+  if (token) {
+    setUserTok(token)
+  }
+},[])
+  console.log(userTok);
+  const { bons, loadingBons, errorBons } = useGetBonCards(userTok,isPart)
+  console.log(bons);
+  
+// END BON CARD
+
   const afterSaveFactor = async (data:any) => {
     if (data.resCode == 1 && data.Data) {
       setFatorSaved(true);
@@ -330,7 +340,12 @@ const handleNavigationBack =()=>{
       </div>
     </div> : ((userFactor && result && result?.data?.resCode === 1) || isPart) ?  
     <>
-    {state ? <div className="bg-white h-[100vh]">
+    {state ? 
+    <>
+    {(!isPart && showBonSection && !loadingBons && bons && bons.list ) ? 
+      <Bon bonList={bons.list} showBonSection={showBonSection} setShowBonSection={setShowBonSection} selectedId={selectedId} setSelectedId={setSelectedId}/>
+     : !loadingBons &&  
+    <div className="bg-white h-[100vh]">
       <Box
         className="flex justify-center items-center bg-[#1976d2] text-white text-center font-bold"
         sx={{
@@ -415,7 +430,7 @@ const handleNavigationBack =()=>{
           </a>
         </p>
       )}
-    </div> : <div className="w-full flex justify-center p-10"><span>اطلاعاتی برای نمایش وجود ندارد!</span></div> }
+    </div>}</> : <div className="w-full flex justify-center p-10"><span>اطلاعاتی برای نمایش وجود ندارد!</span></div> }
     </>
     : <div className="p-3">در حال انتقال به صفحه ی موردنظر هستید...</div>
     }

@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useGetBonCards = (userToken: any) => {
+const useGetBonCards = (userToken: any,isPart:boolean) => {
   const [loadingBons, setLoadingBons] = useState(false);
   const [errorBons, setErrorBons] = useState<string | null>(null);
   const [bons, setBons] = useState<any>(null);
 
 
   useEffect(() => {
+    if (!userToken) return
   const getBonCards = async () => {
+    if(isPart) return
     setLoadingBons(true);
     setErrorBons(null);
 
@@ -26,7 +28,7 @@ const useGetBonCards = (userToken: any) => {
         }
       );
 
-      setBons(res?.data || []);
+      setBons(res?.data?.Data || []);
     } catch (err: any) {
         setErrorBons(
         err.message || "An unknown error occurred in getBonCards"
@@ -45,7 +47,7 @@ const useGetBonCards = (userToken: any) => {
     }
   };
   getBonCards()
-  }, []);
+  }, [userToken]);
 
   return { bons, loadingBons, errorBons };
 };

@@ -49,8 +49,10 @@ function UserAddressModal({
   }, [userToken, eshterakNo]);
 
   useEffect(()=>{
-    const defaultAddress = addresses.find((item:any) => item.SetDefault === true);
-    setshowdefaultaddress(defaultAddress)
+    if (addresses) {
+      const defaultAddress = addresses.find((item:any) => item.SetDefault === true);
+      setshowdefaultaddress(defaultAddress)
+    }
   },[addresses])
   
 
