@@ -59,6 +59,8 @@ const PaymentMethods = () => {
   const [state, setState] = useState<any>(null);
   const router = useRouter();
 
+  // GET SITE ADDRESS
+
   const { loading:loadingsiteaddress, error:errorsiteaddress,getSiteAddress } = useGetSiteAddress(setSiteAddress)
   
     const fetchSiteAddress = async () => {
@@ -78,7 +80,17 @@ const PaymentMethods = () => {
         await fetchSiteAddress();
       })();
     }, [siteAddress]);
-  
+  // END GET SITE ADDRESS
+
+  //START BON CARD
+
+    
+
+  // END BON CARD
+
+
+
+
 useEffect(() => {
   // Only runs in the browser
   const rawState = sessionStorage.getItem('paymentMethodsState');
