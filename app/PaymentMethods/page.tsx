@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import useGetBonCards from "@/app/api/getBonCards/hook";
 import Bon from "./_components/Bon";
+import useApplyBonCard from "@/app/api/applyBonCard/hook";
 
 type selectedItemType = {
   Code:string;
@@ -179,7 +180,12 @@ useEffect(()=>{
   console.log(userTok);
   const { bons, loadingBons, errorBons } = useGetBonCards(userTok,isPart)
   console.log(bons);
+
+  //apply it
+const { applyBonCardLoading, applyBonCardError, applyBonCardResponse, getApplyBonCard } = useApplyBonCard(userTok)
+
   
+
 // END BON CARD
 
   const afterSaveFactor = async (data:any) => {
