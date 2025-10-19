@@ -64,6 +64,8 @@ type AccordionMenuProps = {
 
 export default function AccordionMenu({toggleDrawer}:AccordionMenuProps) {
 
+  const [rawMenu,setRawMenu] = useState<string | null>(null)
+  const [mounted,setMounted] = useState(false)
   const { loading, error, response,getMenu } = useGetMenu()
   // handle openning the nested accordions
   const [expanded, setExpanded] = React.useState('');
@@ -84,9 +86,17 @@ export default function AccordionMenu({toggleDrawer}:AccordionMenuProps) {
 
 const [menuData, setMenuData] = useState<MenuResponse | null>(null);
 
+React.useEffect(()=>{
+  const menuStorage = Cookies.get('MenuData') || null
+  setRawMenu(menuStorage)
+  setMounted(true)
+},[])
+
   React.useEffect(() => {
-    if(!!Cookies.get('MenuData')){
-      const data = JSON.parse(Cookies.get('MenuData') || '');
+    if(!mounted) return
+    
+    if(rawMenu){
+      const data = JSON.parse(rawMenu);
       setMenuData(data);
     }else{
       const fetchData = async () => {
@@ -100,7 +110,7 @@ const [menuData, setMenuData] = useState<MenuResponse | null>(null);
   
       fetchData();
     }
-  }, []);
+  }, [mounted]);
   const firstData = menuData?.Data || [] ;
   const Data = firstData.length > 0 ? firstData[0].children : [];
 

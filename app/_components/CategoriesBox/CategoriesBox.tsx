@@ -10,11 +10,21 @@ const CategoriesBox = () => {
   
 const { loading, error, response,getMenu } = useGetMenu()
 // get data
+const [rawMenu,setRawMenu] = useState<string | null>(null)
+const [mounted,setMounted] = useState(false)
 const [menuData, setMenuData] = useState<MenuResponse | null>(null);
 
+React.useEffect(()=>{
+  const menuStorage = Cookies.get('MenuData') || null
+  setRawMenu(menuStorage)
+  setMounted(true)
+},[])
+
 useEffect(() => {
-  if(Cookies.get('MenuData')){
-    const data = JSON.parse(Cookies.get('MenuData') || '');
+  if(!mounted) return
+
+  if(rawMenu){
+    const data = JSON.parse(rawMenu);
     setMenuData(data);
   }else{
     const fetchData = async () => {
@@ -28,7 +38,7 @@ useEffect(() => {
 
     fetchData();
   }
-}, []);
+}, [mounted]);
 
 const firstData = menuData?.Data || [] ;
 const Data = firstData.length > 0 ? firstData[0].children : [];

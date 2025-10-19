@@ -17,41 +17,45 @@ const Menu = () => {
   // START HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
   
   useEffect(() => {
-    const entries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
-    const navigationEntry = entries.length > 0 ? entries[0] : undefined;
-    
-    if (navigationEntry && navigationEntry?.type === "reload") {
-      Cookies.remove("MenuData"); // Remove only 'MenuData' from localStorage if the page is reloaded
-      const fetchData = async () => {
+    // Check if the navigation was a full page reload
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+
+    if (nav?.type === "reload") {
+      // Page was refreshed
+      Cookies.remove("MenuData");
+
+      (async () => {
         try {
           const data = await getMenu();
           setMenuData(data);
-        } catch (error) {
-          console.error("Failed to fetch menu:", error);
+          Cookies.set("MenuData", JSON.stringify(data));
+        } catch (err) {
+          console.error("Failed to fetch menu after reload:", err);
         }
-      };
-
-      fetchData();
-    }
-  }, []);
-  // END HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
-
-  //get data
-  useEffect(() => {
-    if (!!Cookies.get("MenuData")) {
-      const data = JSON.parse(Cookies.get("MenuData") || '');
-      setMenuData(data);
+      })();
     } else {
-      const fetchData = async () => {
+      // Not a reload — load from cookies if available
+      const cached = Cookies.get("MenuData");
+      if (cached) {
         try {
-          const data = await getMenu();
-          setMenuData(data);
-        } catch (error) {
-          console.error("Failed to fetch menu:", error);
+          const parsed = JSON.parse(cached);
+          setMenuData(parsed);
+        } catch (err) {
+          console.error("Error parsing cached MenuData:", err);
+          Cookies.remove("MenuData");
         }
-      };
-
-      fetchData();
+      } else {
+        // No cache — fetch for the first time
+        (async () => {
+          try {
+            const data = await getMenu();
+            setMenuData(data);
+            Cookies.set("MenuData", JSON.stringify(data));
+          } catch (err) {
+            console.error("Failed to fetch menu:", err);
+          }
+        })();
+      }
     }
   }, []);
   const firstData = menuData?.Data || [];
