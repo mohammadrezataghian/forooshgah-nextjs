@@ -18,20 +18,25 @@ import { useAtom } from 'jotai';
 import { ClubScore } from '@/shared/customerClubScore';
 import Link from 'next/link';
 import {sahamUserType} from '@/types/types'
+import Cookies from "js-cookie";
 
 type props ={
   handleClickOpen: () => void;
   user: sahamUserType;
   userToken: string;
-  eshterakNo: {EshterakNo: number};
 }
 
 
-export default function MenuListComposition({handleClickOpen,user,userToken,eshterakNo}:props) {
+export default function MenuListComposition({handleClickOpen,user,userToken}:props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement | null>(null);
   const [userId,setUserId] = React.useState(0)
   const [score,setScore]= useAtom(ClubScore)
+  const [rawUser, setRawUser] = React.useState<string | null>(null);
+
+  React.useEffect(()=>{
+    setRawUser(Cookies.get("user") ?? null);
+  },[])
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -74,8 +79,12 @@ export default function MenuListComposition({handleClickOpen,user,userToken,esht
   const { loading, error, response, getScore } = useGetScore(userToken,setScore);
 
   React.useEffect(() => {
+    if (!rawUser) return 
+    const userParsed = JSON.parse(rawUser)
     if (score == null && user) {
-      getScore(eshterakNo);
+      getScore({
+        "EshterakNo": userParsed.EshterakNo
+    });
     }
   }, [user,score]);
 //end of score

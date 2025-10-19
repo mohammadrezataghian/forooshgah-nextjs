@@ -25,10 +25,9 @@ type headReturnType={
   handlecityDialogOpen: () => void;
   showdefaultaddress: Address | undefined;
   userToken: string;
-  eshterakNo: { EshterakNo: number }; 
 }
 
-const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleClickOpen,handleDialogOpen,handlecityDialogOpen,showdefaultaddress,eshterakNo,userToken} : headReturnType) => {
+const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleClickOpen,handleDialogOpen,handlecityDialogOpen,showdefaultaddress,userToken} : headReturnType) => {
   
   return (
     <>
@@ -62,7 +61,7 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
                 </Button> */}
                 <div className="lg:hidden block">{user && user.FirstName} {user && user.LastName}</div>
               </div>
-              <MenuListComposition handleClickOpen={handleClickOpen} user={user} eshterakNo={eshterakNo} userToken={userToken} />
+              <MenuListComposition handleClickOpen={handleClickOpen} user={user} userToken={userToken} />
               </>
             ) : (
               <Button className="register w-full" onClick={handleDialogOpen}>

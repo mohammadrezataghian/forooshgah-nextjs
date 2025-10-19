@@ -10,6 +10,7 @@ const useGetScore = (userToken: any,setScore:any) => {
   const [response, setResponse] = useState<any>(null);
 
   const getScore = async (data: any) => {
+    if (!userToken) return
     setLoading(true);
     setError(null);
 

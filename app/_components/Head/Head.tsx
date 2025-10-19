@@ -220,7 +220,6 @@ const user = userStr ? JSON.parse(userStr) : null;
           handlecityDialogOpen={handlecityDialogOpen}
           showdefaultaddress={showdefaultaddress}
           userToken={userToken}
-          eshterakNo={eshterakNo}
         />
       </header>
       <Drawer anchor="right" open={drawerOpen} toggleDrawer={toggleDrawer} />
