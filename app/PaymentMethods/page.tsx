@@ -21,7 +21,7 @@ import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import useGetBonCards from "@/app/api/getBonCards/hook";
 import Bon from "./_components/Bon";
 import useApplyBonCard from "@/app/api/applyBonCard/hook";
-import useApplyDiscountCode from "../api/applyDiscountCode/hook";
+import useApplyDiscountCode from "@/app/api/applyDiscountCode/hook";
 import SimpleBackdrop from "@/common/BackdropSpinnerLoading/Loading";
 
 type selectedItemType = {
