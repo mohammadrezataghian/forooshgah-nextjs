@@ -38,7 +38,11 @@ const customIcon = new L.Icon({
   popupAnchor: [0, -40],
 });
 
-export default function Appmaps() {
+type AppmapsProps = {
+  setIsMapClicked:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Appmaps({setIsMapClicked}:AppmapsProps) {
   const [text, setText] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [marker, setMarker] = useState<MarkerType | null>(null);
@@ -90,6 +94,7 @@ export default function Appmaps() {
         setMarker({ lat, lng });
         setCenter([data.geom.coordinates[1], data.geom.coordinates[0]]);
         setAddress(data.address);
+        setIsMapClicked(true)
         setZoom(14);
         setResults([]);
         setText("");

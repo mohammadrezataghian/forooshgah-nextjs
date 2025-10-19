@@ -227,14 +227,15 @@ const handleApplyDiscount = async(e: React.FormEvent)=>{
   if (userFactorForBon && value !== '') {
     getApplyDiscountCode(param)
     setDiscountClicked(true)
+    setValue('')
   }
 }
 
-useEffect(()=>{
-  if (applyDiscountCodeResponse && applyDiscountCodeResponse.resCode !== 1) {
-    setDiscountClicked(false)
-  }
-},[applyDiscountCodeResponse])
+// useEffect(()=>{
+//   if (applyDiscountCodeResponse && applyDiscountCodeResponse.resCode !== 1) {
+//     setDiscountClicked(false)
+//   }
+// },[applyDiscountCodeResponse])
 
 // end discount code
 

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -55,6 +55,14 @@ type CityDialogProps ={
 const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
 
   const [showFirstAddress, setShowFirstAddress] = React.useState<whereaboutes | undefined>()
+  const [locationArray,setLocationArray] = React.useState<any>(null)
+  const [mounted,setMounted] = React.useState(false)
+  const [isMapClicked,setIsMapClicked] = useState(false)
+
+useEffect(()=>{
+setMounted(true)
+},[])
+
   React.useEffect(()=>{
     if (localStorage.getItem("whereaboutes")) {
       const location = localStorage.getItem("whereaboutes") || ''
@@ -110,6 +118,13 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
 
   let EshterakNo = userObj?.EshterakNo || "";
   
+  useEffect(()=>{
+    const loc = localStorage.getItem("locationArray")
+    if (loc){
+      setLocationArray(JSON.parse(loc))
+    }
+  },[mounted])
+
   const onSubmit = (data:any) => {
     setFormData(data);
     if (localStorage.getItem("whereaboutes") !== null) {
@@ -146,17 +161,15 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
     }
 
     // setLocation(updatedLocation);
-    // Ensure locationArray exists in localStorage
-    let locationArray = JSON.parse(localStorage.getItem("locationArray") ?? '') || [];
 
     // Add the full location to the array (if it exists)
     if (updatedLocation) {
-      locationArray.push(updatedLocation);
+      setLocationArray(updatedLocation);
     }
 
     // Save updated locationArray
+    localStorage.removeItem("locationArray")
     localStorage.setItem("locationArray", JSON.stringify(locationArray));
-
   };
 
 
@@ -243,7 +256,7 @@ React.useEffect(() => {
         </IconButton>
       </DialogTitle>
       <DialogContent dividers>
-        <DynamicComponentWithNoSSR/>
+        <DynamicComponentWithNoSSR setIsMapClicked={setIsMapClicked}/>
         {/* {alert.open && ( // Show the alert if open
           <Alert
             severity={alert.severity}
@@ -315,13 +328,13 @@ React.useEffect(() => {
           <Button
             // onClick={()=>onSend()}
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || !isMapClicked}
             fullWidth
             sx={{
-              bgcolor: isValid ? "primary.main" : "grey.200",
-              color: isValid ? "white" : "grey.600",
+              bgcolor: (isValid && isMapClicked) ? "primary.main" : "grey.200",
+              color: (isValid || isMapClicked) ? "white" : "grey.600",
               "&:hover": {
-                bgcolor: isValid ? "primary.dark" : "grey.300",
+                bgcolor: (isValid || isMapClicked) ? "primary.dark" : "grey.300",
               },
             }}
             
