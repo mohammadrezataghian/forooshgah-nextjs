@@ -22,6 +22,7 @@ import useGetBonCards from "@/app/api/getBonCards/hook";
 import Bon from "./_components/Bon";
 import useApplyBonCard from "@/app/api/applyBonCard/hook";
 import useApplyDiscountCode from "../api/applyDiscountCode/hook";
+import SimpleBackdrop from "@/common/BackdropSpinnerLoading/Loading";
 
 type selectedItemType = {
   Code:string;
@@ -67,6 +68,9 @@ const PaymentMethods = () => {
   // inside Bon component
   const [showBonSection, setShowBonSection] = useState(true)
   const [selectedId, setSelectedId] = useState<null | number>(null)
+  // discount value
+  const [value, setValue] = useState("");
+  const [isDiscountClicked,setDiscountClicked] = useState(false)
 
   // GET SITE ADDRESS
 
@@ -205,11 +209,36 @@ if(!userFactorForBon) return
 // start discount code
 const { applyDiscountCodeLoading, applyDiscountCodeError, applyDiscountCodeResponse, getApplyDiscountCode } = useApplyDiscountCode(userTok) 
 
+    // 50 characters limit
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const input = e.target.value;
+  if (input.length <= 50) {   //  Enforce max 50 characters
+    setValue(input);
+  }
+};
+
+const handleApplyDiscount = async(e: React.FormEvent)=>{
+  e.preventDefault();
+  const param = {
+    factor : { idFactor : userFactorForBon.Id},
+	  code : value
+  }
+  if (userFactorForBon && value !== '') {
+    getApplyDiscountCode(param)
+    setDiscountClicked(true)
+  }
+}
+
+useEffect(()=>{
+  if (applyDiscountCodeResponse && applyDiscountCodeResponse.resCode !== 1) {
+    setDiscountClicked(false)
+  }
+},[applyDiscountCodeResponse])
 
 // end discount code
 
   const afterSaveFactor = async (data:any) => {
-    console.log(data);
     
     if (data.resCode == 1 && data.Data) {
       setFatorSaved(true);
@@ -385,7 +414,15 @@ const handleNavigationBack =()=>{
       >
         قابل پرداخت: {amount &&  amount.toLocaleString()} ریال
       </Box>
-
+        {!isPart && 
+          <div className="flex flex-col gap-3 items-center w-full ">
+            <div>آیا کد تخفیف دارید؟</div>
+            <form onSubmit={handleApplyDiscount} className="flex gap-3">
+              <input name="Discount" type="text" onChange={handleChange} placeholder="کد تخفیف" value={value} className="border border-gray-300 rounded-lg focus:outline-none placeholder:text-center placeholder:text-sm focus:border-blue-400 ps-2 text-left"/>
+              <Button type="submit" variant="contained" size="small" disabled={isDiscountClicked}>اعمال کد تخفیف</Button>
+            </form>
+          </div>
+        }
       {isLogin && (
         <Box className="mt-10">
           <Box
@@ -458,6 +495,7 @@ const handleNavigationBack =()=>{
           </a>
         </p>
       )}
+      {(applyBonCardLoading || applyDiscountCodeLoading) && <SimpleBackdrop open={true}/>}
     </div>}</> : <div className="w-full flex justify-center p-10"><span>اطلاعاتی برای نمایش وجود ندارد!</span></div> }
     </>
     : <div className="p-3">در حال انتقال به صفحه ی موردنظر هستید...</div>
