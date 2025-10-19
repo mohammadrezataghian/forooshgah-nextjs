@@ -21,6 +21,7 @@ import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import useGetBonCards from "@/app/api/getBonCards/hook";
 import Bon from "./_components/Bon";
 import useApplyBonCard from "@/app/api/applyBonCard/hook";
+import useApplyDiscountCode from "../api/applyDiscountCode/hook";
 
 type selectedItemType = {
   Code:string;
@@ -200,6 +201,12 @@ if(!userFactorForBon) return
   },[selectedId])
 
 // END BON CARD
+
+// start discount code
+const { applyDiscountCodeLoading, applyDiscountCodeError, applyDiscountCodeResponse, getApplyDiscountCode } = useApplyDiscountCode(userTok) 
+
+
+// end discount code
 
   const afterSaveFactor = async (data:any) => {
     console.log(data);
