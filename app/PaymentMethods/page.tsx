@@ -34,6 +34,7 @@ const PaymentMethods = () => {
   const [userObj,setUserObj] = useState<any>(null)
   const [userTok,setUserTok] = useState<any>(null)
   const [userFactor,setUserFactor] = useState('')
+  const [userFactorForBon,setUserFactorForBon] = useState<any>(null)
   const [userFactorFlag,setUserFactorFlag] = useState(false)
   const [paymentLink, setPaymentLink] = useState(""); // ذخیره لینک پرداخت
   const [userToken, setUserToken] = useState(""); // در یافت توکن از نرم افزار
@@ -154,6 +155,7 @@ useEffect(()=>{
         const factorInfo = JSON.parse(userFactor);
         const res = await getAddFactor(factorInfo,tokenInput);
          afterSaveFactor(res?.data)
+         setUserFactorForBon(res?.data?.Data)
       }
       saveFactor(token)
       setIsPart(false)
@@ -177,18 +179,31 @@ useEffect(()=>{
     setUserTok(token)
   }
 },[])
-  console.log(userTok);
   const { bons, loadingBons, errorBons } = useGetBonCards(userTok,isPart)
-  console.log(bons);
 
   //apply it
 const { applyBonCardLoading, applyBonCardError, applyBonCardResponse, getApplyBonCard } = useApplyBonCard(userTok)
 
+  useEffect(()=>{
+    
+if(!userFactorForBon) return
+
+      const param = {
+        factor: { idFactor: userFactorForBon.Id },
+        bon: { Id: selectedId },
+      };
   
+      if (selectedId) {
+        getApplyBonCard(param);
+      }
+    
+  },[selectedId])
 
 // END BON CARD
 
   const afterSaveFactor = async (data:any) => {
+    console.log(data);
+    
     if (data.resCode == 1 && data.Data) {
       setFatorSaved(true);
       saveFactoreId(data.Data.Id);

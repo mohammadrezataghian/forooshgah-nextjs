@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -61,6 +61,7 @@ const autocomma = (number_input:number) =>
 //handle comma
 // console.log(userInfoo.MablagheKharidErsalRaygan);
 const hasColor = userKala?.some((row:any) => row?.NameColor);
+
 
   return (
     <>

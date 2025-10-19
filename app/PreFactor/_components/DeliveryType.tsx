@@ -13,11 +13,6 @@ type DeliveryTypeProps = {
 const DeliveryType = ({ ersalList,selectedItem,setSelectedItem }:DeliveryTypeProps) => {
 
   const [focused, setFocused] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-useEffect(()=>{
-setMounted(true)
-},[])
 
   const handleChange = (event:any) => {
     setSelectedItem(event.target.value);
@@ -26,7 +21,6 @@ setMounted(true)
 
   return (
     <>
-    {mounted && 
     <div className="flex gap-5 items-center border border-blue-400 lg:p-10 p-3 rounded-lg bg-gray-100">
       <h3 className="text-right lg:text-xl text-lg text-nowrap">تعیین نحوه ی ارسال:</h3>
       <div className="self-center">
@@ -73,7 +67,6 @@ setMounted(true)
         </Box>
       </div>
     </div>
-  }
   </>
   );
 };

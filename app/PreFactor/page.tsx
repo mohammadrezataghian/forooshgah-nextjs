@@ -16,8 +16,14 @@ import { ApiResponse, Kala } from "@/types/types";
 const PreFactor = () => {
  
 const [selectedItem, setSelectedItem] = React.useState(0); // برای ذخیره آیتم انتخاب شده
+const [mounted, setMounted] = React.useState(false);
+const [rawUser, setRawUser] = React.useState<string | null>(null);
 
 React.useEffect(()=>{
+
+  setMounted(true);
+  setRawUser(Cookies.get("user") ?? null);
+
 if (sessionStorage.getItem('noeErsal')) {
   setSelectedItem(Number(sessionStorage.getItem('noeErsal')))
 }
@@ -61,7 +67,6 @@ React.useEffect(()=>{
   const [color,setColor] = React.useState<"success" | "secondary" | "error">("success");
   const [products, setProducts] = useAtom(productListUpdate);
   
-  const rawUser = Cookies.get("user");
   let user: ApiResponse | null = null ;
   let userData = null;
 
@@ -106,19 +111,25 @@ React.useEffect(()=>{
   
 // color status
   React.useEffect(() => {
-    if (userInfoo.Conferm === "true") {
-      setColor("success");
-      setStatus("پرداخت شده");
-    } else if (userInfoo.Conferm === "false") {
-      setColor("secondary");
-      setStatus("پرداخت نشده");
-    } else {
-      setColor("error");
-      setStatus("پرداخت نشده");
+    if (userInfoo) {
+      if (userInfoo?.Conferm === "true") {
+        setColor("success");
+        setStatus("پرداخت شده");
+      } else if (userInfoo?.Conferm === "false") {
+        setColor("secondary");
+        setStatus("پرداخت نشده");
+      } else {
+        setColor("error");
+        setStatus("پرداخت نشده");
+      }
     }
   }, [userInfoo]);
   // end color status
 
+
+  if (!mounted) {
+    return <div className="p-10 flex justify-center"><span>در حال بارگذاری...</span></div>;
+  }
   return (
     <>
     <div className="bg-white min-h-screen">
