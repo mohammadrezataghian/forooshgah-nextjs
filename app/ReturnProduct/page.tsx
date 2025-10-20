@@ -37,17 +37,19 @@ const ReturnProduct = () => {
 
   const [mounted,setMounted] = useState(false)
   const [location,setLocation] = useState<any>(null)
+  const [userToken,setuserToken] = useState<any>(null)
   useEffect(()=>{
    setMounted(true)
   },[])
   
   useEffect(()=>{
     const locationn = sessionStorage.getItem('ReturnProductState')
+    const userTokenn = localStorage.getItem("userToken");
     setLocation(locationn)
+    setuserToken(userTokenn)
   },[mounted])
   const state = location && JSON.parse(location)
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
-  const userToken = localStorage.getItem("userToken");
   const [openDialog, setOpenDialog] = useState(false);
 
 
