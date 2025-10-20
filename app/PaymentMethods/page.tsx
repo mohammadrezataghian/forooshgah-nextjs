@@ -213,6 +213,9 @@ if(!userFactorForBon) return
     if (applyBonCardResponse?.data?.resMessage) {
       setOpensnackbarSecond(true)
     }
+    if (applyBonCardResponse && applyBonCardResponse?.data?.resCode == 1) {
+      setAmount(applyBonCardResponse?.data?.Data?.GhabelePardakht)
+    }
   },[applyBonCardResponse])
 
 // END BON CARD
@@ -251,6 +254,9 @@ useEffect(()=>{
   }
   if (applyDiscountCodeResponse?.data?.resMessage) {
     setOpensnackbar(true)
+  }
+  if (applyDiscountCodeResponse && applyDiscountCodeResponse?.data?.resCode == 1) {
+    setAmount(applyDiscountCodeResponse?.data?.Data?.GhabelePardakht)
   }
 }, [applyDiscountCodeResponse]);
 
