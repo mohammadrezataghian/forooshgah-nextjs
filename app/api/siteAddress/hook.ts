@@ -14,7 +14,7 @@ export function useGetSiteAddress(setSiteAddress:any) {
 
     try {
       const res = await axios.get("/api/siteAddress");
-      setSiteAddress(res);
+      setSiteAddress(res?.data?.Data);
       return res;
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
