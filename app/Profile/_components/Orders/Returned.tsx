@@ -10,7 +10,11 @@ import { useEffect, useState } from "react";
 import FullScreenDialog from './StatusReturnedDialog';
 import useGetStatusMarjue from "@/app/api/getStatusMarju/hook";
 
-const Returned = () => {
+type ReturnedProps = {
+  siteAddress:string | null
+}
+
+const Returned = ({siteAddress}:ReturnedProps) => {
 
 const [open, setOpen] = useState(false);
 const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
@@ -115,6 +119,7 @@ const handleClick = (FactoreId:number,IdMaliPeriod:number)=>{
                           <ProductCard
                             product= {kala}
                             item={item}
+                            siteAddress={siteAddress}
                           />
                         </div>
                     ))}

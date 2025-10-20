@@ -18,9 +18,10 @@ type ReceiptProps={
   params:any;
   loading:boolean;
   response?:any;
+  siteAddress:string | null;
 }
 
-const Receipt = ({tahvil,getReceipts,receipts,params,loading,response}:ReceiptProps) => {
+const Receipt = ({tahvil,getReceipts,receipts,params,loading,response,siteAddress}:ReceiptProps) => {
 
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = localStorage.getItem("userToken");
@@ -250,6 +251,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                       kala.Id
                                     )}
                                     onSelect={() => toggleProduct(kala.Id)}
+                                    siteAddress={siteAddress}
                                   />
                                   </div>
                               ))}
@@ -459,6 +461,7 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                       kala.Id
                                     )}
                                     onSelect={() => toggleProduct(kala.Id)}
+                                    siteAddress={siteAddress}
                                   />
                                   </div>
                               ))}

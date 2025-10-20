@@ -3,8 +3,6 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Checkbox, CardActionArea } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import Link from 'next/link';
 import { FactorReturn, ProductReturn } from '@/types/types';
 import Image from 'next/image';
@@ -14,16 +12,17 @@ type ProductCard = {
     isSelected?:boolean;
     onSelect?: (productId:number) => void;
     item:FactorReturn;
+    siteAddress:string | null
 }
 
 function ProductCard({
     product,
     isSelected,
     onSelect,
-    item
+    item,
+    siteAddress
   }:ProductCard) {
 
-const [siteAddress, setSiteAddress] = useAtom(siteUrlAddress);
 
 // handle comma
     const autocomma = (number_input:any) =>

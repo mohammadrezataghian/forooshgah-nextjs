@@ -117,13 +117,13 @@ const { response, loadingStatus, errorStatus } = useGetOrderStatus()
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <Receipt tahvil={false} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading} response={response}/>
+            <Receipt tahvil={false} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading} response={response} siteAddress={siteAddress}/>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <Receipt tahvil={true} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading}/>
+            <Receipt tahvil={true} getReceipts={getReceipts} receipts={receipts} params={params} loading={ReceiptLoading} siteAddress={siteAddress}/>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            <Returned/>
+            <Returned siteAddress={siteAddress}/>
           </CustomTabPanel>
         </Box>
       </PageContainer>
