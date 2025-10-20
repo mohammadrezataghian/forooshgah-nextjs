@@ -139,6 +139,7 @@ React.useEffect(() => {
                                 <ProductCard
                                   product={kala}
                                   item={installmentDetail.Data}
+                                  siteAddress={siteAddress}
                                 />
                               </div>
                             ))}
