@@ -37,8 +37,7 @@ const ReturnProduct = () => {
 
   // const location = useLocation();
   const location = sessionStorage.getItem('ReturnProductState') || '';
-  const parsedLocation = location && JSON.parse(location)
-  const state = parsedLocation.state || {};
+  const state = location && JSON.parse(location)
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = localStorage.getItem("userToken");
   const [openDialog, setOpenDialog] = useState(false);
