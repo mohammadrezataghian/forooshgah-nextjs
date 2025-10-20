@@ -23,6 +23,7 @@ import Bon from "./_components/Bon";
 import useApplyBonCard from "@/app/api/applyBonCard/hook";
 import useApplyDiscountCode from "@/app/api/applyDiscountCode/hook";
 import SimpleBackdrop from "@/common/BackdropSpinnerLoading/Loading";
+import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 
 type selectedItemType = {
   Code:string;
@@ -71,6 +72,8 @@ const PaymentMethods = () => {
   // discount value
   const [value, setValue] = useState("");
   const [isDiscountClicked,setDiscountClicked] = useState(false)
+  const [opensnackbar, setOpensnackbar] = useState(false);
+  const [opensnackbarSecond, setOpensnackbarSecond] = useState(false);
 
   // GET SITE ADDRESS
 
@@ -204,6 +207,14 @@ if(!userFactorForBon) return
     
   },[selectedId])
 
+  useEffect(()=>{
+    if (!applyBonCardResponse) return;
+
+    if (applyBonCardResponse?.data?.resMessage) {
+      setOpensnackbarSecond(true)
+    }
+  },[applyBonCardResponse])
+
 // END BON CARD
 
 // start discount code
@@ -231,11 +242,17 @@ const handleApplyDiscount = async(e: React.FormEvent)=>{
   }
 }
 
-// useEffect(()=>{
-//   if (applyDiscountCodeResponse && applyDiscountCodeResponse.resCode !== 1) {
-//     setDiscountClicked(false)
-//   }
-// },[applyDiscountCodeResponse])
+useEffect(()=>{
+  if (!applyDiscountCodeResponse) return;
+
+  if (applyDiscountCodeResponse?.data?.resCode != 1) {
+    // failed case
+    setDiscountClicked(false);
+  }
+  if (applyDiscountCodeResponse?.data?.resMessage) {
+    setOpensnackbar(true)
+  }
+}, [applyDiscountCodeResponse]);
 
 // end discount code
 
@@ -497,6 +514,10 @@ const handleNavigationBack =()=>{
         </p>
       )}
       {(applyBonCardLoading || applyDiscountCodeLoading) && <SimpleBackdrop open={true}/>}
+      {applyDiscountCodeResponse && applyDiscountCodeResponse?.data?.resMessage && 
+      <MessageSnackbar autoHideDuration={3000} snackbarMessage={applyDiscountCodeResponse?.data?.resMessage} snackbarOpen={opensnackbar} setSnackbarOpen={setOpensnackbar}/>}
+      {applyBonCardResponse && applyBonCardResponse?.data?.resMessage && 
+      <MessageSnackbar autoHideDuration={3000} snackbarMessage={applyBonCardResponse?.data?.resMessage} snackbarOpen={opensnackbarSecond} setSnackbarOpen={setOpensnackbarSecond}/>}
     </div>}</> : <div className="w-full flex justify-center p-10"><span>اطلاعاتی برای نمایش وجود ندارد!</span></div> }
     </>
     : <div className="p-3">در حال انتقال به صفحه ی موردنظر هستید...</div>
