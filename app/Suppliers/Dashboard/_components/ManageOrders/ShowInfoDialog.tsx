@@ -14,6 +14,8 @@ import { Card, Divider } from "@mui/material";
 import { Container, Typography, Grid } from '@mui/material';
 import ProductCard from '@/app/profile/_components/Orders/ProductCard';
 import HorizontalLinearStepper from './Stepper';
+import { useAtom } from "jotai";
+import { siteUrlAddress } from "@/shared/site.url.atom";
 
 const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,6 +30,7 @@ type FullScreenDialogProps = {
 
 export default function FullScreenDialog({open,setOpen,selectedRow,handleSearch}:FullScreenDialogProps) {
   
+  const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
   const user = React.useMemo(() => {
       const cookie = Cookies.get("supplierUser");
       return cookie ? JSON.parse(cookie) : null;
@@ -136,6 +139,7 @@ const initStepperDelivery = selectedRow && selectedRow?.ErsalByTaminKonande
                           <ProductCard
                             product= {kala}
                             item={receipt}
+                            siteAddress={siteAddress}
                           />
                         </Grid>
                     ))}
