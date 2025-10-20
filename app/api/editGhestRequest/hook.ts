@@ -4,12 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useEditDoc = (userToken: string) => {
+const useEditDoc = (userToken: any) => {
   const [editDocLoading,setEditDocLoading] = useState(false);
   const [editDocError,setEditDocError] = useState<string | null>(null);
   const [editDocResponse,setEditDocResponse] = useState<any>(null);
 
   const getEditDoc = async (data: any) => {
+
+    if(!userToken) return
+
     setEditDocLoading(true);
     setEditDocError(null);
 

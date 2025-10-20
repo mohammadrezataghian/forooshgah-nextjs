@@ -4,12 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useAddDoc = (userToken: string) => {
+const useAddDoc = (userToken: any) => {
   const [addDocLoading,setAddDocLoading] = useState(false);
   const [addDocError,setAddDocError] = useState<string | null>(null);
   const [addDocResponse,setAddDocResponse] = useState<any>(null);
 
   const getAddDoc = async (data: any) => {
+
+    if(!userToken) return
+
     setAddDocLoading(true);
     setAddDocError(null);
     try {

@@ -4,12 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
-const useDelDoc = (userToken: string) => {
+const useDelDoc = (userToken: any) => {
   const [delDocLoading,setDelDocLoading] = useState(false);
   const [delDocError,setDelDocError] = useState<string | null>(null);
   const [delDocResponse,setDelDocResponse] = useState<any>(null);
 
   const getDelDoc = async (data: any) => {
+
+    if(!userToken) return
+
         setDelDocLoading(true);
         setDelDocError(null);
 

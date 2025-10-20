@@ -20,8 +20,9 @@ const AutoHideDialog = dynamic(() => import("@/common/AutoHideDialog/AutoHideDia
 
 const InstallmentPayment = () => {
 
+  const [mounted,setMounted] = useState(false)
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
-  const userToken = localStorage.getItem("userToken") || '';
+  const [userToken,setUserToken] = useState<any>(null)
   const [selectedId, setSelectedId] = useState(null);
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -33,7 +34,17 @@ const InstallmentPayment = () => {
   const [open, setOpen] = useState(false);
   // console.log(selectedId);
   
+  useEffect(()=>{
+    setMounted(true)
+  },[])
   
+  useEffect(()=>{
+    const userTokenn = localStorage.getItem("userToken")
+    if(userToken){
+      setUserToken(userTokenn)
+    }
+  },[mounted])
+
   // make factor
   
   const { result, loading, error,getAddFactor } = useGetAddFactor();
