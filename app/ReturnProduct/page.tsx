@@ -1,7 +1,7 @@
 'use client'
 
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Divider } from "@mui/material";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
@@ -35,12 +35,22 @@ const schema = z.object({
 
 const ReturnProduct = () => {
 
-  // const location = useLocation();
-  const location = sessionStorage.getItem('ReturnProductState') || '';
+  const [mounted,setMounted] = useState(false)
+  const [location,setLocation] = useState<any>(null)
+  useEffect(()=>{
+   setMounted(true)
+  },[])
+  
+  useEffect(()=>{
+    const locationn = sessionStorage.getItem('ReturnProductState')
+    setLocation(locationn)
+  },[mounted])
   const state = location && JSON.parse(location)
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = localStorage.getItem("userToken");
   const [openDialog, setOpenDialog] = useState(false);
+
+
 
   // get data for select input
 
