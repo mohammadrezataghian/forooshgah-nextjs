@@ -55,13 +55,8 @@ type CityDialogProps ={
 const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
 
   const [showFirstAddress, setShowFirstAddress] = React.useState<whereaboutes | undefined>()
-  const [locationArray,setLocationArray] = React.useState<any>(null)
-  const [mounted,setMounted] = React.useState(false)
   const [isMapClicked,setIsMapClicked] = useState(false)
-
-useEffect(()=>{
-setMounted(true)
-},[])
+  const [locationArray, setLocationArray] = React.useState<any[]>([]);
 
   React.useEffect(()=>{
     if (localStorage.getItem("whereaboutes")) {
@@ -118,12 +113,17 @@ setMounted(true)
 
   let EshterakNo = userObj?.EshterakNo || "";
   
-  useEffect(()=>{
-    const loc = localStorage.getItem("locationArray")
-    if (loc){
-      setLocationArray(JSON.parse(loc))
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("locationArray");
+      if (stored) {
+        setLocationArray(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error("Failed to parse locationArray:", err);
+      setLocationArray([]);
     }
-  },[mounted])
+  }, []);
 
   const onSubmit = (data:any) => {
     setFormData(data);
@@ -161,15 +161,11 @@ setMounted(true)
     }
 
     // setLocation(updatedLocation);
-
-    // Add the full location to the array (if it exists)
-    if (updatedLocation) {
-      setLocationArray(updatedLocation);
-    }
-
-    // Save updated locationArray
-    localStorage.removeItem("locationArray")
-    localStorage.setItem("locationArray", JSON.stringify(locationArray));
+    setLocationArray((prev) => {
+      const newArray = [...prev, updatedLocation];
+      localStorage.setItem("locationArray", JSON.stringify(newArray)); // ✅ update storage here
+      return newArray;
+    });
   };
 
 
