@@ -56,10 +56,10 @@ if (images != null) {
           <div className="absolute right-2 top-2 z-10">
             <Checkbox
               checked={isSelected}
-              icon={<div className="w-6 h-6 rounded-full border-2 border-white bg-transparent" />}
+              icon={<div className="w-6 h-6 rounded-full border-2 border-gray-200 bg-transparent" />}
               checkedIcon={
                 <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                  <CheckIcon className="text-white"/>
+                  <CheckIcon className="!text-white"/>
                 </div>
               }
             />
