@@ -1,6 +1,5 @@
 'use client'
 
-import useDeleteSearchLocalProducts from "@/hooks/useDeleteSearchLocalProducts";
 import { productListUpdate } from "@/shared/product.list.atom";
 import { IconButton } from "@mui/material";
 import { useAtom } from "jotai";
@@ -21,6 +20,11 @@ type SearchedItemsProps = {
 
 const SearchedItems = ({ filteredUsers, searchItem }:SearchedItemsProps) => {
 
+  const [mounted,setMounted] =useState(false)
+
+  useEffect(()=>{
+    setMounted(true)
+  },[])
 // handle openning snackbar
 const [opensnackbar, setOpensnackbar] = useState(false);
 // end handle openning snackbar
@@ -29,8 +33,12 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   const autocomma = (number_input:number) => {
     return new Intl.NumberFormat("en-US").format(number_input);
   };
-
-  useDeleteSearchLocalProducts();
+  useEffect(()=>{
+    if (mounted) {
+      localStorage.removeItem("productsInSearch");
+    }
+  },[mounted])
+  
   const [products, setProducts] = useAtom(productListUpdate);
 
   // add to cart
