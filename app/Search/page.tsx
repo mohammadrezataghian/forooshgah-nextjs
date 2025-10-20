@@ -20,6 +20,9 @@ type payload = {
 }
 
 const Search = () => {
+
+  const [mounted,setMounted] = useState(false)
+  const [foundProducts,setFoundProducts] = useState<any>(null)
   //handle search
   const [apiUsers, setApiUsers] = useState([]);
   const [searchItem, setSearchItem] = useAtom(inputValue);
@@ -28,6 +31,10 @@ const Search = () => {
   const [products, setProducts] = useAtom(productInSearchUpdate);
   const [state] = useAtom(selectedStore);
   const[sort,setSort] = useState(0)
+
+  useEffect(()=>{
+    setMounted(true)
+  },[])
 
   // ✅ `searchItem` updates instantly (no delay in input UI)
   const handleInputChange = (e:any) => {
@@ -177,7 +184,12 @@ const { loading, error, fetchProducts } = useFetchProducts();
     });
   }
   //
-const foundProducts = localStorage.getItem("foundproducts") && JSON.parse(localStorage.getItem("foundproducts") || '');
+useEffect(()=>{
+  const stored = localStorage.getItem("foundproducts")
+  if (stored){
+    setFoundProducts(JSON.parse(stored))
+  }
+},[mounted])
 
   return (
     <>
