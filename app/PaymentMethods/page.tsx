@@ -365,7 +365,7 @@ useEffect(()=>{
       WebFactorId,
     };
     const paymentDataNoPay = {
-      CellNumber:userObj.Mobile,
+      CellNumber:userObj?.Mobile,
       Amount:amount,
       WebFactorId:WebFactorId,
     }
