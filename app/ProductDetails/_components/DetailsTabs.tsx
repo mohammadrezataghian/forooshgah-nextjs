@@ -52,10 +52,10 @@ useEffect(() => {
                         return (
                         <div key={item.FldIdAttributeValue} className='flex gap-5'>
                             <div className='flex flex-col w-1/3 max-w-64 bg-gray-300 p-1 pb-3 '>
-                                <div>{item.AttributeName}</div>
+                                <div className='text-sm md:text-base'>{item.AttributeName}</div>
                             </div>
-                            <div className='flex flex-col w-2/3 pb-3 gap-3 p-1'>
-                                <div className='text-right'>{item.AttributeValue}</div>
+                            <div className='flex flex-col w-2/3 pb-3 gap-3 p-1 justify-between'>
+                                <div className='text-right text-sm md:text-base'>{item.AttributeValue}</div>
                                 {!isLastItem && <Divider />}
                             </div>
                         </div>
