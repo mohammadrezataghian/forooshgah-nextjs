@@ -38,7 +38,6 @@ const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
 });
-document.documentElement.setAttribute("dir", "rtl");
 
 type payloadType ={
     namekala: string;
@@ -76,6 +75,12 @@ export default function ProductList() {
   const [page, setPage] = React.useState(initialPage);
   const [filterVersion, setFilterVersion] = React.useState(0);
   const [totalCount,setTotalCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("dir", "rtl");
+    }
+  }, []);
 
   // api request
 const {error , fetchProducts,checkNamojod} = useFetchProducts(setProducts,setLoading,setTotalCount)
