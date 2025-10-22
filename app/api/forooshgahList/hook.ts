@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetItems = () => {
+
+  const ForooshgahList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/ForooshgahList`
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<any>(null);
@@ -16,21 +19,21 @@ const useGetItems = () => {
 
     try {
       const res = await axios.get(
-        "/api/forooshgahList",
+        ForooshgahList,
       );
 
       setItems(res?.data?.Data?.lst || []);
       
     } catch (err: any) {
       setError(
-        err.message || "An unknown error occurred in forooshgahList"
+        err.message || "An unknown error occurred in ForooshgahList"
       );
 
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/forooshgahList",
-          err.message + " , An unknown error occurred in forooshgahList",''
+          ForooshgahList,
+          err.message + " , An unknown error occurred in ForooshgahList",''
         );
       }
     } finally {
