@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetScore = (userToken: any,setScore:any) => {
+
+const getSahamPersonScore = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSahamPersonScore`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetScore = (userToken: any,setScore:any) => {
 
     try {
       const res = await axios.post(
-        "/api/sahamPersonScore", // call YOUR Next.js API route
+        getSahamPersonScore,
         data,
         {
           headers: {
@@ -36,7 +39,7 @@ const useGetScore = (userToken: any,setScore:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/sahamPersonScore",
+          getSahamPersonScore,
           err.message + " , An unknown error occurred in getSahamPersonScore",
           userToken
         );

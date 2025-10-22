@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useFetchProducts = (setApiUsers:any) => {
+
+const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKala`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -14,7 +17,7 @@ const useFetchProducts = (setApiUsers:any) => {
 
     try {
       const res = await axios.post(
-        "/api/searchInput",
+        GetKala,
         payload,
       );
 
@@ -22,14 +25,14 @@ const useFetchProducts = (setApiUsers:any) => {
       return res
     } catch (err: any) {
       setError(
-        err.message || "An unknown error occurred in getKala"
+        err.message || "An unknown error occurred in getKala/searchInput"
       );
 
       if (process.env.NODE_ENV === "production") {
         await addLog(
           payload,
-          "/api/getKala",
-          err.message + " , An unknown error occurred in getCodeSabteName",
+          GetKala,
+          err.message + " , An unknown error occurred in GetKala/searchInput",
           ''
         );
       }

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetStocks = (userToken: string | null) => {
+
+const SahamListPerson = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/SahamListPerson`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stocks, setStocks] = useState<any>(null);
@@ -18,7 +21,7 @@ const useGetStocks = (userToken: string | null) => {
 
     try {
       const res = await axios.post(
-        "/api/stocks", // call YOUR Next.js API route
+        SahamListPerson,
         { ...params },
         {
           headers: {
@@ -37,7 +40,7 @@ const useGetStocks = (userToken: string | null) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/stocks",
+          SahamListPerson,
           err.message + " , An unknown error occurred in SahamListPerson",
           userToken
         );

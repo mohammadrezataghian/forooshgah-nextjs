@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetSubmitStockRequest = () => {
+
+const RequestForRegisterSahamPerson = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/RequestForRegisterSahamPerson`
+
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState<string | null>(null);
   const [submitResponse, setSubmitResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetSubmitStockRequest = () => {
 
     try {
       const res = await axios.post(
-        "/api/requestForRegisterSahamPerson",
+        RequestForRegisterSahamPerson,
         params,
       );
 
@@ -29,7 +32,7 @@ const useGetSubmitStockRequest = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/requestForRegisterSahamPerson",
+          RequestForRegisterSahamPerson,
           err.message + " , An unknown error occurred in RequestForRegisterSahamPerson",
           ''
         );

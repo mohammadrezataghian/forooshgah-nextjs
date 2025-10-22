@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetNoeErsalList = () => {
+
+const NoeErsalList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/NoeErsalList`
+
   const [loadingErsalList, setLoadingErsalList] = useState(false);
   const [errorErsalList, setErrorErsalList] = useState<string | null>(null);
   const [ersalList, setErsalList] = useState<any>(null);
@@ -17,7 +20,7 @@ const useGetNoeErsalList = () => {
 
     try {
       const res = await axios.post(
-        "/api/noeErsalList",
+        NoeErsalList,
       );
 
       setErsalList(res?.data?.Data || [])
@@ -29,7 +32,7 @@ const useGetNoeErsalList = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/noeErsalList",
+          NoeErsalList,
           err.message + " , An unknown error occurred in noeErsalList",
           ''
         );

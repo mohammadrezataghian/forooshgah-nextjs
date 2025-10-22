@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useSaveMainConfig = (setMessage:any,setOpensnackbar:any) => {
+
+const SaveMainConfig = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/config/SaveMainConfig`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saveConfig, setSaveConfig] = useState<any>(null);
@@ -15,7 +18,7 @@ const useSaveMainConfig = (setMessage:any,setOpensnackbar:any) => {
 
     try {
       const res = await axios.post(
-        "/api/saveMainConfig", 
+        SaveMainConfig, 
         params,
         {
           headers: {
@@ -40,7 +43,7 @@ const useSaveMainConfig = (setMessage:any,setOpensnackbar:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/saveMainConfig",
+            SaveMainConfig,
           err.message + " , An unknown error occurred in SaveMainConfig",
           userToken
         );

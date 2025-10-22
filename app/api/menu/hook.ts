@@ -6,6 +6,9 @@ import { addLog } from "@/app/api/addlog/addlog";
 import Cookies from 'js-cookie';
 
 const useGetMenu = () => {
+
+const GetGroupKalaTreeUsed = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetGroupKalaTreeUsed`
+
   const [response, setResponse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -13,18 +16,18 @@ const useGetMenu = () => {
  const getMenu = async ()=>{  
     try {
       const res = await axios.get(
-        "/api/menu",
+        GetGroupKalaTreeUsed,
       );
       setResponse(res)
       Cookies.set("MenuData",JSON.stringify(res.data), { expires: 1 / 24 })
       return res.data
     } catch (err: any) {
-      console.error('Error fetching data in menu', err);
+      console.error('Error fetching data in GetGroupKalaTreeUsed', err);
       setError(err.message)
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/menu",
+          GetGroupKalaTreeUsed,
           err.message + " , An unknown error occurred in GetGroupKalaTreeUsed",
         );
       }

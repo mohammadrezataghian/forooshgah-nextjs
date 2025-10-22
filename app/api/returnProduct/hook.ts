@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetScore = (userToken: string | null) => {
+
+const GetEllateMarjue = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetEllateMarjue`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -20,7 +23,7 @@ const useGetScore = (userToken: string | null) => {
 
     try {
       const res = await axios.get(
-        "/api/returnProduct",
+        GetEllateMarjue,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -38,7 +41,7 @@ const useGetScore = (userToken: string | null) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/returnProduct",
+          GetEllateMarjue,
           err.message + " , An unknown error occurred in GetEllateMarjue",
           userToken
         );

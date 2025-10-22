@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetProductDetails = (params:any,selectedItem:any) => {
+
+const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKala`
+
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [productDetails, setProductDetails] = useState<any>(null);
@@ -16,21 +19,21 @@ const useGetProductDetails = (params:any,selectedItem:any) => {
 
     try {
       const res = await axios.post(
-        "/api/productSlider", // call YOUR Next.js API route
+        GetKala,
         params
       );
 
       setProductDetails(res?.data?.Data?.lst || []);
     } catch (err: any) {
       setError(
-        err.message || "An unknown error occurred in getSahamPersonScore"
+        err.message || "An unknown error occurred in GetKala/productSlider"
       );
 
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/productSlider",
-          err.message + " , An unknown error occurred in getSahamPersonScore",
+            GetKala,
+          err.message + " , An unknown error occurred in GetKala/productSlider",
         );
       }
     } finally {

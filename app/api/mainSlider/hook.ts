@@ -11,6 +11,9 @@ type param ={
 
 
 const useGetAdvertisement = (params:param,isMobile:boolean,loggedIn:boolean,shouldFetch:boolean) => {
+
+const AdvertisementList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/AdvertisementList`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [advertisement, setAdvertisement] = useState<any>(null);
@@ -24,7 +27,7 @@ const useGetAdvertisement = (params:param,isMobile:boolean,loggedIn:boolean,shou
 
     try {
       const res = await axios.post(
-        "/api/mainSlider", // call YOUR Next.js API route
+        AdvertisementList,
         params,
       );
 
@@ -37,7 +40,7 @@ const useGetAdvertisement = (params:param,isMobile:boolean,loggedIn:boolean,shou
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/mainSlider",
+            AdvertisementList,
           err.message + " , An unknown error occurred in getSahamPersonScore",
         );
       }

@@ -63,8 +63,8 @@ const stepsStat = ['تایید نشده', 'تایید شده'];
 const stepsDelivery = ['ارسال نشده', 'ارسال کردن'];
 const idSupplier = selectedRow && selectedRow?.idTaminKonande
 const factorId = receipt && receipt?.Id
-const statUrl = process.env.API_URL_TAEEDETAMINKONANDE as string;
-const deliveryUrl = process.env.API_URL_ERSALETAMINKONANDE as string;
+const statUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/TaeedeTaminKonande`
+const deliveryUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ErsaleTaminKonande`
 const initStepperStat = selectedRow && selectedRow?.TaeedeTaminKonande
 const initStepperDelivery = selectedRow && selectedRow?.ErsalByTaminKonande
 
