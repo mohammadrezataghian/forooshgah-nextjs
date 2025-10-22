@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetSubmitLoginSupplier = () => {
+
+const LoginTaminKonandeByMobile = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/LoginTaminKonandeByMobile`
+
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [submitLoginSupplier, setSubmitLoginSupplier] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetSubmitLoginSupplier = () => {
 
     try {
       const res = await axios.post(
-        "/api/loginTaminKonandeByMobile",
+        LoginTaminKonandeByMobile,
         param
       );
 
@@ -29,7 +32,7 @@ const useGetSubmitLoginSupplier = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           param,
-          "/api/loginTaminKonandeByMobile",
+          LoginTaminKonandeByMobile,
           err.message + " , An unknown error occurred in LoginTaminKonandeByMobile",
           ''
         );

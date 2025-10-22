@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetListKala = (params:any,userToken:any,page:any,rowsPerPage:any,refreshKey:any) => {
+
+const ListKalaTaminKonande = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ListKalaTaminKonande`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [list, setList] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetListKala = (params:any,userToken:any,page:any,rowsPerPage:any,refres
 
     try {
       const res = await axios.post(
-        "/api/listKalaTaminKonande",
+        ListKalaTaminKonande,
         { ...params },
         {
           headers: {
@@ -35,7 +38,7 @@ const useGetListKala = (params:any,userToken:any,page:any,rowsPerPage:any,refres
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/listKalaTaminKonande",
+          ListKalaTaminKonande,
           err.message + " , An unknown error occurred in ListKalaTaminKonande",
           userToken
         );

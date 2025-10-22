@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetInstallmentDetails = (params:any,userToken:any) => {
+
+const GetFactorGhestiDetail = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetFactorGhestiDetail`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [installmentDetail, setInstallmentDetail] = useState<any>(null);
@@ -17,7 +20,7 @@ const useGetInstallmentDetails = (params:any,userToken:any) => {
 
     try {
       const res = await axios.post(
-        "/api/installmentDetails", // call YOUR Next.js API route
+        GetFactorGhestiDetail,
         { ...params },
         {
           headers: {
@@ -36,7 +39,7 @@ const useGetInstallmentDetails = (params:any,userToken:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/installmentDetails",
+            GetFactorGhestiDetail,
           err.message + " , An unknown error occurred in GetFactorGhestiDetail",
           userToken
         );

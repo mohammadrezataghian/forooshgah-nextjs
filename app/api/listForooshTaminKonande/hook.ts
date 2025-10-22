@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useSubmitSearch = (userToken: any) => {
+
+const ListForooshTaminKonande = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ListForooshTaminKonande`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useSubmitSearch = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/listForooshTaminKonande",
+        ListForooshTaminKonande,
         params,
         {
           headers: {
@@ -34,7 +37,7 @@ const useSubmitSearch = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/listForooshTaminKonande",
+          ListForooshTaminKonande,
           err.message + " , An unknown error occurred in listForooshTaminKonande",
           userToken
         );

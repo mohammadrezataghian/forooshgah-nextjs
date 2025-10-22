@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetKalaList = (params:any,selectedItem:any) => {
+
+const KalaList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/KalaList`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [kalaList, setKalaList] = useState<any>(null);
@@ -20,7 +23,7 @@ const useGetKalaList = (params:any,selectedItem:any) => {
 
     try {
       const res = await axios.post(
-        "/api/kalaList",
+        KalaList,
         { ...params });
 
         setKalaList(res.data)
@@ -32,7 +35,7 @@ const useGetKalaList = (params:any,selectedItem:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/kalaList",
+          KalaList,
           err.message + " , An unknown error occurred in kalaList",
           ''
         );

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useLoginByUsername = () => {
+
+const LoginEmployee = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/LoginEmployee`
+
   const [loadingUsername, setLoadingUsername] = useState(false);
   const [errorUsername, setErrorUsername] = useState<string | null>(null);
   const [responseUsername, setResponseUsername] = useState<any>(null);
@@ -15,7 +18,7 @@ const useLoginByUsername = () => {
 
     try {
       const res = await axios.post(
-        "/api/loginEmployee",
+        LoginEmployee,
         params
       );
 
@@ -29,7 +32,7 @@ const useLoginByUsername = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/loginEmployee",
+          LoginEmployee,
           err.message + " , An unknown error occurred in LoginEmployee",
           ''
         );

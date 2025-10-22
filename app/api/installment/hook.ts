@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetInstallment = (params:any,userToken:any) => {
+
+const GhestListPerson = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GhestListPerson`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [installment, setInstallment] = useState<any>(null);
@@ -17,7 +20,7 @@ const useGetInstallment = (params:any,userToken:any) => {
 
     try {
       const res = await axios.post(
-        "/api/installment",
+        GhestListPerson,
         { ...params },
         {
           headers: {
@@ -36,7 +39,7 @@ const useGetInstallment = (params:any,userToken:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/installment",
+            GhestListPerson,
           err.message + " , An unknown error occurred in installment",
           userToken
         );

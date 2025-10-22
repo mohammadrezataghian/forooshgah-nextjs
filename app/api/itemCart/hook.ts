@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetCartBalance = (params:any) => {
+
+const CheckBasketKalamojodi = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/CheckBasketKalamojodi`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [balance, setBalance] = useState<any>(null);
@@ -19,7 +22,7 @@ const useGetCartBalance = (params:any) => {
 
     try {
       const res = await axios.post(
-        "/api/itemCart",
+        CheckBasketKalamojodi,
         { ...params },
       );
 
@@ -32,7 +35,7 @@ const useGetCartBalance = (params:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/itemCart",
+            CheckBasketKalamojodi,
           err.message + " , An unknown error occurred in CheckBasketKalamojodi",
         );
       }
@@ -40,6 +43,7 @@ const useGetCartBalance = (params:any) => {
       setLoading(false);
     }
   };
+  getBalance()
 }, []);
 
   return { balance, loading, error };
