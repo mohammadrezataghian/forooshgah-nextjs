@@ -12,6 +12,8 @@ import useGetNoeErsalList from "@/app/api/noeErsalList/hook";
 import DeliveryType from "./_components/DeliveryType";
 import PrefactorSkeleton from "./loading";
 import { ApiResponse, Kala } from "@/types/types";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { useRouter } from "next/navigation";
 
 const PreFactor = () => {
  
@@ -66,6 +68,7 @@ React.useEffect(()=>{
   const [status,setStatus] = React.useState("");
   const [color,setColor] = React.useState<"success" | "secondary" | "error">("success");
   const [products, setProducts] = useAtom(productListUpdate);
+  const router = useRouter()
   
   let user: ApiResponse | null = null ;
   let userData = null;
@@ -126,6 +129,9 @@ React.useEffect(()=>{
   }, [userInfoo]);
   // end color status
 
+  const handleNavBack = ()=>{
+    router.back()
+  }
 
   if (!mounted) {
     return <div className="p-10 flex justify-center"><span>در حال بارگذاری...</span></div>;
@@ -135,6 +141,9 @@ React.useEffect(()=>{
     <div className="bg-white min-h-screen">
       {rawUser ?   
       <>
+      <div className="flex w-full justify-end pl-5 pt-5 cursor-pointer" onClick={handleNavBack}>
+        <span className="text-blue-500 font-semibold text-sm md:text-base">بازگشت به صفحه ی قبل و تغییر آدرس</span><ChevronLeftIcon className="text-blue-500"/>
+      </div>
       <div className="w-full py-10 lg:px-40 px-2">
         <DeliveryType ersalList={ersalList} selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
       </div>

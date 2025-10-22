@@ -9,7 +9,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import "mapir-react-component/dist/index.css";
 import { Divider } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -117,7 +116,10 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
     try {
       const stored = localStorage.getItem("locationArray");
       if (stored) {
-        setLocationArray(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setLocationArray(Array.isArray(parsed) ? parsed : []);
+      } else {
+        setLocationArray([]);
       }
     } catch (err) {
       console.error("Failed to parse locationArray:", err);
@@ -162,8 +164,9 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
 
     // setLocation(updatedLocation);
     setLocationArray((prev) => {
-      const newArray = [...prev, updatedLocation];
-      localStorage.setItem("locationArray", JSON.stringify(newArray)); // ✅ update storage here
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const newArray = [...safePrev, updatedLocation];
+      localStorage.setItem("locationArray", JSON.stringify(newArray));
       return newArray;
     });
   };

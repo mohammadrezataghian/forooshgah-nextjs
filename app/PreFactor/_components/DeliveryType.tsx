@@ -21,7 +21,7 @@ const DeliveryType = ({ ersalList,selectedItem,setSelectedItem }:DeliveryTypePro
 
   return (
     <>
-    <div className="flex gap-5 items-center border border-blue-400 lg:p-10 p-3 rounded-lg bg-gray-100">
+    <div className="flex flex-wrap xs:flex-row gap-5 items-center border border-blue-400 lg:p-10 p-3 rounded-lg bg-gray-100">
       <h3 className="text-right lg:text-xl text-lg text-nowrap">تعیین نحوه ی ارسال:</h3>
       <div className="self-center">
         <Box

@@ -42,9 +42,10 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
               </button>
             )}
             {isLoggedIn && showdefaultaddress && (
+              <>
               <Button
                 variant="contained"
-                className="py-2 w-1/2 sm:w-1/4 mx-auto bg-green-500 text-white "
+                className="py-2 w-1/2 sm:w-1/4 mx-auto !bg-green-500 text-white "
                 onClick={() => {
                   handleNavigation();
                   sessionStorage.setItem('noeErsal',String(0))
@@ -52,6 +53,14 @@ const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefa
               >
                 ادامه خرید
               </Button>
+              <Button
+                variant="contained"
+                className="py-2 w-1/2 sm:w-1/4 mx-auto text-white "
+                onClick={handlecityDialogOpen}
+              >
+                تغییر آدرس
+              </Button>
+              </>
             )}
           </>
         )}
