@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetStatusMarjue = (userToken:any) => {
+
+const GetStatusMarjuUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetStatusMarju`
+
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -18,7 +21,7 @@ const useGetStatusMarjue = (userToken:any) => {
 
     try {
       const res = await axios.post(
-        "/api/getStatusMarju",
+        GetStatusMarjuUrl,
         param,
         {
           headers: {
@@ -37,7 +40,7 @@ const useGetStatusMarjue = (userToken:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           param,
-          "/api/getStatusMarju",
+          GetStatusMarjuUrl,
           err.message + " , An unknown error occurred in getStatusMarju",
           userToken
         );

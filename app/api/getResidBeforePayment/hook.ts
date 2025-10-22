@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetResidBeforePayment = (userToken: string | null) => {
+
+const getResidBeforePaymentUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getResidBeforePayment`
+
   const [residLoading,setResidLoading] = useState(false);
   const [residError,setResidError] = useState<string | null>(null);
   const [residResponse,setResidResponse] = useState<any>(null);
@@ -18,7 +21,7 @@ const useGetResidBeforePayment = (userToken: string | null) => {
 
     try {
       const res = await axios.post(
-        "/api/getResidBeforePayment", // call YOUR Next.js API route
+        getResidBeforePaymentUrl,
         data,
         {
           headers: {
@@ -37,7 +40,7 @@ const useGetResidBeforePayment = (userToken: string | null) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/getResidBeforePayment",
+          getResidBeforePaymentUrl,
           err.message + " , An unknown error occurred in getResidBeforePayment",
           userToken
         );

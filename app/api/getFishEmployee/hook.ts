@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetFish = (userToken: any) => {
+
+const GetFishEmployee = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetFishEmployee`
+
   const [DocLoading,setDocLoading] = useState(false);
   const [DocError,setDocError] = useState<string | null>(null);
   const [DocResponse,setDocResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetFish = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/getFishEmployee",
+        GetFishEmployee,
         data,
         {
           headers: {
@@ -34,7 +37,7 @@ const useGetFish = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/getFishEmployee",
+          GetFishEmployee,
           err.message + " , An unknown error occurred in GetFishEmployee",
           userToken
         );

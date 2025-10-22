@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetResults = () => {
+
+const activeGetWayOnlinePayment = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/activeGetWayOnlinePayment`
+
   const [loadingResults, setLoadingResults] = useState(false);
   const [errorResults, setErrorResults] = useState<string | null>(null);
   const [results, setResults] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetResults = () => {
 
     try {
       const res = await axios.get(
-        "/api/activeGetWayOnlinePayment",
+        activeGetWayOnlinePayment,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -34,7 +37,7 @@ const useGetResults = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/activeGetWayOnlinePayment",
+          activeGetWayOnlinePayment,
           err.message + " , An unknown error occurred in activeGetWayOnlinePayment",
           token
         );

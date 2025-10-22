@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetDeleteKala = (userToken:any,selected:any) => {
+
+const DeleteKalaTaminKonande = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/DeleteKalaTaminKonande`
+
   const [loadingDeleteKala, setLoadingDeleteKala] = useState(false);
   const [errorDeleteKala, setErrorDeleteKala] = useState<string | null>(null);
   const [deletekala, setDeleteKala] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetDeleteKala = (userToken:any,selected:any) => {
 
     try {
       const res = await axios.post(
-        "/api/deleteKalaTaminKonande",
+        DeleteKalaTaminKonande,
         params,
         {
           headers: {
@@ -35,7 +38,7 @@ const useGetDeleteKala = (userToken:any,selected:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/deleteKalaTaminKonande",
+          DeleteKalaTaminKonande,
           err.message + " , An unknown error occurred in deleteKalaTaminKonande",
           userToken
         );

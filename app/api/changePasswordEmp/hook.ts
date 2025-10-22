@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useChangePassword = (userToken: any) => {
+
+const changePasswordEmp = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/changePasswordEmp`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useChangePassword = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/changePasswordEmp",
+        changePasswordEmp,
         params,
         {
           headers: {
@@ -35,7 +38,7 @@ const useChangePassword = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/changePasswordEmp",
+          changePasswordEmp,
           err.message + " , An unknown error occurred in changePasswordEmp",
           userToken
         );

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetForooshgahDetails = () => {
+
+const ForooshgahListByDetail = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/ForooshgahListByDetail`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetForooshgahDetails = () => {
     setError(null);
 
     try {
-      const res = await axios.get("/api/forooshgahListByDetail");
+      const res = await axios.get(ForooshgahListByDetail);
 
       setItems(res?.data?.Data?.lst || []);
     } catch (err: any) {
@@ -26,7 +29,7 @@ const useGetForooshgahDetails = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/forooshgahListByDetail",
+          ForooshgahListByDetail,
           err.message + " , An unknown error occurred in ForooshgahListByDetail",
           ''
         );

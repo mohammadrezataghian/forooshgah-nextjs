@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useEditDoc = (userToken: any) => {
+
+const EditGhestRequest = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/EditGhestRequest`
+
   const [editDocLoading,setEditDocLoading] = useState(false);
   const [editDocError,setEditDocError] = useState<string | null>(null);
   const [editDocResponse,setEditDocResponse] = useState<any>(null);
@@ -18,7 +21,7 @@ const useEditDoc = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/editGhestRequest", // call YOUR Next.js API route
+        EditGhestRequest,
         data,
         {
           headers: {
@@ -37,7 +40,7 @@ const useEditDoc = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/editGhestRequest",
+          EditGhestRequest,
           err.message + " , An unknown error occurred in editGhestRequest",
           userToken
         );

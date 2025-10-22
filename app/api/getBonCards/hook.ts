@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetBonCards = (userToken: any,isPart:boolean) => {
+
+const GetBonKarts = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetBonKarts`
+
   const [loadingBons, setLoadingBons] = useState(false);
   const [errorBons, setErrorBons] = useState<string | null>(null);
   const [bons, setBons] = useState<any>(null);
@@ -19,7 +22,7 @@ const useGetBonCards = (userToken: any,isPart:boolean) => {
 
     try {
       const res = await axios.get(
-        "/api/getBonCards",
+        GetBonKarts,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -37,7 +40,7 @@ const useGetBonCards = (userToken: any,isPart:boolean) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/getBonCards",
+          GetBonKarts,
           err.message + " , An unknown error occurred in getBonCards",
           userToken
         );

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetOneKala = (params:any,userToken:any,selected:any) => {
+
+const GetOneKalaTaminKonande = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetOneKalaTaminKonande`
+
   const [loadingKala, setLoadingKala] = useState(false);
   const [errorKala, setErrorKala] = useState<string | null>(null);
   const [kala, setKala] = useState<any>(null);
@@ -17,7 +20,7 @@ const useGetOneKala = (params:any,userToken:any,selected:any) => {
     setErrorKala(null);
     try {
       const res = await axios.post(
-        "/api/getOneKalaTaminKonande",
+        GetOneKalaTaminKonande,
         { ...params },
         {
           headers: {
@@ -36,7 +39,7 @@ const useGetOneKala = (params:any,userToken:any,selected:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/getOneKalaTaminKonande",
+          GetOneKalaTaminKonande,
           err.message + " , An unknown error occurred in GetOneKalaTaminKonande",
           userToken
         );

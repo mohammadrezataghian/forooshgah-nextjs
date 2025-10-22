@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetImages = (userToken: any) => {
+
+const GetKalaImageList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetKalaImageList`
+
   const [listLoading,setlistLoading] = useState(false);
   const [listError,setListError] = useState<string | null>(null);
   const [ListResponse,setListResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetImages = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/getKalaImageList",
+        GetKalaImageList,
         data,
         {
           headers: {
@@ -34,7 +37,7 @@ const useGetImages = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/getKalaImageList",
+          GetKalaImageList,
           err.message + " , An unknown error occurred in getKalaImageList",
           userToken
         );

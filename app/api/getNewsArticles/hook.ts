@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetNews = () => {
+
+const GetNewsUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetNews`
+
   const [loadingNews, setLoadingNews] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [News, setNews] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetNews = () => {
 
     try {
       const res = await axios.post(
-        "/api/news",
+        GetNewsUrl,
         param
       );
 
@@ -29,7 +32,7 @@ const useGetNews = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           param,
-          "/api/news",
+          GetNewsUrl,
           err.message + " , An unknown error occurred in getNews",''
         );
       }

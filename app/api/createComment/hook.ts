@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetCreateComment = (userToken: any) => {
+
+const CreateComment = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/CreateComment`
+
   const [loadingSubmitComment, setLoadingSubmitComment] = useState(false);
   const [errorSubmitComment, setErrorSubmitComment] = useState<string | null>(null);
   const [submitCommentResponse, setSubmitCommentResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetCreateComment = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/createComment",
+        CreateComment,
         params,
         {
           headers: {
@@ -34,7 +37,7 @@ const useGetCreateComment = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/createComment",
+          CreateComment,
           err.message + " , An unknown error occurred in createComment",
           userToken
         );

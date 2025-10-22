@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetAddFactor = () => {
+
+const AddFactor = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/AddFactor`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetAddFactor = () => {
 
     try {
       const res = await axios.post(
-        "/api/addFactor", // call YOUR Next.js API route
+        AddFactor,
         factorInfo,
         {
           headers: {
@@ -35,7 +38,7 @@ const useGetAddFactor = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           factorInfo,
-          "/api/addFactor",
+          AddFactor,
           err.message + " , An unknown error occurred in AddFactor",
           tokenInput
         );

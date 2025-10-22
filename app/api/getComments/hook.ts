@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetComments = () => {
+
+const GetComments = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetComments`
+
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [commentsError, setCommentsError] = useState<string | null>(null);
   const [comments, setComments] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetComments = () => {
 
     try {
       const res = await axios.post(
-        "/api/getComments",
+        GetComments,
         param);
 
         setComments(res.data?.Data || []);
@@ -27,7 +30,7 @@ const useGetComments = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           param,
-          "/api/getComments",
+          GetComments,
           err.message + " , An unknown error occurred in getComments",''
         );
       }

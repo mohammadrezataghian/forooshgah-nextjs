@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetCheckLogin = () => {
+  
+const CheckMobileForLogin = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/CheckMobileForLogin`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [checkLogin, setCheckLogin] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetCheckLogin = () => {
 
     try {
       const res = await axios.post(
-        "/api/CheckMobileForLogin", // call YOUR Next.js API route
+        CheckMobileForLogin,
         data,
       );
 
@@ -29,7 +32,7 @@ const useGetCheckLogin = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/CheckMobileForLogin",
+          CheckMobileForLogin,
           err.message + " , An unknown error occurred in getSahamPersonScore",
         );
       }

@@ -7,6 +7,9 @@ import { useAtom } from "jotai";
 import { mainConfig } from "@/shared/mainConfig";
 
 const useGetMainConfig = () => {
+
+const GetMainConfig = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/config/GetMainConfig`
+
   const [loadingConfig, setLoadingConfig] = useState(false);
   const [errorConfig, setErrorConfig] = useState<string | null>(null);
   const [config,setConfig] = useState<any>(null);
@@ -18,7 +21,7 @@ const useGetMainConfig = () => {
 
     try {
       const res = await axios.get(
-        "/api/getMainConfig"
+        GetMainConfig
       );
 
       setConfig(res?.data?.Data);
@@ -33,7 +36,7 @@ const useGetMainConfig = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/getMainConfig",
+          GetMainConfig,
           err.message + " , An unknown error occurred in getSahamPersonScore",
         );
       }

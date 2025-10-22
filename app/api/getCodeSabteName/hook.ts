@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetStockRequest = () => {
+
+const getCodeSabteName = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/getCodeSabteName`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [codeSabteNam, setCodeSabteNam] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetStockRequest = () => {
 
     try {
       const res = await axios.post(
-        "/api/getCodeSabteName",
+        getCodeSabteName,
         params,
       );
 
@@ -29,7 +32,7 @@ const useGetStockRequest = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/getCodeSabteName",
+          getCodeSabteName,
           err.message + " , An unknown error occurred in getCodeSabteName",
           ''
         );

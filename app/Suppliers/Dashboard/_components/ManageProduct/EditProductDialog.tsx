@@ -39,9 +39,9 @@ const EditProduct = ({open,setOpen,selected,setSelected,onRefresh}:EditProductPr
   // init data
     const user = Cookies.get("supplierUser") ? JSON.parse(Cookies.get("supplierUser") || '') : null;
     const userToken = localStorage.getItem("supplierUserToken");
-    const GroupKalaList = process.env.API_URL_GROUPKALALIST as string
-    const UnitKalaList = process.env.API_URL_UNITKALALIST as string
-    const GetTypeKalaList = process.env.API_URL_GETTYPEKALALIST as string
+    const GroupKalaList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GroupKalaList`
+    const UnitKalaList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/UnitKalaList`
+    const GetTypeKalaList = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetTypeKalaList`
   
     const group = useGetInitData(userToken, GroupKalaList);
     const unit = useGetInitData(userToken, UnitKalaList);

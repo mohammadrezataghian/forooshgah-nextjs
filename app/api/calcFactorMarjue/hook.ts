@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetCalcFactor = (state:any,userToken:any) => {
+
+const CalcFactorMarjue = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/CalcFactorMarjue`
+
   const [sumLoading,setSumLoading] = useState(false);
   const [sumError,setSumError] = useState<string | null>(null);
   const [sumResponse,setSumResponse] = useState<any>(null);
@@ -17,7 +20,7 @@ const useGetCalcFactor = (state:any,userToken:any) => {
 
     try {
       const res = await axios.post(
-        "/api/calcFactorMarjue",
+        CalcFactorMarjue,
         {...state,},
         {
           headers: {
@@ -36,7 +39,7 @@ const useGetCalcFactor = (state:any,userToken:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           {...state,},
-          "/api/calcFactorMarjue",
+          CalcFactorMarjue,
           err.message + " , An unknown error occurred in CalcFactorMarjue",
           userToken
         );

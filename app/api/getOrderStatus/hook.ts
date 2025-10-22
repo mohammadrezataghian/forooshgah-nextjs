@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetOrderStatus = () => {
+
+const GetOrderStatus = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetOrderStatus`
+
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string | null>(null);
   const [response, setResponse] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetOrderStatus = () => {
     setErrorStatus(null);
     try {
       const res = await axios.post(
-        "/api/getOrderStatus"
+        GetOrderStatus
       );
 
       setResponse(res);
@@ -28,7 +31,7 @@ const useGetOrderStatus = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/getOrderStatus",
+          GetOrderStatus,
           err.message + " , An unknown error occurred in getOrderStatus",
           ''
         );

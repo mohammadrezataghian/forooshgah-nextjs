@@ -7,7 +7,7 @@ export const addLog = async (
   userToken: string = ""
 ) => {
   
-  const addLogUrl = process.env.API_URL_ADDLOG;
+  const addLogUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/addLog`
   
   if (!addLogUrl) {
     console.error("addLogUrl is not defined in environment variables");

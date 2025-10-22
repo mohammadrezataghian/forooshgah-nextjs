@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetReceipts = (userToken: any) => {
+
+const GetFactorInfo = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetFactorInfo`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [receipts, setReceipts] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetReceipts = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/getFactorInfo",data,
+        GetFactorInfo,data,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -33,7 +36,7 @@ const useGetReceipts = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/getFactorInfo",
+          GetFactorInfo,
           err.message + " , An unknown error occurred in GetFactorInfo",
           userToken
         );

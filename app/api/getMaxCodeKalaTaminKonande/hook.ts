@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetMaxCode = (params:any,userToken:any,open:any) => {
+
+const GetMaxCodeKalaTaminKonande = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetMaxCodeKalaTaminKonande`
+
   const [loadingCode, setLoadingCode] = useState(false);
   const [errorCode, setErrorCode] = useState<string | null>(null);
   const [Code, setCode] = useState<any>(null);
@@ -18,7 +21,7 @@ const useGetMaxCode = (params:any,userToken:any,open:any) => {
 
     try {
       const res = await axios.post(
-        "/api/getMaxCodeKalaTaminKonande",
+        GetMaxCodeKalaTaminKonande,
         { ...params },
         {
           headers: {
@@ -37,7 +40,7 @@ const useGetMaxCode = (params:any,userToken:any,open:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/getMaxCodeKalaTaminKonande",
+            GetMaxCodeKalaTaminKonande,
           err.message + " , An unknown error occurred in GetMaxCodeKalaTaminKonande",
           userToken
         );

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetINP = (params:any,userToken:any,result:any) => {
+
+const GetGhestDoc = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetGhestDoc`
+
   const [loadingInp, setLoadingInp] = useState(false);
   const [errorInp, setErrorInp] = useState<string | null>(null);
   const [inp, setInp] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetINP = (params:any,userToken:any,result:any) => {
 
     try {
       const res = await axios.post(
-        "/api/getGhestDoc", // call YOUR Next.js API route
+        GetGhestDoc,
         { ...params },
         {
           headers: {
@@ -34,7 +37,7 @@ const useGetINP = (params:any,userToken:any,result:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           params,
-          "/api/getGhestDoc",
+          GetGhestDoc,
           err.message + " , An unknown error occurred in GetGhestDoc",
           userToken
         );

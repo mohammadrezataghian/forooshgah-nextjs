@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useApplyBonCard = (userToken: any) => {
+
+const ApplyBonKart = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ApplyBonKart`
+
   const [applyBonCardLoading,setApplyBonCardLoading] = useState(false);
   const [applyBonCardError,setApplyBonCardError] = useState<string | null>(null);
   const [applyBonCardResponse,setApplyBonCardResponse] = useState<any>(null);
@@ -15,7 +18,7 @@ const useApplyBonCard = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/applyBonCard",
+        ApplyBonKart,
         data,
         {
           headers: {
@@ -34,7 +37,7 @@ const useApplyBonCard = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/applyBonCard",
+          ApplyBonKart,
           err.message + " , An unknown error occurred in applyBonCard",
           userToken
         );

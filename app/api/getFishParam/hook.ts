@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetItems = (userToken: any) => {
+
+const GetFishParam = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Emp/GetFishParam`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetItems = (userToken: any) => {
 
     try {
       const res = await axios.get(
-        "/api/getFishParam",
+        GetFishParam,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -34,7 +37,7 @@ const useGetItems = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           '',
-          "/api/getFishParam",
+          GetFishParam,
           err.message + " , An unknown error occurred in GetFishParam",
           userToken
         );

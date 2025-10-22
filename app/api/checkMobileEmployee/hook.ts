@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetCheckLoginStaff = () => {
+
+const checkMobileEmployee = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/checkMobileEmployee`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [checkLoginStaff, setCheckLoginStaff] = useState<any>(null);
@@ -15,7 +18,7 @@ const useGetCheckLoginStaff = () => {
 
     try {
       const res = await axios.post(
-        "/api/checkMobileEmployee",
+        checkMobileEmployee,
         params);
 
         setCheckLoginStaff(res)
@@ -28,7 +31,7 @@ const useGetCheckLoginStaff = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
             params,
-          "/api/checkMobileEmployee",
+            checkMobileEmployee,
           err.message + " , An unknown error occurred in checkMobileEmployee",
           ''
         );

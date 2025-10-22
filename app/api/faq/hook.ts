@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetItems = () => {
+
+const getcommonquestion = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/getcommonquestion`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetItems = () => {
 
     try {
       const res = await axios.get(
-        "/api/faq", // call YOUR Next.js API route
+        getcommonquestion,
       );
 
       setItems(res?.data?.Data || []);
@@ -28,7 +31,7 @@ const useGetItems = () => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           null,
-          "/api/faq",
+          getcommonquestion,
           err.message + " , An unknown error occurred in getcommonquestion",
         );
       }

@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useDelDoc = (userToken: any) => {
+
+const DeleteGhestRequest = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/DeleteGhestRequest`
+
   const [delDocLoading,setDelDocLoading] = useState(false);
   const [delDocError,setDelDocError] = useState<string | null>(null);
   const [delDocResponse,setDelDocResponse] = useState<any>(null);
@@ -18,7 +21,7 @@ const useDelDoc = (userToken: any) => {
 
     try {
       const res = await axios.post(
-        "/api/deleteGhestRequest", // call YOUR Next.js API route
+        DeleteGhestRequest,
         data,
         {
           headers: {
@@ -37,7 +40,7 @@ const useDelDoc = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/deleteGhestRequest",
+          DeleteGhestRequest,
           err.message + " , An unknown error occurred in deleteGhestRequest",
           userToken
         );

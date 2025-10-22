@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useGetConfig = (params:any) => {
+
+const config = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/config/content`
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
@@ -16,7 +19,7 @@ const useGetConfig = (params:any) => {
 
     try {
       const res = await axios.post(
-        "/api/config", // call YOUR Next.js API route
+        config,
         { ...params }
       );
 
@@ -29,7 +32,7 @@ const useGetConfig = (params:any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/config",
+          config,
           err.message + " , An unknown error occurred in Config",
         );
       }

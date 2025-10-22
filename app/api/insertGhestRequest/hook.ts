@@ -5,6 +5,9 @@ import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
 
 const useAddDoc = (userToken: any) => {
+
+const InsertGhestRequest = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/InsertGhestRequest`
+
   const [addDocLoading,setAddDocLoading] = useState(false);
   const [addDocError,setAddDocError] = useState<string | null>(null);
   const [addDocResponse,setAddDocResponse] = useState<any>(null);
@@ -17,7 +20,7 @@ const useAddDoc = (userToken: any) => {
     setAddDocError(null);
     try {
       const res = await axios.post(
-        "/api/insertGhestRequest", // call YOUR Next.js API route
+        InsertGhestRequest,
         data,
         {
           headers: {
@@ -36,7 +39,7 @@ const useAddDoc = (userToken: any) => {
       if (process.env.NODE_ENV === "production") {
         await addLog(
           data,
-          "/api/insertGhestRequest",
+          InsertGhestRequest,
           err.message + " , An unknown error occurred in insertGhestRequest",
           userToken
         );
