@@ -99,7 +99,7 @@ useEffect(() => {
               className="mySecondSwiper"
             >
               <div className="w-full h-full">
-                {productDetails.map((data:any, index:any) => (
+                {productDetails && productDetails.map((data:any, index:any) => (
                   <SwiperSlide key={data.IdStoreStock}>
                     <SliderLeftCard
                       discount={data.Takhfif}
