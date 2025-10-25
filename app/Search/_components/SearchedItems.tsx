@@ -16,9 +16,10 @@ import { Product } from "@/types/types";
 type SearchedItemsProps = {
     filteredUsers:Product[];
     searchItem:string;
+    loadingApiUsers:boolean
 }
 
-const SearchedItems = ({ filteredUsers, searchItem }:SearchedItemsProps) => {
+const SearchedItems = ({ filteredUsers, searchItem,loadingApiUsers }:SearchedItemsProps) => {
 
   const [mounted,setMounted] =useState(false)
 
@@ -75,14 +76,14 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   return (
     <>
     <div className="w-full h-auto flex flex-col mt-2 justify-center items-center mb-24">
-      {searchItem.length < 2 && filteredUsers && filteredUsers.length === 0 && !hasSearched && (
+      {searchItem.length < 2 && filteredUsers && filteredUsers.length === 0 && !hasSearched && !loadingApiUsers && (
         <p className="mt-10">محصولی یافت نشد</p>
       )}
-      {loading && <SearchLoading />}
-      {!loading && hasSearched && filteredUsers && filteredUsers.length === 0 && (
+      {(loading || loadingApiUsers)  && <SearchLoading />}
+      {!loading && !loadingApiUsers && hasSearched && filteredUsers && filteredUsers.length === 0 && (
         <p className="mt-10">محصولی یافت نشد</p>
       )}
-      {!loading && filteredUsers && filteredUsers.length > 0 && (
+      {!loading && !loadingApiUsers && filteredUsers && filteredUsers.length > 0 && (
         <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
           {filteredUsers && filteredUsers.map((data:any) => {
             const imageSrc = data.FldNameImageKalaList

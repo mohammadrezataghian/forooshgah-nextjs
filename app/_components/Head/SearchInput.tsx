@@ -88,6 +88,11 @@ const SearchInput = () => {
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {
+    if (pathname.includes('/productDetails')) {
+      setIsBoxVisible(false);
+      return;
+    }
+
     if (deferredSearchTerm && pathname != '/search') {
       const filteredItems = apiUsers
       setFilteredUsers(filteredItems);

@@ -46,13 +46,13 @@ const Search = () => {
 
   // ✅ Debounced API request (prevents too many calls)
 
-const { loading, error, fetchProducts } = useFetchProducts();
+const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
 
   useEffect(() => {
     // setProducts(productInSearchUpdate);
-    if (localStorage.getItem("foundproducts") && sort === 0) {
-      return; // If condition is met, skip the API call
-    }
+    // if (localStorage.getItem("foundproducts") && sort === 0) {
+    //   return; // If condition is met, skip the API call
+    // }
     if (deferredSearchTerm.trim().length < 2) {
       setApiUsers([]);
       return;
@@ -73,7 +73,7 @@ const { loading, error, fetchProducts } = useFetchProducts();
     
       try {
         const result = await fetchProducts(payload);
-        addProduc2(result);
+        setApiUsers(result?.data?.Data?.lst || []);
          // ✅ use the actual response directly
       } catch (err) {
         console.error("Failed to fetch products:", err);
@@ -89,30 +89,30 @@ const { loading, error, fetchProducts } = useFetchProducts();
       const filteredItems = apiUsers;
       setFilteredUsers(filteredItems);
     } else if (SearchLocalProduct) {
-      setApiUsers(SearchLocalProduct);
+      // setApiUsers(SearchLocalProduct);
       setFilteredUsers([]);
     } else {
       setFilteredUsers([]);
     }
     
-    if (deferredSearchTerm && deferredSearchTerm.length < 2) {
-      localStorage.removeItem("foundproducts");
-    }
+    // if (deferredSearchTerm && deferredSearchTerm.length < 2) {
+    //   localStorage.removeItem("foundproducts");
+    // }
   }, [deferredSearchTerm, apiUsers]);
 
   // ✅ Filtering logic with `deferredSearchTerm`
 
   // handle search
 
-  function addProduc2(data:any) {
-    setApiUsers(data.data.Data.lst || []);
-    localStorage.removeItem("foundproducts"); // Clear previous search results
-    localStorage.setItem("foundproducts", JSON.stringify(data.data.Data.lst || []));
-    for (let i = 0; i < SearchLocalProduct.length; i++) {
-      removeProduct(SearchLocalProduct[i]);
-    }
-    data.data.Data.lst.map((datas:any, index:any) => addProduct(datas));
-  }
+  // function addProduc2(data:any) {
+  //   setApiUsers(data.data.Data.lst || []);
+  //   localStorage.removeItem("foundproducts"); // Clear previous search results
+  //   localStorage.setItem("foundproducts", JSON.stringify(data.data.Data.lst || []));
+  //   for (let i = 0; i < SearchLocalProduct.length; i++) {
+  //     removeProduct(SearchLocalProduct[i]);
+  //   }
+  //   data.data.Data.lst.map((datas:any, index:any) => addProduct(datas));
+  // }
   //
 
   //
@@ -184,12 +184,12 @@ const { loading, error, fetchProducts } = useFetchProducts();
     });
   }
   //
-useEffect(()=>{
-  const stored = localStorage.getItem("foundproducts")
-  if (stored){
-    setFoundProducts(JSON.parse(stored))
-  }
-},[mounted])
+// useEffect(()=>{
+//   const stored = localStorage.getItem("foundproducts")
+//   if (stored){
+//     setFoundProducts(JSON.parse(stored))
+//   }
+// },[mounted])
 
   return (
     <>
@@ -209,7 +209,7 @@ useEffect(()=>{
           <FilterSearch sort={sort} setSort={setSort}/>
         </div>
       </div>
-      <SearchedItems filteredUsers={foundProducts} searchItem={searchItem} />
+      <SearchedItems filteredUsers={apiUsers} searchItem={searchItem} loadingApiUsers={loadingApiUsers}/>
     </>
   );
 };
