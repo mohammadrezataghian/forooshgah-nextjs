@@ -53,6 +53,7 @@ const ForooshgahList = () => {
             onBlur={() => setFocused(false)}
             onChange={handleChange}
             className="h-[41px] w-48 flex flex-row"
+            name="selectStore"
           >
             <option value={0} className="text-right">
               انتخاب فروشگاه
