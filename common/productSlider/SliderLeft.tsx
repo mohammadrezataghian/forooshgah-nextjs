@@ -37,7 +37,7 @@ const SliderLeft = ({params}:any) => {
   }, [drawerSession, setProducts, setDrawerSessions]);
 
 // get data
-const { productDetails, loadingProducts, error } = useGetProductDetails({...params,idForooshgah:selectedItem},selectedItem);
+const { productDetails, loadingProducts, error,mutate } = useGetProductDetails({...params,idForooshgah:selectedItem},selectedItem);
 // end get data
 
   // handle loading
