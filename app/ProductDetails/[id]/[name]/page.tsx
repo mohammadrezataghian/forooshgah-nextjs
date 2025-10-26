@@ -28,6 +28,7 @@ const ProductDetails = () => {
   const [priceAfterSelection, setPriceAfterSelection] = useState(0);
   const [mojodiAfterSelection,setMojodiAfterSelection] = useState(0);
   const [selectedItem,setSelectedItem] = useState<Product | null>(null)
+  const [codeKalaAfterSelection,setCodeKalaAfterSelection] = useState('')
 
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
@@ -108,6 +109,7 @@ useEffect(()=>{
     setSelectedHexColor(data.ColorHexCode)
     setPriceAfterSelection(data.PriceForooshAfterDiscount)
     setMojodiAfterSelection(data.Mojodi)
+    setCodeKalaAfterSelection(data.BarCodeKala)
   }
 },[data])
 // end handle name color
@@ -188,7 +190,7 @@ useEffect(()=>{
             </p>
             <p className="mb-2 font-bold">موجودی : <span key={mojodiAfterSelection} className="text-[#3f4064] animate-price-change p-1 rounded-lg">{mojodiAfterSelection} {data.NameUnit}</span> </p>
             <p className="mb-2 font-bold">
-              کد کالا : <span className="text-[#3f4064]">{data.BarCodeKala}</span>
+              کد کالا : <span key={codeKalaAfterSelection} className="text-[#3f4064] animate-price-change p-1 rounded-lg">{codeKalaAfterSelection}</span>
             </p>
             <p className="mb-2 font-bold">
               برند : <span className="text-[#3f4064]">{data.NameMark}</span>
@@ -206,7 +208,7 @@ useEffect(()=>{
             {data && data?.SimilarProducts && data?.SimilarProducts?.length > 0 && (
               <div className="w-full">
                 <div>
-                  <CustomizedDividers SimilarProducts={data?.SimilarProducts} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedHexColor={setSelectedHexColor} setPriceAfterSelection={setPriceAfterSelection} setSelectedItem={setSelectedItem} setMojodiAfterSelection={setMojodiAfterSelection}/>
+                  <CustomizedDividers SimilarProducts={data?.SimilarProducts} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedHexColor={setSelectedHexColor} setPriceAfterSelection={setPriceAfterSelection} setSelectedItem={setSelectedItem} setMojodiAfterSelection={setMojodiAfterSelection} setCodeKalaAfterSelection={setCodeKalaAfterSelection}/>
                 </div>
               </div>
             )

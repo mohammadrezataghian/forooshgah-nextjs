@@ -31,9 +31,10 @@ type CustomizedDividersProps = {
     setPriceAfterSelection:React.Dispatch<React.SetStateAction<number>>;
     setSelectedItem:React.Dispatch<React.SetStateAction<any>>;
     setMojodiAfterSelection:React.Dispatch<React.SetStateAction<number>>;
+    setCodeKalaAfterSelection:React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CustomizedDividers({SimilarProducts,selectedColor,setSelectedColor,setSelectedHexColor,setPriceAfterSelection,setSelectedItem,setMojodiAfterSelection}:CustomizedDividersProps) {
+export default function CustomizedDividers({SimilarProducts,selectedColor,setSelectedColor,setSelectedHexColor,setPriceAfterSelection,setSelectedItem,setMojodiAfterSelection,setCodeKalaAfterSelection}:CustomizedDividersProps) {
 
     const handleAlignment = (event:any, newValue:any) => {
         if (newValue !== null) {
@@ -46,6 +47,7 @@ export default function CustomizedDividers({SimilarProducts,selectedColor,setSel
             setPriceAfterSelection(selectedItem.PriceForoosh)
             setMojodiAfterSelection(selectedItem.FldTedad)
             setSelectedItem(selectedItem)
+            setCodeKalaAfterSelection(selectedItem.BarCodeKala)
           }
         }
       };
