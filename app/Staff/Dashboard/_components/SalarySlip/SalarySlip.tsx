@@ -43,7 +43,6 @@ const SalarySlip = () => {
   const handleChangeType = (event:any) => {
     setSelectedItemType(event.target.value);
   };
-console.log(items);
 
 const { DocLoading, DocError, DocResponse, getFish } = useGetFish(userToken)
 const param = {
@@ -58,8 +57,6 @@ const handleGetFish =()=> {
     getFish(param)
   }
 }
-console.log(items);
-console.log(loading);
 
   return (
     <>

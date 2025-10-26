@@ -28,7 +28,7 @@ const GetFishEmployee = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetFishEmpl
         }
       );
 
-      setDocResponse(res.data);
+      setDocResponse(res);
     } catch (err: any) {
         setDocError(
         err.message || "An unknown error occurred in GetFishEmployee"
