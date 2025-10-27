@@ -23,7 +23,7 @@ const FlyToMarker = ({ position }: { position: [number, number] }) => {
 };
 
 const LeafletMap = () => {
-  const { items } = useGetForooshgahDetails();
+  const { items, loading, error } = useGetForooshgahDetails();
   const [searchText, setSearchText] = useState("");
   const [selectedCoordinates, setSelectedCoordinates] = useState<[number, number]>([35.691672, 51.441342]);
 
