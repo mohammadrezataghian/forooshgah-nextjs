@@ -9,6 +9,7 @@ import { useAtom } from "jotai";
 import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import * as z from 'zod';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
+import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
 
 // zod schema for validation
 const schema = z.object({
@@ -26,6 +27,7 @@ type EnterProps = {
 
 const Enter = ({ handleClose,setOpenUserPassDialog }:EnterProps) => {
 
+  const { normalizeDigits } = useNormalizeDigits();
   const [mobileNumber, setMobileNumber] = useState("");
   const [showOTP, setShowOtp] = useState(false);
   const [verificationCode, setVerficationCode] = useState("");
@@ -74,10 +76,11 @@ const { error, getCheckLogin,loading,checkLogin } = useGetCheckLogin()
   async function handleGetVerificationCode() {
     // Validate using Zod schema
     try {
-      schema.parse({ inputValue: mobileNumber });
+      const normalizedMobile = normalizeDigits(mobileNumber);
+      schema.parse({ inputValue: normalizedMobile });
       setMobileError(""); // clear previous error if valid
   
-      const res = await getCheckLogin({ Mobile: mobileNumber });
+      const res = await getCheckLogin({ Mobile: normalizedMobile });
   
       if (res?.data.resCode === 1) {
         setShowOtp(true);
@@ -100,8 +103,8 @@ const { error, getCheckLogin,loading,checkLogin } = useGetCheckLogin()
   // second step of login
 
 const param = {
-  Mobile: mobileNumber,
-  VerificationCode: verificationCode,
+  Mobile: normalizeDigits(mobileNumber),
+  VerificationCode: normalizeDigits(verificationCode),
 }
 
 const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogin()
@@ -139,7 +142,7 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
         </p>
         <OutlinedInput
           placeholder="شماره موبایل"
-          onChange={(event) => setMobileNumber(event.target.value)}
+          onChange={(event) => setMobileNumber(normalizeDigits(event.target.value))}
           value={mobileNumber}
           className="h-10"
           inputProps={{ style: { textAlign: 'center' } }}
