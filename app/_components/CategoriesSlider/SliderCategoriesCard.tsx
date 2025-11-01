@@ -31,6 +31,7 @@ const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) 
       <div className="w-full h-full" id={id}>
         <Link
           href={`/productList/${name}`}
+          onClick={()=> sessionStorage.removeItem('ProductListOrderParam')}
           className="block w-full h-full rounded-lg overflow-hidden text-[#323232]"
         >
           <div className="w-full h-[80%] ">

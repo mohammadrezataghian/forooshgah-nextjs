@@ -63,6 +63,7 @@ const Data = firstData.length > 0 ? firstData[0].children : [];
                     <Link
                       className="text-sm text-black group-hover:text-red-500"
                       href={`/productList/${data.Name}`}
+                      onClick={()=> sessionStorage.removeItem('ProductListOrderParam')}
                     >
                       {data.Name}
                     </Link>
