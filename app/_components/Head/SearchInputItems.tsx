@@ -15,9 +15,10 @@ type props = {
   filteredUsers: any;
   searchItem: string;
   setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
+  setSearchItem:React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) => {
+const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem }:props) => {
   const [products, setProducts] = useAtom(productListUpdate);
 
   // handle openning snackbar
@@ -78,6 +79,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                 <div className="border p-3 rounded-lg border-gray-300 flex justify-end"><Link href={`/productList/${item?.Name}`} 
                   onClick={() => {
                    setIsBoxVisible(false);
+                   setSearchItem('')
                    sessionStorage.removeItem('ProductListOrderParam');
                   }
                   }
@@ -144,7 +146,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     {/* Product Image */}
                     <Link
                       href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                      onClick={() => setIsBoxVisible(false)}
+                      onClick={() => {
+                        setSearchItem('')
+                        setIsBoxVisible(false)}
+                      }
                       className="flex justify-center overflow-hidden h-max p-1"
                     >
                       <img src={imageSrc} alt={data.NameKala} className="w-20 h-20 object-fill rounded-lg" />
@@ -154,7 +159,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible }:props) 
                     <div className="p-4">
                       <Link
                         href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                        onClick={() => setIsBoxVisible(false)}
+                        onClick={() => {
+                          setSearchItem('')
+                          setIsBoxVisible(false)}
+                        }
                       >
                         <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right">
                           {data.NameKala}

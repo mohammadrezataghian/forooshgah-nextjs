@@ -13,12 +13,13 @@ import useGetKala from "@/app/api/searchInput/hook";
 import { useRouter } from 'next/navigation';
 import { ProductType } from "@/types/types";
 import { usePathname } from "next/navigation";
+import { searchBoxVisible } from "@/shared/isSearchBoxVisible";
 
 const SearchInput = () => {
   const [apiUsers, setApiUsers] = useState<any>({});
   const [searchItem, setSearchItem] = useAtom(inputValue);
   const [filteredUsers, setFilteredUsers] = useState<any>({});
-  const [isBoxVisible, setIsBoxVisible] = useState<boolean>(false);
+  const [isBoxVisible, setIsBoxVisible] = useAtom(searchBoxVisible);
   const [state] = useAtom(selectedStore)
   const router = useRouter();
   const [wasNavigatedBack, setWasNavigatedBack] = useState(false);
@@ -88,20 +89,19 @@ const SearchInput = () => {
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {
-    if (pathname.includes('/productDetails')) {
-      setIsBoxVisible(false);
-      return;
-    }
-
     if (deferredSearchTerm && pathname != '/search') {
       const filteredItems = apiUsers
       setFilteredUsers(filteredItems);
-      setIsBoxVisible(searchItem.length > 0);
     } else {
       setFilteredUsers({});
-      setIsBoxVisible(false);
     }
   }, [deferredSearchTerm, apiUsers]);
+
+  useEffect(()=>{
+    if (searchItem.length > 2 && pathname != '/search') {
+      setIsBoxVisible(true)
+    }
+  },[searchItem])
 
   return (
     <>
@@ -112,6 +112,7 @@ const SearchInput = () => {
           fullWidth
           value={searchItem}
           onChange={handleInputChange}
+          disabled={pathname == '/search'}
           className="boxshadowHead rounded-md"
           InputProps={{
             startAdornment: (
@@ -169,7 +170,7 @@ const SearchInput = () => {
               </div>
 
               <div className="w-full h-[51%] lg:h-[90%] overflow-y-scroll flex">
-                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible}/>
+                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem}/>
               </div>
             </div>
           </div>
