@@ -24,9 +24,9 @@ const Search = () => {
   const [mounted,setMounted] = useState(false)
   const [foundProducts,setFoundProducts] = useState<any>(null)
   //handle search
-  const [apiUsers, setApiUsers] = useState([]);
+  const [apiUsers, setApiUsers] = useState<any>({});
   const [searchItem, setSearchItem] = useAtom(inputValue);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState<any>({});
   const SearchLocalProduct = useSearchLocalProducts();
   const [products, setProducts] = useAtom(productInSearchUpdate);
   const [state] = useAtom(selectedStore);
@@ -54,7 +54,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
     //   return; // If condition is met, skip the API call
     // }
     if (deferredSearchTerm.trim().length < 2) {
-      setApiUsers([]);
+      setApiUsers({});
       return;
     }
     const debounceTimeout = setTimeout(async () => {
@@ -73,7 +73,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
     
       try {
         const result = await fetchProducts(payload);
-        setApiUsers(result?.data?.Data?.lst || []);
+        setApiUsers(result?.data?.Data || {});
          // ✅ use the actual response directly
       } catch (err) {
         console.error("Failed to fetch products:", err);

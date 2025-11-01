@@ -6,7 +6,7 @@ import { addLog } from "@/app/api/addlog/addlog";
 
 const useFetchProducts = () => {
 
-const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKala`
+const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaOrGroup`
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

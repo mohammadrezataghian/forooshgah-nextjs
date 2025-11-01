@@ -1,7 +1,7 @@
 'use client'
 
 import { productListUpdate } from "@/shared/product.list.atom";
-import { IconButton } from "@mui/material";
+import { Divider, IconButton } from "@mui/material";
 import { useAtom } from "jotai";
 import React, { useEffect, useState } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
@@ -14,7 +14,7 @@ import Link from "next/link";
 import { Product } from "@/types/types";
 
 type SearchedItemsProps = {
-    filteredUsers:Product[];
+    filteredUsers:any;
     searchItem:string;
     loadingApiUsers:boolean
 }
@@ -65,7 +65,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   }, [searchItem]);
 
   useEffect(() => {
-    if (filteredUsers && filteredUsers.length > 0) {
+    if (filteredUsers && (filteredUsers?.Items?.lst?.length > 0 || filteredUsers?.Groups?.lst?.length > 0)) {
       setLoading(false);
     } else if (hasSearched) {
       setLoading(false);
@@ -76,16 +76,37 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   return (
     <>
     <div className="w-full h-auto flex flex-col mt-2 justify-center items-center mb-24">
-      {searchItem.length < 2 && filteredUsers && filteredUsers.length === 0 && !hasSearched && !loadingApiUsers && (
+      {searchItem.length < 2 && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && !hasSearched && !loadingApiUsers && (
         <p className="mt-10">محصولی یافت نشد</p>
       )}
       {(loading || loadingApiUsers)  && <SearchLoading />}
-      {!loading && !loadingApiUsers && hasSearched && filteredUsers && filteredUsers.length === 0 && (
+      {!loading && !loadingApiUsers && hasSearched && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && (
         <p className="mt-10">محصولی یافت نشد</p>
       )}
-      {!loading && !loadingApiUsers && filteredUsers && filteredUsers.length > 0 && (
+      {!loading && !loadingApiUsers && filteredUsers && (filteredUsers?.Items?.lst?.length > 0 || filteredUsers?.Groups?.lst?.length > 0) && (
+        <>
+        {filteredUsers && filteredUsers?.Groups?.lst?.length > 0 &&  
+        <div className="w-full px-2 2xl:px-64 lg:px-5 mt-10 pb-10">
+          <div className="w-full text-right mb-3"><span className="font-semibold">جستجو در دسته بندی ها :</span></div>
+          <div className="w-full flex flex-wrap gap-3">
+            {filteredUsers && filteredUsers?.Groups?.lst?.map((item:any,index:any)=>(
+              <div key={index} className="flex gap-3">
+                <div className="border p-3 rounded-lg border-gray-300 flex gap-1"><span className="text-gray-400">در دسته :</span><Link href={`/productList/${item?.Name}`} 
+                  onClick={() => {
+                  sessionStorage.removeItem('ProductListOrderParam');
+                  }
+                  }
+                  className="text-blue-400">{item?.Name}</Link></div>
+            </div>
+            ))}
+            </div>
+        </div>}
+        {filteredUsers && filteredUsers?.Items?.lst?.length > 0 && 
+        <>
+        <div className="w-full px-2 2xl:px-64 lg:px-5  pb-5"><Divider/></div>
+        <div className="w-full text-right px-2 2xl:px-64 lg:px-5 "><span className="font-semibold">جستجو در محصولات :</span></div>
         <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
-          {filteredUsers && filteredUsers.map((data:any) => {
+          {filteredUsers && filteredUsers?.Items?.lst?.map((data:any) => {
             const imageSrc = data.FldNameImageKalaList
               ? `${siteAddress}/assets/public/kala/${data.IdKala}/${
                   data.FldNameImageKalaList.split(",")[0]
@@ -161,7 +182,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
               </div>
             );
           })}
-        </div>
+        </div></>}</>
       )}
     </div>
    
