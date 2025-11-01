@@ -15,9 +15,9 @@ import { ProductType } from "@/types/types";
 import { usePathname } from "next/navigation";
 
 const SearchInput = () => {
-  const [apiUsers, setApiUsers] = useState<ProductType>([]);
+  const [apiUsers, setApiUsers] = useState<any>({});
   const [searchItem, setSearchItem] = useAtom(inputValue);
-  const [filteredUsers, setFilteredUsers] = useState<ProductType>([]);
+  const [filteredUsers, setFilteredUsers] = useState<any>({});
   const [isBoxVisible, setIsBoxVisible] = useState<boolean>(false);
   const [state] = useAtom(selectedStore)
   const router = useRouter();
@@ -66,7 +66,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (deferredSearchTerm.trim().length < 2) {
-      setApiUsers([]);
+      setApiUsers({});
       return;
     }
 
@@ -98,7 +98,7 @@ const SearchInput = () => {
       setFilteredUsers(filteredItems);
       setIsBoxVisible(searchItem.length > 0);
     } else {
-      setFilteredUsers([]);
+      setFilteredUsers({});
       setIsBoxVisible(false);
     }
   }, [deferredSearchTerm, apiUsers]);
@@ -165,7 +165,7 @@ const SearchInput = () => {
                   <ArrowBackIosIcon className="text-sm" />
                   <span>برو به صفحه ی جستجو</span>
                 </button>
-                <span className="text-xs sm:text-lg">محصولات</span>
+                <span className="text-xs sm:text-lg">جستجو</span>
               </div>
 
               <div className="w-full h-[51%] lg:h-[90%] overflow-y-scroll flex">

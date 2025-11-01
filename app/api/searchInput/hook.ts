@@ -6,7 +6,7 @@ import { addLog } from "@/app/api/addlog/addlog";
 
 const useFetchProducts = (setApiUsers:any) => {
 
-const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKala`
+const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaOrGroup`
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +21,7 @@ const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKala`
         payload,
       );
 
-      setApiUsers(res.data.Data.lst || []);
+      setApiUsers(res.data.Data || {});
       return res
     } catch (err: any) {
       setError(
