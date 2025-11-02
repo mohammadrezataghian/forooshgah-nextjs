@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { ProductType } from "@/types/types";
 import { usePathname } from "next/navigation";
 import { searchBoxVisible } from "@/shared/isSearchBoxVisible";
+import { lastSearchValue } from "@/shared/lastSearchValue";
 
 const SearchInput = () => {
   const [apiUsers, setApiUsers] = useState<any>({});
@@ -25,6 +26,7 @@ const SearchInput = () => {
   const [wasNavigatedBack, setWasNavigatedBack] = useState(false);
   const pathname = usePathname();
   const prevIndexRef = useRef(null);
+  const [lastSearch, setLastSearch] = useAtom(lastSearchValue);
   
   // handle keep box open on navigation back
   useEffect(() => {
@@ -97,23 +99,37 @@ const SearchInput = () => {
     }
   }, [deferredSearchTerm, apiUsers]);
 
-  useEffect(()=>{
-    if (searchItem.length > 2 && pathname != '/search') {
-      setIsBoxVisible(true)
+  useEffect(() => {
+    if (pathname !== "/search") {
+      if (searchItem.trim().length > 2) {
+        setIsBoxVisible(true);
+      } else {
+        setIsBoxVisible(false); // 👈 hide box when text is cleared
+      }
     }
-  },[searchItem])
+  }, [searchItem, pathname]);
 
   return (
     <>
       <div style={{ height: "100%" }} className="relative group ">
         <TextField
-          placeholder="محصول، گروه کالا یا برند مورد نظرتان را جستجو کنید "
+          placeholder={lastSearch != '' ? lastSearch : "محصول، گروه کالا یا برند مورد نظرتان را جستجو کنید "}
           variant="outlined"
           fullWidth
           value={searchItem}
           onChange={handleInputChange}
           disabled={pathname == '/search'}
           className="boxshadowHead rounded-md"
+          onFocus={() => {
+            if (
+              (pathname.includes("/productDetails") || pathname.includes("/productList")) &&
+              searchItem === "" &&
+              lastSearch.trim() !== ""
+            ) {
+              setSearchItem(lastSearch);
+              setLastSearch('')
+            }
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -170,7 +186,7 @@ const SearchInput = () => {
               </div>
 
               <div className="w-full h-[51%] lg:h-[90%] overflow-y-scroll flex">
-                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem}/>
+                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem} setLastSearch={setLastSearch}/>
               </div>
             </div>
           </div>

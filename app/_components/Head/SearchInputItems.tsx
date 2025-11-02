@@ -16,9 +16,10 @@ type props = {
   searchItem: string;
   setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
   setSearchItem:React.Dispatch<React.SetStateAction<string>>;
+  setLastSearch:React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem }:props) => {
+const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem,setLastSearch }:props) => {
   const [products, setProducts] = useAtom(productListUpdate);
 
   // handle openning snackbar
@@ -81,6 +82,9 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                    setIsBoxVisible(false);
                    setSearchItem('')
                    sessionStorage.removeItem('ProductListOrderParam');
+                   if (searchItem.trim()) {
+                    setLastSearch(searchItem);
+                  }
                   }
                   }
                   className="text-blue-400">{item?.Name}</Link><span className="text-gray-400">: در دسته</span></div>
@@ -148,7 +152,11 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                       href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                       onClick={() => {
                         setSearchItem('')
-                        setIsBoxVisible(false)}
+                        setIsBoxVisible(false)
+                        if (searchItem.trim()) {
+                          setLastSearch(searchItem);
+                        }
+                      }  
                       }
                       className="flex justify-center overflow-hidden h-max p-1"
                     >
@@ -161,7 +169,11 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                         href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                         onClick={() => {
                           setSearchItem('')
-                          setIsBoxVisible(false)}
+                          setIsBoxVisible(false)
+                          if (searchItem.trim()) {
+                            setLastSearch(searchItem);
+                          }
+                        }
                         }
                       >
                         <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right">
