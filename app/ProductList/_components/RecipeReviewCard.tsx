@@ -15,10 +15,17 @@ const RecipeReviewCard = () => {
   const { loading, error, response,getMenu } = useGetMenu()
 // get data
 const [menuData, setMenuData] = useState<MenuDataResponse | null>(null);
+const [mounted, setMounted] = useState(false);
+
+useEffect(()=>{
+  setMounted(true)
+},[])
 
 useEffect(() => {
-  if(Cookies.get('MenuData')){
-    const data = JSON.parse(Cookies.get('MenuData') || '');
+  if (!mounted) return
+
+  if(!!sessionStorage.getItem("MenuData")){
+    const data = JSON.parse(sessionStorage.getItem("MenuData") || '');
     setMenuData(data);
   }else{
     const fetchData = async () => {
@@ -32,7 +39,7 @@ useEffect(() => {
 
     fetchData();
   }
-}, []);
+}, [mounted]);
 
 const firstData = menuData?.Data || [] ;
 const Data = firstData.length > 0 ? firstData[0].children : [];

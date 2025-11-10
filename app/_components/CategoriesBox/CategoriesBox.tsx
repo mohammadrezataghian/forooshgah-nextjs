@@ -15,7 +15,7 @@ const [mounted,setMounted] = useState(false)
 const [menuData, setMenuData] = useState<MenuResponse | null>(null);
 
 React.useEffect(()=>{
-  const menuStorage = Cookies.get('MenuData') || null
+  const menuStorage = sessionStorage.getItem("MenuData") || null
   setRawMenu(menuStorage)
   setMounted(true)
 },[])
