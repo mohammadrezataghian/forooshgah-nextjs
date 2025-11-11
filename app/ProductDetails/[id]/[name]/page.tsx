@@ -1,287 +1,62 @@
-'use client'
+import { Metadata } from "next";
+import ProductDetails from "../../_components/ProductDetails";
+import axios from "axios";
 
-import React, { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
-import DetailsPictures from "../../_components/DetailsPictures";
-import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
-import DetailsTabs from "../../_components/DetailsTabs";
-import useGetProductDetails from "@/app/api/getKalaDetails/hook";
-import LoadingSkeleton from "./loading";
-import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
-import { usePathname } from "next/navigation";
-import CustomizedDividers from "../../_components/ColorButtons";
-import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
-import { Divider } from "@mui/material";
-import { FaPlus,FaRegTrashAlt,FaMinus } from "react-icons/fa";
-import { Product } from "@/types/types";
-import useGetComments from "@/app/api/getComments/hook";
-import Comments from "../../_components/Comments/Comments";
+export async function generateMetadata({ params, }: { params: Promise<{ id: string; name: string }> }): Promise<Metadata> {
 
-const ProductDetails = () => {
-  const [products, setProducts] = useAtom(productListUpdate);
-  const [buttonText, setButtonText] = useState("افزودن به سبد خرید");
-  const [isAdded, setIsAdded] = useState(false);
-  const [itemCount, setItemCount] = useState<number>(0);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [selectedHexColor, setSelectedHexColor] = useState('');
-  const [priceAfterSelection, setPriceAfterSelection] = useState(0);
-  const [mojodiAfterSelection,setMojodiAfterSelection] = useState(0);
-  const [selectedItem,setSelectedItem] = useState<Product | null>(null)
-  const [codeKalaAfterSelection,setCodeKalaAfterSelection] = useState('')
+  const { id, name } = await params;
 
-  // handle openning snackbar
-  const [opensnackbar, setOpensnackbar] = useState(false);
-  // end handle openning snackbar
-
-  // scroll to top
-useEffect(()=>{
-  function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
-  topFunction()
-},[])
-// end scroll to top
-
-  //find id
-  const location = usePathname()
-  const length = location.split("/").length;
-  const id = location.split("/")[length - 2];
-  // end find id
-
-  // handle comma
-  const autocomma = (number_input:number) => {
-    return new Intl.NumberFormat("en-US").format(number_input);
-  };
-  //handle comma
-
-  // handle getting data
-    const params = {
-      IdStoreStock: id,
+  if (!params) {
+    return {
+      title: `محصول یافت نشد | فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی` ,
+      description: "مشخصات محصول یافت نشد.",
     };
-    const { data, loading, error } = useGetProductDetails(params,id);
-  // end handle getting data
-
-  // add to cart
-  const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
-  // end add to cart
-
-   // remove from cart
-   const { removeProduct } = useRemoveProduct(setProducts);
-   // end remove from cart
-
-   useEffect(() => {
-    const productInCart = products.find(
-      (item) => item.IdStoreStock === data?.IdStoreStock && item.NameColor === data?.NameColor
-    );
-    const count = productInCart?.count ?? 0;
-
-    setIsAdded(!!productInCart);
-    setItemCount(count);
-    setButtonText(
-      count > 0 ? `به سبد خرید اضافه شد (${count})` : "افزودن به سبد خرید"
-    );
-  }, [products, data]);
-
-  useEffect(() => {
-    if (!selectedItem) return;
-  
-    const productInCart = products.find(
-      (item) =>
-        item.IdStoreStock === String(selectedItem.IdStoreStock) &&
-        item.NameColor === selectedItem.ColorName
-    );
-  
-    const count = productInCart?.count ?? 0;
-  
-    setIsAdded(!!productInCart);
-    setItemCount(count);
-    setButtonText(
-      count > 0 ? `به سبد خرید اضافه شد (${count})` : "افزودن به سبد خرید"
-    );
-  }, [selectedItem, products]);
-
- // handle name color
- useEffect(()=>{
-  if (data){
-    setSelectedColor(data.NameColor)
-    setSelectedHexColor(data.ColorHexCode)
-    setPriceAfterSelection(data.PriceForooshAfterDiscount)
-    setMojodiAfterSelection(data.Mojodi)
-    setCodeKalaAfterSelection(data.BarCodeKala)
   }
-},[data])
-// end handle name color
 
-// handle add selected item
-const handleAddProduct = (data:any) => {
-  if (selectedItem) {
-    const editedData = {
-      ...data,
-      BarCodeKala: selectedItem.BarCodeKala,
-      CodeKala: selectedItem.CodeKala,
-      NameColor: selectedItem.ColorName,
-      ColorHexCode: selectedItem.HexaColor,
-      IdKala: selectedItem.IdKala,
-      NameKala: selectedItem.NameKala,
-      PriceForooshAfterDiscount: selectedItem.PriceForoosh,
-      IdStoreStock: String(selectedItem.IdStoreStock),
-    };
-    addProduct(editedData);
-  } else {
-    addProduct(data);
-  }
-};
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaDetails`,
+      { IdStoreStock: id },
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-const handleRemoveProduct = (data:any) => {
-  if (selectedItem) {
-    const editedData = {
-      ...data,
-      BarCodeKala: selectedItem.BarCodeKala,
-      CodeKala: selectedItem.CodeKala,
-      NameColor: selectedItem.ColorName,
-      ColorHexCode: selectedItem.HexaColor,
-      IdKala: selectedItem.IdKala,
-      NameKala: selectedItem.NameKala,
-      PriceForooshAfterDiscount: selectedItem.PriceForoosh,
-      IdStoreStock: String(selectedItem.IdStoreStock),
-    };
-    removeProduct(editedData);
-  } else {
-    removeProduct(data);
-  }
-};
-// end handle add selected item
+    const data = res?.data?.Data?.details;
 
-// comments
-const param = {
-  "FldIdKala": data?.IdKala,
-};
-const { comments, commentsLoading, commentsError,getDetailsComments } = useGetComments();
-useEffect(()=>{
-  if (data && data?.IdKala){
-    getDetailsComments(param)
-  }
-},[data])
-
-// end comments
-
-  return (
-    <>
-    {data &&
-    <>
-        <title>{data.NameKala}</title>
-        <meta name="description" content="نام محصول" />
-    </>
+    if (!data) {
+      return {
+        title: `محصول یافت نشد | فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی` ,
+        description: "مشخصات محصول یافت نشد.",
+      };
     }
-      {loading || !data ? <LoadingSkeleton/> : (
-        <>
-        <div id="top" className="w-full h-auto bg-white flex xl:flex-row flex-wrap flex-col-reverse 2xl:px-64 pt-3 xl:pt-0">
-          {/* product details */}
-          <div className=" w-full xl:w-1/2 h-auto p-10">
-            {/* {`id : ${id}`} */}
-            <h1 className="text-xl bg-gray-200 p-5 font-bold mb-10 rounded-sm">
-              {data.NameKala}
-            </h1>
-            <p className="mb-3 font-bold text-xl">
-              قیمت : <span key={priceAfterSelection} className="text-[#3f4064] animate-price-change p-2 rounded-lg">{autocomma(priceAfterSelection)}</span>{" "}
-              ریال
-            </p>
-            <p className="mb-2 font-bold">موجودی : <span key={mojodiAfterSelection} className="text-[#3f4064] animate-price-change p-1 rounded-lg">{mojodiAfterSelection} {data.NameUnit}</span> </p>
-            <p className="mb-2 font-bold">
-              کد کالا : <span key={codeKalaAfterSelection} className="text-[#3f4064] animate-price-change p-1 rounded-lg">{codeKalaAfterSelection}</span>
-            </p>
-            <p className="mb-2 font-bold">
-              برند : <span className="text-[#3f4064]">{data.NameMark}</span>
-            </p>
-            <p className="mb-3 font-bold">
-              نوع : <span className="text-[#3f4064]">{data.NameGroup}</span>
-            </p>
-            <p className="mb-3 font-bold">
-              مشخصات فنی : <span className="line-clamp-3 text-[#3f4064]"></span>
-            </p>
-            <p className="mb-3 font-bold">
-              نام فروشگاه : <span className="text-[#3f4064]">{data.NameForooshgah}</span>
-            </p>
-            <div className="mb-3 font-bold flex gap-1"><span>رنگ :</span> <span className="text-[#3f4064]">{selectedColor}</span> <span className="w-3 h-3 rounded-full self-center" style={{backgroundColor:selectedHexColor}}></span></div>
-            {data && data?.SimilarProducts && data?.SimilarProducts?.length > 0 && (
-              <div className="w-full">
-                <div>
-                  <CustomizedDividers SimilarProducts={data?.SimilarProducts} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedHexColor={setSelectedHexColor} setPriceAfterSelection={setPriceAfterSelection} setSelectedItem={setSelectedItem} setMojodiAfterSelection={setMojodiAfterSelection} setCodeKalaAfterSelection={setCodeKalaAfterSelection}/>
-                </div>
-              </div>
-            )
-            }
-            {data.Mojodi > 0 ? (
-              <div>
-                {isAdded ?
-                <div className="flex justify-end"> 
-                  <div className="w-fit flex gap-5 shadow p-2 items-center bg-gray-200 rounded-md">
-                    <button className="cursor-pointer" onClick={() => {handleAddProduct(data)}}>
-                      <FaPlus className="text-2xl text-green-500"/>
-                    </button>
-                    <span className="text-2xl">{itemCount}</span>
-                    <button className="cursor-pointer" onClick={() => {handleRemoveProduct(data)}}>{itemCount < 2 ? <FaRegTrashAlt className="text-red-500 text-2xl"/> : <FaMinus className="text-2xl text-red-500"/>}</button>
-                  </div>
-                </div>
-                : 
-                <div className="flex justify-end w-full">
-                <button
-                  type="button"
-                  className=' text-white p-3 rounded-md bg-blue-500 cursor-pointer'
-                  onClick={() => {
-                    handleAddProduct(data);
-                  }}
-                >
-                  {buttonText}
-                </button>
-                </div>
-                }
-              </div>
-            ) : (
-              <p>
-                <span className="bg-red-500 rounded-md py-2 px-4 text-white">
-                  ناموجود
-                </span>
-              </p>
-            )}
-          </div>
-          {/* product details */}
-          {/* product image */}
-          <div className="w-full xl:w-1/2 h-auto  flex xl:p-10 pb-2 justify-center">
-            <div className=" xs:w-[350px] xs:h-auto borderproductdetails overflow-hidden rastchin">
-              <DetailsPictures
-                imagee={data.FldNameImageKalaList}
-                name={data.NameKala}
-                IdKala={data.IdKala}
-              />
-            </div>
-          </div>
-          {/* product image */}
-        </div>
-        {/* tabs */}
-        <div className="w-full h-auto mb-24 bg-white 2xl:px-64">
-          <DetailsTabs data={data}/>
-        </div>
-        {/* end tabs */}
-        {data &&
-        <>
-        <div className="2xl:px-64">
-          <Divider />
-        </div>
-        {/* comments  */}
-        <div className="w-full h-auto pb-24 bg-white px-3 md:px-10 2xl:px-64 pt-5">
-          <Comments comments = {comments} nameKala={data?.NameKala} IdKala={data?.IdKala}/>
-        </div>
-        </>
-        }
-        {/* end comments */}
-        </>
-      )}
-      <MessageSnackbar snackbarOpen={opensnackbar} autoHideDuration={3000} snackbarMessage={"محصولات انتخابی باید فقط از یک فروشگاه باشند"} setSnackbarOpen={setOpensnackbar}/>
-    </>
-  );
-};
 
-export default ProductDetails;
+    return {
+      metadataBase: new URL("https://imbmi.ir"),
+      title: `${data.NameKala} | فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی`,
+      description: data.ShortDescription || `${data.NameKala} را با بهترین قیمت از فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی خرید کنید`,
+      openGraph: {
+        title: `${data.NameKala} | فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی`,
+        description: data.ShortDescription || `مشخصات، قیمت و تصاویر ${data.NameKala}.`,
+        images: data.FldNameImageKalaList
+        ? data.FldNameImageKalaList.split(",").map((img: string) => ({ url: `/assets/public/kala/${id}/${img.trim()}` }))
+        : [{ url: "/default-og-image.jpg" }],
+        type: "website",
+        locale: "fa_IR",
+        siteName: "فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی",
+      },
+      alternates: {
+        canonical: `https://imbmi.ir/productDetails/${id}/${name}`,
+      },
+    };
+  } catch (err) {
+    console.error("Failed to fetch product details:", err);
+    return {
+      title: "خطا در بارگذاری محصول | فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی",
+      description: "مشکلی در بارگذاری اطلاعات محصول پیش آمد.",
+    };
+  }
+}
+
+// The page component itself (client-side rendering)
+export default function ProductPage() {
+  return <ProductDetails />;
+}
