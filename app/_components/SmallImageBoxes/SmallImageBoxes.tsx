@@ -73,7 +73,7 @@ useEffect(()=>{
           </Link>
         </div>
         <div className="w-full h-full px-6">
-          <Link href={IsloggedIn ? "/staff/Dashboard" : "/staff/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={IsloggedIn ? "/staff/dashboard" : "/staff/login"} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image5}
@@ -101,7 +101,7 @@ useEffect(()=>{
           </Link>
         </div>
         <div className="w-full h-full px-6 col-span-2 lg:col-span-1">
-          <Link href={(!!Cookies.get("supplierUser")) ? "/suppliers/Dashboard" : "/suppliers/Login"} className="block gap-y-2 text-[#323232] font-bold h-full">
+          <Link href={(!!Cookies.get("supplierUser")) ? "/suppliers/dashboard" : "/suppliers/login"} className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">
               <Image
                 src={Image8}
