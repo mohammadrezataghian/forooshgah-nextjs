@@ -220,7 +220,7 @@ const enamadCode= `<img
 
                 {/* rashen rights */}
                 <div className="w-full h-auto flex justify-center">
-                  <p>
+                  <p className="text-center">
                     <a href="https://rashensystem.com/" className="text-[#B00937]">www.rashensystem.com</a>{" "}
                     - Copyright © 2025 - All rights reserved.
                   </p>
