@@ -195,14 +195,14 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
     <>
       <title>جستجوی محصولات</title>
       <meta name="description" content="جستجوی محصولات" />  
-      <div className="w-full h-auto md:flex-row justify-between items-center flex flex-col border-b border-gray-500 gap-3 py-5">
+      <div className="w-full h-auto md:flex-row justify-between items-center flex flex-col gap-3 py-5">
         <div className="flex items-center gap-1 px-3">
         <input
           type="text"
           value={searchItem}
           onChange={handleInputChange}
           placeholder="محصول، گروه کالا یا برند مورد نظرتان را اینجا جستجو کنید"
-          className="w-[370px] h-8 border pr-2 border-red-500 rounded-sm placeholder:text-sm"
+          className="w-[360px] h-8 border pr-2 border-red-500 rounded-sm placeholder:text-sm"
         />
         </div>
         <div>

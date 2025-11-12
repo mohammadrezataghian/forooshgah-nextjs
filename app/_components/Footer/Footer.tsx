@@ -42,7 +42,7 @@ const enamadCode= `<img
     <>
       <footer
         role="footer"
-        className="pb-20 lg:mb-0 lg:pb-5 mt-20 bg-white"
+        className="pb-20 lg:mb-0 lg:pb-5 mt-20 bg-white boxshadowHead"
       >
         <section className=" text-black text-lg pt-5 pb-7 block px-2.5 overflow-hidden mx-auto ">
           <div className="max-w-[1360px] w-full px-2.5 mx-auto">

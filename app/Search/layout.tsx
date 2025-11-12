@@ -16,7 +16,7 @@ const layout = ({
             <Menu/>
         </div>
         <MobileMenu />
-            <main className='bg-[#F4F4F4]'>{children}</main>
+            <main>{children}</main>
         <Footer/>
     </>
   )
