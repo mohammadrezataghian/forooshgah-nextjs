@@ -202,7 +202,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
           value={searchItem}
           onChange={handleInputChange}
           placeholder="محصول، گروه کالا یا برند مورد نظرتان را اینجا جستجو کنید"
-          className="w-[360px] h-8 border pr-2 border-red-500 rounded-sm placeholder:text-sm"
+          className="w-[350px] h-8 border pr-1 border-red-500 rounded-sm placeholder:text-sm"
         />
         </div>
         <div>

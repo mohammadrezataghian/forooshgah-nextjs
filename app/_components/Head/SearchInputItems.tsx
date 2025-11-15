@@ -74,22 +74,27 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
           <>
           {filteredUsers && filteredUsers?.Groups?.lst?.length > 0 && 
           <div className="flex flex-wrap w-full h-auto px-2 gap-5">
-            <div className="w-full text-right"><span className="font-semibold"> : جستجو در دسته بندی ها</span></div>
-            {filteredUsers?.Groups?.lst?.map((item:any,index:any)=>(
-              <div key={index} className="flex flex-col items-end w-full gap-3">
-                <div className="border p-3 rounded-lg border-gray-300 flex justify-end"><Link href={`/productList/${item?.Name}`} 
-                  onClick={() => {
-                   setIsBoxVisible(false);
-                   setSearchItem('')
-                   sessionStorage.removeItem('ProductListOrderParam');
-                   if (searchItem.trim()) {
-                    setLastSearch(searchItem);
-                  }
-                  }
-                  }
-                  className="text-blue-400">{item?.Name}</Link><span className="text-gray-400">: در دسته</span></div>
-              </div>
-            ))}
+            <div className="w-full text-right">
+              <span className="font-semibold"> : جستجو در دسته بندی ها</span>
+            </div>
+            <div className="flex w-full gap-3 flex-wrap justify-end">
+              {filteredUsers?.Groups?.lst?.map((item:any,index:any)=>(
+                  <div key={index} className="border p-3 rounded-lg border-gray-300 flex justify-end">
+                    <Link href={`/productList/${item?.Name}`} 
+                    onClick={() => {
+                    setIsBoxVisible(false);
+                    setSearchItem('')
+                    sessionStorage.removeItem('ProductListOrderParam');
+                    if (searchItem.trim()) {
+                      setLastSearch(searchItem);
+                    }
+                    }
+                    }
+                    className="text-blue-400">{item?.Name}</Link>
+                    <span className="text-gray-400">: گروه</span>
+                  </div>
+              ))}
+            </div>
           </div>
           }
           {filteredUsers && filteredUsers?.Items?.lst?.length > 0 &&
@@ -97,8 +102,8 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
           <div className="w-full my-5">
           <Divider/>  
           </div>
-          <div className="flex flex-wrap w-full h-auto px-2 gap-5">
-             <div className="w-full text-right"><span className="font-semibold"> : جستجو در محصولات</span></div>
+          <div className="w-full text-right mb-5 px-2"><span className="font-semibold"> : جستجو در محصولات</span></div>
+          <div className="grid grid-cols-3 px-2 gap-5">
             {filteredUsers && filteredUsers?.Items?.lst && filteredUsers?.Items?.lst?.length > 0 && filteredUsers?.Items?.lst?.map((data:any) => {
               const imageSrc = data.FldNameImageKalaList
                 ? `https://imbmi.ir/assets/public/kala/${data.IdKala}/${
@@ -108,63 +113,22 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
               return (
                 <div
                   key={data.IdStoreStock}
-                  className="relative flex flex-col-reverse pt-8 lg:flex-row lg:justify-between lg:px-14 items-center border-2 border-solid border-blue-700 w-full rounded-lg"
+                  className="relative pt-6 border-2 border-solid border-blue-700 w-full rounded-lg"
                 >
-                  {data.Mojodi > 0 ?  
-                  <div className="flex mb-1 justify-between w-5/6 lg:justify-normal lg:items-center gap-3">
-                    {/* <Button
-                    variant="outlined"
-                    color="success"
-                      className="text-3xl w-0.5 h-10"
-                      onClick={() => addProduct(data)}
-                    >
-                      +
-                    </Button>
-                    <p className="mx-2">
-                      {products?.find(
-                        (item:any) => item?.IdStoreStock === data.IdStoreStock
-                      )?.count || 0}
-                    </p>
-                    <Button
-                    variant="outlined"
-                    color="success"
-                      className="text-3xl w-0.5 h-10"
-                      onClick={() => removeProduct(data)}
-                    >
-                      -
-                    </Button> */}
-                  </div>
-                  :
-                  <p>
-                <span className="bg-red-500 rounded-md py-2 px-4 text-white">
-                  ناموجود
-                </span>
-              </p> 
+                  {data.Mojodi == 0 &&  
+                      <span className="bg-red-500 rounded-md py-1 px-3 text-white absolute left-1 top-1 text-xs">
+                        ناموجود
+                      </span>
                   }
-                  <div className="flex">
-                    {/* Discount Badge */}
-                    {data.Takhfif !== 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold py-1 px-2 rounded">
-                      -{data.Takhfif}%
-                    </div>}
-                    
-                    {/* Product Image */}
-                    <Link
-                      href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                      onClick={() => {
-                        setSearchItem('')
-                        setIsBoxVisible(false)
-                        if (searchItem.trim()) {
-                          setLastSearch(searchItem);
-                        }
-                      }  
-                      }
-                      className="flex justify-center overflow-hidden h-max p-1"
-                    >
-                      <img src={imageSrc} alt={data.NameKala} className="w-20 h-20 object-fill rounded-lg" />
-                    </Link>
-
+                  {/* Discount Badge */}
+                  {data.Takhfif !== 0 && 
+                    <div className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold py-1 px-2 rounded">
+                      {data.Takhfif}%
+                    </div>
+                  }
+                  <div className="flex justify-end w-full pt-2 pb-4">
                     {/* Product Info */}
-                    <div className="p-4">
+                    <div className="pl-1 pr-1 pt-1 ">
                       <Link
                         href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                         onClick={() => {
@@ -176,25 +140,40 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                         }
                         }
                       >
-                        <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right">
+                        <h3 className="md:text-lg !text-base font-semibold text-gray-800 hover:text-blue-500 transition text-right line-clamp-2">
                           {data.NameKala}
                         </h3>
-                        <h3 className="md:text-lg text-sm text-gray-500 hover:text-blue-500 transition pt-1 text-right">
+                        <h3 className="md:text-lg !text-sm text-gray-500 hover:text-blue-500 transition pt-1 text-right">
                           {data.NameForooshgah}
                         </h3>
                       </Link>
                       <div className="mt-2 flex justify-end gap-3 items-baseline space-x-2">
                         {data.PriceForoosh !==
                           data.PriceForooshAfterDiscount && (
-                          <span className="text-sm line-through text-gray-500">
+                          <span className="!text-sm line-through text-gray-500">
                             {autocomma(data.PriceForoosh)}
                           </span>
                         )}
-                        <div className="text-xl font-bold text-green-600 flex gap-1">
+                        <div className="!text-base font-bold text-green-600 flex gap-1">
                         <span>ریال</span><span>{autocomma(data.PriceForooshAfterDiscount)}</span>
                         </div>
                       </div>
                     </div>
+                    {/* Product Image */}
+                    <Link
+                      href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
+                      onClick={() => {
+                        setSearchItem('')
+                        setIsBoxVisible(false)
+                        if (searchItem.trim()) {
+                          setLastSearch(searchItem);
+                        }
+                      }  
+                      }
+                      className="flex justify-center overflow-hidden h-max p-1 shrink-0"
+                    >
+                      <img src={imageSrc} alt={data.NameKala} className="xl:w-24 xl:h-24 lg:w-20 lg:h-20 object-fill rounded-lg" />
+                    </Link>
                   </div>
                 </div>
               );

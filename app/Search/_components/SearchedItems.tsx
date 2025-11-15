@@ -105,7 +105,7 @@ const [opensnackbar, setOpensnackbar] = useState(false);
         <>
         <div className="w-full px-2 2xl:px-64 lg:px-5  pb-5"><Divider/></div>
         <div className="w-full text-right px-2 2xl:px-64 lg:px-5 "><span className="font-semibold">جستجو در محصولات :</span></div>
-        <div className="grid w-full h-full grid-cols-1 md:grid-cols-2 px-2 lg:grid-cols-3 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
+        <div className="grid w-full h-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 lg:grid-cols-4 2xl:px-64 lg:px-5 gap-5 mt-10 pb-10">
           {filteredUsers && filteredUsers?.Items?.lst?.map((data:any) => {
             const imageSrc = data.FldNameImageKalaList
               ? `${siteAddress}/assets/public/kala/${data.IdKala}/${
@@ -120,12 +120,12 @@ const [opensnackbar, setOpensnackbar] = useState(false);
               >
                 <Link
                   href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
-                  className="flex justify-center overflow-hidden h-48"
+                  className="flex justify-center overflow-hidden h-40"
                 >
                   <img
                     src={imageSrc}
                     alt={data.NameKala}
-                    className="w-48 h-48 object-cover transition-transform duration-300 group-hover:scale-110 pt-1"
+                    className="w-36 h-36 object-cover transition-transform duration-300 group-hover:scale-110 pt-1"
                   />
                 </Link>
 
@@ -134,15 +134,15 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                   -{data.Takhfif}%
                 </div>}
                   <Link href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
-                    <h3 className="md:text-lg text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start">
+                    <h3 className="md:text-base text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start line-clamp-2">
                       {data.NameKala}
                     </h3>
-                    <h3 className="md:text-lg text-sm text-gray-500 hover:text-blue-500 transition text-start pt-1">
+                    <h3 className="md:text-base text-sm text-gray-500 hover:text-blue-500 transition text-start pt-1">
                       {data.NameForooshgah}
                     </h3>
                   </Link>
                   <div className="mt-2 flex gap-3 items-baseline space-x-2">
-                    <span className="text-xl font-bold text-green-600">
+                    <span className="text-lg font-bold text-green-600">
                       {autocomma(data.PriceForooshAfterDiscount)}&nbsp;ریال
                     </span>
                     {data.PriceForoosh !== data.PriceForooshAfterDiscount && (
@@ -152,32 +152,8 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                     )}
                   </div>
                 </div>
-                {data.Mojodi > 0 ?
-                <div className="flex gap-2 justify-between p-1">
-                  {/* <IconButton
-                    color="primary"
-                    className="border-4 border-solid border-blue-400"
-                    onClick={() => addProduct(data)}
-                  >
-                    <MdAdd />
-                  </IconButton>
-                  {
-                    products?.find(
-                      (item) => item?.IdStoreStock === data.IdStoreStock
-                    )?.count
-                  }
-                  <IconButton
-                    color="primary"
-                    className="border-4 border-solid border-blue-400"
-                    onClick={() => removeProduct(data)}
-                  >
-                    <MdRemove />
-                  </IconButton> */}
-                </div>
-                : 
-                <div className="flex p-1 px-4 pb-3">
-                  <span className="bg-red-500 rounded-md text-white px-3 py-1">ناموجود</span>
-                </div>
+                {data.Mojodi == 0 && 
+                  <span className="bg-red-500 rounded-md text-white px-1 py-1 absolute top-2 left-2 text-xs">ناموجود</span>
                 }
               </div>
             );
