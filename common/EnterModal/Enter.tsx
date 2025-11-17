@@ -10,6 +10,8 @@ import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import * as z from 'zod';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
+import dynamic from "next/dynamic";
+const MobileDialog = dynamic(() => import("./MobileNumberCondition"), {ssr: false,});
 
 // zod schema for validation
 const schema = z.object({
@@ -36,6 +38,11 @@ const Enter = ({ handleClose,setOpenUserPassDialog }:EnterProps) => {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [IsloggedIn, setIsloggedIn] = useAtom(IsUserloggedIn);
   const [mobileError, setMobileError] = useState("");
+  const [MobileDialogOpen, setMobileDialogOpen] = useState(false);
+
+  const handleMobileDialogClose = () => {
+    setMobileDialogOpen(false);
+  };
 
   useEffect(() => {
     if (showOTP && timer > 0) {
@@ -86,7 +93,9 @@ const { error, getCheckLogin,loading,checkLogin } = useGetCheckLogin()
         setShowOtp(true);
         setTimer(120);
         setCanResend(false);
-      } else {
+      } else if (res?.data.resCode == -2){
+        setMobileDialogOpen(true)
+      }else{
         showSnackbar(res?.data.resMessage);
       }
     } catch (err) {
@@ -233,6 +242,7 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
       </div>
 
       <MessageSnackbar snackbarOpen={snackbarOpen} autoHideDuration={1500} snackbarMessage={snackbarMessage} setSnackbarOpen={setSnackbarOpen}/>
+      <MobileDialog handleMobileDialogClose={handleMobileDialogClose} MobileDialogOpen={MobileDialogOpen}/>
     </>
   );
 };

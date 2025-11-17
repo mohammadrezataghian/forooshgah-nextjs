@@ -15,7 +15,7 @@ const GetGhestDoc = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/GetGhestDoc`
   const getINP = async () => {
     setLoadingInp(true);
     setErrorInp(null);
-
+    if (!userToken) return
     try {
       const res = await axios.post(
         GetGhestDoc,

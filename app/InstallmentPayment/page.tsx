@@ -40,7 +40,7 @@ const InstallmentPayment = () => {
   
   useEffect(()=>{
     const userTokenn = localStorage.getItem("userToken")
-    if(userToken){
+    if(userTokenn){
       setUserToken(userTokenn)
     }
   },[mounted])
@@ -50,10 +50,12 @@ const InstallmentPayment = () => {
   const { result, loading, error,getAddFactor } = useGetAddFactor();
   
   useEffect(()=>{
-    const data = localStorage.getItem("userFactor");
-    const factorInfo = data ? JSON.parse(data) : null;
-    getAddFactor(factorInfo,userToken);
-  },[])
+    if (userToken) {
+      const data = localStorage.getItem("userFactor");
+      const factorInfo = data ? JSON.parse(data) : null;
+      getAddFactor(factorInfo,userToken);  
+    }
+  },[userToken])
   // console.log(result);
   
   // end make factor

@@ -15,7 +15,7 @@ const AddFactor = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/AddFactor`
   const getAddFactor = async (factorInfo:any,tokenInput:any) => {
     setLoading(true);
     setError(null);
-
+    if(!tokenInput) return
     try {
       const res = await axios.post(
         AddFactor,
