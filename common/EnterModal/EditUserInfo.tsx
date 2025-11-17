@@ -1,11 +1,13 @@
 'use client'
 
 import { Button } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as z from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useNewTicket from '@/app/api/newTicket/hook';
+import dynamic from "next/dynamic";
+const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), {ssr: false,});
 
 // zod schema
 const schema = z.object({
@@ -39,10 +41,16 @@ const schema = z.object({
 });
 // end zod echema
 
-const EditUserInfo = () => {
+type EditUserInfoProps ={
+  handleClose:()=>void;
+}
+
+const EditUserInfo = ({handleClose}:EditUserInfoProps) => {
 
 const [files, setFiles] = React.useState<File[]>([]);
 const [fileBase64List, setFileBase64List] = React.useState<string[]>([]);
+const [responseSuccessful,setResponseSuccessful] = useState(false)
+const [opensnackbar, setOpensnackbar] = useState(false);
 
 //resolver
 const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -100,9 +108,29 @@ const fileToBase64 = (file:File): Promise<string> => {
     }
     getNewTicket(params)
   };
+
+      useEffect(()=>{
+        if (response && response?.data?.resCode == 1) {
+          setResponseSuccessful(true)
+        }else if (response && response?.data?.resCode != 1) {
+          setOpensnackbar(true);
+        }
+      },[response])
       
   return (
     <>
+    {(responseSuccessful && response && response?.data?.resCode == 1) ?  
+      <div className='w-full flex flex-col gap-5 py-3'>
+        <p className='text-blue-400 text-lg'>درخواست شما با موفقیت ثبت شد</p>
+        <p className='text-justify'>همچنین برای پیگیری درخواست خود میتوانید با چت پشتیبانی در پیامرسان بله تماس بگیرید.</p>
+        <div className='flex gap-5 justify-center'>
+          <Button variant='contained'><a href={response?.data?.Data} target='_blank'>تماس با پشتیبانی</a></Button>
+          <Button variant='contained' onClick={()=>{
+            handleClose();
+          }}>خروج</Button>
+        </div>
+      </div>
+    : 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             <div>
                 <span className="text-lg">اطلاعات را تکمیل کنید</span>
@@ -162,8 +190,10 @@ const fileToBase64 = (file:File): Promise<string> => {
                     </button>
                 </div>
             }
-            <Button variant="contained" size="large" type="submit">ارسال اطلاعات</Button>
+            <Button variant="contained" size="large" type="submit" loading={loading}>ارسال اطلاعات</Button>
         </form>
+        }
+        <MessageSnackbar snackbarOpen={opensnackbar} autoHideDuration={2000} snackbarMessage={response ? response?.data?.resMessage : 'مشکلی پیش آمده'} setSnackbarOpen={setOpensnackbar}/>
     </>
   )
 }

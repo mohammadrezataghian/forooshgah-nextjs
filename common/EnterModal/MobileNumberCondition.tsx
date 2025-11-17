@@ -16,9 +16,10 @@ import EditUserInfo from "./EditUserInfo";
 type CustomDialogProps ={
     MobileDialogOpen:boolean;
     handleMobileDialogClose:()=>void ;
+    handleClose:()=>void;
 }
 
-const MobileDialog = ({ MobileDialogOpen, handleMobileDialogClose }:CustomDialogProps) => {
+const MobileDialog = ({ MobileDialogOpen, handleMobileDialogClose,handleClose }:CustomDialogProps) => {
 
     const [isButtonClicked,setIsButtonClicked] = useState(false)
     const router = useRouter()
@@ -54,7 +55,7 @@ const handleNav =()=>{
       </DialogTitle>
       <DialogContent dividers>
         {isButtonClicked ? 
-          <EditUserInfo/>
+          <EditUserInfo handleClose={handleClose}/>
         :  
           <div className="flex flex-col gap-10 py-5 mb-3">
             <div className="flex flex-col gap-5">

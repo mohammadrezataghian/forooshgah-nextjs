@@ -242,7 +242,7 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
       </div>
 
       <MessageSnackbar snackbarOpen={snackbarOpen} autoHideDuration={1500} snackbarMessage={snackbarMessage} setSnackbarOpen={setSnackbarOpen}/>
-      <MobileDialog handleMobileDialogClose={handleMobileDialogClose} MobileDialogOpen={MobileDialogOpen}/>
+      <MobileDialog handleMobileDialogClose={handleMobileDialogClose} MobileDialogOpen={MobileDialogOpen} handleClose={handleClose}/>
     </>
   );
 };
