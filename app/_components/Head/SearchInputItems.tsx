@@ -103,7 +103,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
           <Divider/>  
           </div>
           <div className="w-full text-right mb-5 px-2"><span className="font-semibold"> : جستجو در محصولات</span></div>
-          <div className="grid grid-cols-3 px-2 gap-5">
+          <div className="flex flex-wrap justify-end px-2 gap-5">
             {filteredUsers && filteredUsers?.Items?.lst && filteredUsers?.Items?.lst?.length > 0 && filteredUsers?.Items?.lst?.map((data:any) => {
               const imageSrc = data.FldNameImageKalaList
                 ? `https://imbmi.ir/assets/public/kala/${data.IdKala}/${
@@ -113,7 +113,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
               return (
                 <div
                   key={data.IdStoreStock}
-                  className="relative pt-6 border-2 border-solid border-blue-700 w-full rounded-lg"
+                  className="relative pt-6 border-2 border-solid border-blue-700 w-[31.7%] rounded-lg "
                 >
                   {data.Mojodi == 0 &&  
                       <span className="bg-red-500 rounded-md py-1 px-3 text-white absolute left-1 top-1 text-xs">
@@ -140,21 +140,21 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                         }
                         }
                       >
-                        <h3 className="md:text-lg !text-base font-semibold text-gray-800 hover:text-blue-500 transition text-right line-clamp-2">
+                        <h3 className="md:text-lg !text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-right line-clamp-2">
                           {data.NameKala}
                         </h3>
-                        <h3 className="md:text-lg !text-sm text-gray-500 hover:text-blue-500 transition pt-1 text-right">
+                        <h3 className="md:text-lg !text-xs text-gray-500 hover:text-blue-500 transition pt-1 text-right">
                           {data.NameForooshgah}
                         </h3>
                       </Link>
                       <div className="mt-2 flex justify-end gap-3 items-baseline space-x-2">
                         {data.PriceForoosh !==
                           data.PriceForooshAfterDiscount && (
-                          <span className="!text-sm line-through text-gray-500">
+                          <span className="!text-xs line-through text-gray-500">
                             {autocomma(data.PriceForoosh)}
                           </span>
                         )}
-                        <div className="!text-base font-bold text-green-600 flex gap-1">
+                        <div className="!text-sm font-bold text-green-600 flex gap-1">
                         <span>ریال</span><span>{autocomma(data.PriceForooshAfterDiscount)}</span>
                         </div>
                       </div>
@@ -172,7 +172,7 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                       }
                       className="flex justify-center overflow-hidden h-max p-1 shrink-0"
                     >
-                      <img src={imageSrc} alt={data.NameKala} className="xl:w-24 xl:h-24 lg:w-20 lg:h-20 object-fill rounded-lg" />
+                      <img src={imageSrc} alt={data.NameKala} className="xl:w-20 xl:h-20 lg:w-16 lg:h-16 object-fill rounded-lg" />
                     </Link>
                   </div>
                 </div>
