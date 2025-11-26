@@ -31,6 +31,7 @@ const Search = () => {
   const [products, setProducts] = useAtom(productInSearchUpdate);
   const [state] = useAtom(selectedStore);
   const[sort,setSort] = useState(0)
+  const [resCode, setResCode] = useState<number>(0);
 
   useEffect(()=>{
     setMounted(true)
@@ -74,6 +75,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
       try {
         const result = await fetchProducts(payload);
         setApiUsers(result?.data?.Data || {});
+        setResCode(result?.data?.resCode)
          // ✅ use the actual response directly
       } catch (err) {
         console.error("Failed to fetch products:", err);
@@ -209,7 +211,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
           <FilterSearch sort={sort} setSort={setSort}/>
         </div>
       </div>
-      <SearchedItems filteredUsers={apiUsers} searchItem={searchItem} loadingApiUsers={loadingApiUsers}/>
+      <SearchedItems filteredUsers={apiUsers} searchItem={searchItem} loadingApiUsers={loadingApiUsers} resCode={resCode}/>
     </>
   );
 };

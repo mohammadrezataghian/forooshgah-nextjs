@@ -16,10 +16,11 @@ import { Product } from "@/types/types";
 type SearchedItemsProps = {
     filteredUsers:any;
     searchItem:string;
-    loadingApiUsers:boolean
+    loadingApiUsers:boolean;
+    resCode:number;
 }
 
-const SearchedItems = ({ filteredUsers, searchItem,loadingApiUsers }:SearchedItemsProps) => {
+const SearchedItems = ({ filteredUsers, searchItem,loadingApiUsers,resCode }:SearchedItemsProps) => {
 
   const [mounted,setMounted] =useState(false)
 
@@ -76,11 +77,11 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   return (
     <>
     <div className="w-full h-auto flex flex-col mt-2 justify-center items-center mb-24">
-      {searchItem.length < 2 && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && !hasSearched && !loadingApiUsers && (
+      {/* {searchItem.length < 2 && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && !hasSearched && !loadingApiUsers && (
         <p className="mt-10">محصولی یافت نشد</p>
-      )}
+      )} */}
       {(loading || loadingApiUsers)  && <SearchLoading />}
-      {!loading && !loadingApiUsers && hasSearched && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && (
+      {(resCode == -3) && hasSearched && filteredUsers && filteredUsers?.length === 0  && (
         <p className="mt-10">محصولی یافت نشد</p>
       )}
       {!loading && !loadingApiUsers && filteredUsers && (filteredUsers?.Items?.lst?.length > 0 || filteredUsers?.Groups?.lst?.length > 0) && (
