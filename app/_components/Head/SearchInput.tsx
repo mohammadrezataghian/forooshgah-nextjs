@@ -65,7 +65,7 @@ const SearchInput = () => {
 
   // ✅ Debounced API request (prevents too many calls)
 
-  const { loading, error, fetchProducts } = useGetKala(setApiUsers);
+  const { loading, error, fetchProducts,resCode } = useGetKala(setApiUsers);
 
   useEffect(() => {
     if (deferredSearchTerm.trim().length < 2) {
@@ -186,7 +186,7 @@ const SearchInput = () => {
               </div>
 
               <div className="w-full h-[51%] lg:h-[90%] overflow-y-scroll flex">
-                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem} setLastSearch={setLastSearch}/>
+                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem} setLastSearch={setLastSearch} resCode={resCode}/>
               </div>
             </div>
           </div>

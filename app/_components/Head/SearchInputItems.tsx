@@ -17,9 +17,10 @@ type props = {
   setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
   setSearchItem:React.Dispatch<React.SetStateAction<string>>;
   setLastSearch:React.Dispatch<React.SetStateAction<string>>;
+  resCode:number;
 }
 
-const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem,setLastSearch }:props) => {
+const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem,setLastSearch,resCode }:props) => {
   const [products, setProducts] = useAtom(productListUpdate);
 
   // handle openning snackbar
@@ -63,14 +64,14 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
   return (
     <>
       <div className="w-full h-full">
-        {searchItem.length < 2 &&
+        {/* {searchItem.length < 2 &&
           (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) &&
-          !hasSearched && <p className="mt-10 mr-5 text-right">محصولی یافت نشد</p>}
-        {loading && <SearchLoading />}
-        {!loading && hasSearched && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && (
+          !hasSearched && <p className="mt-10 mr-5 text-right">محصولی یافت نشد</p>} */}
+        {loading && (resCode != -3) && <SearchLoading />}
+        {(resCode == -3) && hasSearched && (filteredUsers?.length === 0 && filteredUsers?.length === 0) && (
           <div className="mt-10 mr-5 text-right">محصولی یافت نشد</div>
         )}
-        {!loading && (filteredUsers?.Items?.lst?.length > 0 && filteredUsers?.Groups?.lst?.length > 0) && (
+        {!loading && (filteredUsers?.Items?.lst?.length > 0 || filteredUsers?.Groups?.lst?.length > 0) && (
           <>
           {filteredUsers && filteredUsers?.Groups?.lst?.length > 0 && 
           <div className="flex flex-wrap w-full h-auto px-2 gap-5">

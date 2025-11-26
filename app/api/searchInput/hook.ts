@@ -10,6 +10,7 @@ const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaOrGroup`
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [resCode,setResCode]= useState<number>(0)
 
   const fetchProducts = async (payload: any) => {
     setLoading(true);
@@ -22,6 +23,7 @@ const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaOrGroup`
       );
 
       setApiUsers(res.data.Data || {});
+      setResCode(res.data.resCode)
       return res
     } catch (err: any) {
       setError(
@@ -41,7 +43,7 @@ const GetKala = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetKalaOrGroup`
     }
   };
 
-  return { loading, error, fetchProducts };
+  return { loading, error, fetchProducts,resCode };
 };
 
 export default useFetchProducts;
