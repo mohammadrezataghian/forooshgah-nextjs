@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import EastIcon from '@mui/icons-material/East';
 import Link from 'next/link';
+import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
 
 // zod schema for validation
 const schema = z.object({
@@ -27,7 +28,8 @@ const schema = z.object({
 
 const StaffLogin = () => {
 
- const [mobileNumber,setMobileNumber] = useState("")
+const { normalizeDigits } = useNormalizeDigits();
+const [mobileNumber,setMobileNumber] = useState("")
 const [mobileError, setMobileError] = useState("");
 const [showOTP, setShowOtp] = useState(false);
 const [timer, setTimer] = useState(120);
@@ -76,10 +78,11 @@ const { error, getCheckLoginStaff,loading,checkLoginStaff } = useGetCheckLoginSt
 async function handleGetVerificationCode() {
 
     try {
-        schema.parse({ inputValue: mobileNumber });
+        const normalizedMobile = normalizeDigits(mobileNumber);
+        schema.parse({ inputValue: normalizedMobile });
         setMobileError(""); // clear previous error if valid
     
-        const res = await getCheckLoginStaff({ Mobile: mobileNumber });
+        const res = await getCheckLoginStaff({ Mobile: normalizedMobile });
 
         if (res && res.data.resCode === 1) {
             setShowOtp(true);
@@ -101,8 +104,8 @@ async function handleGetVerificationCode() {
 
 // submit login
 const param = {
-    Mobile: mobileNumber,
-    VerificationCode: verificationCode,
+    Mobile: normalizeDigits(mobileNumber),
+    VerificationCode: normalizeDigits(verificationCode),
   }
 
  const { loginError, getSubmitLoginStaff,loginLoading,submitLoginStaff } = useGetSubmitLoginStaff()
@@ -152,7 +155,7 @@ useEffect(()=>{
                     <span>لطفا شماره موبایل خود را وارد کنید</span>
                 </div>
                 <div className='w-full flex flex-col gap-1'>
-                    <input type="text" className='w-full lg:border lg:focus:border-[#ff858d] lg:border-[#FDCB01] rounded-md h-12 text-center border-b-2 border-b-[#ff858d] lg:bg-white bg-gray-200' placeholder='شماره موبایل' autoFocus onChange={(event) => setMobileNumber(event.target.value)} onBlur={() => {
+                    <input type="text" className='w-full lg:border lg:focus:border-[#ff858d] lg:border-[#FDCB01] rounded-md h-12 text-center border-b-2 border-b-[#ff858d] lg:bg-white bg-gray-200' placeholder='شماره موبایل' autoFocus onChange={(event) => setMobileNumber(normalizeDigits(event.target.value))} onBlur={() => {
                     try {
                     schema.parse({ inputValue: mobileNumber });
                     setMobileError("");
