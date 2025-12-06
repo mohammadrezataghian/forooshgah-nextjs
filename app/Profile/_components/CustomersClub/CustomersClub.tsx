@@ -4,18 +4,21 @@ import useGetOffers from "@/app/api/customerClubOffers/hook";
 import useGetScore from "@/app/api/sahamPersonScore/hook";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
-import { useAtom } from 'jotai';
-import { ClubScore } from '@/shared/customerClubScore';
 import LabTabs from "./ClubTabs";
+import { useSelector,useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import { setClubScore } from "@/store/slices/customerClubScoreSlice";
 
 const CustomersClub = () => {
 
-  const [score,setScore]= useAtom(ClubScore)
+  const score = useSelector((state: RootState) => state.clubScore.value);
+  const dispatch = useDispatch();
+
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
 
-  const { loading, error, response, getScore } = useGetScore(userToken,setScore);
+  const { loading, error, response, getScore } = useGetScore(userToken);
 
   useEffect(() => {
       if (score === null && user) {
@@ -25,7 +28,7 @@ const CustomersClub = () => {
     
     useEffect(()=>{
       if (response) {
-        setScore(response?.Data?.Score) 
+        dispatch(setClubScore(response?.Data?.Score)) 
       }
       if(!response && user){
         getScore({EshterakNo : eshterakNo});

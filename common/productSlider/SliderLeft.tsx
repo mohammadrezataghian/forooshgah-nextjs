@@ -17,24 +17,27 @@ import SliderLeftCard from "@/common/productSlider/SliderLeftCard";
 
 // import data
 import useGetProductDetails from "@/app/api/productSlider/hook";
-import { drawerSessionUpdate } from "@/shared/drawer.product.atom";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
 import LoadingSkeleton from "@/common/productSlider/LoadingSkeleton";
-import { selectedStore } from "@/shared/selectedStoreAtom";
+import { useDispatch,useSelector } from "react-redux";
+import { clearDrawerSession } from "@/store/slices/drawerProductSlice";
+import { RootState } from "@/store/store";
+import { setProductListUpdate } from "@/store/slices/productListSlice";
 
 const SliderLeft = ({params}:any) => {
-  const [drawerSession, setDrawerSessions] = useAtom(drawerSessionUpdate);
-  const [products,setProducts] = useAtom(productListUpdate);
+
+  const dispatch = useDispatch()
+  const drawerSession = useSelector((state:RootState)=>(state.drawerSession.value))
+  const selectedItem = useSelector((state:RootState)=>state.selectedStore.value)
+  const products = useSelector((state:RootState)=>state.productListUpdate.value)
+
   const [loading,setLoading]= useState(true);
-  const [selectedItem, setSelectedItem] = useAtom(selectedStore);
 
   useEffect(() => {
     if (drawerSession && drawerSession.length > 0) {
-      setProducts(drawerSession);
-      setDrawerSessions([]); // clear once
+      dispatch(setProductListUpdate(drawerSession))
+      dispatch(clearDrawerSession())
     }
-  }, [drawerSession, setProducts, setDrawerSessions]);
+  }, []);
 
 // get data
 const { productDetails, loadingProducts, error,mutate } = useGetProductDetails({...params,idForooshgah:selectedItem},selectedItem);
@@ -108,7 +111,6 @@ useEffect(() => {
                       price={data.PriceForooshAfterDiscount}
                       name={data.NameKala}
                       images={data.FldNameImageKalaList}
-                      setProducts={setProducts}
                       data={data}
                       mojodi={data.Mojodi}
                       idForImage={data.IdKala}

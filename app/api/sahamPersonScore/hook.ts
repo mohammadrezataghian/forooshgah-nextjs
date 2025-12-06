@@ -3,10 +3,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
+import { setClubScore } from "@/store/slices/customerClubScoreSlice";
+import { useDispatch } from "react-redux";
 
-const useGetScore = (userToken: any,setScore:any) => {
+const useGetScore = (userToken: any) => {
 
 const getSahamPersonScore = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSahamPersonScore`
+
+  const dispatch = useDispatch()
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +34,7 @@ const getSahamPersonScore = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSaha
       );
 
       setResponse(res.data);
-      setScore(res?.data?.Data?.Score)
+      dispatch(setClubScore(res?.data?.Data?.Score))
     } catch (err: any) {
       setError(
         err.message || "An unknown error occurred in getSahamPersonScore"

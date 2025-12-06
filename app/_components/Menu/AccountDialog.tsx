@@ -13,9 +13,9 @@ import { BiExit } from 'react-icons/bi';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Cookies from 'js-cookie';
 import { PiCoins } from "react-icons/pi";
-import { useAtom } from 'jotai';
-import { ClubScore } from '@/shared/customerClubScore';
 import Link from 'next/link';
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const Transition = React.forwardRef<unknown, SlideProps>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -31,7 +31,8 @@ type FullScreenDialogProps={
 
 export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,handleCloseAccount,handleClickOpen}:FullScreenDialogProps) {
 
-  const [score,setScore]= useAtom(ClubScore)
+  const score = useSelector((state: RootState) => state.clubScore.value);
+  
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 
   return (

@@ -14,11 +14,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { BiExit } from 'react-icons/bi';
 import { PiCoins } from "react-icons/pi";
 import useGetScore from "@/app/api/sahamPersonScore/hook";
-import { useAtom } from 'jotai';
-import { ClubScore } from '@/shared/customerClubScore';
 import Link from 'next/link';
 import {sahamUserType} from '@/types/types'
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type props ={
   handleClickOpen: () => void;
@@ -28,10 +28,12 @@ type props ={
 
 
 export default function MenuListComposition({handleClickOpen,user,userToken}:props) {
+
+  const score = useSelector((state: RootState) => state.clubScore.value);
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement | null>(null);
   const [userId,setUserId] = React.useState(0)
-  const [score,setScore]= useAtom(ClubScore)
   const [rawUser, setRawUser] = React.useState<string | null>(null);
 
   React.useEffect(()=>{
@@ -76,7 +78,7 @@ export default function MenuListComposition({handleClickOpen,user,userToken}:pro
   }, [user]);
   
   // score
-  const { loading, error, response, getScore } = useGetScore(userToken,setScore);
+  const { loading, error, response, getScore } = useGetScore(userToken);
 
   React.useEffect(() => {
     if (!rawUser) return 

@@ -9,13 +9,14 @@ import { AiFillDelete } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
-import { drawerSessionUpdate } from "@/shared/drawer.product.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { setDrawerSession,clearDrawerSession } from "@/store/slices/drawerProductSlice";
+import { RootState } from "@/store/store";
+import { clearProductListUpdate, setProductListUpdate } from "@/store/slices/productListSlice";
 
 type DrawerDrawerProps = {
   anchor: SwipeableDrawerProps["anchor"];
@@ -25,28 +26,26 @@ type DrawerDrawerProps = {
 
 const DrawerDrawer : React.FC<DrawerDrawerProps> = ({ anchor, open, toggleDrawer }) => {
 
+  const dispatch = useDispatch();
+  const products = useSelector((state:RootState)=>state.productListUpdate.value)
   // handle disappearing delete buttons
   const whatPagee = usePathname()
   // handle disappearing delete buttons
   
-  // let navigate = useNavigate()
-  const [, setDrawerSessionUpdate] = useAtom(drawerSessionUpdate);
-  const [, setProductList] = useAtom(productListUpdate);
   const [forceRender, setForceRender] = useState(false);
-  const [products] = useAtom(productListUpdate);
 
   function deleteItem(data: any) {
     const itemResult = products.filter(
       (fl:any) => fl.IdStoreStock !== data.IdStoreStock
     );
     if (itemResult.length === 0) {
-      setProductList([]);
+      dispatch(clearProductListUpdate())
       setForceRender((prev) => !prev);
-      setDrawerSessionUpdate([]);
+      dispatch(clearDrawerSession())
       return;
     }
-    setDrawerSessionUpdate(itemResult);
-    setProductList(itemResult);
+    dispatch(setDrawerSession(itemResult))
+    dispatch(setProductListUpdate(itemResult))
     setForceRender((prev) => !prev);
   }
 
@@ -56,11 +55,11 @@ const DrawerDrawer : React.FC<DrawerDrawerProps> = ({ anchor, open, toggleDrawer
 // end handle comma
 
 // add to cart
-const { addProduct } = useAddProduct(setProductList);
+const { addProduct } = useAddProduct();
 // end add to cart
 
 // remove from cart
-const { removeProduct } = useRemoveProduct(setProductList);
+const { removeProduct } = useRemoveProduct();
 // end remove from cart
 
   const list = () => (
@@ -76,7 +75,6 @@ const { removeProduct } = useRemoveProduct(setProductList);
 
       <div className="flex flex-col gap-5 p-2">
         {products
-          ?.sort((a:any, b:any) => b.IdStoreStock - a.IdStoreStock) // Sort in descending order
           .map((el:any) => {
             const count =
               products &&
