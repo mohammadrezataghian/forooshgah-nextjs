@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
 import DetailsPictures from "./DetailsPictures";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import DetailsTabs from "./DetailsTabs";
@@ -17,9 +15,13 @@ import { FaPlus,FaRegTrashAlt,FaMinus } from "react-icons/fa";
 import { Product } from "@/types/types";
 import useGetComments from "@/app/api/getComments/hook";
 import Comments from "./Comments/Comments";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const ProductDetails = () => {
-  const [products, setProducts] = useAtom(productListUpdate);
+
+  const products = useSelector((state:RootState)=>state.productListUpdate.value)
+
   const [buttonText, setButtonText] = useState("افزودن به سبد خرید");
   const [isAdded, setIsAdded] = useState(false);
   const [itemCount, setItemCount] = useState<number>(0);
@@ -64,11 +66,11 @@ useEffect(()=>{
   // end handle getting data
 
   // add to cart
-  const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
+  const { addProduct } = useAddProduct(setOpensnackbar);
   // end add to cart
 
    // remove from cart
-   const { removeProduct } = useRemoveProduct(setProducts);
+   const { removeProduct } = useRemoveProduct();
    // end remove from cart
 
    useEffect(() => {

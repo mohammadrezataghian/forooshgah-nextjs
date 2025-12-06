@@ -1,29 +1,41 @@
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setProductListUpdate } from "@/store/slices/productListSlice";
 
-const useRemoveProduct = (setProducts:any) => {
+const useRemoveProduct = () => {
+
+  const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.productListUpdate.value);
+
     const removeProduct = (data:any) => {
-      setProducts((product:any) => {
-        const existingIndex = product?.findIndex(
-          (el:any) => el?.IdStoreStock === data?.IdStoreStock
+      
+      const updated = (() => {
+        const existingIndex = products.findIndex(
+          (el:any) => el.IdStoreStock === data.IdStoreStock
         );
   
         if (existingIndex > -1) {
-          if (product[existingIndex].count === 1) {
-            return product.filter(
+          const item = products[existingIndex];
+          if (item.count !== undefined) {
+            
+          if (item.count === 1) {
+            return products.filter(
               (item:any) => item.IdStoreStock !== data.IdStoreStock
             );
           }
   
-          const updatedProducts = [...product];
+          const updatedProducts = [...products];
           updatedProducts[existingIndex] = {
             ...data,
-            count: product[existingIndex].count - 1,
+            count: item.count - 1,
           };
   
           return updatedProducts;
-        }
+        }}
   
-        return product;
+        return products;
       });
+      dispatch(setProductListUpdate(updated()));
     };
   
     return { removeProduct };

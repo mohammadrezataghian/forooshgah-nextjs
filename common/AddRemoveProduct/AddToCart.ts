@@ -1,17 +1,23 @@
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setProductListUpdate } from "@/store/slices/productListSlice";
 
 const useAddProduct = (
-  setProducts: React.Dispatch<React.SetStateAction<any[]>>,
   setOpenSnackbar?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+
+  const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.productListUpdate.value);
+
     const addProduct = (data:any) => {
-      setProducts((product:any) => {
-        const existingIndex = product?.findIndex(
+      const updated = (() => {
+        const existingIndex = products.findIndex(
           (el:any) => el?.IdStoreStock === data?.IdStoreStock
         );
         
         let addedNew = true;
-        if (product.length > 0) {
-          const idForooshgah = product[0].idForooshGaha;
+        if (products?.length > 0) {
+          const idForooshgah = products[0].idForooshGaha;
           if (idForooshgah !== data?.idForooshGaha) {
             addedNew = false;
             setOpenSnackbar?.(true);
@@ -20,14 +26,15 @@ const useAddProduct = (
   
         if (addedNew) {
           if (existingIndex > -1) {
-            const currentCount = product[existingIndex].count;
-  
+            const currentCount = products[existingIndex].count;
+            if (currentCount !== undefined) {
+
             // Prevent adding more than 5
             if (currentCount >= 5) {
-              return product;
+              return products;
             }
             // Create a copy of the array
-            const updatedProducts = [...product];
+            const updatedProducts = [...products];
             // Update the specific item
             updatedProducts[existingIndex] = {
               ...data,
@@ -35,12 +42,13 @@ const useAddProduct = (
             };
   
             return updatedProducts;
-          }
-          return [...product, { ...data, count: 1 }];
+          }}
+          return [...products, { ...data, count: 1 }];
         } else {
-          return [...product];
+          return [...products];
         }
       });
+      dispatch(setProductListUpdate(updated()));
     };
   
     return { addProduct };

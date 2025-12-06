@@ -1,9 +1,11 @@
-import { productListUpdate } from "@/shared/product.list.atom";
-import { useAtom } from "jotai";
+'use client'
+
+import { RootState } from "@/store/store";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function useInterceptLocalProducts() {
-  const [productList] = useAtom(productListUpdate);
+  const productList = useSelector((state:RootState)=>state.productListUpdate.value)
 
   useEffect(() => {
     if (productList) {
