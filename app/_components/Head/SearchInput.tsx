@@ -6,27 +6,32 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { LuPackageSearch } from "react-icons/lu";
 import SearchInputItems from "./SearchInputItems";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useAtom } from 'jotai';
-import { selectedStore } from '@/shared/selectedStoreAtom';
-import { inputValue } from '@/shared/inputs';
 import useGetKala from "@/app/api/searchInput/hook";
 import { useRouter } from 'next/navigation';
-import { ProductType } from "@/types/types";
 import { usePathname } from "next/navigation";
-import { searchBoxVisible } from "@/shared/isSearchBoxVisible";
-import { lastSearchValue } from "@/shared/lastSearchValue";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setInputValue } from "@/store/slices/inputValueSlice";
+import { clearLastSearchValue } from "@/store/slices/lastSearchSlice";
+import { setSearchBoxVisible } from "@/store/slices/isSearchBoxVisibleSlice";
 
 const SearchInput = () => {
+
+  const dispatch = useDispatch();
+  const state = useSelector((state:RootState)=>state.selectedStore.value)
+  const searchItem = useSelector((state: RootState) => state.inputValue.value);
+  const lastSearch = useSelector((state: RootState) => state.lastSearchValue.value);
+  const handleClear = () => {
+      dispatch(clearLastSearchValue());
+  };
+  const isBoxVisible = useSelector((state:RootState) => state.searchBoxVisible.value)
+
   const [apiUsers, setApiUsers] = useState<any>({});
-  const [searchItem, setSearchItem] = useAtom(inputValue);
   const [filteredUsers, setFilteredUsers] = useState<any>({});
-  const [isBoxVisible, setIsBoxVisible] = useAtom(searchBoxVisible);
-  const [state] = useAtom(selectedStore)
   const router = useRouter();
   const [wasNavigatedBack, setWasNavigatedBack] = useState(false);
   const pathname = usePathname();
   const prevIndexRef = useRef(null);
-  const [lastSearch, setLastSearch] = useAtom(lastSearchValue);
   
   // handle keep box open on navigation back
   useEffect(() => {
@@ -40,7 +45,7 @@ const SearchInput = () => {
       } else {
         // Forward or push → don’t reopen
         setWasNavigatedBack(false);
-        setIsBoxVisible(false); 
+        dispatch(setSearchBoxVisible(false)) 
       }
     }
 
@@ -49,7 +54,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (wasNavigatedBack && searchItem.length > 0 && filteredUsers ) {
-      setIsBoxVisible(true);
+      dispatch(setSearchBoxVisible(true))
       setWasNavigatedBack(false); // Reset
     }
   }, [wasNavigatedBack, searchItem, filteredUsers]);
@@ -57,7 +62,7 @@ const SearchInput = () => {
 
   // ✅ `searchItem` updates instantly (no delay in input UI)
   const handleInputChange = (e : any) => {
-    setSearchItem(e.target.value);
+    dispatch(setInputValue(e.target.value));
   };
 
   // ✅ `useDeferredValue` delays heavy updates (filtering + API calls)
@@ -102,9 +107,9 @@ const SearchInput = () => {
   useEffect(() => {
     if (pathname !== "/search") {
       if (searchItem.trim().length > 2) {
-        setIsBoxVisible(true);
+        dispatch(setSearchBoxVisible(true));
       } else {
-        setIsBoxVisible(false); // 👈 hide box when text is cleared
+        dispatch(setSearchBoxVisible(false)); // 👈 hide box when text is cleared
       }
     }
   }, [searchItem, pathname]);
@@ -126,8 +131,8 @@ const SearchInput = () => {
               searchItem === "" &&
               lastSearch.trim() !== ""
             ) {
-              setSearchItem(lastSearch);
-              setLastSearch('')
+              dispatch(setInputValue(lastSearch))
+              handleClear()
             }
           }}
           InputProps={{
@@ -173,7 +178,7 @@ const SearchInput = () => {
               <div className="flex justify-between items-baseline w-full h-auto text-[#0AF8D8] borderSubSearch pb-2 pr-5 mb-3">
                 <button
                   onClick={() => {
-                    setIsBoxVisible(false);
+                    dispatch(setSearchBoxVisible(false));
                     router.push('/search')
                     // router.replace('/dashboard');
                   }}
@@ -186,7 +191,7 @@ const SearchInput = () => {
               </div>
 
               <div className="w-full h-[51%] lg:h-[90%] overflow-y-scroll flex">
-                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} setIsBoxVisible={setIsBoxVisible} setSearchItem={setSearchItem} setLastSearch={setLastSearch} resCode={resCode}/>
+                <SearchInputItems filteredUsers={filteredUsers} searchItem={searchItem} resCode={resCode}/>
               </div>
             </div>
           </div>

@@ -1,15 +1,15 @@
 'use client'
 
 import React, { useEffect, useDeferredValue } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import SearchedItems from "./_components/SearchedItems";
-import useSearchLocalProducts from "@/hooks/useSearchLocalProducts";
-import { productInSearchUpdate } from "@/shared/search.product.list.atom";
-import { useAtom } from "jotai";
-import { selectedStore } from "@/shared/selectedStoreAtom";
 import FilterSearch from "./_components/FilterSearch";
-import { inputValue } from '@/shared/inputs';
 import  useFetchProducts  from "@/app/api/search/hook";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setInputValue } from "@/store/slices/inputValueSlice";
+import { FiSearch } from "react-icons/fi";
 
 type payload = {
   NameKala: string,
@@ -21,25 +21,55 @@ type payload = {
 
 const Search = () => {
 
+  const dispatch = useDispatch();
+  const searchItem = useSelector((state: RootState) => state.inputValue.value);
+  const state = useSelector((state:RootState)=>state.selectedStore.value)
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [mounted,setMounted] = useState(false)
-  const [foundProducts,setFoundProducts] = useState<any>(null)
   //handle search
   const [apiUsers, setApiUsers] = useState<any>({});
-  const [searchItem, setSearchItem] = useAtom(inputValue);
   const [filteredUsers, setFilteredUsers] = useState<any>({});
-  const SearchLocalProduct = useSearchLocalProducts();
-  const [products, setProducts] = useAtom(productInSearchUpdate);
-  const [state] = useAtom(selectedStore);
   const[sort,setSort] = useState(0)
   const [resCode, setResCode] = useState<number>(0);
+  const [tempSearch, setTempSearch] = useState("");
+
+  // manage the url on first mount
+  useEffect(() => {
+    const queryFromUrl = searchParams.get("q");
+    const sortFromUrl = searchParams.get("sort");
+    if (queryFromUrl) {
+      dispatch(setInputValue(queryFromUrl)); // ⬅️ Set Redux input from URL
+      setTempSearch(queryFromUrl)
+      setSort(Number(sortFromUrl))
+    }
+    if (searchItem) {
+      router.push(`?q=${encodeURIComponent(searchItem)}&sort=0`, { scroll: false });
+      // setTempSearch(searchItem)
+    }
+  }, []);
 
   useEffect(()=>{
     setMounted(true)
   },[])
 
+  // manage the url on first mount
+  // useEffect(() => {
+  //   const urlQuery = searchParams.get("q");
+  //   if (urlQuery && urlQuery !== searchItem) {
+  //     dispatch(setInputValue(urlQuery));
+  //   }
+  // }, []);
+
   // ✅ `searchItem` updates instantly (no delay in input UI)
-  const handleInputChange = (e:any) => {
-    setSearchItem(e.target.value);
+  const handleInputChange = (e: any) => {
+    setTempSearch(e.target.value);
+  };
+  const handleSearchClick = () => {
+    setSort(0)
+    dispatch(setInputValue(tempSearch)); // Update Redux search value
+    router.push(`?q=${encodeURIComponent(tempSearch)}&sort=0`, { scroll: false }); // Update URL
   };
 
   // ✅ `useDeferredValue` delays heavy updates (filtering + API calls)
@@ -48,19 +78,17 @@ const Search = () => {
   // ✅ Debounced API request (prevents too many calls)
 
 const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
+const queryFromUrl = searchParams.get("q")
+const sortFromUrl = Number(searchParams.get("sort"))
 
   useEffect(() => {
-    // setProducts(productInSearchUpdate);
-    // if (localStorage.getItem("foundproducts") && sort === 0) {
-    //   return; // If condition is met, skip the API call
-    // }
-    if (deferredSearchTerm.trim().length < 2) {
+    if (searchItem.trim().length < 2) {
       setApiUsers({});
       return;
     }
     const debounceTimeout = setTimeout(async () => {
       const payload:payload = {
-        NameKala: deferredSearchTerm,
+        NameKala: queryFromUrl || searchItem,
         pageIndex: 1,
         pageSize: 100,
         idForooshgah : state,
@@ -68,9 +96,7 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
       // if (state !== 0) {
       //   payload.idForooshgah = state;
       // }
-      if (sort > 0) {
-        payload.SortOrder = sort;
-      }
+        payload.SortOrder = sortFromUrl;
     
       try {
         const result = await fetchProducts(payload);
@@ -83,16 +109,17 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
     }, 1000);// Debounce API calls (500ms delay)
 
     return () => clearTimeout(debounceTimeout); // Cleanup function
-  }, [deferredSearchTerm,sort,state]);
+  }, [queryFromUrl,searchItem,sort,state,sortFromUrl]);
+
+  useEffect(()=>{
+    setTempSearch(queryFromUrl || '')
+  },[queryFromUrl])
 
   // ✅ Filtering logic with `deferredSearchTerm`
   useEffect(() => {
     if (deferredSearchTerm) {
       const filteredItems = apiUsers;
       setFilteredUsers(filteredItems);
-    } else if (SearchLocalProduct) {
-      // setApiUsers(SearchLocalProduct);
-      setFilteredUsers([]);
     } else {
       setFilteredUsers([]);
     }
@@ -106,109 +133,43 @@ const { loading:loadingApiUsers, error, fetchProducts } = useFetchProducts();
 
   // handle search
 
-  // function addProduc2(data:any) {
-  //   setApiUsers(data.data.Data.lst || []);
-  //   localStorage.removeItem("foundproducts"); // Clear previous search results
-  //   localStorage.setItem("foundproducts", JSON.stringify(data.data.Data.lst || []));
-  //   for (let i = 0; i < SearchLocalProduct.length; i++) {
-  //     removeProduct(SearchLocalProduct[i]);
-  //   }
-  //   data.data.Data.lst.map((datas:any, index:any) => addProduct(datas));
-  // }
-  //
+// by sort change push the new url
+useEffect(() => {
+    if (searchItem.length > 2) {
+      router.push(`?q=${encodeURIComponent(searchItem)}&sort=${sort}`, { scroll: false });
+    }
+}, [sort]);
 
-  //
-  function addProduct(data:any) {
-    setProducts((product:any) => {
-      const existingIndex = product?.findIndex(
-        (el:any) => el?.IdStoreStock === data?.IdStoreStock
-      );
-
-      let addeddNew = true;
-      if (product.length > 0) {
-        const idforooshgah = product[0].idForooshGaha;
-        if (product[0].idForooshGaha != data?.idForooshGaha) {
-          addeddNew = false;
-        }
-      }
-      if (addeddNew == true) {
-        if (existingIndex > -1) {
-          const currentCount = product[existingIndex].count;
-
-          // Prevent adding more than 5
-          if (currentCount >= 5) {
-            return product;
-          }
-          // Create a copy of the array
-          const updatedProducts = [...product];
-          // Update the specific item
-          updatedProducts[existingIndex] = {
-            ...data,
-            count: currentCount + 1,
-          };
-
-          return updatedProducts;
-        }
-        return [...product, { ...data, count: 1 }];
-      } else {
-        return [...product];
-      }
-    });
+// handle search by pressing enter
+const handleKeyDown = (e: any) => {
+  if (e.key === "Enter") {
+    handleSearchClick();
   }
-  //
-
-  //
-  function removeProduct(data:any) {
-    setProducts((product:any) => {
-      const existingIndex = product?.findIndex(
-        (el:any) => el?.IdStoreStock === data?.IdStoreStock
-      );
-
-      if (existingIndex > -1) {
-        // If count will become 0, remove the item
-        if (product[existingIndex].count === 1) {
-          return product.filter(
-            (item:any) => item.IdStoreStock !== data.IdStoreStock
-          );
-        }
-
-        // Otherwise decrease the count
-        const updatedProducts = [...product];
-        updatedProducts[existingIndex] = {
-          ...data,
-          count: product[existingIndex].count - 1,
-        };
-
-        return updatedProducts;
-      }
-
-      return product; // Return unchanged if item not found
-    });
-  }
-  //
-// useEffect(()=>{
-//   const stored = localStorage.getItem("foundproducts")
-//   if (stored){
-//     setFoundProducts(JSON.parse(stored))
-//   }
-// },[mounted])
+};
 
   return (
     <>
       <title>جستجوی محصولات</title>
       <meta name="description" content="جستجوی محصولات" />  
       <div className="w-full h-auto md:flex-row justify-between items-center flex flex-col gap-3 py-5">
-        <div className="flex items-center gap-1 px-3">
+        <div className="relative flex items-center gap-1 px-3">
         <input
           type="text"
-          value={searchItem}
+          value={tempSearch}
           onChange={handleInputChange}
           placeholder="محصول، گروه کالا یا برند مورد نظرتان را اینجا جستجو کنید"
-          className="w-[350px] h-8 border pr-1 border-red-500 rounded-sm placeholder:text-sm"
+          className="w-[350px] h-8 border pr-1 border-red-500 rounded-sm placeholder:text-[12.5px] text-sm"
+          onKeyDown={handleKeyDown}
         />
+         <button
+        onClick={handleSearchClick}
+        className="absolute left-4 px-1.5 py-0.5 bg-gray-200 text-gray-400 rounded hover:bg-gray-300 hover:text-gray-100 cursor-pointer"
+      >
+        <FiSearch size={20} />
+      </button>
         </div>
         <div>
-          <FilterSearch sort={sort} setSort={setSort}/>
+          <FilterSearch sort={sort} setSort={setSort} sortFromUrl={sortFromUrl}/>
         </div>
       </div>
       <SearchedItems filteredUsers={apiUsers} searchItem={searchItem} loadingApiUsers={loadingApiUsers} resCode={resCode}/>

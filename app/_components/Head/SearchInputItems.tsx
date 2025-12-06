@@ -1,38 +1,40 @@
 'use client'
 
-import { productListUpdate } from "@/shared/product.list.atom";
-import { Button, Divider } from "@mui/material";
-import { useAtom } from "jotai";
+import { Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import SearchLoading from "./SearchLoading";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import {ProductType} from '@/types/types'
+import { useDispatch } from "react-redux";
+import { clearInputValue } from "@/store/slices/inputValueSlice";
+import { setLastSearchValue } from "@/store/slices/lastSearchSlice";
+import { setSearchBoxVisible } from "@/store/slices/isSearchBoxVisibleSlice";
 
 type props = {
   filteredUsers: any;
   searchItem: string;
-  setIsBoxVisible:React.Dispatch<React.SetStateAction<boolean>> ;
-  setSearchItem:React.Dispatch<React.SetStateAction<string>>;
-  setLastSearch:React.Dispatch<React.SetStateAction<string>>;
   resCode:number;
 }
 
-const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearchItem,setLastSearch,resCode }:props) => {
-  const [products, setProducts] = useAtom(productListUpdate);
+const SearchInputItems = ({ filteredUsers, searchItem,resCode }:props) => {
+
+  const dispatch = useDispatch();
+  const handleClear = () => {
+    dispatch(clearInputValue());
+  };
 
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
   // end handle openning snackbar
 
   // add to cart
-  const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
+  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
   // end add to cart
 
   // remove from cart
-  const { removeProduct } = useRemoveProduct(setProducts);
+  // const { removeProduct } = useRemoveProduct(setProducts);
 // end remove from cart
 
   // handle comma
@@ -83,11 +85,11 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                   <div key={index} className="border p-3 rounded-lg border-gray-300 flex justify-end">
                     <Link href={`/productList/${item?.Name}`} 
                     onClick={() => {
-                    setIsBoxVisible(false);
-                    setSearchItem('')
+                    dispatch(setSearchBoxVisible(false)) 
+                    handleClear()
                     sessionStorage.removeItem('ProductListOrderParam');
                     if (searchItem.trim()) {
-                      setLastSearch(searchItem);
+                      dispatch(setLastSearchValue(searchItem));
                     }
                     }
                     }
@@ -133,10 +135,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                       <Link
                         href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                         onClick={() => {
-                          setSearchItem('')
-                          setIsBoxVisible(false)
+                          handleClear();
+                          dispatch(setSearchBoxVisible(false));
                           if (searchItem.trim()) {
-                            setLastSearch(searchItem);
+                            dispatch(setLastSearchValue(searchItem));
                           }
                         }
                         }
@@ -164,10 +166,10 @@ const SearchInputItems = ({ filteredUsers, searchItem, setIsBoxVisible,setSearch
                     <Link
                       href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                       onClick={() => {
-                        setSearchItem('')
-                        setIsBoxVisible(false)
+                        handleClear()
+                        dispatch(setSearchBoxVisible(false));
                         if (searchItem.trim()) {
-                          setLastSearch(searchItem);
+                          dispatch(setLastSearchValue(searchItem));
                         }
                       }  
                       }
