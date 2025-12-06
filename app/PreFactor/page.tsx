@@ -2,11 +2,8 @@
 
 import * as React from "react";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
-import { address } from '@/shared/Address';
 import dynamic from "next/dynamic";
 const PrefactorReturn = dynamic(() => import("./_components/PreFactorReturn"), {ssr: false,});
-import { productListUpdate } from "@/shared/product.list.atom";
 import useGetKalaList from "@/app/api/kalaList/hook";
 import useGetNoeErsalList from "@/app/api/noeErsalList/hook";
 import DeliveryType from "./_components/DeliveryType";
@@ -14,9 +11,16 @@ import PrefactorSkeleton from "./loading";
 import { ApiResponse, Kala } from "@/types/types";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useRouter } from "next/navigation";
+import { useSelector,useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
+import { setAddress } from "@/store/slices/addressSlice";
 
 const PreFactor = () => {
- 
+
+const dispatch = useDispatch();
+const location = useSelector((state: RootState) => state.address.value);
+const products = useSelector((state:RootState)=>state.productListUpdate.value)
+
 const [selectedItem, setSelectedItem] = React.useState(0); // برای ذخیره آیتم انتخاب شده
 const [mounted, setMounted] = React.useState(false);
 const [rawUser, setRawUser] = React.useState<string | null>(null);
@@ -30,9 +34,6 @@ if (sessionStorage.getItem('noeErsal')) {
   setSelectedItem(Number(sessionStorage.getItem('noeErsal')))
 }
 },[])
-// location
-  const [location, setLocation] = useAtom(address)
-// end location
 
 React.useEffect(()=>{
   if (location){
@@ -40,7 +41,7 @@ React.useEffect(()=>{
   }else{
    const storageLocation = localStorage.getItem('preFactorAddress')
    if (storageLocation) {
-    setLocation(JSON.parse(storageLocation))
+    dispatch(setAddress(JSON.parse(storageLocation)))
    }
   }
 },[location])
@@ -56,7 +57,7 @@ React.useEffect(()=>{
   }else{
    const storageLocation = localStorage.getItem('preFactorAddress')
    if (storageLocation) {
-    setLocation(JSON.parse(storageLocation))
+    dispatch(setAddress(JSON.parse(storageLocation)))
    }
   }
 },[location])
@@ -67,7 +68,6 @@ React.useEffect(()=>{
   const [userInfo, setUserInfo] = React.useState<ApiResponse | null>(null);
   const [status,setStatus] = React.useState("");
   const [color,setColor] = React.useState<"success" | "secondary" | "error">("success");
-  const [products, setProducts] = useAtom(productListUpdate);
   const router = useRouter()
   
   let user: ApiResponse | null = null ;

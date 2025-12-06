@@ -1,24 +1,24 @@
 'use client'
 
 import React, { useState,useEffect } from "react";
-import { useAtom } from "jotai";
-import { IsUserloggedIn } from "@/shared/isLoggedIn";
-import { banners } from "@/shared/banners";
 import useGetAdvertisement from "@/app/api/mainSlider/hook";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import MainSliderLoadingSkeleton from "./LoadingSkeleton";
 import SmallSkeleton from "./SmallSkeleton";
 import Cookies from "js-cookie";
 import dynamic from "next/dynamic";
 const SwiperSlider = dynamic(() => import("./Swiper"), {ssr: false,});
+import { useDispatch, useSelector } from "react-redux";
+import { setBanners } from "@/store/slices/bannersSlice";
+import { setIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
+import { RootState } from "@/store/store";
 
 const MainSlider = () => {
 
+  const dispatch = useDispatch();
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+  const loggedIn = useSelector((state:RootState)=>state.isUserloggedIn.value)
   // configure params & get data
   const [isMobile, setIsMobile] = useState(false);
-  const [loggedIn, setloggedIn] = useAtom(IsUserloggedIn);
-  const [banner,setBanner] = useAtom(banners); 
-  const [siteAddress] = useAtom(siteUrlAddress);
   const [shouldFetch, setShouldFetch] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const MainSlider = () => {
 
   useEffect(() => {
     if (Cookies.get("user")) {
-      setloggedIn(true);
+      dispatch(setIsUserloggedIn(true))
       setShouldFetch(true);
     }else {
       setShouldFetch(true); // Proceed anyway (as guest)
@@ -64,7 +64,7 @@ const banners = {
   loading: loading,
   error: error,
 }
-setBanner(banners)
+dispatch(setBanners(banners))
 },[advertisement])
 // end send data to two other components
   

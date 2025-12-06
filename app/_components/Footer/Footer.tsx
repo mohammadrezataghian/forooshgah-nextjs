@@ -4,13 +4,15 @@ import React from "react";
 import bale from "@/public/images/footer/bale.png";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HelpIcon from "@mui/icons-material/Help";
-import { useAtom } from "jotai";
-import { mainConfig } from "@/shared/mainConfig";
 import Link from "next/link";
 import Image from "next/image";
 import useGetMainConfig from "@/app/api/getMainConfig/hook";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const Footer = () => {
+
+const config = useSelector((state: RootState) => state.mainConfig.value);
 
 // config
 const { loadingConfig, errorConfig,getConfig} = useGetMainConfig()
@@ -20,7 +22,6 @@ React.useEffect(()=>{
 // end config
 
 //get data 
-const [config,setConfig] =  useAtom(mainConfig)
 const data = config?.filter((item:any)=>item.TypeSetting === "Footer")
 
 const h1 = data?.find((item:any) => item.Key === "webAppFooterH1")
@@ -220,7 +221,7 @@ const enamadCode= `<img
 
                 {/* rashen rights */}
                 <div className="w-full h-auto flex justify-center">
-                  <p className="text-center MohammadrezaTaghian">
+                  <p className="text-center">
                     <a href="https://rashensystem.com/" className="text-[#B00937]">www.rashensystem.com</a>{" "}
                     - Copyright © 2025 - All rights reserved
                   </p>

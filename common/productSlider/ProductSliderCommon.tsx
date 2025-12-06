@@ -3,10 +3,9 @@
 import React, { useEffect, useState } from 'react'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SliderLeft from '@/common/productSlider/SliderLeft';
-import { useAtom } from "jotai";
-import { banners } from "@/shared/banners";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import Link from 'next/link';
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type ProductsSliderCommonProps={
     orderImage: number;
@@ -22,9 +21,9 @@ type ProductsSliderCommonProps={
 
 const ProductsSliderCommon = ({orderImage,threshold,params,title}:ProductsSliderCommonProps) => {
     
-    const [siteAddress] = useAtom(siteUrlAddress);
+    const banner = useSelector((state: RootState) => state.banners.value);
+    const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 // get data
-const [banner,setBanner] = useAtom(banners);
 const orderImageBestSeller = banner?.advertisement?.find((item:any) => item.OrderImage === orderImage)
 // end get data
 

@@ -2,15 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 import SliderCategories from './SliderCategories';
-import { useAtom } from "jotai";
-import { banners } from "@/shared/banners";
-import { siteUrlAddress } from "@/shared/site.url.atom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const CategoriesSlider = () => {
 
-const [siteAddress] = useAtom(siteUrlAddress);
+const banner = useSelector((state: RootState) => state.banners.value);
+const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 // get data
-const [banner,setBanner] = useAtom(banners);
 const orderImageCategory = banner?.advertisement?.find(item => item.OrderImage === 7)
 // end get data
 

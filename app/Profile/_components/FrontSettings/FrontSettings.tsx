@@ -5,17 +5,18 @@ import React, { useState } from 'react'
 import ToggleButtons from './ToggleButton'
 import ColorPicker from './ColorPicker'
 import useSaveMainConfig from '@/app/api/saveMainConfig/hook'
-import { useAtom } from "jotai";
-import { mainConfig } from "@/shared/mainConfig";
 import { Button } from '@mui/material'
 import Cookies from "js-cookie";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const FrontSettings = () => {
  
+const config = useSelector((state: RootState) => state.mainConfig.value);
+
 const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;  
 const userToken = localStorage.getItem("userToken");
-const [config,setConfig] =  useAtom(mainConfig)
 const data = config?.filter(item=>item.TypeSetting === "Config") || {}
 let colorDefault = data?.find(item => item.Key === "webAppColorDefault")
 // let FontDefault = data?.find(item => item.Key === "webAppFontDefault")

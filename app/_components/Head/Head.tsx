@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import { addressService } from "@/services/addressService";
-import { address } from "@/shared/Address";
 import dynamic from "next/dynamic";
 const HeadReturn = dynamic(() => import("./HeadReturn"), {ssr: false,});
 const UserAddressModal = dynamic(() => import("@/common/address/UserAddressModal"), {ssr: false,});
@@ -16,13 +13,21 @@ const UserPassDialog = dynamic(() => import("@/common/EnterModal/UsernameDialog"
 const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), {ssr: false,});
 const Drawer = dynamic(() => import("./Drawer"), {ssr: false,});
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
-import { IsUserloggedIn } from "@/shared/isLoggedIn";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
+import { clearIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
 
 const Head = () => {
+
+  const dispatch = useDispatch()
+  const showdefaultaddress = useSelector((state: RootState) => state.address.value);
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+  const loggedIn = useSelector((state:RootState)=>state.isUserloggedIn.value)
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [citydialogOpen, citysetDialogOpen] = useState(false);
-  const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [addresses, setAdreesses] = useState([]);
@@ -31,8 +36,6 @@ const Head = () => {
     EshterakNo: 0,
   });
   const [deleteAddress, setdeleteAddress] = useState(null);
-  const [showdefaultaddress, setshowdefaultaddress] = useAtom(address)
-  const [loggedIn, setloggedIn] = useAtom(IsUserloggedIn);
   const [errorLoadAddress, setErrorLoadAddress] = useState<string | null>(null);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
@@ -167,7 +170,7 @@ const selectedProductsCount = useInterceptLocalProducts();
 // }
 // Handle line-clamp-1
 
-const { loading, error,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+const { loading, error,getSiteAddress } = useGetSiteAddress()
 
 useEffect(() => {
   const fetchSiteAddress = async () => {
@@ -177,7 +180,7 @@ useEffect(() => {
 
   const setSiteAddressResponce = async (data:any) => {
     if (data && data.Data) {
-      setSiteAddress(data.Data);
+      dispatch(setSiteUrlAddress(data.Data))
     }
   };
 
@@ -185,12 +188,12 @@ useEffect(() => {
     fetchSiteAddress();
   }
 
-}, [siteAddress, setSiteAddress, loggedIn]);
+}, [siteAddress, loggedIn]);
 
 // alert dialog
 const handleExit = () => {
   Cookies.remove("user");
-  setloggedIn(false);
+  dispatch(clearIsUserloggedIn())
   localStorage.removeItem("userToken");
   setOpenAlertDialog(false);
 };

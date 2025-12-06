@@ -1,17 +1,17 @@
 'use client'
 
-import { productListUpdate } from "@/shared/product.list.atom";
-import { Divider, IconButton } from "@mui/material";
-import { useAtom } from "jotai";
+import { Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { MdAdd, MdRemove } from "react-icons/md";
 import SearchLoading from "../loading";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import { Product } from "@/types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { clearInputValue } from "@/store/slices/inputValueSlice";
+import { setLastSearchValue } from "@/store/slices/lastSearchSlice";
+import { setSearchBoxVisible } from "@/store/slices/isSearchBoxVisibleSlice";
+import { RootState } from "@/store/store";
 
 type SearchedItemsProps = {
     filteredUsers:any;
@@ -21,6 +21,12 @@ type SearchedItemsProps = {
 }
 
 const SearchedItems = ({ filteredUsers, searchItem,loadingApiUsers,resCode }:SearchedItemsProps) => {
+
+  const dispatch = useDispatch();
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+  const handleClear = () => {
+    dispatch(clearInputValue());
+  };
 
   const [mounted,setMounted] =useState(false)
 
@@ -40,21 +46,18 @@ const [opensnackbar, setOpensnackbar] = useState(false);
       localStorage.removeItem("productsInSearch");
     }
   },[mounted])
-  
-  const [products, setProducts] = useAtom(productListUpdate);
 
   // add to cart
-  const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
+  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
   // end add to cart
 
   // remove from cart
-  const { removeProduct } = useRemoveProduct(setProducts);
+  // const { removeProduct } = useRemoveProduct(setProducts);
 // end remove from cart
 
   // handle search loading and messages
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
-  const [siteAddress] = useAtom(siteUrlAddress);
 
   useEffect(() => {
     if (searchItem.length >= 2) {
@@ -94,9 +97,12 @@ const [opensnackbar, setOpensnackbar] = useState(false);
               <div key={index} className="flex gap-3">
                 <div className="border p-3 rounded-lg border-gray-300 flex gap-1"><span className="text-gray-400">در دسته :</span><Link href={`/productList/${item?.Name}`} 
                   onClick={() => {
-                  sessionStorage.removeItem('ProductListOrderParam');
-                  }
-                  }
+                    dispatch(setSearchBoxVisible(false)) 
+                    handleClear()
+                    sessionStorage.removeItem('ProductListOrderParam');
+                    if (searchItem.trim()) {
+                      dispatch(setLastSearchValue(searchItem));
+                    }}}
                   className="text-blue-400">{item?.Name}</Link></div>
             </div>
             ))}
@@ -122,6 +128,14 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 <Link
                   href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}
                   className="flex justify-center overflow-hidden h-40"
+                  onClick={() => {
+                    handleClear();
+                    dispatch(setSearchBoxVisible(false));
+                    if (searchItem.trim()) {
+                      dispatch(setLastSearchValue(searchItem));
+                    }
+                  }
+                  }
                 >
                   <img
                     src={imageSrc}
@@ -134,7 +148,14 @@ const [opensnackbar, setOpensnackbar] = useState(false);
                 {data.Takhfif !== 0 && <div className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold py-1 px-2 rounded z-10">
                   -{data.Takhfif}%
                 </div>}
-                  <Link href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`}>
+                  <Link href={`/productDetails/${data.IdStoreStock}/${encodeURIComponent(data.NameKala)}`} onClick={() => {
+                    handleClear();
+                    dispatch(setSearchBoxVisible(false));
+                    if (searchItem.trim()) {
+                      dispatch(setLastSearchValue(searchItem));
+                    }
+                  }
+                  }>
                     <h3 className="md:text-base text-sm font-semibold text-gray-800 hover:text-blue-500 transition text-start line-clamp-2">
                       {data.NameKala}
                     </h3>

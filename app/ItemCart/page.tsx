@@ -3,10 +3,7 @@
 import * as React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
 import { addressService } from "@/services/addressService";
-import { address } from '@/shared/Address';
 import useGetCartBalance from "@/app/api/itemCart/hook";
 import useGetTotalFactor from '@/app/api/totalFactor/hook';
 import { useRouter } from "next/navigation";
@@ -21,15 +18,19 @@ const UserAddressModal = dynamic(() => import("@/common/address/UserAddressModal
 const CustomizedDialogs = dynamic(() => import("./_components/DialogDelete"), {ssr: false,});
 import CardItem from "./_components/CardItem"
 import TotalFactor from "./_components/TotalFactor"
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { clearProductListUpdate, setProductListUpdate } from '@/store/slices/productListSlice';
 
 export default function ItemCart() {
 
+  const dispatch = useDispatch()
+  const showdefaultaddress = useSelector((state: RootState) => state.address.value);
+  const products = useSelector((state:RootState)=>state.productListUpdate.value)
   // check for login
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("user"));
   //
   const [siteAddress, setSiteAddress] = useState("");
-  const [products, setProducts] = useAtom(productListUpdate);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [opensnackbar, setOpensnackbar] = useState(false);
@@ -41,7 +42,6 @@ export default function ItemCart() {
   const [citydialogOpen, citysetDialogOpen] = useState(false);
   const [location, setLocation] = useState("");
   const [defaultAddress, setDefaultAddress] = useState(null);
-  const [showdefaultaddress, setshowdefaultaddress] = useAtom(address)
   const [deleteAddress,setdeleteAddress] = useState(null)
   const [opendialogdelete, setOpendialogdelete] = useState(false);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
@@ -50,23 +50,24 @@ export default function ItemCart() {
 // start handling delete unmatching store products
 useEffect(()=>{
   setTimeout(() => {
-    setProducts((prevProducts:any) => {
-      if (prevProducts.length === 0) return prevProducts;
+    const updated = () => {
+      if (products.length === 0) return products;
     
-      const firstStoreName = prevProducts[0].NameForooshgah;
-      const filteredProducts = prevProducts.filter(
+      const firstStoreName = products[0].NameForooshgah;
+      const filteredProducts = products.filter(
         (product:any) => product.NameForooshgah === firstStoreName
       );
     
       // Only update if filtering changed the array
-      if (filteredProducts.length !== prevProducts.length) {
+      if (filteredProducts.length !== products.length) {
         setOpensnackbar(true);
         return filteredProducts;
       }
       
-      return prevProducts; // No unnecessary state update
+      return products; // No unnecessary state update
       
-    });
+    }
+    dispatch(setProductListUpdate(updated()))
     
   }, 1000);
   
@@ -95,7 +96,7 @@ useEffect(()=>{
         const mojod = products.filter(
           (item:any) => !balance.some((nm:any) => nm.IdKala === item.IdKala)
         );
-        setProducts(mojod);
+        dispatch(setProductListUpdate(mojod))
       }
     }, [opendialogdelete]);
     // end delete unavailable from cart
@@ -156,7 +157,7 @@ const { price, loadingPrice, errorPrice } = useGetTotalFactor(dataToSend);
   // handle deleting shopping cart
   function deleteShoppingCard() {
     localStorage.removeItem("products");
-    setProducts([]);
+    dispatch(clearProductListUpdate())
   }
   
   const handleClickOpen = () => {
@@ -296,7 +297,6 @@ useEffect(() => {
                   )?.count
                 }
                 products={products}
-                setProducts={setProducts}
                 idForImage={data.IdKala}
                 kalalist={price?.KalaList}
               />

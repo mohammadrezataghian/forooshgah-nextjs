@@ -3,17 +3,18 @@
 import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
-import { useAtom } from "jotai";
-import { mainConfig } from "@/shared/mainConfig";
+import { useDispatch } from "react-redux";
+import { setMainConfig } from "@/store/slices/mainConfigSlice";
 
 const useGetMainConfig = () => {
 
 const GetMainConfig = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/config/GetMainConfig`
 
+  const dispatch = useDispatch();
+
   const [loadingConfig, setLoadingConfig] = useState(false);
   const [errorConfig, setErrorConfig] = useState<string | null>(null);
   const [config,setConfig] = useState<any>(null);
-  const [mainconfig,setMainConfig] = useAtom(mainConfig);
 
   const getConfig = async () => {
       setLoadingConfig(true);
@@ -25,7 +26,7 @@ const GetMainConfig = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/config/GetMai
       );
 
       setConfig(res?.data?.Data);
-      setMainConfig(res?.data?.Data)
+      dispatch(setMainConfig(res?.data?.Data))
         
       return res
     } catch (err: any) {

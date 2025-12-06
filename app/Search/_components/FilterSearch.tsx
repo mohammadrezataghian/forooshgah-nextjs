@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Typography,FormControl,Select,MenuItem,Stack} from "@mui/material"
 
 type FilterSearchProps = {
     sort: number;
     setSort: React.Dispatch<React.SetStateAction<number>>;
+    sortFromUrl:number | null;
 }
 
-const FilterSearch = ({sort,setSort}:FilterSearchProps) => {
+const FilterSearch = ({sort,setSort,sortFromUrl}:FilterSearchProps) => {
 
+  const sortOrder = [
+    "نام محصول",
+    "جدیدترین",
+    "قدیمی ترین",
+    "بیشترین قیمت",
+    "کمترین قیمت",
+  ]
+
+  const [afterAction,setAfterAction] = useState('')
     const handleChangeSort = (event:any) => {
         setSort(event.target.value);
       };
+useEffect(()=>{
+  if (sortFromUrl !== null) {
+    setAfterAction(sortOrder[sortFromUrl]) 
+  }else{
+    setAfterAction(sortOrder[sort]) 
+  }
+},[sortFromUrl])
 
   return (
     <>
@@ -40,14 +57,9 @@ const FilterSearch = ({sort,setSort}:FilterSearchProps) => {
                   paddingBottom: 1,
                 },
               }}
+              renderValue={()=> afterAction}
             >
-              {[
-                "نام محصول",
-                "جدیدترین",
-                "قدیمی ترین",
-                "بیشترین قیمت",
-                "کمترین قیمت",
-              ].map((value, index) => (
+              {sortOrder.map((value, index) => (
                 <MenuItem value={index}>{value}</MenuItem>
               ))}
             </Select>

@@ -1,9 +1,8 @@
 'use client'
 
 import React from "react";
-import { useAtom } from "jotai";
-import { banners } from "@/shared/banners";
-import { siteUrlAddress } from "@/shared/site.url.atom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type BigImageBoxesCommonProps={
     orderImage:number;
@@ -11,9 +10,10 @@ type BigImageBoxesCommonProps={
 
 const BigImageBoxesCommon = ({orderImage}:BigImageBoxesCommonProps) => {
 
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+  const banner = useSelector((state: RootState) => state.banners.value);
+
 // get data
-const [banner,setBanner] = useAtom(banners);
 const orderImagetwo = banner?.advertisement?.find(item => item.OrderImage === orderImage)
 // end get data
 

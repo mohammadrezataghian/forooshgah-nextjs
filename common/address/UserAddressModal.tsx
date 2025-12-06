@@ -13,9 +13,9 @@ import {
 import Cookies from "js-cookie";
 import { GoPlus } from "react-icons/go";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useAtom } from "jotai";
-import { address } from '@/shared/Address';
 import { addresses } from "@/types/types";
+import { useDispatch } from "react-redux";
+import { setAddress } from "@/store/slices/addressSlice";
 
 type userAddressModalProps={
     isOpen: boolean;
@@ -34,9 +34,12 @@ function UserAddressModal({
   onSelecteMap,
   onSelectDelete,
 }:userAddressModalProps) {
+
+  const dispatch = useDispatch()
+
   const [userToken, setUserToken] = useState<string | null>(""); // در یافت توکن از نرم افزار
   const [eshterakNo, setEshterakNo] = useState({}); // در یافت توکن از نرم افزار
-  const [showdefaultaddress, setshowdefaultaddress] = useAtom(address)
+  
   useEffect(() => {
     const obj = Cookies.get("user");
     if (obj) {
@@ -51,7 +54,7 @@ function UserAddressModal({
   useEffect(()=>{
     if (addresses) {
       const defaultAddress = addresses.find((item:any) => item.SetDefault === true);
-      setshowdefaultaddress(defaultAddress)
+      dispatch(setAddress(defaultAddress))
     }
   },[addresses])
   
