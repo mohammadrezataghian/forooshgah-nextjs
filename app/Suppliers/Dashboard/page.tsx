@@ -16,10 +16,10 @@ const ManageProduct = dynamic(() => import('./_components/ManageProduct/ManagePr
 const ManageOrders = dynamic(() => import('./_components/ManageOrders/ManageOrders'), { ssr: false });
 const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
 import useGetMainConfig from '@/app/api/getMainConfig/hook';
-import { useAtom } from "jotai";
-import { IsSupplierUserloggedIn } from "@/shared/isSupplierLoggedIn";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useDispatch } from "react-redux";
+import { clearIsSupplierLoggedIn } from "@/store/slices/isSupplierLoggedInSlice";
 
 type ToolbarActionsSearchProps={
   setOpen:React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,10 +41,11 @@ function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 
 const SuppliersDashboard = (props:any) => {
 
+  const dispatch = useDispatch()
+
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
-  const [IsloggedIn,setIsLoggedIn] = useAtom(IsSupplierUserloggedIn);
   const NextRouter = useRouter()
 
   const { window } = props;
@@ -87,7 +88,7 @@ const SuppliersDashboard = (props:any) => {
 // exit account settings
   const handleExitAcc = ()=>{
      Cookies.remove("supplierUser")
-     setIsLoggedIn(false)
+     dispatch(clearIsSupplierLoggedIn())
      localStorage.removeItem("supplierUserToken")
      NextRouter.push("/")
      setOpen(false);
@@ -109,7 +110,7 @@ const SuppliersDashboard = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری تامین کننده', logo: <Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری تامین کننده', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
       // session={session}
       // authentication={authentication}
     >

@@ -12,17 +12,26 @@ import Image8 from "@/public/images/smallImageBoxes/Supplier.png";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
-import { useAtom } from "jotai";
-import { IsStaffUserloggedIn } from "@/shared/isStaffLoggedIn";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setIsStaffLoggedIn } from "@/store/slices/isStaffLoggedInSlice";
 
 const SmallimageBoxes = () => {
   
-const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn)
+const dispatch = useDispatch()  
+const IsloggedIn = useSelector((state:RootState) => state.isStaffLoggedIn.value)
+
 const [mounted,setMounted] = useState(false)
 
 useEffect(()=>{
   setMounted(true)
 },[])
+
+useEffect(()=>{
+if (!!Cookies.get("staffUser")){
+  dispatch(setIsStaffLoggedIn(true))
+}
+},[mounted])
 
   return (
     <>

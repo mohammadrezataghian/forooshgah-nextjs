@@ -11,9 +11,6 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-import { siteUrlAddress } from "@/shared/site.url.atom";
-import { payfullOrPart } from "@/shared/payment";
-import { useAtom } from "jotai";
 import useGetAddFactor from "@/app/api/addFactor/hook";
 import useGetResults from "@/app/api/activeGetWayOnlinePayment/hook";
 import { useRouter } from "next/navigation";
@@ -24,6 +21,10 @@ import useApplyBonCard from "@/app/api/applyBonCard/hook";
 import useApplyDiscountCode from "@/app/api/applyDiscountCode/hook";
 import SimpleBackdrop from "@/common/BackdropSpinnerLoading/Loading";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setPayfullOrPart,clearPayfullOrPart } from "@/store/slices/paymentSlice";
+import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 type selectedItemType = {
   Code:string;
@@ -33,6 +34,10 @@ type selectedItemType = {
 }
 
 const PaymentMethods = () => {
+
+  const dispatch = useDispatch();
+  const isPart = useSelector((state:RootState)=> state.payfullOrPart.value)
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
   const [userObj,setUserObj] = useState<any>(null)
   const [userTok,setUserTok] = useState<any>(null)
@@ -49,8 +54,6 @@ const PaymentMethods = () => {
   const [factorSaved, setFatorSaved] = useState(false);
   const [WebFactorId, setIdFactor] = useState(0);
   const isMobile = useMediaQuery("(max-width:600px)"); // بررسی حالت موبایل
-  const [siteAddress,setSiteAddress] = useAtom(siteUrlAddress);
-  const [isPart,setIsPart] = useAtom(payfullOrPart);
   const [timer, setTimer] = useState(null); // ذخیره تایمر
   const [sadaWindowopen, setSadadWindowOpen] = useState(false);
   const [noPayWindowopen, setNopayWindowOpen] = useState(false);
@@ -77,7 +80,7 @@ const PaymentMethods = () => {
 
   // GET SITE ADDRESS
 
-  const { loading:loadingsiteaddress, error:errorsiteaddress,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+  const { loading:loadingsiteaddress, error:errorsiteaddress,getSiteAddress } = useGetSiteAddress()
   
     const fetchSiteAddress = async () => {
       const data = await getSiteAddress()
@@ -85,7 +88,7 @@ const PaymentMethods = () => {
     };
     const setSiteAddressResponce = async (data:any) => {
       if (data && data.Data) {
-        setSiteAddress(data.Data);
+        dispatch(setSiteUrlAddress(data.Data))
         console.log(data.Data);
         
       }
@@ -138,13 +141,13 @@ useEffect(()=>{
     if (state) {
       if (state?.amount) {
         setAmount(state?.amount)
-        setIsPart(false)
+        dispatch(clearPayfullOrPart())
       }else if (state?.factor){
         setAmount(state?.factor?.GhabelePardakht)
-        setIsPart(true)
+        dispatch(setPayfullOrPart(true))
       }else if(state?.param){
         setAmount(state?.param?.Amount)
-        setIsPart(true)
+        dispatch(setPayfullOrPart(true))
       }
     }
   },[state])
@@ -152,10 +155,10 @@ useEffect(()=>{
   useEffect(()=>{
     if (state?.factor?.Id) {
       afterSaveFactor(state?.factor)
-      setIsPart(true)
+      dispatch(setPayfullOrPart(true))
     }else if(state?.param?.ID){
       afterSaveFactor(state)
-      setIsPart(true)
+      dispatch(setPayfullOrPart(true))
     }else{
       if (userFactorFlag){
       const token = localStorage.getItem("userToken") || '';
@@ -166,7 +169,7 @@ useEffect(()=>{
          setUserFactorForBon(res?.data?.Data)
       }
       saveFactor(token)
-      setIsPart(false)
+      dispatch(clearPayfullOrPart())
     }
     }
   },[state,userFactor])

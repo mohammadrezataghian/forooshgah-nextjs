@@ -5,8 +5,6 @@ import Logo from "@/public/logo/logo1.png";
 import * as z from 'zod';
 import useGetCheckLoginSupplier from '@/app/api/checkMobileTaminKonande/hook';
 import useGetSubmitLoginSupplier from '@/app/api/loginTaminKonandeByMobile/hook';
-import { useAtom } from "jotai";
-import { IsSupplierUserloggedIn } from "@/shared/isSupplierLoggedIn";
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), { ssr: false });
@@ -15,6 +13,8 @@ import { useRouter } from 'next/navigation';
 import EastIcon from '@mui/icons-material/East';
 import Link from 'next/link';
 import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
+import { useDispatch } from "react-redux";
+import { setIsSupplierLoggedIn } from "@/store/slices/isSupplierLoggedInSlice";
 
 // zod schema for validation
 const schema = z.object({
@@ -27,6 +27,8 @@ const schema = z.object({
 
 const SuppliersLogin = () => {
     
+const dispatch = useDispatch()
+
 const { normalizeDigits } = useNormalizeDigits();
 const [mobileNumber,setMobileNumber] = useState("")
 const [mobileError, setMobileError] = useState("");
@@ -35,7 +37,6 @@ const [timer, setTimer] = useState(120);
 const [canResend, setCanResend] = useState(false);
 const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 const [verificationCode, setVerficationCode] = useState("");
-const [IsloggedIn, setIsloggedIn] = useAtom(IsSupplierUserloggedIn);
 
 // timer
 useEffect(() => {
@@ -117,7 +118,7 @@ const router = useRouter()
       const res = await getSubmitLoginSupplier(param)
         if (res && res.data.resCode === 1) {
           Cookies.set("supplierUser", JSON.stringify(res.data.Data), { expires: 12 / 24 });
-          setIsloggedIn(true)
+          dispatch(setIsSupplierLoggedIn(true))
           localStorage.setItem("supplierUserToken", res.data.token);
           showSnackbar("با موفقیت وارد شدید!");
           setMobileNumber("");
@@ -129,7 +130,7 @@ const router = useRouter()
 useEffect(()=>{
       if (submitLoginSupplier && submitLoginSupplier?.data?.resCode && submitLoginSupplier?.data?.resCode === 1){
         setTimeout(() => {
-          router.push("/suppliers/dashboard");
+          router.replace("/suppliers/dashboard");
         },1500);
       }
 },[submitLoginSupplier])

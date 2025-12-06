@@ -3,11 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Logo from "@/public/logo/logo1.png";
 import * as z from 'zod';
-import { useAtom } from "jotai";
 import Cookies from 'js-cookie';
 import useGetCheckLoginStaff from '@/app/api/checkMobileEmployee/hook';
 import useGetSubmitLoginStaff  from '@/app/api/loginEmployeeByMobile/hook';
-import { IsStaffUserloggedIn } from '@/shared/isStaffLoggedIn';
 import dynamic from 'next/dynamic';
 const UserPassDialog = dynamic(() => import('./_components/UsernameDialog'), { ssr: false });
 const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"), { ssr: false });
@@ -16,6 +14,8 @@ import { useRouter } from 'next/navigation';
 import EastIcon from '@mui/icons-material/East';
 import Link from 'next/link';
 import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
+import { useDispatch } from "react-redux";
+import { setIsStaffLoggedIn } from "@/store/slices/isStaffLoggedInSlice";
 
 // zod schema for validation
 const schema = z.object({
@@ -28,6 +28,8 @@ const schema = z.object({
 
 const StaffLogin = () => {
 
+const dispatch = useDispatch()
+
 const { normalizeDigits } = useNormalizeDigits();
 const [mobileNumber,setMobileNumber] = useState("")
 const [mobileError, setMobileError] = useState("");
@@ -36,7 +38,6 @@ const [timer, setTimer] = useState(120);
 const [canResend, setCanResend] = useState(false);
 const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 const [verificationCode, setVerficationCode] = useState("");
-const [IsloggedIn, setIsloggedIn] = useAtom(IsStaffUserloggedIn);
 const [openUserPassDialog, setOpenUserPassDialog] = React.useState(false);
 
 // timer
@@ -120,7 +121,7 @@ const router = useRouter()
 
         if (res && res.data.resCode === 1) {
           Cookies.set("staffUser", JSON.stringify(res.data.Data), { expires: 12 / 24 });
-          setIsloggedIn(true)
+          dispatch(setIsStaffLoggedIn(true))
           localStorage.setItem("staffUserToken", res.data.token);
           showSnackbar("با موفقیت وارد شدید!");
           setMobileNumber("");
@@ -132,7 +133,7 @@ const router = useRouter()
 useEffect(()=>{
       if (submitLoginStaff && submitLoginStaff?.data?.resCode && submitLoginStaff?.data?.resCode === 1){
         setTimeout(() => {
-          router.push("/staff/dashboard");
+          router.replace("/staff/dashboard");
         },1500);
       }
 },[submitLoginStaff])

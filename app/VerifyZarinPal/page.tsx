@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { productListUpdate } from "@/shared/product.list.atom";
-import { payfullOrPart } from "@/shared/payment";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { clearProductListUpdate } from "@/store/slices/productListSlice";
 
 function parseTextToObject(text: string, pairSeparator = "&", keyValueSeparator = "=") {
     const result: Record<string, string> = {};
@@ -18,12 +18,13 @@ function parseTextToObject(text: string, pairSeparator = "&", keyValueSeparator 
 
 export default function VerifyZarinPal() {
 
+  const dispatch = useDispatch();
+  const isPart = useSelector((state:RootState) => state.payfullOrPart.value)
+
   const router = useRouter()
   const [factorInfo, setFactorInfo] = useState(null);
   const [isSucess, secSuccesPardakht] = useState(false);
   const [message, setMessage] = useState("در حال بررسی پرداخت...");
-  const [products, setProducts] = useAtom(productListUpdate);
-  const [isPart,setIsPart] = useAtom(payfullOrPart);
 
   const VerifyZarinPal = process.env.API_URL_VERIFYZARINPAL as string;
 
@@ -43,7 +44,7 @@ export default function VerifyZarinPal() {
   function deleteShoppingCard() {
     if (!isPart) {
       localStorage.removeItem("products");
-      setProducts([]);  
+      dispatch(clearProductListUpdate())
     }
   }
   

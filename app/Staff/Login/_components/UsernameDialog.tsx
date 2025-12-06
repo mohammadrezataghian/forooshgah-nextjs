@@ -11,11 +11,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { OutlinedInput } from '@mui/material';
 import * as z from 'zod';
 import Cookies from 'js-cookie';
-import { useAtom } from "jotai";
-import { IsStaffUserloggedIn } from '@/shared/isStaffLoggedIn';
 import  useLoginByUsername  from '@/app/api/loginEmployee/hook';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { useRouter } from 'next/navigation';
+import { useDispatch } from "react-redux";
+import { setIsStaffLoggedIn } from "@/store/slices/isStaffLoggedInSlice";
 
 // zod schema for validation
 const schema = z.object({
@@ -34,12 +34,13 @@ type UserPassDialogProps = {
 
 export default function UserPassDialog({open,setOpen}:UserPassDialogProps) {
 
+const dispatch = useDispatch()
+
 const user = Cookies.get("staffUser") ? JSON.parse(Cookies.get("staffUser") || '') : null;
 const [username, setUsername] = React.useState("");
 const [password, setPassword] = React.useState("");
 const [usernameError, setUsernameError] = React.useState("");
 const [passwordError, setPasswordError] = React.useState("");
-const [IsloggedIn, setIsloggedIn] = useAtom(IsStaffUserloggedIn);
 const router = useRouter()
 
   const handleClose = () => {
@@ -75,7 +76,7 @@ const params = {
        if (res?.data?.resCode === 1 && res?.data?.Data) {
          showSnackbar('با موفقیت وارد شدید')
          Cookies.set("staffUser", JSON.stringify(res?.data?.Data), { expires: 12 / 24 });
-         setIsloggedIn(true)
+         dispatch(setIsStaffLoggedIn(true))
          localStorage.setItem("staffUserToken", res?.data?.token);
          setUsername('')
          setPassword('')

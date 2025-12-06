@@ -1,15 +1,16 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { productListBrands } from "@/shared/forBrands";
+import { Product } from "@/types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const useBrands = () => {
 
+  const brandsData = useSelector((state:RootState)=> state.productListBrands.value)
 // get data 
-  const [brandsData,setBrandsData] = useAtom(productListBrands);
   const mainData = brandsData;
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     setProducts(mainData);
   }, [mainData]);

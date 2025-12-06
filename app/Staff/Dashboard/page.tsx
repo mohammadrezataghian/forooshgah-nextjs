@@ -16,10 +16,10 @@ import dynamic from 'next/dynamic';
 const SalarySlip = dynamic(() => import('./_components/SalarySlip/SalarySlip'), { ssr: false });
 const ChangePassword = dynamic(() => import('./_components/ChangePassword/ChangePassword'), { ssr: false });
 const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
-import { useAtom } from "jotai";
-import { IsStaffUserloggedIn } from '@/shared/isStaffLoggedIn';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useDispatch } from "react-redux";
+import { clearIsStaffLoggedIn } from "@/store/slices/isStaffLoggedInSlice";
 
 // exit account
 
@@ -42,10 +42,11 @@ function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 
 const StaffDashboard = (props:any) => {
 
+  const dispatch = useDispatch()
+
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
-  const [IsloggedIn,setIsLoggedIn] = useAtom(IsStaffUserloggedIn);
   const NextRouter = useRouter()
 
   const { window } = props;
@@ -88,7 +89,7 @@ const StaffDashboard = (props:any) => {
 // handle exit account
 const handleExitAcc = ()=>{
     Cookies.remove("staffUser")
-    setIsLoggedIn(false)
+    dispatch(clearIsStaffLoggedIn())
     localStorage.removeItem("staffUserToken")
     NextRouter.back()
     setOpen(false);
@@ -110,7 +111,7 @@ const handleExitAcc = ()=>{
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری کارمند', logo: <Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری کارمند', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
       // session={session}
       // authentication={authentication}
     >
