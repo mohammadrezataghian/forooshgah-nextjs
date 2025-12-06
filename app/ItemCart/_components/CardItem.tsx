@@ -3,13 +3,13 @@
 import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import Link from "next/link";
 import { Product } from "@/types/types";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type CardItemProps={
   name: string;
@@ -20,7 +20,6 @@ type CardItemProps={
   count:number | undefined;
   data:Product;
   products:Product[];
-  setProducts:React.Dispatch<React.SetStateAction<Product[]>>;
   images:string;
   idForImage:number;
   NameForooshgah:string;
@@ -36,21 +35,20 @@ const CardItem = ({
   count,
   data,
   products,
-  setProducts,
   images,
   idForImage,
   NameForooshgah,
   kalalist
 }:CardItemProps) => {
 
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
    // add to cart
-   const { addProduct } = useAddProduct(setProducts);
+   const { addProduct } = useAddProduct();
    // end add to cart
  
    // remove from cart
-   const { removeProduct } = useRemoveProduct(setProducts);
+   const { removeProduct } = useRemoveProduct();
  // end remove from cart
 
   // handle comma

@@ -5,12 +5,12 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import  useGetCheckLogin  from "@/app/api/checkMobileForLogin/hook";
 import  useGetSubmitLogin  from "@/app/api/loginUserByMobile/hook";
-import { useAtom } from "jotai";
-import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import * as z from 'zod';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
 import dynamic from "next/dynamic";
+import { useDispatch } from "react-redux";
+import { setIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
 const MobileDialog = dynamic(() => import("./MobileNumberCondition"), {ssr: false,});
 
 // zod schema for validation
@@ -29,6 +29,8 @@ type EnterProps = {
 
 const Enter = ({ handleClose,setOpenUserPassDialog }:EnterProps) => {
 
+  const dispatch = useDispatch()
+
   const { normalizeDigits } = useNormalizeDigits();
   const [mobileNumber, setMobileNumber] = useState("");
   const [showOTP, setShowOtp] = useState(false);
@@ -36,7 +38,6 @@ const Enter = ({ handleClose,setOpenUserPassDialog }:EnterProps) => {
   const [timer, setTimer] = useState(120);
   const [canResend, setCanResend] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [IsloggedIn, setIsloggedIn] = useAtom(IsUserloggedIn);
   const [mobileError, setMobileError] = useState("");
   const [MobileDialogOpen, setMobileDialogOpen] = useState(false);
 
@@ -126,7 +127,7 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
       if (res?.data.resCode === 1) {
         Cookies.remove('user')
         Cookies.set("user", JSON.stringify(res.data.Data), { expires: 12 / 24 });
-        setIsloggedIn(true)
+        dispatch(setIsUserloggedIn(true))
         localStorage.removeItem("userToken")
         localStorage.setItem("userToken", res.data.token);
         showSnackbar("با موفقیت وارد شدید!");

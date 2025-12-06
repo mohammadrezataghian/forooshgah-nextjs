@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type SliderCategoriesCardProps ={
     name: string;
@@ -14,8 +14,8 @@ type SliderCategoriesCardProps ={
 
 const SliderCategoriesCard = ({ name, id,NameImage }:SliderCategoriesCardProps) => {
 
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 // set site address and image
-    const [siteAddress] = useAtom(siteUrlAddress);
     const [image,SetImage] = useState<string | null>(null)
     useEffect(()=>{
       if(siteAddress){

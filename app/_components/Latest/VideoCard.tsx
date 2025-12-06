@@ -1,14 +1,14 @@
 'use client'
 
 import React from "react";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 
 const VideoCard = (data:any) => {
 
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
   
   return (
     <div className="w-full h-auto mx-auto bg-white rounded-lg shadow-md overflow-hidden">

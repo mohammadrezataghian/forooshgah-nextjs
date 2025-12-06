@@ -21,14 +21,12 @@ import OtherControls from "../_components/OtherControls";
 // filters
 import PaginationRounded from "../_components/Pagination";
 import LoadingSkeleton from "./loading";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
-import { selectedStore } from '@/shared/selectedStoreAtom';
 import useFetchProducts  from "@/app/api/productList/hook";
 import { FcRemoveImage } from "react-icons/fc";
 import { ProductType } from "@/types/types";
 import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
-import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const theme = createTheme({
   direction: "rtl",
@@ -55,7 +53,9 @@ type payloadType ={
 
 export default function ProductList() {
 
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const state = useSelector((state:RootState)=>state.selectedStore.value)
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   const [loading, setLoading] = React.useState(true);
   const [products, setProducts] = React.useState<ProductType>([]);
   const [checkedBrands, setCheckedBrands] = React.useState<number[]>([]);
@@ -64,7 +64,6 @@ export default function ProductList() {
   const [sort, setSort] = React.useState(0);
   const [selectedCategory, setSelectedCategory] = React.useState("")
   
-  const [state] = useAtom(selectedStore);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

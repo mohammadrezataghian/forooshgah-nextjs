@@ -1,15 +1,17 @@
 'use client'
 
-import { useAtom } from "jotai";
-import { siteUrlAddress } from '@/shared/site.url.atom'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Divider } from "@mui/material";
 import { ArticleItem } from "@/types/types";
 import { usePathname } from "next/navigation";
 import useGetNews from "@/app/api/getNewsArticles/hook";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 
 const GetArticles = () => {
+
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
   const params = usePathname()
   const segment = params.split('/')
@@ -26,9 +28,6 @@ const GetArticles = () => {
       getNews(param)
     }
   },[id])
-
-    const [siteAddress] = useAtom(siteUrlAddress);
-
 
   return (
     <>

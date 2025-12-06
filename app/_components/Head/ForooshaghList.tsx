@@ -4,13 +4,14 @@ import React, { useState} from "react";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useAtom } from "jotai";
-import { selectedStore } from "@/shared/selectedStoreAtom";
 import useGetItems from "@/app/api/forooshgahList/hook";
+import { useDispatch } from "react-redux";
+import { setSelectedStore } from "@/store/slices/selectedStoreSlice";
 
 const ForooshgahList = () => {
 
-  const [selectedItem, setSelectedItem] = useAtom(selectedStore); // برای ذخیره آیتم انتخاب شده
+  const dispatch = useDispatch()
+
   const [focused, setFocused] = useState(false);
 
  // get data
@@ -19,7 +20,7 @@ const ForooshgahList = () => {
 
   // تغییر مقدار انتخاب شده
   const handleChange = (event:any) => {
-    setSelectedItem(event.target.value);
+    dispatch(setSelectedStore(event.target.value))
     // console.log("Selected Item ID:", event.target.value); // برای بررسی مقدار انتخاب شده
   };
 

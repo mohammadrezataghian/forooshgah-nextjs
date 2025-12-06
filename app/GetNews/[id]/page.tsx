@@ -1,7 +1,7 @@
 'use client'
 
 import { Divider } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -16,15 +16,17 @@ import '../swiper.css';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import { ArticleItem } from '@/types/types';
 import { usePathname } from 'next/navigation';
 import useGetNews from '@/app/api/getNewsArticles/hook';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 
 const GetNews = () => {
   
+    const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
     const params = usePathname()
     const segment = params.split('/')
     const id = segment[2]
@@ -40,8 +42,6 @@ const GetNews = () => {
         getNews(param)
       }
     },[id])
-    
-    const [siteAddress] = useAtom(siteUrlAddress);
   
   const images = News?.ImageGallury?.split(",");
   // end get data

@@ -2,19 +2,19 @@
 
 import React, { useEffect } from "react";
 import { PageContainer } from "@toolpad/core/PageContainer";
-import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Receipt from "./Receipt";
 import Returned from "./Returned";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import Cookies from "js-cookie";
 import useGetReceipts from "@/app/api/customerOrderList/hook";
 import useGetOrderStatus from "@/app/api/getOrderStatus/hook";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 function CustomTabPanel(props:any) {
   const { children, value, index, ...other } = props;
@@ -47,6 +47,9 @@ function a11yProps(index:any) {
 
 const Orders = () => {
 
+  const dispatch = useDispatch()
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const eshterakNo = user?.EshterakNo;
   const userToken = localStorage.getItem("userToken");
@@ -67,13 +70,12 @@ const { response, loadingStatus, errorStatus } = useGetOrderStatus()
 // end get order status
 
   const [value, setValue] = React.useState(0);
-  const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
 
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue);
   };
 
-  const { loading, error,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+  const { loading, error,getSiteAddress } = useGetSiteAddress()
 
   useEffect(() => {
     const fetchSiteAddress = async () => {
@@ -83,7 +85,7 @@ const { response, loadingStatus, errorStatus } = useGetOrderStatus()
   
     const setSiteAddressResponce = async (data:any) => {
       if (data && data.Data) {
-        setSiteAddress(data.Data);
+        dispatch(setSiteUrlAddress(data.Data))
       }
     };
   
@@ -91,7 +93,7 @@ const { response, loadingStatus, errorStatus } = useGetOrderStatus()
       fetchSiteAddress();
     }
   
-  }, [siteAddress, setSiteAddress]);
+  }, [siteAddress]);
 
   return (
     <>

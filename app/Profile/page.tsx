@@ -22,12 +22,40 @@ import useGetMainConfig from "@/app/api/getMainConfig/hook";
 import { useNavigationItems } from './_components/Navigation';
 import Image from 'next/image';
 import { sahamUserType } from '@/types/types';
+import { useRouter } from 'next/navigation';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from 'react-redux';
+import { clearIsUserloggedIn } from '@/store/slices/isLoggedInSlice';
+const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
+
+// exit account
+
+type ToolbarActionsSearchProps={
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
+
+return (
+  <div className='w-full '>
+    <button className='bg-gray-300 text-black rounded-md p-1 cursor-pointer' onClick={() => setOpen(true)}>
+      <LogoutIcon className='text-black'/>
+      <span>خروج</span>
+    </button>
+  </div>
+);
+}
+// end exit account
 
 const Profile = (props:any) => {
+
+    const dispatch = useDispatch()
 
     const [user, setUser] = React.useState<sahamUserType | null>(null);
     const [loading, setLoading] = React.useState(true);
     const navItems = useNavigationItems();
+    const NextRouter = useRouter();
+    const [open, setOpen] = React.useState(false);
   
     const { window } = props;
 
@@ -69,6 +97,18 @@ const Profile = (props:any) => {
     }, [router.pathname]);
     // end navigate to club
 
+    // handle exit account
+    const handleExitAcc = ()=>{
+      Cookies.remove("user")
+      dispatch(clearIsUserloggedIn())
+      localStorage.removeItem("userToken")
+      NextRouter.back()
+      setOpen(false);
+    }
+
+    const exitDialogContent = "آیا مطمئن هستید؟"
+    //  end handle exit account
+
   return (
     <>
     <title>حساب کاربری</title>
@@ -79,12 +119,13 @@ const Profile = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری', logo: <Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" />}}
+      branding={{title: 'حساب کاربری', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
       // session={session}
       // authentication={authentication}
     >
       <DashboardLayout
       slots={{
+        toolbarActions: () => <ToolbarActionsSearch setOpen={setOpen} />,
         sidebarFooter: SidebarFooter,
       }}
       sx={{
@@ -136,6 +177,9 @@ const Profile = (props:any) => {
         '& nav.MuiBox-root[aria-label="Desktop"]': {
           borderLeft: '1px solid lightgray',
         },
+        '& .MuiStack-root': {
+          ml:0 
+        },
       }}
       >
        {router.pathname === '/' && (
@@ -176,6 +220,7 @@ const Profile = (props:any) => {
             </DashboardLayout>
           </AppProvider> : <div className='w-full p-10 flex justify-center text-red-500'> <span>برای دسترسی به حساب کاربری ابتدا وارد شوید!</span></div>}
           </div>}
+          <AlertDialog open={open} setOpen={setOpen} handleExitAcc={handleExitAcc} exitDialogContent={exitDialogContent}/>
     </>
   )
 }

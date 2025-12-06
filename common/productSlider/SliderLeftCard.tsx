@@ -4,14 +4,14 @@ import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
 import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import { Product, ProductType } from "@/types/types";
+import { Product } from "@/types/types";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type SliderLeftCardProps={
   name:string;
@@ -20,7 +20,6 @@ type SliderLeftCardProps={
   prevPrice:number;
   discount:number;
   id:string;
-  setProducts:React.Dispatch<React.SetStateAction<Product[]>>;
   data:Product;
   children?: React.ReactNode; //children?: number | undefined;
   mojodi:number;
@@ -35,7 +34,6 @@ const SliderLeftCard = ({
   prevPrice,
   discount,
   id,
-  setProducts,
   data,
   children,
   mojodi,
@@ -43,24 +41,25 @@ const SliderLeftCard = ({
   NameForooshgah,
 }:SliderLeftCardProps) => {
 
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
 // end handle openning snackbar
 
   // add to cart
-  const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
+  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
   // end add to cart
 
   // remove from cart
-  const { removeProduct } = useRemoveProduct(setProducts);
+  // const { removeProduct } = useRemoveProduct(setProducts);
 // end remove from cart
 
   // handle comma
   const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
-  const [siteAddress, setSiteAddress] = useAtom(siteUrlAddress);
-  // console.log("Slider Left card", siteAddress);
+  
   // handle immage
   let image = "";
   if (images != null) {

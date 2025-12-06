@@ -2,10 +2,14 @@
 
 import { useState, useCallback } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
-export function useGetSiteAddress(setSiteAddress:any) {
+export function useGetSiteAddress() {
 
 const siteUrlAddress = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/siteUrlAddress`
+
+const dispatch = useDispatch()
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +21,7 @@ const siteUrlAddress = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/siteUrlAddre
 
     try {
       const res = await axios.get(siteUrlAddress);
-      setSiteAddress(res?.data?.Data);
+      dispatch(setSiteUrlAddress(res?.data?.Data))
       return res;
     } catch (err: any) {
       setError(err.message || "An unknown error occurred in siteUrlAddress");

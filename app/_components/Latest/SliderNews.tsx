@@ -5,8 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,11 +12,13 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 
 const SliderNews = (data:any) => {
   
-  const [siteAddress] = useAtom(siteUrlAddress);
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
   
   return (
     <>

@@ -3,19 +3,20 @@
 import useGetNews from '@/app/api/news/hook';
 import { Divider } from '@mui/material';
 import React from 'react'
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BasicPagination from '@/common/News/NewsPagination';
 import CustomizedInputBase from '@/common/News/NewsSearch';
 import LoadingNews from '@/common/News/LoadingNews';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 const News = () => {
 
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   const [searchValue,setSearchValue] = React.useState('');
   const [page, setPage] = React.useState(1);
-  const [siteAddress] = useAtom(siteUrlAddress);
   const placeholder = 'عنوان خبر را جستجو کنید...'
 
 const params = {

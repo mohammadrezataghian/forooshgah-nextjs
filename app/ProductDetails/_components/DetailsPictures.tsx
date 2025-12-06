@@ -5,10 +5,10 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import MagnifierImage from "./MagnifierImage";
 import "../DetailsPictures.css";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 // Import custom icons
 
 type DetailsPicturesProps = {
@@ -19,8 +19,9 @@ type DetailsPicturesProps = {
 
 const DetailsPictures = ({ imagee, name, IdKala }:DetailsPicturesProps) => {
 
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   const imageArray = (imagee || "").split(",");
-  const [siteAddress] = useAtom(siteUrlAddress);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const images = imageArray.map((item:any) => ({

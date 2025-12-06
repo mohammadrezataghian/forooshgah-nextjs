@@ -9,11 +9,12 @@ import Search from '@/public/svg/Search_magnifyer.svg'
 import Basket from '@/public/svg/Shopping_cart.svg'
 import useInterceptLocalProducts from "@/hooks/useInterceptLocalProducts";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
-import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { clearIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
 const AlertDialog = dynamic(() => import("@/common/ProfileExitDialog/ProfileExitDialog"), { ssr: false });
 const DrawerDrawer = dynamic(() => import("../Head/Drawer"), { ssr: false });
 const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), { ssr: false });
@@ -22,11 +23,14 @@ const SidemenuDrawer = dynamic(() => import("./SideMenu"), { ssr: false });
 const FullScreenDialog = dynamic(() => import("./AccountDialog"), { ssr: false });
 
 const MobileMenu = () => {
+
+  const dispatch = useDispatch()
+  const loggedIn = useSelector((state:RootState)=>state.isUserloggedIn.value)
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [SidemenuDrawerOpen, setSidemenuDrawerOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [loggedIn, setloggedIn] = useAtom(IsUserloggedIn);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
 
   //  start handle drawer
@@ -75,7 +79,7 @@ useEffect(() => {
 
 const handleExit = () => {
   Cookies.remove("user");
-  setloggedIn(false)
+  dispatch(clearIsUserloggedIn())
   localStorage.removeItem('userToken')
   setOpenAlertDialog(false)
 };

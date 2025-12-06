@@ -6,16 +6,19 @@ import React, { useEffect } from "react";
 import ReceiptLoading from "../_components/Orders/ReceiptLoading";
 import ProductCard from "../_components/Orders/ProductCard";
 import { Card, Container, Divider, Grid, Typography } from "@mui/material";
-import { useAtom } from "jotai";
-import { siteUrlAddress } from "@/shared/site.url.atom";
 import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 const InstallmentDetails = () => {
 
+  const dispatch = useDispatch()
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
-  const [siteAddress, setSiteAddress] = useAtom<string | null>(siteUrlAddress);
 
   // const location = useLocation();
   // const locationState = location.state;
@@ -51,7 +54,7 @@ React.useEffect(() => {
 
   // site address
 
-  const { loading:loadingg, error:errorr,getSiteAddress } = useGetSiteAddress(setSiteAddress)
+  const { loading:loadingg, error:errorr,getSiteAddress } = useGetSiteAddress()
   
     useEffect(() => {
       const fetchSiteAddress = async () => {
@@ -61,7 +64,7 @@ React.useEffect(() => {
     
       const setSiteAddressResponce = async (data:any) => {
         if (data && data.Data) {
-          setSiteAddress(data.Data);
+          dispatch(setSiteUrlAddress(data.Data))
         }
       };
     
@@ -69,7 +72,7 @@ React.useEffect(() => {
         fetchSiteAddress();
       }
     
-    }, [siteAddress, setSiteAddress]);
+    }, [siteAddress]);
     
     if (!factorId) return <div className="px-3 lg:px-64"><SimpleBackdrop open={true}/></div>;
     

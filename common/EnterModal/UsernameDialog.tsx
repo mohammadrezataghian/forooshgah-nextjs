@@ -10,10 +10,10 @@ import { InputAdornment, OutlinedInput } from '@mui/material';
 import * as z from 'zod';
 import  useLoginByUsername  from '@/app/api/loginUser/hook';
 import Cookies from 'js-cookie';
-import { useAtom } from "jotai";
-import { IsUserloggedIn } from "@/shared/isLoggedIn";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { setIsUserloggedIn } from '@/store/slices/isLoggedInSlice';
 
 // zod schema for validation
 const schema = z.object({
@@ -33,12 +33,12 @@ type userPassDialogProps={
 
 export default function UserPassDialog({open,setOpen}:userPassDialogProps) {
 
+const dispatch = useDispatch()
 // const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
 const [username, setUsername] = React.useState("");
 const [password, setPassword] = React.useState("");
 const [usernameError, setUsernameError] = React.useState("");
 const [passwordError, setPasswordError] = React.useState("");
-const [IsloggedIn, setIsloggedIn] = useAtom(IsUserloggedIn);
 const [showPassword, setShowPassword] = React.useState(false);
 
   const handleTogglePassword = () => {
@@ -79,7 +79,7 @@ const params = {
          showSnackbar('با موفقیت وارد شدید')
          Cookies.remove('user')
          Cookies.set("user", JSON.stringify(res?.data?.Data), { expires: 12 / 24 });
-         setIsloggedIn(true)
+         dispatch(setIsUserloggedIn(true))
          localStorage.removeItem("userToken")
          localStorage.setItem("userToken", res?.data?.token);
          setUsername('')
