@@ -111,8 +111,6 @@ const dataToSend = useMemo(() => {
 }, [products]);
 
 const { price, loadingPrice, errorPrice } = useGetTotalFactor(dataToSend);
-// console.log(price);
-
 //  end handle cart info
 
   // handle navigation
@@ -211,9 +209,6 @@ const handleSelectAddress = async (address:any) => {
     setTokenInpt(token);
 
     if (eshterakNo && token && token != "") {
-      console.log(eshterakNo);
-      console.log(userToken);
-      
       try {
         const data = await addressService.getAllAddresses(
           { EshterakNo: eshterakNo },
@@ -257,8 +252,6 @@ const handleSelectAddress = async (address:any) => {
       setdeleteAddress(address);
       setIsAddressModalOpen(false);
       addressService.deleteAddress(address, userToken);
-      console.log(deleteAddress);
-      
     };
   // end handle city dialog
 

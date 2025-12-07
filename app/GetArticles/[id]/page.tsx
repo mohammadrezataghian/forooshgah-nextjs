@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react'
 import { Divider } from "@mui/material";
-import { ArticleItem } from "@/types/types";
 import { usePathname } from "next/navigation";
 import useGetNews from "@/app/api/getNewsArticles/hook";
 import { useSelector } from "react-redux";

@@ -30,9 +30,6 @@ type CustomizedDialogsProps ={
 
 export default function CustomizedDialogs({opendialogdelete,setOpendialogdelete,namojod}:CustomizedDialogsProps) {
 
-//   const handleOpenDeleteDialog = () => {
-//     setOpen(true);
-//   };
   const handleClose = () => {
     setOpendialogdelete(false);
   };
@@ -44,9 +41,6 @@ const autocomma = (number_input:number) =>
 
   return (
     <React.Fragment>
-      {/* <Button variant="outlined" onClick={handleOpenDeleteDialog}>
-        Open dialog
-      </Button> */}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

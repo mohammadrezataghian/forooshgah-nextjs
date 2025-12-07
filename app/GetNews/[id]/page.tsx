@@ -13,10 +13,9 @@ import 'swiper/css/navigation';
 import '../swiper.css';
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { ArticleItem } from '@/types/types';
 import { usePathname } from 'next/navigation';
 import useGetNews from '@/app/api/getNewsArticles/hook';
 import { useSelector } from 'react-redux';

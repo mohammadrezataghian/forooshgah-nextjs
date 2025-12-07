@@ -16,9 +16,6 @@ type IndexButtonsProps = {
 }
 
 const IndexButtons = ({products,factoeAfrerCalc,isLoggedIn,setOpenModal,showdefaultaddress,handlecityDialogOpen,handleNavigation,handleClickOpen}:IndexButtonsProps) => {
-
-
-
   return (
     <>
     <div className="flex flex-col mb-28 items-center gap-5">

@@ -32,7 +32,6 @@ const InstallmentPayment = () => {
   const [fileBase64List, setFileBase64List] = React.useState<string[]>([]);
   const [description, setDescription] = React.useState("");
   const [open, setOpen] = useState(false);
-  // console.log(selectedId);
   
   useEffect(()=>{
     setMounted(true)
@@ -56,17 +55,13 @@ const InstallmentPayment = () => {
       getAddFactor(factorInfo,userToken);  
     }
   },[userToken])
-  // console.log(result);
-  
   // end make factor
-  // console.log(result?.data?.Data.Id);
   
   // init data
   const params = {
     idFactor: result?.data?.Data.Id,
   };
   const { inp, loadingInp, errorInp,getINP } = useGetINP(params, userToken,result);
-  // console.log(inp);
 // end init data
 
 // new
@@ -90,10 +85,8 @@ const handleSubmit = () => {
     return;
   }
 
-  console.log(currentDataparam);
   getAddDoc(currentDataparam);
 };
-// console.log(addDocResponse);
 
 useEffect(()=>{
   if (addDocResponse && addDocResponse?.data?.resCode === 1 && addDocResponse?.data?.Data > 0) {
@@ -103,8 +96,6 @@ useEffect(()=>{
     setFileBase64List([]);
     setDescription("")
     setOpen(true)
-    console.log(addDocResponse);
-    
   }
   },[addDocResponse])
 // end new
@@ -167,7 +158,7 @@ const param = {
 const handleDel = ()=>{
   getDelDoc(param)
 }
-// console.log(delDocResponse);
+
 useEffect(()=>{
 if (delDocResponse && delDocResponse?.data?.Data === true && delDocResponse?.data?.resCode) {
   getINP()
