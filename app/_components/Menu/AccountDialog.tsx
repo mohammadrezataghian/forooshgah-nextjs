@@ -11,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Slide, SlideProps } from "@mui/material";
 import { BiExit } from 'react-icons/bi';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Cookies from 'js-cookie';
 import { PiCoins } from "react-icons/pi";
 import Link from 'next/link';
 import { useSelector } from "react-redux";
@@ -22,18 +21,14 @@ const Transition = React.forwardRef<unknown, SlideProps>(function Transition(pro
 });
 
 type FullScreenDialogProps={
-    handleClickOpenAccount: ()=> void;
     open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     handleCloseAccount: ()=> void;
     handleClickOpen: ()=> void;
 }
 
-export default function FullScreenDialog({handleClickOpenAccount,open,setOpen,handleCloseAccount,handleClickOpen}:FullScreenDialogProps) {
+export default function FullScreenDialog({open,handleCloseAccount,handleClickOpen}:FullScreenDialogProps) {
 
   const score = useSelector((state: RootState) => state.clubScore.value);
-  
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
 
   return (
     <React.Fragment>

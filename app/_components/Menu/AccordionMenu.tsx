@@ -12,7 +12,6 @@ import AddIcon from '@mui/icons-material/Add';
 import NestedAccordion from './NestedAccordion';
 import useGetMenu from "@/app/api/menu/hook";;
 import { useState } from 'react';
-import Cookies from 'js-cookie';
 import { MenuResponse } from '@/types/types';
 
 // start styling the accordion children

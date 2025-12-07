@@ -29,6 +29,18 @@ type headReturnType={
 
 const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleClickOpen,handleDialogOpen,handlecityDialogOpen,showdefaultaddress,userToken} : headReturnType) => {
   
+// Handle truncate
+const lineClampHandler = (text:any) =>{
+  if (!text) return ""
+  if (text.length > 40) {
+    const trimedText = "..."+text.substring(0,40);
+    return trimedText
+  }else{
+    return text
+  }
+}
+// Handle truncate
+
   return (
     <>
     <div className="w-full h-auto grid lg:px-2 lg:justify-between lg:flex lg:flex-row lg:flex-nowrap lg:gap-3 gap-y-2 grid-cols-2 grid-rows-1 px-2 ">
@@ -50,15 +62,9 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
           {/* end basket */}
           {/* start register&enter */}
           <div className="rgisterEnter hidden lg:flex justify-center items-center lg:w-1/6 h-[41px] rounded-md mt-1 lg:mt-0 boxshadowHead col-span-3">
-            {/* <a className="text-md text-black mt-1" href="/#/dashboard/">
-              | &nbsp;ثبت نام
-            </a> */}
             {isLoggedIn ? (
               <>
               <div>
-                {/* <Button variant="text" onClick={handleClickOpen} className="flex gap-1 items-center lg:hidden">
-                <BiExit className="text-xl scale-x-[-1]"/> <span className="">خروج از حساب کاربری</span>
-                </Button> */}
                 <div className="lg:hidden block">{user && user.FirstName} {user && user.LastName}</div>
               </div>
               <MenuListComposition handleClickOpen={handleClickOpen} user={user} userToken={userToken} />
@@ -84,8 +90,8 @@ const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleCl
                   برای مکان یابی ابتدا وارد شوید
                 </span>
               )}
-              <div className='line-clamp-1'>
-                {isLoggedIn && showdefaultaddress && showdefaultaddress.AddressCompact}
+              <div>
+                {isLoggedIn && showdefaultaddress && lineClampHandler(showdefaultaddress?.AddressCompact)}
               </div>
               {isLoggedIn &&  !showdefaultaddress &&"لطفا آدرس خود را انتخاب کنید"}
             </Button>

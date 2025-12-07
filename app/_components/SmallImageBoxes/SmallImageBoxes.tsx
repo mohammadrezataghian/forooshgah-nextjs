@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image1 from "@/public/images/smallImageBoxes/Bank.png";
 // import Image2 from "@/public/images/smallImageBoxes/Acceptanceofgoods.png";
-import Image3 from "@/public/images/smallImageBoxes/Citizencard.png";
+// import Image3 from "@/public/images/smallImageBoxes/Citizencard.png";
 // import Image4 from "@/public/images/smallImageBoxes/Installment.png";
 import Image5 from "@/public/images/smallImageBoxes/Portal.png";
 import Image6 from "@/public/images/smallImageBoxes/Representation.png";
@@ -53,20 +53,6 @@ if (!!Cookies.get("staffUser")){
           </Link>
         </div>
         {/* end structure of one box */}
-        {/* <div className="w-full h-full px-6">
-          <a href="#" className="block gap-y-2 text-[#323232] font-bold h-full">
-            <div className="flex justify-center">
-              <Image
-                src={Image3}
-                alt=""
-                className="w-20 h-20 object-cover rounded-2xl self-center"
-              />
-            </div>
-            <div className="flex justify-center w-full ">
-              <span className="mt-2 text-center"> بن کارت </span>
-            </div>
-          </a>
-        </div> */}
         <div className="w-full h-full px-6">
           <Link href="/stockRequest" className="block gap-y-2 text-[#323232] font-bold h-full">
             <div className="flex justify-center">

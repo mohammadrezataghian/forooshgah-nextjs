@@ -53,9 +53,6 @@ export default function SwiperSlider({ orderImageOne, loading, error,siteAddress
             </a>
           </SwiperSlide>
         ))}
-        
-        {/* <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide> */}
         {/*  SWIPER SLIDES */}
         {/* SWIPER NAVIGATION */}
         <div className="swiper-button-next bg-gray-500 invisible xl:group-hover:visible transition-[300ms] pl-1 text-white">

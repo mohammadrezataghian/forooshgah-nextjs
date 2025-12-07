@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import useGetMenu from "@/app/api/menu/hook";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { MenuResponse } from "@/types/types";
 

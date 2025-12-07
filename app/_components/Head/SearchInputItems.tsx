@@ -66,10 +66,6 @@ const SearchInputItems = ({ filteredUsers, searchItem,resCode }:props) => {
   return (
     <>
       <div className="w-full h-full">
-        {/* {searchItem.length < 2 &&
-          (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) &&
-          !hasSearched && <p className="mt-10 mr-5 text-right">محصولی یافت نشد</p>} */}
-        {loading && (resCode != -3) && <SearchLoading />}
         {(resCode == -3) && hasSearched && (filteredUsers?.length === 0 && filteredUsers?.length === 0) && (
           <div className="mt-10 mr-5 text-right">محصولی یافت نشد</div>
         )}

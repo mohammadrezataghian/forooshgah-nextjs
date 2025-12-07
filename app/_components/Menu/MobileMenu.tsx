@@ -170,7 +170,7 @@ const handleCloseAccount = () => {
       <CustomDialog open={dialogOpen} handleClose={handleDialogClose} openUserPassDialog={openUserPassDialog} setOpenUserPassDialog={setOpenUserPassDialog}/>
       <UserPassDialog open={openUserPassDialog} setOpen={setOpenUserPassDialog}/>
       <SidemenuDrawer isOpen={SidemenuDrawerOpen} toggleDrawer={toggleSidemenuDrawer}/>
-      <FullScreenDialog handleClickOpenAccount={handleClickOpenAccount} open={open} setOpen={setOpen} handleCloseAccount={handleCloseAccount} handleClickOpen={handleClickOpen}/>
+      <FullScreenDialog open={open} handleCloseAccount={handleCloseAccount} handleClickOpen={handleClickOpen}/>
       {/* end menu */}
     </>
   );

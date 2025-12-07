@@ -60,7 +60,6 @@ const SliderNews = (data:any) => {
             <SwiperSlide key={item.FldId}>
               <div className="w-full">
                 <Link
-                  // href={`/#/newsInformation/newsdetails/${item.FldId}`}`/GetNews/${item.FldId}
                   href={`/getNews/${item.FldId}`}
                   className="w-full h-full block"
                 >
@@ -73,7 +72,6 @@ const SliderNews = (data:any) => {
                 <p className="text-xs my-2 ps-1 text-gray-500 text-right">تاریخ : <span>{item.PublishDateTimeShamsi}</span></p>
                 <p className="text-sm ps-1 flex ">
                   <Link
-                    // href={`/#/newsInformation/newsdetails/${item.FldId}`}
                     href={`/getNews/${item.FldId}`}
                     className="line-clamp-2 hover:text-blue-500 text-black pb-3"
                   >

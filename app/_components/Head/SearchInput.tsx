@@ -180,7 +180,6 @@ const SearchInput = () => {
                   onClick={() => {
                     dispatch(setSearchBoxVisible(false));
                     router.push('/search')
-                    // router.replace('/dashboard');
                   }}
                   className="py-1 px-2 text-[#0AF8D8] text-xs sm:text-md text-right cursor-pointer flex items-center"
                 >

@@ -52,9 +52,6 @@ const MainSlider = () => {
     );
   const orderImagezero = advertisement?.find((item:any) => item.OrderImage === 0)
   const orderImageOne = advertisement?.find((item:any) => item.OrderImage === 1)
-// console.log(advertisement);
-// console.log(params);
-
   // end configure params & get data
 
   // send data to two other components

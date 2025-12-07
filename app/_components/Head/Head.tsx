@@ -36,7 +36,6 @@ const Head = () => {
     EshterakNo: 0,
   });
   const [deleteAddress, setdeleteAddress] = useState(null);
-  const [errorLoadAddress, setErrorLoadAddress] = useState<string | null>(null);
   const [openUserPassDialog, setOpenUserPassDialog] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   
@@ -86,10 +85,8 @@ const handleDeleteAddress = (address: any) => {
 
 const handlecityDialogOpen = () => {
   if (loggedIn) {
-    //citydialogOpen(true);
     loadAddresses();
     setIsAddressModalOpen(true);
-    // console.log(isAddressModalOpen);
   }
 };
 
@@ -110,9 +107,6 @@ const loadAddresses = async () => {
   setTokenInpt(token);
 
   if (eshterakNo && token && token != "") {
-    console.log(eshterakNo);
-    console.log(userToken);
-    
     try {
       const data = await addressService.getAllAddresses(
         { EshterakNo: eshterakNo },
@@ -157,18 +151,6 @@ const handlecityDialogClose = () => {
 //handle cart count
 const selectedProductsCount = useInterceptLocalProducts();
 // end handle cart count
-
-// Handle line-clamp 1
-// if (
-//   defaultAddress && defaultAddress?.AddressCompact &&
-//   defaultAddress.AddressCompact.length > 40
-// ) {
-//    defaultAddress.AddressCompact = `${defaultAddress.AddressCompact.substring(
-//     0,
-//     40
-//   )}...`;
-// }
-// Handle line-clamp-1
 
 const { loading, error,getSiteAddress } = useGetSiteAddress()
 

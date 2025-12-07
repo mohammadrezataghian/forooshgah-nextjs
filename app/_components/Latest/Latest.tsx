@@ -1,6 +1,6 @@
 'use client'
 
-import React,{lazy, useEffect, useState} from "react";
+import React,{ useEffect, useState} from "react";
 import LatestVideo from "./LatestVideo";
 import LatestNews from "./LatestNews";
 

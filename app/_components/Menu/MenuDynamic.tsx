@@ -28,7 +28,6 @@ const MenuDynamic = () => {
         try {
           const data = await getMenu();
           setMenuData(data);
-          // Cookies.set("MenuData", JSON.stringify(data));
           sessionStorage.setItem("MenuData",JSON.stringify(data))
         } catch (err) {
           console.error("Failed to fetch menu after reload:", err);
@@ -36,7 +35,6 @@ const MenuDynamic = () => {
       })();
     } else {
       // Not a reload — load from cookies if available
-      // const cached = Cookies.get("MenuData");
       const cached = sessionStorage.getItem("MenuData")
       if (cached) {
         try {
@@ -53,7 +51,6 @@ const MenuDynamic = () => {
           try {
             const data = await getMenu();
             setMenuData(data);
-            // Cookies.set("MenuData", JSON.stringify(data));
             sessionStorage.setItem("MenuData", JSON.stringify(data))
           } catch (err) {
             console.error("Failed to fetch menu:", err);
@@ -88,11 +85,6 @@ const MenuDynamic = () => {
                isMenuOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
               }`}
             >
-            {/* <div
-              className={`absolute w-72 h-[72vh] top-full right-0 bg-gray-300 flex-col megamenuu transition-all border-b-menu ${
-                Data && Data.length > 0 && isMenuOpen ? "flex" : "hidden"
-              }`}
-            > */}
               <div className="overflow-y-auto">
                 {Data &&
                   Data.map((item:any, index:number) => (
