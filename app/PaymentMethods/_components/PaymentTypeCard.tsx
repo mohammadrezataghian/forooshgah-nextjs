@@ -19,9 +19,7 @@ const PaymentTypeCard = ({ item, onSelectItem,selectedItem }:PaymentTypeCardProp
 
     useEffect(()=>{
       setImageAddress(item.imgaddress);
-      // console.log(item.imgaddress);      
     })
-    
     
     return (
       <>
@@ -35,7 +33,6 @@ const PaymentTypeCard = ({ item, onSelectItem,selectedItem }:PaymentTypeCardProp
           image={item.imgaddress}// URL تصویر
           alt={item.Name}
         />
-        {/* <p>{item.img}</p> */}
       </Card>
       <Typography variant="body2" className='text-black'>
       {item.Name}

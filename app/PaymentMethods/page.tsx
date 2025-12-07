@@ -54,7 +54,6 @@ const PaymentMethods = () => {
   const [factorSaved, setFatorSaved] = useState(false);
   const [WebFactorId, setIdFactor] = useState(0);
   const isMobile = useMediaQuery("(max-width:600px)"); // بررسی حالت موبایل
-  const [timer, setTimer] = useState(null); // ذخیره تایمر
   const [sadaWindowopen, setSadadWindowOpen] = useState(false);
   const [noPayWindowopen, setNopayWindowOpen] = useState(false);
   const [isGeneratedFactor,setIsGeneratedFactor] = useState<boolean | null>(null)
@@ -89,8 +88,6 @@ const PaymentMethods = () => {
     const setSiteAddressResponce = async (data:any) => {
       if (data && data.Data) {
         dispatch(setSiteUrlAddress(data.Data))
-        console.log(data.Data);
-        
       }
     };
     useEffect(() => {
@@ -385,7 +382,6 @@ useEffect(()=>{
         body: JSON.stringify(p),
       });
       const data = await response.json();
-      console.log(data);
       
       if (data.resCode == 1 && data.Data) {
         window.open(data.Data, "_blank");
