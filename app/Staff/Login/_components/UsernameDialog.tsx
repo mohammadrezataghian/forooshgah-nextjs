@@ -36,7 +36,6 @@ export default function UserPassDialog({open,setOpen}:UserPassDialogProps) {
 
 const dispatch = useDispatch()
 
-const user = Cookies.get("staffUser") ? JSON.parse(Cookies.get("staffUser") || '') : null;
 const [username, setUsername] = React.useState("");
 const [password, setPassword] = React.useState("");
 const [usernameError, setUsernameError] = React.useState("");

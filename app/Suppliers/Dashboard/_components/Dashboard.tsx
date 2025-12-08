@@ -242,8 +242,8 @@ const onSubmit = (data:any) => {
                     variant="contained"
                     className="text-white flex gap-1"
                     onClick={(e) => {
-                      e.preventDefault(); // 🔒 Prevent form submission
-                      handleToggle();     // 🔁 Toggle edit mode
+                      e.preventDefault(); // Prevent form submission
+                      handleToggle();     // Toggle edit mode
                     }}
                     type="button"
                     // disabled

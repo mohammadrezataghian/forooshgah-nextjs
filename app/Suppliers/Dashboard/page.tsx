@@ -68,14 +68,6 @@ const SuppliersDashboard = (props:any) => {
     
       return () => clearInterval(intervalId); // clean up on unmount
     }, []);
-    // React.useEffect(() => {
-    //   const fetchedUser = Cookies.get("supplierUser");
-    //   if (fetchedUser) {
-    //     setUser(JSON.parse(fetchedUser));
-    //   }
-    //   setLoading(false);
-    // }, []);
-    
     // end get user
 
 // config

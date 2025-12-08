@@ -209,9 +209,6 @@ useEffect(()=>{
                             <button
                             onClick={() => {
                                 handleSubmitVerification(); // Show Snackbar as part of the verification logic
-                                setTimeout(() => {
-                                // handleClose(); // Close the dialog after a slight delay
-                                }, 1500); // Delay in milliseconds
                             }}
                             className="w-full bg-yellow-500 text-white h-11 text-center rounded-md cursor-pointer"
                             disabled={timer === 0}

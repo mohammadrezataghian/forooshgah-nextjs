@@ -3,8 +3,6 @@
 import { Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchLoading from "../loading";
-import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
-import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,14 +45,6 @@ const [opensnackbar, setOpensnackbar] = useState(false);
     }
   },[mounted])
 
-  // add to cart
-  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
-  // end add to cart
-
-  // remove from cart
-  // const { removeProduct } = useRemoveProduct(setProducts);
-// end remove from cart
-
   // handle search loading and messages
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -80,9 +70,6 @@ const [opensnackbar, setOpensnackbar] = useState(false);
   return (
     <>
     <div className="w-full h-auto flex flex-col mt-2 justify-center items-center mb-24">
-      {/* {searchItem.length < 2 && filteredUsers && (filteredUsers?.Items?.lst?.length === 0 && filteredUsers?.Groups?.lst?.length === 0) && !hasSearched && !loadingApiUsers && (
-        <p className="mt-10">محصولی یافت نشد</p>
-      )} */}
       {(loading || loadingApiUsers)  && <SearchLoading />}
       {(resCode == -3) && hasSearched && filteredUsers && filteredUsers?.length === 0  && (
         <p className="mt-10">محصولی یافت نشد</p>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState} from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -40,7 +40,6 @@ const Combo = ({handleChange,setFocused,items,text}:ComboProps) => {
               },
             }}
             native
-            // value={selectedItem ? selectedItem : ""}
             onFocus={() => setFocused(true)} // Set focused to true on focus
             onBlur={() => setFocused(false)}
             onChange={handleChange}

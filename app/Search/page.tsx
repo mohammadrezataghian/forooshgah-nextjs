@@ -54,14 +54,6 @@ const Search = () => {
     setMounted(true)
   },[])
 
-  // manage the url on first mount
-  // useEffect(() => {
-  //   const urlQuery = searchParams.get("q");
-  //   if (urlQuery && urlQuery !== searchItem) {
-  //     dispatch(setInputValue(urlQuery));
-  //   }
-  // }, []);
-
   // ✅ `searchItem` updates instantly (no delay in input UI)
   const handleInputChange = (e: any) => {
     setTempSearch(e.target.value);
@@ -123,10 +115,6 @@ const sortFromUrl = Number(searchParams.get("sort"))
     } else {
       setFilteredUsers([]);
     }
-    
-    // if (deferredSearchTerm && deferredSearchTerm.length < 2) {
-    //   localStorage.removeItem("foundproducts");
-    // }
   }, [deferredSearchTerm, apiUsers]);
 
   // ✅ Filtering logic with `deferredSearchTerm`

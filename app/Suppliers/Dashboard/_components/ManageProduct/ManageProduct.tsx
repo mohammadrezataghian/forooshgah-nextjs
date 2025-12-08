@@ -78,10 +78,6 @@ const ManageProduct = () => {
     setPage(1);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  // const emptyRows =
-  //   page > 0 ?  Math.max(0, page * rowsPerPage - rows.length) : 0;
-
   const visibleRows = list && list?.Data?.lst;
 
   // dialog
