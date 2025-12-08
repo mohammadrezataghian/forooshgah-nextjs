@@ -3,10 +3,9 @@
 import * as React from 'react';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { red } from "@mui/material/colors";
-import {Card,CardHeader,IconButton,CardContent,List,ListItemButton,ListItemIcon,ListItemText,Divider} from "@mui/material"
+import {Card,CardHeader,CardContent,List,ListItemButton,ListItemIcon,Divider} from "@mui/material"
 import useGetMenu from "@/app/api/menu/hook";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import Link from 'next/link';
 import { MenuDataResponse } from '@/types/types';
 

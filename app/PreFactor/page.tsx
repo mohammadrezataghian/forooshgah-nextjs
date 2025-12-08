@@ -19,7 +19,7 @@ const PreFactor = () => {
 
 const dispatch = useDispatch();
 const location = useSelector((state: RootState) => state.address.value);
-const products = useSelector((state:RootState)=>state.productListUpdate.value)
+const products = useSelector((state:RootState)=>state.productListUpdate.value);
 
 const [selectedItem, setSelectedItem] = React.useState(0); // برای ذخیره آیتم انتخاب شده
 const [mounted, setMounted] = React.useState(false);

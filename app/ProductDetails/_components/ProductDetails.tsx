@@ -176,7 +176,6 @@ useEffect(()=>{
         <div id="top" className="w-full h-auto bg-white flex xl:flex-row flex-wrap flex-col-reverse 2xl:px-64 pt-3 xl:pt-0">
           {/* product details */}
           <div className=" w-full xl:w-1/2 h-auto p-10">
-            {/* {`id : ${id}`} */}
             <h1 className="text-xl bg-gray-200 p-5 font-bold mb-10 rounded-sm">
               {data.NameKala}
             </h1>

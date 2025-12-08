@@ -2,7 +2,7 @@
 
 import { NoeErsalList } from "@/types/types";
 import { Box, FormControl, Select } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 type DeliveryTypeProps = {
     ersalList:NoeErsalList;
@@ -16,7 +16,6 @@ const DeliveryType = ({ ersalList,selectedItem,setSelectedItem }:DeliveryTypePro
 
   const handleChange = (event:any) => {
     setSelectedItem(event.target.value);
-    // console.log("Selected Item ID:", event.target.value); // برای بررسی مقدار انتخاب شده
   };
 
   return (
@@ -47,7 +46,6 @@ const DeliveryType = ({ ersalList,selectedItem,setSelectedItem }:DeliveryTypePro
                 },
               }}
               native
-              // value={selectedItem ? selectedItem : ""}
               onFocus={() => setFocused(true)} // Set focused to true on focus
               onBlur={() => setFocused(false)}
               onChange={handleChange}

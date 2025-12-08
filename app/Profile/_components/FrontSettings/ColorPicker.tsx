@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 
 type ColorPickerWithInputProps = {

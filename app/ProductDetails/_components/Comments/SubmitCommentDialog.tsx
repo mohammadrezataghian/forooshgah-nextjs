@@ -40,20 +40,10 @@ export default function SubmitCommentDialog({open,setOpen,nameKala,IdKala}:Submi
   const handleClose = () => {
     setOpen(false);
   };
-  const delayedClose = () => {
-    setTimeout(() => {
-      setOpen(false);
-    }, 1500);
-  };
 
 // start snackbar
 const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 const [snackbarMessage, setSnackbarMessage] = React.useState("");
-
-function showSnackbar(message:string) {
-  setSnackbarMessage(message);
-  setSnackbarOpen(true);
-}
 // end snackbar
 
 const handleChange=(e:any)=>{
@@ -108,7 +98,6 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
   setShowFeedback(true)
 }
 },[submitCommentResponse])
-// console.log(submitCommentResponse);
 
   return (
     <React.Fragment>

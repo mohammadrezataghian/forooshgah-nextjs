@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Checkbox, CardActionArea } from '@mui/material';
+import { Card, CardContent, Typography, Checkbox, CardActionArea } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import Link from 'next/link';
 import { FactorReturn, ProductReturn } from '@/types/types';

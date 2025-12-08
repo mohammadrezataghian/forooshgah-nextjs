@@ -3,7 +3,7 @@
 import Cookies from "js-cookie";
 import { Button,Card, Divider } from "@mui/material";
 import ReceiptLoading from "./ReceiptLoading";
-import { Container, Typography, Grid } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import ProductCard from "./ProductCard";
 import useGetReceipts from "@/app/api/customerOrderList/hook";
 import { useEffect, useState } from "react";

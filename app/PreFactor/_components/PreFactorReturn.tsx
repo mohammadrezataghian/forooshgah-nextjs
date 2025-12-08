@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -52,16 +52,15 @@ type PrefactorReturnProps ={
 }
 
 const PrefactorReturn = ({userInfo,location,userKala,userInfoo,color,status,user,selectedItem}:PrefactorReturnProps) => {
-// console.log(status);
-// console.log(color);
-const router = useRouter()
-// handle comma
-const autocomma = (number_input:number) =>
-    new Intl.NumberFormat("en-US").format(number_input);
-//handle comma
-// console.log(userInfoo.MablagheKharidErsalRaygan);
-const hasColor = userKala?.some((row:any) => row?.NameColor);
 
+  const router = useRouter();
+
+  // handle comma
+  const autocomma = (number_input:number) =>
+      new Intl.NumberFormat("en-US").format(number_input);
+  //handle comma
+  
+  const hasColor = userKala?.some((row:any) => row?.NameColor);
 
   return (
     <>
@@ -117,7 +116,6 @@ const hasColor = userKala?.some((row:any) => row?.NameColor);
           </Table>
         </TableContainer>
         {/* ............................................. */}
-        {/* <hr className='blue-line mt-5'/> */}
         <div className="w-full h-auto flex mb-1 mt-5">
           <span>جزییات سفارش:</span>
         </div>
@@ -210,14 +208,6 @@ const hasColor = userKala?.some((row:any) => row?.NameColor);
                           align="center"
                         >
                           <Chip label={status} color={color}/>
-
-                          {/* <Button
-                          color="default"
-                          className="!bg-warning"
-                          variant="solid"
-                        >
-                          پرداخت نشده
-                        </Button> */}
                         </StyledTableCell>
                         <StyledTableCell align="center">
                           {userInfoo.Mablaghekol ? autocomma(userInfoo.Mablaghekol) : '0'} ریال

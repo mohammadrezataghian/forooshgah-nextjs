@@ -19,10 +19,6 @@ const InstallmentDetails = () => {
 
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
   const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
-
-  // const location = useLocation();
-  // const locationState = location.state;
-  // const factorId = locationState?.id;
   const [factorId, setFactorId] = React.useState<string | null>(null);
 
 React.useEffect(() => {

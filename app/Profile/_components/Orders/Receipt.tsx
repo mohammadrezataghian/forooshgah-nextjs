@@ -107,9 +107,6 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
     <>
       {user ? (
         <div className="w-full">
-          {/* <h1 className="bg-white p-5 text-center mt-5 font-bold text-lg">
-            لیست فاکتورها
-          </h1> */}
           <div className="bg-white p-1 w-full h-auto pb-24 pt-10">
             {loading || receipts === null ? (
               <div>
@@ -209,7 +206,6 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                     <div className="flex flex-col justify-end w-full items-center">
                                       <Link
                                         href={"/paymentMethods"}
-                                        // state={{factor : item}}
                                         onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
                                         className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 !text-xs md:!text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
                                       >
@@ -268,12 +264,6 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                   >
                                     <Link
                                       href={`/returnProduct`}
-                                      // state={{
-                                      //   ...item,
-                                      //   KalaList: item.KalaList.filter((kala:any) =>
-                                      //     selectedProducts.includes(kala.Id)
-                                      //   ),
-                                      // }}
                                       onClick={()=>(sessionStorage.setItem('ReturnProductState',JSON.stringify({...item,KalaList:item.KalaList.filter((kala:any) =>
                                              selectedProducts.includes(kala.Id))})))}
                                       className="text-inherit"
@@ -394,7 +384,6 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                   <div className="flex flex-col justify-end w-full items-center">
                                     <Link
                                       href={"/paymentMethods"}
-                                      // state={{factor : item}}
                                         onClick={()=>(sessionStorage.setItem('paymentMethodsState',JSON.stringify({factor : item})))}
                                       className="text-center py-1.5 text-blue-500 border border-blue-500 md:w-2/3 w-5/6 !text-xs md:!text-sm rounded-md bg-white hover:bg-blue-100 transition-all"
                                     >
@@ -478,12 +467,6 @@ if(printDocResponse && printDocResponse?.data.Data && printDocResponse?.data?.re
                                   >
                                     <Link
                                       href={`/returnProduct`}
-                                      // state={{
-                                      //   ...item,
-                                      //   KalaList: item.KalaList.filter((kala:any) =>
-                                      //     selectedProducts.includes(kala.Id)
-                                      //   ),
-                                      // }}
                                       onClick={()=>(sessionStorage.setItem('ReturnProductState',JSON.stringify({...item,KalaList:item.KalaList.filter((kala:any) =>
                                              selectedProducts.includes(kala.Id))})))}
                                       className="text-inherit"
