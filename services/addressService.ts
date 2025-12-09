@@ -1,8 +1,5 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
-type getAll = {
-    eshterakno : number | string;
-    tokenInput : string
-}
+
 type otherOnes = {
     address : object | null;
     tokenInput : string

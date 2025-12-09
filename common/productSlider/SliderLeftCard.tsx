@@ -1,11 +1,6 @@
 'use client'
 
-import { IconButton } from "@mui/material";
 import React, { useState } from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
-import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
 import { Product } from "@/types/types";
@@ -46,14 +41,6 @@ const SliderLeftCard = ({
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
 // end handle openning snackbar
-
-  // add to cart
-  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
-  // end add to cart
-
-  // remove from cart
-  // const { removeProduct } = useRemoveProduct(setProducts);
-// end remove from cart
 
   // handle comma
   const autocomma = (number_input:number) =>
@@ -119,26 +106,6 @@ const SliderLeftCard = ({
             <span className="text-sm  text-gray-500">{NameForooshgah}</span>
           </div>
         </div>
-
-        {/* {mojodi > 0 && (
-          <div className="flex  justify-between px-2 ">
-            <IconButton
-              color="primary"
-              className="bg-blue-300 ml-1"
-              onClick={() => removeProduct(data)}
-            >
-              <RemoveIcon />
-            </IconButton>
-            <p className="text-center text-red-500">{children}</p>
-            <IconButton
-              color="primary"
-              className="bg-blue-300 ml-1"
-              onClick={() => addProduct(data)}
-            >
-              <AddIcon />
-            </IconButton>
-          </div>
-        )} */}
         {mojodi === 0 && (
           <div className="flex justify-end">
             <span className="bg-red-600 text-white p-1 rounded-md text-sm ml-5">

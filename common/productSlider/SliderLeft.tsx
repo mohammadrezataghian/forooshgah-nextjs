@@ -125,12 +125,6 @@ useEffect(() => {
                   </SwiperSlide>
                 ))}
               </div>
-
-              {/* this is extra */}
-              {/* <SwiperSlide>Slide 2</SwiperSlide>
-                  <SwiperSlide>Slide 3</SwiperSlide>
-              */}
-              {/* this was extra */}
             </Swiper>
             {/* navigation buttons start */}
             <div className="swiper-button-next custom-next bg-white rounded-md invisible sm:visible boxshadowHead text-gray-500">

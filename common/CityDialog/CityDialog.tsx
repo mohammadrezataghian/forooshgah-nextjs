@@ -64,9 +64,6 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
       setShowFirstAddress(parsedLocation)
     }
   },[])
-  // const [location, setLocation] = React.useState(() => {
-  //   return JSON.parse(localStorage.getItem("location") ?? '') || {};
-  // });
   const [userObj, setUserObj] = React.useState<sahamUserType | null>(null)
   const [formData, setFormData] = React.useState(null);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false); // Snackbar state
@@ -132,7 +129,6 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
     if (localStorage.getItem("whereaboutes") !== null) {
       let locationForSave =
         JSON.parse(localStorage.getItem("whereaboutes") ?? '') || {};
-      // console.log('fullLocation before merge:', fullLocation);
       const fullLocationForSave = {
         ...locationForSave,
         whereaboutes: data,
@@ -149,7 +145,6 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
     // Retrieve the full location object from localStorage
 
     let fullLocation = JSON.parse(localStorage.getItem("whereaboutes") ?? '') || {};
-    // console.log('fullLocation before merge:', fullLocation);
     const updatedLocation = {
       ...fullLocation,
       whereaboutes: data,
@@ -162,7 +157,6 @@ const CityDialog = ({ open, handleClose, loadAddresses }:CityDialogProps) => {
       localStorage.setItem("location", JSON.stringify(updatedLocation));
     }
 
-    // setLocation(updatedLocation);
     setLocationArray((prev) => {
       const safePrev = Array.isArray(prev) ? prev : [];
       const newArray = [...safePrev, updatedLocation];
@@ -256,14 +250,6 @@ React.useEffect(() => {
       </DialogTitle>
       <DialogContent dividers>
         <DynamicComponentWithNoSSR setIsMapClicked={setIsMapClicked}/>
-        {/* {alert.open && ( // Show the alert if open
-          <Alert
-            severity={alert.severity}
-            onClose={() => setAlert({ ...alert, open: false })}
-          >
-            {alert.message}
-          </Alert>
-        )} */}
       </DialogContent>
       <div className="px-5 py-2 text-gray-700 flex flex-col gap-1">
         <div>آدرس :</div>
@@ -325,7 +311,6 @@ React.useEffect(() => {
         <Divider />
         <DialogActions className="flex justify-start mt-4">
           <Button
-            // onClick={()=>onSend()}
             type="submit"
             disabled={!isValid || !isMapClicked}
             fullWidth
