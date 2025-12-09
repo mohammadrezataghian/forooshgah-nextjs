@@ -59,16 +59,14 @@ const CardItem = ({
   // handle immage
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  useEffect(() => {
-  let img = "";
-  if (images) {
-    img = images.split(",")[0];
-    img = `${siteAddress}/assets/public/kala/${idForImage}/${img}`;
-  } else {
-    img = `${siteAddress}/assets/public/kala/product.jpg`;
-  }
-  setImageSrc(img);
-}, [images, idForImage, siteAddress]);
+  useEffect(() => { 
+    if (images){
+      let img = images.split(",")[0];
+      setImageSrc(`${siteAddress}/assets/public/kala/${idForImage}/${img}`)
+    }else{
+      setImageSrc(`${siteAddress}/assets/public/kala/product.jpg`)
+    }
+  }, [images, idForImage, siteAddress]);
   // end handle image
 
   return (

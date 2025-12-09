@@ -68,8 +68,8 @@ const autocomma = (number_input:number) =>
           محصولات زیر به علت ناکافی بودن موجودی درخواستی یا ناموجود شدن از سبد خرید حذف میگردند :
           </Typography>
          <div className='flex flex-col gap-3'>
-            {namojod && namojod.map((item:any)=>(
-                <Card key={item.IdKala} variant='outlined' className='py-5 px-2 leading-8'>
+            {namojod && namojod.map((item:any,index:any)=>(
+                <Card key={item.IdKala || index} variant='outlined' className='py-5 px-2 leading-8'>
                     <h1 >{item.NameKala}</h1>
                     <p className='text-gray-500'>{item.NameStore}</p>
                     <p>قیمت : {autocomma(item.UnitPrice)} ریال</p>
