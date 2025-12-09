@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
 import { Product } from "@/types/types";
@@ -38,9 +38,10 @@ const SliderLeftCard = ({
 
   const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
+  const [image,setImage] = useState<string | null>(null)
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
-// end handle openning snackbar
+  // end handle openning snackbar
 
   // handle comma
   const autocomma = (number_input:number) =>
@@ -48,13 +49,14 @@ const SliderLeftCard = ({
   //handle comma
   
   // handle immage
-  let image = "";
-  if (images != null) {
-    image = images.split(",")[0];
-    image = `${siteAddress}/assets/public/kala/${idForImage}/${image}`;
-  } else {
-    image = `${siteAddress}/assets/public/kala/product.jpg`;
-  }
+  useEffect(()=>{
+    if (images != null) {
+     let imageString = images.split(",")[0];
+     setImage(`${siteAddress}/assets/public/kala/${idForImage}/${imageString}`);
+    } else {
+      setImage(`${siteAddress}/assets/public/kala/product.jpg`);
+    }
+  },[siteAddress,images,idForImage])
   // end handle image
 
   return (
@@ -69,6 +71,7 @@ const SliderLeftCard = ({
         </div>}
 
         {/* Product Image */}
+        {image && 
         <div className="w-full flex justify-center">
         <Link
           href={`/productDetails/${id}/${encodeURIComponent(name)}`}
@@ -83,7 +86,7 @@ const SliderLeftCard = ({
             className=" transition-transform duration-300 group-hover:scale-110 rounded-none pt-1"
           /> 
         </Link>
-        </div>
+        </div>}
 
         {/* Product Info */}
         <div className="px-4 py-2">
