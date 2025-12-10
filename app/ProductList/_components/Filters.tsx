@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from "react";
 import CheckboxList from "./CheckboxList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";

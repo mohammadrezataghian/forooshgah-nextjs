@@ -9,17 +9,19 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
+import dynamic from "next/dynamic";
+const RecipeReviewCard = dynamic(() => import("@/app/productList/_components/RecipeReviewCard"), {ssr: false,});
+const Filters = dynamic(() => import("@/app/productList/_components/Filters"), {ssr: false,});
+const OtherControls = dynamic(() => import("@/app/productList/_components/OtherControls"), {ssr: false,});
+const OnlyAvailables = dynamic(() => import("@/app/productList/_components/OnlyAvailables"), {ssr: false,});
+const PaginationRounded = dynamic(() => import("@/app/productList/_components/Pagination"), {ssr: false,});
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import ImgMediaCard from "../_components/ImgMediaCard";
-import RecipeReviewCard from "../_components/RecipeReviewCard";
-import Filters from "../_components/Filters";
-import OtherControls from "../_components/OtherControls";
 // filters
-import PaginationRounded from "../_components/Pagination";
 import LoadingSkeleton from "./loading";
 import useFetchProducts  from "@/app/api/productList/hook";
 import { FcRemoveImage } from "react-icons/fc";
@@ -235,15 +237,7 @@ React.useEffect(() => {
                         checked={checkedBrands}
                         setChecked={setCheckedBrands}
                         />
-                      <Stack direction="row" spacing={2}>
-                        <FormControlLabel
-                          control={<Switch />}
-                          checked={onlyAvailable}
-                          onChange={(_event, checked) => setOnlyAvailable(checked)}
-                          label="فقط نمایش کالا‌های موجود:"
-                          sx={{ direction: "rtl" }}
-                        />
-                      </Stack>
+                      <OnlyAvailables onlyAvailable={onlyAvailable} setOnlyAvailable={setOnlyAvailable}/>
                       <Grid
                         container
                         spacing={2}
