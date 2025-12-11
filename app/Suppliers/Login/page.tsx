@@ -160,9 +160,9 @@ useEffect(()=>{
                     } catch (err) {
                     if (err instanceof z.ZodError) {
                         setMobileError(err.issues[0].message);
-                    }
-                    }
-                 }}/>
+                    }}}}
+                    onKeyDown={(e) => { if (e.key === "Enter") { handleGetVerificationCode()}}}
+                    />
                     <p className='text-red-500 text-sm'>{mobileError}</p>
                 </div>
                 {!showOTP &&
@@ -192,6 +192,7 @@ useEffect(()=>{
                             onChange={(event) => setVerficationCode(event.target.value)}
                             className="h-12 rounded-md text-center w-full lg:border lg:focus:border-[#ff858d]   lg:border-[#FDCB01] border-b-2 border-b-[#ff858d] lg:bg-white bg-gray-200"
                             autoFocus
+                            onKeyDown={(e) => { if (e.key === "Enter") { handleSubmitVerification()}}}
                         />
                         {timer > 0 && (
                             <div className="w-full flex justify-center">
