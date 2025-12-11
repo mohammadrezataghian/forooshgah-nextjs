@@ -163,9 +163,9 @@ useEffect(()=>{
                     } catch (err) {
                     if (err instanceof z.ZodError) {
                         setMobileError(err.issues[0].message);
-                    }
-                    }
-                 }}/>
+                    }}}}
+                    onKeyDown={(e) => { if (e.key === "Enter") { handleGetVerificationCode()}}}
+                    />
                     <p className='text-red-500 text-sm'>{mobileError}</p>
                     <div className="w-full flex">
                       <span className="underline text-lg underline-offset-4 cursor-pointer p-1" onClick={()=>{
@@ -202,6 +202,7 @@ useEffect(()=>{
                             onChange={(event) => setVerficationCode(event.target.value)}
                             className="h-12 rounded-md text-center w-full lg:border lg:focus:border-[#FDCB01]   lg:border-[#ff858d] border-b-2 border-b-[#FDCB01] lg:bg-white bg-gray-200"
                             autoFocus
+                            onKeyDown={(e) => { if (e.key === "Enter") { handleSubmitVerification()}}}
                         />
                         {timer > 0 && (
                             <div className="w-full flex justify-center">
