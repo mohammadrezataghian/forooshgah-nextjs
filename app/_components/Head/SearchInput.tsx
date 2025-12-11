@@ -158,10 +158,10 @@ const SearchInput = () => {
               border: "1px solid lightblue", // Outline when focused
             },
             "& input": {
+              unicodeBidi: "plaintext",
               textAlign: "right",
               paddingRight: "10px",
               fontSize: "12px",
-              direction: "rtl",
             },
             "& input::placeholder": {
               color: "black", // Change this to your desired placeholder color
