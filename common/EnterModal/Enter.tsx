@@ -9,8 +9,9 @@ import * as z from 'zod';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { useNormalizeDigits } from "@/hooks/useNormalizeDigits";
 import dynamic from "next/dynamic";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
+import { RootState } from "@/store/store";
 const MobileDialog = dynamic(() => import("./MobileNumberCondition"), {ssr: false,});
 
 // zod schema for validation
@@ -30,6 +31,8 @@ type EnterProps = {
 const Enter = ({ handleClose,setOpenUserPassDialog }:EnterProps) => {
 
   const dispatch = useDispatch()
+  const config = useSelector((state:RootState)=>state.mainConfig.value)
+  const RegisterRules = config?.find((item:any)=> item.Key === "webAppRegisterRules")
 
   const { normalizeDigits } = useNormalizeDigits();
   const [mobileNumber, setMobileNumber] = useState("");
@@ -147,8 +150,7 @@ const { loginError, getSubmitLogin,loginLoading,submitLogin } = useGetSubmitLogi
           برایتان ارسال گردد.
         </p>
         <p className="text-red-500 text-sm">
-          (ورود صرفا برای اعضای شرکت تعاونی مصرف کارکنان بانک ملی امکان پذیر
-          میباشد)
+          {RegisterRules && RegisterRules.Value}
         </p>
         <OutlinedInput
           placeholder="شماره موبایل"

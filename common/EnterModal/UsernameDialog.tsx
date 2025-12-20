@@ -12,8 +12,9 @@ import  useLoginByUsername  from '@/app/api/loginUser/hook';
 import Cookies from 'js-cookie';
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsUserloggedIn } from '@/store/slices/isLoggedInSlice';
+import { RootState } from '@/store/store';
 
 // zod schema for validation
 const schema = z.object({
@@ -34,6 +35,9 @@ type userPassDialogProps={
 export default function UserPassDialog({open,setOpen}:userPassDialogProps) {
 
 const dispatch = useDispatch()
+const config = useSelector((state:RootState)=>state.mainConfig.value)
+const signInRules = config?.find((item:any)=>item.Key === 'webAppSignUserText')
+
 // const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
 const [username, setUsername] = React.useState("");
 const [password, setPassword] = React.useState("");
@@ -147,8 +151,7 @@ function showSnackbar(message:string) {
           </DialogContentText>
           <div className='w-full h-auto flex flex-col mt-5'>
           <p className="text-red-500 text-sm">
-          (ورود صرفا برای اعضای شرکت تعاونی مصرف کارکنان بانک ملی امکان پذیر
-          میباشد و نام کاربری شماره اشتراک شما می باشد.)
+            {signInRules && signInRules.Value}
         </p>
         <form
         className='w-full h-auto flex flex-col gap-3 mt-5'

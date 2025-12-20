@@ -17,6 +17,8 @@ const MessageSnackbar = dynamic(() => import("@/common/Snackbar/MessageSnackbar"
 import useGetCreateComment from '@/app/api/createComment/hook';
 import svg from '@/public/images/comment/add-comment-thank-you.svg'
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 type SubmitCommentDialogProps = {
     open:boolean;
@@ -27,6 +29,9 @@ type SubmitCommentDialogProps = {
 
 export default function SubmitCommentDialog({open,setOpen,nameKala,IdKala}:SubmitCommentDialogProps) {
 
+  const config = useSelector((state:RootState)=>state.mainConfig.value)
+  const commentPolicy = config?.find((item:any)=>item.Key === "webAppCommentRules")
+  
   const [radioValue,setRadioValue] = React.useState('ارسال با نام شما')
   const [buttonState,setButtonState] = React.useState(false)
   const [radioDialogOpen,setRadioDialogOpen] = React.useState(false)
@@ -40,10 +45,20 @@ export default function SubmitCommentDialog({open,setOpen,nameKala,IdKala}:Submi
   const handleClose = () => {
     setOpen(false);
   };
+  const delayedClose = () => {
+    setTimeout(() => {
+      setOpen(false);
+    }, 1500);
+  };
 
 // start snackbar
 const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 const [snackbarMessage, setSnackbarMessage] = React.useState("");
+
+function showSnackbar(message:string) {
+  setSnackbarMessage(message);
+  setSnackbarOpen(true);
+}
 // end snackbar
 
 const handleChange=(e:any)=>{
@@ -183,7 +198,7 @@ if (submitCommentResponse && submitCommentResponse.resCode == 1) {
                 <Divider/>
             </div>
             <Button disabled={!buttonState} className='w-full !text-white !py-3 text-lg' variant='contained' color='info' onClick={handleSubmit}>ثبت دیدگاه</Button>
-            <div className='flex justify-center  pt-1'><span className='!text-xs lg:!text-sm text-center'>ثبت دیدگاه به معنی موافقت باقوانین انتشار تعاونی بانک ملی است.</span></div>
+            <div className='flex justify-center  pt-1'><span className='!text-xs lg:!text-sm text-center'>{commentPolicy && commentPolicy?.Value}</span></div>
           </div>
         </DialogContent>
         </>

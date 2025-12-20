@@ -7,11 +7,13 @@ import Button from "@mui/material/Button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchInput from "./SearchInput";
 import ForooshgahList from "./ForooshaghList";
-import Logo from "@/public/logo/logo.png";
+// import Logo from "@/public/logo/logo.png";
 import Link from 'next/link';
 import Image from "next/image";
 import { Address } from '@/types/types';
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 const MenuListComposition = dynamic(() => import("./AccountDropdown"), {ssr: false,});
   
 type headReturnType={
@@ -29,6 +31,10 @@ type headReturnType={
 
 const HeadReturn = ({toggleDrawer,selectedProductsCount,isLoggedIn,user,handleClickOpen,handleDialogOpen,handlecityDialogOpen,showdefaultaddress,userToken} : headReturnType) => {
   
+const config = useSelector((state:RootState)=>state.mainConfig.value);
+const altLogo = config?.find((item:any)=>item.Key === 'webAppMainDescriptionTitle')
+const LogoSrc = config?.find((item:any)=>item.Key === 'webAppLogo')
+
 // Handle truncate
 const lineClampHandler = (text:any) =>{
   if (!text) return ""
@@ -111,13 +117,15 @@ const lineClampHandler = (text:any) =>{
           {/* end select store */}
           {/* start logo */}
           <div className="w-auto h-[35px] flex items-center col-start-1 row-start-1 justify-self-start">
+            {LogoSrc && 
             <Link
               className="w-auto h-full flex items-center"
               href="/"
               target="_self"
             >
-              <Image className="object-contain w-14" src={Logo} alt="لوگو" />
+              <Image className="object-contain w-14 !h-auto" width={56} height={75} src={LogoSrc.Value } alt={altLogo ? altLogo.Value : 'لوگو'}/>
             </Link>
+            }
           </div>
           {/* end logo */}
         </div>
