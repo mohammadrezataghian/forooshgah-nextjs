@@ -5,7 +5,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
-import Logo from "@/public/logo/logo1.png";
+// import Logo from "@/public/logo/logo1.png";
 import { NAVIGATION, useDemoRouter, demoTheme, SidebarFooter } from './_components/DashboardItems';
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';  
@@ -15,11 +15,11 @@ import dynamic from 'next/dynamic';
 const ManageProduct = dynamic(() => import('./_components/ManageProduct/ManageProduct'), { ssr: false });
 const ManageOrders = dynamic(() => import('./_components/ManageOrders/ManageOrders'), { ssr: false });
 const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
-import useGetMainConfig from '@/app/api/getMainConfig/hook';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearIsSupplierLoggedIn } from "@/store/slices/isSupplierLoggedInSlice";
+import { RootState } from '@/store/store';
 
 type ToolbarActionsSearchProps={
   setOpen:React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,6 +42,9 @@ function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 const SuppliersDashboard = (props:any) => {
 
   const dispatch = useDispatch()
+  const config = useSelector((state:RootState)=>state.mainConfig.value);
+  const altLogo = config?.find((item:any)=>item.Key === 'webAppMainDescriptionTitle')
+  const LogoSrc = config?.find((item:any)=>item.Key === 'webAppLogoProfile')
 
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
@@ -70,13 +73,6 @@ const SuppliersDashboard = (props:any) => {
     }, []);
     // end get user
 
-// config
-    const { loadingConfig, errorConfig,getConfig,config} = useGetMainConfig()
-    React.useEffect(()=>{
-      getConfig()
-    },[])
-// end config
-
 // exit account settings
   const handleExitAcc = ()=>{
      Cookies.remove("supplierUser")
@@ -102,7 +98,7 @@ const SuppliersDashboard = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری تامین کننده', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
+      branding={{title: 'حساب کاربری تامین کننده', logo: <div onClick={()=>NextRouter.push('/')}>{LogoSrc && <Image className='ml-2 w-8 !h-auto' src={LogoSrc?.Value} width={32} height={40} alt={altLogo ? altLogo.Value : 'لوگو'} />}</div>}}
       // session={session}
       // authentication={authentication}
     >

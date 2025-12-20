@@ -2,15 +2,14 @@
 
 import * as React from 'react';
 import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout, ThemeSwitcher } from '@toolpad/core/DashboardLayout';
+import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
-import Logo from "@/public/logo/logo1.png";
+// import Logo from "@/public/logo/logo1.png";
 import { NAVIGATION, useDemoRouter, demoTheme, SidebarFooter } from './_components/DashboardItems';
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';
 import LogoutIcon from '@mui/icons-material/Logout';
-import useGetMainConfig from '@/app/api/getMainConfig/hook';
 import Profile from './_components/Profile/Profile';
 import dynamic from 'next/dynamic';
 const SalarySlip = dynamic(() => import('./_components/SalarySlip/SalarySlip'), { ssr: false });
@@ -18,8 +17,9 @@ const ChangePassword = dynamic(() => import('./_components/ChangePassword/Change
 const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearIsStaffLoggedIn } from "@/store/slices/isStaffLoggedInSlice";
+import { RootState } from '@/store/store';
 
 // exit account
 
@@ -43,6 +43,9 @@ function ToolbarActionsSearch({ setOpen }:ToolbarActionsSearchProps) {
 const StaffDashboard = (props:any) => {
 
   const dispatch = useDispatch()
+  const config = useSelector((state:RootState)=>state.mainConfig.value);
+  const altLogo = config?.find((item:any)=>item.Key === 'webAppMainDescriptionTitle')
+  const LogoSrc = config?.find((item:any)=>item.Key === 'webAppLogoProfile')
 
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
@@ -69,14 +72,8 @@ const StaffDashboard = (props:any) => {
     
       return () => clearInterval(intervalId); // clean up on unmount
     }, []);
+    
     // end get user
-
-// config
-    const { loadingConfig, errorConfig,getConfig,config} = useGetMainConfig()
-    React.useEffect(()=>{
-      getConfig()
-    },[])
-// end config
 
 // handle exit account
 const handleExitAcc = ()=>{
@@ -103,7 +100,7 @@ const handleExitAcc = ()=>{
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری کارمند', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
+      branding={{title: 'حساب کاربری کارمند', logo: <div onClick={()=>NextRouter.push('/')}>{LogoSrc && <Image className='ml-2 w-8 !h-auto' width={32} height={40} src={LogoSrc.Value} alt={altLogo ? altLogo.Value : 'لوگو'} />}</div>}}
       // session={session}
       // authentication={authentication}
     >

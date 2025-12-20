@@ -8,20 +8,12 @@ import {
   LocationOn,
 } from "@mui/icons-material";
 import { FcAssistant,FcCollaboration } from "react-icons/fc"
-import useGetMainConfig from "@/app/api/getMainConfig/hook";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
 const ContactUs = () => {
 
 const config = useSelector((state: RootState) => state.mainConfig.value);
-
-  // config
-  const { loadingConfig, errorConfig,getConfig} = useGetMainConfig()
-  React.useEffect(()=>{
-    getConfig()
-  },[])
-  // end config
 
 //get data 
 const data = config?.filter(item=>item.TypeSetting === "Contact")

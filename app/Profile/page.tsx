@@ -5,7 +5,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid';
-import Logo from "@/public/logo/logo1.png";
+// import Logo from "@/public/logo/logo1.png";
 import { useDemoRouter, demoTheme, SidebarFooter } from './_components/DashboardItems';
 import Dashboard from './_components/Dashboard';
 import dynamic from "next/dynamic";
@@ -18,14 +18,14 @@ const ChangePassword = dynamic(() => import('./_components/ChangePassword/Change
 const CustomersClub = dynamic(() => import('./_components/CustomersClub/CustomersClub'), {ssr: false,});
 import Cookies from 'js-cookie';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGetMainConfig from "@/app/api/getMainConfig/hook";
 import { useNavigationItems } from './_components/Navigation';
 import Image from 'next/image';
 import { sahamUserType } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearIsUserloggedIn } from '@/store/slices/isLoggedInSlice';
+import { RootState } from '@/store/store';
 const AlertDialog = dynamic(() => import('@/common/ProfileExitDialog/ProfileExitDialog'), { ssr: false });
 
 // exit account
@@ -50,6 +50,9 @@ return (
 const Profile = (props:any) => {
 
     const dispatch = useDispatch()
+    const config = useSelector((state:RootState)=>state.mainConfig.value);
+    const altLogo = config?.find((item:any)=>item.Key === 'webAppMainDescriptionTitle')
+    const LogoSrc = config?.find((item:any)=>item.Key === 'webAppLogoProfile')
 
     const [user, setUser] = React.useState<sahamUserType | null>(null);
     const [loading, setLoading] = React.useState(true);
@@ -78,13 +81,6 @@ const Profile = (props:any) => {
       return () => clearInterval(intervalId); // clean up on unmount
     }, []);
     // end get user
-
-    // config
-    const { loadingConfig, errorConfig,getConfig,config} = useGetMainConfig()
-    React.useEffect(()=>{
-      getConfig()
-    },[])
-    // end config
 
     // navigate to club
     React.useEffect(() => {
@@ -119,7 +115,7 @@ const Profile = (props:any) => {
       router={router}
       theme={demoTheme}
       window={demoWindow}
-      branding={{title: 'حساب کاربری', logo: <div onClick={()=>NextRouter.push('/')}><Image className='ml-2 w-8 h-10' src={Logo} alt="تعاونی مصرف کارکنان بانک ملی" /></div>}}
+      branding={{title: 'حساب کاربری', logo: <div onClick={()=>NextRouter.push('/')}> {LogoSrc && <Image className='ml-2 w-8 !h-auto' src={LogoSrc?.Value} width={32} height={40} alt={altLogo ? altLogo.Value : 'لوگو'} />}</div>}}
       // session={session}
       // authentication={authentication}
     >

@@ -6,7 +6,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HelpIcon from "@mui/icons-material/Help";
 import Link from "next/link";
 import Image from "next/image";
-import useGetMainConfig from "@/app/api/getMainConfig/hook";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
@@ -14,29 +13,27 @@ const Footer = () => {
 
 const config = useSelector((state: RootState) => state.mainConfig.value);
 
-// config
-const { loadingConfig, errorConfig,getConfig} = useGetMainConfig()
-React.useEffect(()=>{
-  getConfig()
-},[])
-// end config
-
 //get data 
 const data = config?.filter((item:any)=>item.TypeSetting === "Footer")
 
 const h1 = data?.find((item:any) => item.Key === "webAppFooterH1")
 const h2 = data?.find((item:any) => item.Key === "webAppFooterH2")
 const p = data?.find((item:any) => item.Key === "webAppFooterP")
+const socialBale = data?.find((item:any)=>item.Key === 'webAppSocialBale')
+const rights = data?.find((item:any)=>item.Key === 'webAppRight')
+const contactSupport = config?.find((item:any)=>item.Key === 'webAppContactBaleSupport')
+const getEnamd = config?.find((item:any)=>item.Key === 'WebAppEnamadURL')
+const enamad = getEnamd?.Value.split(',,')
 
 // end get data
 
 const enamadCode= `<img
                           className="w-[125px] h-[120px]"
                           referrerPolicy="origin"
-                          src="https://trustseal.enamad.ir/logo.aspx?id=571822&Code=79YwXMbcElb0J3xASuI5dte0TmPBWvoE"
+                          src='${enamad && enamad[1]}'
                           alt=""
                           style={{ cursor: "pointer" }}
-                          code="79YwXMbcElb0J3xASuI5dte0TmPBWvoE"
+                          code='${enamad && enamad[2]}'
                         />`
 
   return (
@@ -50,7 +47,7 @@ const enamadCode= `<img
             <div className="flex flex-wrap gap-y-5 justify-between">
               <b className="text-xl block float-right">خرید آسان، تحویل سریع </b>
               <div>
-                <a href="https://ble.ir/taavonibmi" target="_blank" className="bg-[#10CCC7] btn_hover w-[150px] h-[38px] text-xs mr-2.5 leading-[38px] float-left rounded-sm overflow-hidden border-none block relative text-white">
+                <a href={contactSupport && contactSupport.Value} target="_blank" className="bg-[#10CCC7] btn_hover w-[150px] h-[38px] text-xs mr-2.5 leading-[38px] float-left rounded-sm overflow-hidden border-none block relative text-white">
                   <span className="pr-2.5 block w-full absolute right-0 top-0 z-[2] h-full">
                     <HelpIcon className="ml-1 mb-1" />
                     نیاز به کمک دارید ؟
@@ -59,7 +56,7 @@ const enamadCode= `<img
                 <Link href='/stores' className="btn_hover rounded-sm overflow-hidden border-none block relative text-white w-[150px] h-[38px] text-xs leading-[38px]  ">
                   <span className="text-white pr-2.5 block w-full absolute right-0 top-0 z-[2] h-full after:absolute after:mt-[-9px] after:right-[9px] after:top-1/2">
                     <LocationOnIcon className="ml-1 mb-1" />
-                    فروشگاه های تعاونی مصرف کارکنان بانک ملی{" "}
+                    فروشگاه های تعاونی{" "}
                   </span>
                 </Link>
               </div>
@@ -153,13 +150,13 @@ const enamadCode= `<img
                         <ul className="xs:block">
                           <li className="block mb-2 text-right ">
                             <a
-                              href="http://ble.ir/join/33hfKGho1R"
+                              href={socialBale && socialBale.Value}
                               title="bale"
                               target="_blank"
                               className="flex w-48 items-end mb-1 text-right text-[#656565] relative text-xs"
                             >
                               <Image src={bale} alt="بله" className="w-5 h-5 mr-0 ml-1.5"/>
-                              <span className="text-md">کانال «بله» تعاونی بانک ملی</span>
+                              <span className="text-md">{socialBale && socialBale.Title}</span>
                             </a>
                           </li>
                         </ul>
@@ -174,7 +171,7 @@ const enamadCode= `<img
                       <a
                         referrerPolicy="origin"
                         target="_blank"
-                        href="https://trustseal.enamad.ir/?id=571822&Code=79YwXMbcElb0J3xASuI5dte0TmPBWvoE"
+                        href={enamad && enamad[0]}
                         dangerouslySetInnerHTML={{ __html: enamadCode }}
                       >
                         
@@ -209,12 +206,7 @@ const enamadCode= `<img
                 <div className="footer_description py-7 px-3.5 float-right relative min-h-[1px]">
                   <div>
                     <p className="text-xs text-center mb-4 text-[#656565] text-balance leading-5" dir="ltr">
-                      تمامی حقوق مادی و معنوی این وب سایت و محتوای آن اعم از
-                      تصاویر و توضیحات محصولات، ویدئوها، متون و تصاویر آموزشی
-                      متعلق به فروشگاه مجازی تعاونی مصرف کارکنان بانک ملی
-                      می‌باشد و هرگونه استفاده و بازنشر آن بدون اجازه کتبی از
-                      فروشگاه اینترنتی تعاونی مصرف کارکنان بانک ملی ممنوع بوده و
-                      موجب پیگرد قانونی می‌باشد.
+                      {rights && rights.Value}
                     </p>
                   </div>
                 </div>
