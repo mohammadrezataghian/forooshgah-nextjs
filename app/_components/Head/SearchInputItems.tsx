@@ -3,14 +3,13 @@
 import { Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import SearchLoading from "./SearchLoading";
-import useAddProduct from "@/common/AddRemoveProduct/AddToCart";
-import useRemoveProduct from "@/common/AddRemoveProduct/RemoveFromCart";
 import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearInputValue } from "@/store/slices/inputValueSlice";
 import { setLastSearchValue } from "@/store/slices/lastSearchSlice";
 import { setSearchBoxVisible } from "@/store/slices/isSearchBoxVisibleSlice";
+import { RootState } from "@/store/store";
 
 type props = {
   filteredUsers: any;
@@ -24,18 +23,11 @@ const SearchInputItems = ({ filteredUsers, searchItem,resCode }:props) => {
   const handleClear = () => {
     dispatch(clearInputValue());
   };
-
+  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
+  
   // handle openning snackbar
   const [opensnackbar, setOpensnackbar] = useState(false);
   // end handle openning snackbar
-
-  // add to cart
-  // const { addProduct } = useAddProduct(setProducts, setOpensnackbar);
-  // end add to cart
-
-  // remove from cart
-  // const { removeProduct } = useRemoveProduct(setProducts);
-// end remove from cart
 
   // handle comma
   const autocomma = (number_input:number) => {
@@ -66,6 +58,7 @@ const SearchInputItems = ({ filteredUsers, searchItem,resCode }:props) => {
   return (
     <>
       <div className="w-full h-full">
+        {loading && (resCode != -3) && <SearchLoading />}
         {(resCode == -3) && hasSearched && (filteredUsers?.length === 0 && filteredUsers?.length === 0) && (
           <div className="mt-10 mr-5 text-right">محصولی یافت نشد</div>
         )}
@@ -105,10 +98,10 @@ const SearchInputItems = ({ filteredUsers, searchItem,resCode }:props) => {
           <div className="flex flex-wrap justify-end px-2 gap-5">
             {filteredUsers && filteredUsers?.Items?.lst && filteredUsers?.Items?.lst?.length > 0 && filteredUsers?.Items?.lst?.map((data:any) => {
               const imageSrc = data.FldNameImageKalaList
-                ? `https://imbmi.ir/assets/public/kala/${data.IdKala}/${
+                ? `${siteAddress}/assets/public/kala/${data.IdKala}/${
                     data.FldNameImageKalaList.split(",")[0]
                   }`
-                : `https://imbmi.ir/assets/public/kala/product.jpg`;
+                : `${siteAddress}/assets/public/kala/product.jpg`;
               return (
                 <div
                   key={data.IdStoreStock}

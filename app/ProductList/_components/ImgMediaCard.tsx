@@ -21,11 +21,11 @@ type ImgMediaCardProps = {
       image = product.FldNameImageKalaList.split(",")[0];
       image = siteAddress
         ? `${siteAddress}/assets/public/kala/${product.IdKala}/${image}`
-        : `https://imbmi.ir/assets/public/kala/${product.IdKala}/${image}`;
+        : `${siteAddress}/assets/public/kala/${product.IdKala}/${image}`;
     } else {
       image = image = siteAddress
         ? `${siteAddress}/assets/public/kala/product.jpg`
-        : `https://imbmi.ir/assets/public/kala/product.jpg`;
+        : `${siteAddress}/assets/public/kala/product.jpg`;
     }
     // handle image
     // handle comma
