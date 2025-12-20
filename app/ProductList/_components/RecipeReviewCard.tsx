@@ -4,46 +4,16 @@ import * as React from 'react';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { red } from "@mui/material/colors";
 import {Card,CardHeader,CardContent,List,ListItemButton,ListItemIcon,Divider} from "@mui/material"
-import useGetMenu from "@/app/api/menu/hook";
-import { useEffect, useState } from "react";
 import Link from 'next/link';
-import { MenuDataResponse } from '@/types/types';
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const RecipeReviewCard = () => {
 
-  const { loading, error, response,getMenu } = useGetMenu()
-// get data
-const [menuData, setMenuData] = useState<MenuDataResponse | null>(null);
-const [mounted, setMounted] = useState(false);
-
-useEffect(()=>{
-  setMounted(true)
-},[])
-
-useEffect(() => {
-  if (!mounted) return
-
-  if(!!sessionStorage.getItem("MenuData")){
-    const data = JSON.parse(sessionStorage.getItem("MenuData") || '');
-    setMenuData(data);
-  }else{
-    const fetchData = async () => {
-      try {
-        const data = await getMenu();
-        setMenuData(data);
-      } catch (error) {
-        console.error('Failed to fetch menu:', error);
-      }
-    };
-
-    fetchData();
-  }
-}, [mounted]);
+const menuData = useSelector((state:RootState)=>state.menuData.value)
 
 const firstData = menuData?.Data || [] ;
 const Data = firstData.length > 0 ? firstData[0].children : [];
-// end get data
-
 
     return (
       <Card>

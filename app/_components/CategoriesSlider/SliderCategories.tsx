@@ -14,41 +14,13 @@ import "swiper/css/navigation";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import SliderCategoriesCard from "./SliderCategoriesCard";
-import useGetMenu from "@/app/api/menu/hook";
-import Cookies from "js-cookie";
 import LoadingSkeleton from "./LoadingSkeleton";
-import { MenuResponse } from "@/types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const SliderCategories = () => {
  
-    const { loading, error, response,getMenu } = useGetMenu()
-  // get data
-  const [menuData, setMenuData] = useState<MenuResponse | null>(null);
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(()=>{
-    setMounted(true)
-  },[])
-
-  useEffect(() => {
-    if (!mounted) return
-
-    if (sessionStorage.getItem("MenuData")) {
-      const data = JSON.parse(sessionStorage.getItem("MenuData") || '');
-      setMenuData(data);
-    } else {
-      const fetchData = async () => {
-        try {
-          const data = await getMenu();
-          setMenuData(data);
-        } catch (error) {
-          console.error("Failed to fetch menu:", error);
-        }
-      };
-
-      fetchData();
-    }
-  }, [mounted]);
+  const menuData = useSelector((state:RootState)=>state.menuData.value)
 
   const firstData = menuData?.Data || [];
   const Data = firstData.length > 0 ? firstData[0].children : [];

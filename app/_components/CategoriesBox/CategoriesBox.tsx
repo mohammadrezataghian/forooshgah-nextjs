@@ -1,43 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
-import useGetMenu from "@/app/api/menu/hook";
 import Link from "next/link";
-import { MenuResponse } from "@/types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const CategoriesBox = () => {
   
-const { loading, error, response,getMenu } = useGetMenu()
-// get data
-const [rawMenu,setRawMenu] = useState<string | null>(null)
-const [mounted,setMounted] = useState(false)
-const [menuData, setMenuData] = useState<MenuResponse | null>(null);
-
-React.useEffect(()=>{
-  const menuStorage = sessionStorage.getItem("MenuData") || null
-  setRawMenu(menuStorage)
-  setMounted(true)
-},[])
-
-useEffect(() => {
-  if(!mounted) return
-
-  if(rawMenu){
-    const data = JSON.parse(rawMenu);
-    setMenuData(data);
-  }else{
-    const fetchData = async () => {
-      try {
-        const data = await getMenu();
-        setMenuData(data);
-      } catch (error) {
-        console.error('Failed to fetch menu:', error);
-      }
-    };
-
-    fetchData();
-  }
-}, [mounted]);
+const menuData = useSelector((state:RootState)=>state.menuData.value)
 
 const firstData = menuData?.Data || [] ;
 const Data = firstData.length > 0 ? firstData[0].children : [];

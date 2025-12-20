@@ -17,6 +17,7 @@ import selectedStoreReducer from '@/store/slices/selectedStoreSlice'
 import siteUrlAddressReducer from '@/store/slices/siteUrlSlice'
 import isUserloggedInReducer from '@/store/slices/isLoggedInSlice'
 import productListUpdateReducer from '@/store/slices/productListSlice'
+import menuDataReducer from '@/store/slices/menuSlice'
 
 export const store = configureStore({
   reducer: {
@@ -37,6 +38,7 @@ export const store = configureStore({
     siteUrlAddress:siteUrlAddressReducer,
     isUserloggedIn:isUserloggedInReducer,
     productListUpdate:productListUpdateReducer,
+    menuData:menuDataReducer,
   },
 });
 

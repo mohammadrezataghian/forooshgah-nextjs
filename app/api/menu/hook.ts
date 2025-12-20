@@ -3,11 +3,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { addLog } from "@/app/api/addlog/addlog";
-import Cookies from 'js-cookie';
+import { useDispatch } from "react-redux";
+import { setMenuData } from "@/store/slices/menuSlice";
 
 const useGetMenu = () => {
 
 const GetGroupKalaTreeUsed = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetGroupKalaTreeUsed`
+
+  const dispatch = useDispatch()
 
   const [response, setResponse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +22,7 @@ const GetGroupKalaTreeUsed = `${process.env.NEXT_PUBLIC_API_BASE_URL}/pub/GetGro
         GetGroupKalaTreeUsed,
       );
       setResponse(res)
+      dispatch(setMenuData(res.data))
       sessionStorage.setItem("MenuData",JSON.stringify(res.data))
       return res.data
     } catch (err: any) {

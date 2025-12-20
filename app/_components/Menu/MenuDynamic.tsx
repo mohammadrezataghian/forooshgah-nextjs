@@ -1,67 +1,19 @@
 'use client'
-import React, { useEffect, useState } from "react";
-import useGetMenu from "@/app/api/menu/hook";
+import React, { useState } from "react";
 import { PiListBold } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa";
 import Link from "next/link";
-import { MenuResponse } from "@/types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const MenuDynamic = () => {
 
-  const { loading, error, response,getMenu } = useGetMenu()
-  // menu data
-  const [menuData, setMenuData] = useState<MenuResponse | null>(null);
+  const menuData = useSelector((state:RootState)=>state.menuData.value)
+
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
-
-  // START HANDLING REFRESHING LOCAL STORAGE WHEN USER PRESSED REFRESH BUTTON
   
-  useEffect(() => {
-    // Check if the navigation was a full page reload
-    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-
-    if (nav?.type === "reload") {
-      // Page was refreshed
-      // Cookies.remove("MenuData");
-      // sessionStorage.removeItem("MenuData");
-
-      (async () => {
-        try {
-          const data = await getMenu();
-          setMenuData(data);
-          sessionStorage.setItem("MenuData",JSON.stringify(data))
-        } catch (err) {
-          console.error("Failed to fetch menu after reload:", err);
-        }
-      })();
-    } else {
-      // Not a reload — load from cookies if available
-      const cached = sessionStorage.getItem("MenuData")
-      if (cached) {
-        try {
-          const parsed = JSON.parse(cached);
-          setMenuData(parsed);
-        } catch (err) {
-          console.error("Error parsing cached MenuData:", err);
-          // Cookies.remove("MenuData");
-          // sessionStorage.removeItem("MenuData")
-        }
-      } else {
-        // No cache — fetch for the first time
-        (async () => {
-          try {
-            const data = await getMenu();
-            setMenuData(data);
-            sessionStorage.setItem("MenuData", JSON.stringify(data))
-          } catch (err) {
-            console.error("Failed to fetch menu:", err);
-          }
-        })();
-      }
-    }
-  }, []);
   const firstData = menuData?.Data || [];
   const Data = firstData.length > 0 ? firstData[0].children : [];
-// end get data
 
   return (
     <>
