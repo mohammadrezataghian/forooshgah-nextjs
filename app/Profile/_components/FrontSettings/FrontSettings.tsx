@@ -21,8 +21,8 @@ const data = config?.filter(item=>item.TypeSetting === "Config") || {}
 let colorDefault = data?.find(item => item.Key === "webAppColorDefault")
 // let FontDefault = data?.find(item => item.Key === "webAppFontDefault")
 let ColorBoxDefault = data?.find(item => item.Key === "webAppColorBoxDefault")
-const [colorbg, setColorbg] = useState(ColorBoxDefault?.Value);
-const [colortxt, setColortxt] = useState(colorDefault?.Value);
+const [colorbg, setColorbg] = useState(ColorBoxDefault?.Value || '');
+const [colortxt, setColortxt] = useState(colorDefault?.Value || '');
 // const [alignment, setAlignment] = React.useState(FontDefault?.Value);
 
 // handle openning snackbar
@@ -68,7 +68,7 @@ const handleSave = () => {
       </Button>: 
         <Button
         onClick={handleSave}
-        className="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600 transition"
+        className="!bg-blue-500 !text-white px-6 py-2 rounded shadow hover:bg-blue-600 transition"
       >
         ذخیره تنظیمات
       </Button>}

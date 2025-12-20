@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 type ColorPickerWithInputProps = {
   color:string | undefined;
-  setColor:React.Dispatch<React.SetStateAction<string | undefined>>;
+  setColor:React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function ColorPickerWithInput({color,setColor}:ColorPickerWithInputProps) {
@@ -30,10 +30,11 @@ export default function ColorPickerWithInput({color,setColor}:ColorPickerWithInp
       {/* Hex Code Input */}
       <div className="relative">
         <input
+          style={{unicodeBidi:"plaintext"}}
           type="text"
           value={color}
           onChange={handleColorChange}
-          className="w-28 px-2 py-2 pr-6 rounded text-sm font-mono border border-blue-500"
+          className="w-28 px-2 py-2 !pr-8 rounded text-sm font-mono border border-blue-500"
           maxLength={7}
         />
         <EditIcon className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 text-xl pointer-events-none" />
