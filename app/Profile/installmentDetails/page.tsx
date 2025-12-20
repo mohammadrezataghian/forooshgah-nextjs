@@ -2,19 +2,16 @@
 
 import useGetInstallmentDetails from "@/app/api/installmentDetails/hook";
 import Cookies from "js-cookie";
-import React, { useEffect } from "react";
+import React from "react";
 import ReceiptLoading from "../_components/Orders/ReceiptLoading";
 import ProductCard from "../_components/Orders/ProductCard";
 import { Card, Container, Divider, Grid, Typography } from "@mui/material";
-import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import SimpleBackdrop from '@/common/BackdropSpinnerLoading/Loading';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 const InstallmentDetails = () => {
 
-  const dispatch = useDispatch()
   const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
@@ -47,28 +44,6 @@ React.useEffect(() => {
   const autocomma = (number_input:number) =>
     new Intl.NumberFormat("en-US").format(number_input);
   //handle comma
-
-  // site address
-
-  const { loading:loadingg, error:errorr,getSiteAddress } = useGetSiteAddress()
-  
-    useEffect(() => {
-      const fetchSiteAddress = async () => {
-        const data = await getSiteAddress()
-        setSiteAddressResponce(data?.data)
-      };
-    
-      const setSiteAddressResponce = async (data:any) => {
-        if (data && data.Data) {
-          dispatch(setSiteUrlAddress(data.Data))
-        }
-      };
-    
-      if (!siteAddress) {
-        fetchSiteAddress();
-      }
-    
-    }, [siteAddress]);
     
     if (!factorId) return <div className="px-3 lg:px-64"><SimpleBackdrop open={true}/></div>;
     

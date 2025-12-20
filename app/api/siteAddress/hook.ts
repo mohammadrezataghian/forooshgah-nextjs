@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
@@ -15,7 +15,7 @@ const dispatch = useDispatch()
   const [error, setError] = useState<string | null>(null);
 
   // useCallback so the function reference is stable
-  const getSiteAddress = useCallback(async () => {
+  const getSiteAddress = async () => {
     setLoading(true);
     setError(null);
 
@@ -29,7 +29,7 @@ const dispatch = useDispatch()
     } finally {
       setLoading(false);
     }
-  }, []);
+  }
 
   return { loading, error, getSiteAddress };
 }

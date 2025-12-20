@@ -12,17 +12,14 @@ const CityDialog = dynamic(() => import("@/common/CityDialog/CityDialog"), {ssr:
 const UserPassDialog = dynamic(() => import("@/common/EnterModal/UsernameDialog"), {ssr: false,});
 const CustomDialog = dynamic(() => import("@/common/EnterModal/CustomDialog"), {ssr: false,});
 const Drawer = dynamic(() => import("./Drawer"), {ssr: false,});
-import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 import { clearIsUserloggedIn } from "@/store/slices/isLoggedInSlice";
 
 const Head = () => {
 
   const dispatch = useDispatch()
   const showdefaultaddress = useSelector((state: RootState) => state.address.value);
-  const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
   const loggedIn = useSelector((state:RootState)=>state.isUserloggedIn.value)
   
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -151,26 +148,6 @@ const handlecityDialogClose = () => {
 //handle cart count
 const selectedProductsCount = useInterceptLocalProducts();
 // end handle cart count
-
-const { loading, error,getSiteAddress } = useGetSiteAddress()
-
-useEffect(() => {
-  const fetchSiteAddress = async () => {
-    const data = await getSiteAddress()
-    setSiteAddressResponce(data?.data)
-  };
-
-  const setSiteAddressResponce = async (data:any) => {
-    if (data && data.Data) {
-      dispatch(setSiteUrlAddress(data.Data))
-    }
-  };
-
-  if (!siteAddress) {
-    fetchSiteAddress();
-  }
-
-}, [siteAddress, loggedIn]);
 
 // alert dialog
 const handleExit = () => {

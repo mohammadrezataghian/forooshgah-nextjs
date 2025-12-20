@@ -8,13 +8,11 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Receipt from "./Receipt";
 import Returned from "./Returned";
-import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import Cookies from "js-cookie";
 import useGetReceipts from "@/app/api/customerOrderList/hook";
 import useGetOrderStatus from "@/app/api/getOrderStatus/hook";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 function CustomTabPanel(props:any) {
   const { children, value, index, ...other } = props;
@@ -47,7 +45,6 @@ function a11yProps(index:any) {
 
 const Orders = () => {
 
-  const dispatch = useDispatch()
   const siteAddress = useSelector((state:RootState)=>state.siteUrlAddress.value)
 
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user") || '') : null;
@@ -74,26 +71,6 @@ const { response, loadingStatus, errorStatus } = useGetOrderStatus()
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue);
   };
-
-  const { loading, error,getSiteAddress } = useGetSiteAddress()
-
-  useEffect(() => {
-    const fetchSiteAddress = async () => {
-      const data = await getSiteAddress()
-      setSiteAddressResponce(data?.data)
-    };
-  
-    const setSiteAddressResponce = async (data:any) => {
-      if (data && data.Data) {
-        dispatch(setSiteUrlAddress(data.Data))
-      }
-    };
-  
-    if (!siteAddress) {
-      fetchSiteAddress();
-    }
-  
-  }, [siteAddress]);
 
   return (
     <>

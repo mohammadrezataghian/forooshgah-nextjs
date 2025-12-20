@@ -14,7 +14,6 @@ import {
 import useGetAddFactor from "@/app/api/addFactor/hook";
 import useGetResults from "@/app/api/activeGetWayOnlinePayment/hook";
 import { useRouter } from "next/navigation";
-import {useGetSiteAddress} from "@/app/api/siteAddress/hook";
 import useGetBonCards from "@/app/api/getBonCards/hook";
 import Bon from "./_components/Bon";
 import useApplyBonCard from "@/app/api/applyBonCard/hook";
@@ -24,7 +23,6 @@ import MessageSnackbar from "@/common/Snackbar/MessageSnackbar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { setPayfullOrPart,clearPayfullOrPart } from "@/store/slices/paymentSlice";
-import { setSiteUrlAddress } from "@/store/slices/siteUrlSlice";
 
 type selectedItemType = {
   Code:string;
@@ -76,27 +74,6 @@ const PaymentMethods = () => {
   const [isDiscountClicked,setDiscountClicked] = useState(false)
   const [opensnackbar, setOpensnackbar] = useState(false);
   const [opensnackbarSecond, setOpensnackbarSecond] = useState(false);
-
-  // GET SITE ADDRESS
-
-  const { loading:loadingsiteaddress, error:errorsiteaddress,getSiteAddress } = useGetSiteAddress()
-  
-    const fetchSiteAddress = async () => {
-      const data = await getSiteAddress()
-      setSiteAddressResponce(data?.data)
-    };
-    const setSiteAddressResponce = async (data:any) => {
-      if (data && data.Data) {
-        dispatch(setSiteUrlAddress(data.Data))
-      }
-    };
-    useEffect(() => {
-      if (siteAddress) return;
-      (async () => {
-        await fetchSiteAddress();
-      })();
-    }, [siteAddress]);
-  // END GET SITE ADDRESS
 
 useEffect(() => {
   // Only runs in the browser
@@ -382,6 +359,7 @@ useEffect(()=>{
         body: JSON.stringify(p),
       });
       const data = await response.json();
+      console.log(data);
       
       if (data.resCode == 1 && data.Data) {
         window.open(data.Data, "_blank");
